@@ -782,6 +782,23 @@
 </section>
 
 <!-- PRICE -->
+
+<!-- REVIEWS -->
+<section style="padding:80px 0;max-width:1080px;margin:0 auto;padding-left:32px;padding-right:32px;">
+  <div style="text-align:center;margin-bottom:48px;">
+    <div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;">ОТЗЫВЫ</div>
+    <h2 style="font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-2px;color:#fff;">Реальные результаты.<br><span style="background:linear-gradient(180deg,#e8d5b0,#c8a97e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Реальные люди.</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+    <img src="av1.jpg" style="width:100%;border-radius:16px;display:block;" loading="lazy">
+    <img src="av2.jpg" style="width:100%;border-radius:16px;display:block;" loading="lazy">
+    <img src="av3.jpg" style="width:100%;border-radius:16px;display:block;" loading="lazy">
+    <img src="av4.jpg" style="width:100%;border-radius:16px;display:block;" loading="lazy">
+    <img src="av5.jpg" style="width:100%;border-radius:16px;display:block;" loading="lazy">
+    <img src="av6.jpg" style="width:100%;border-radius:16px;display:block;" loading="lazy">
+  </div>
+</section>
+
 <section id="pricing">
   <div class="sh center reveal"><div class="sh-eye">Стоимость</div><h2>Один раз — навсегда</h2></div>
   <div class="price-center reveal">
@@ -1054,5 +1071,38 @@ document.querySelectorAll('.faq-q').forEach(q => {
   });
 });
 </script>
+
+<!-- Urgency Bar -->
+<style>
+.av-urgency{position:fixed;bottom:0;left:0;right:0;z-index:999;background:linear-gradient(90deg,#c8a97e,#e8d5b0);color:#080810;text-align:center;padding:10px 16px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;}
+.av-urgency .pulse{width:8px;height:8px;border-radius:50%;background:#080810;animation:pulse-av 1.5s ease infinite;display:inline-block;}
+@keyframes pulse-av{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.4)}}
+.av-urgency a{color:#080810;font-weight:900;text-decoration:underline;}
+.av-popup{position:fixed;bottom:58px;left:16px;z-index:998;background:#13131f;border:1px solid rgba(200,169,126,0.3);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;font-size:13px;color:#e0e0e0;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,0.5);transition:opacity 0.3s;}
+</style>
+
+<div class="av-urgency">
+  <span class="pulse"></span>
+  <span>🔥 <span id="av-count">31</span> человек смотрят курс сейчас — <a href="https://t.me/AIAvatarCourseBot" onclick="fbq('track','InitiateCheckout',{value:19,currency:'USD'})">Начать за $19 →</a></span>
+</div>
+
+<div class="av-popup" id="av-popup" style="display:none;opacity:0;">
+  <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#c8a97e,#e8d5b0);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;" id="av-avatar">👤</div>
+  <div>
+    <div id="av-name" style="font-weight:600;color:#fff;margin-bottom:2px;">Дарья П.</div>
+    <div style="color:#aaa;">купила AI Avatar курс ✓</div>
+    <div id="av-time" style="color:#666;font-size:11px;margin-top:2px;">3 минуты назад</div>
+  </div>
+</div>
+
+<script>
+var avBuyers=[{n:"Дарья П.",a:"👩",t:"3 мин назад"},{n:"Артём В.",a:"👨",t:"7 мин назад"},{n:"Светлана Л.",a:"👩‍💻",t:"11 мин назад"},{n:"Нариман И.",a:"🧑",t:"16 мин назад"},{n:"Валерия К.",a:"👩",t:"20 мин назад"}];
+var avBi=0,avCnt=31+Math.floor(Math.random()*8);
+document.getElementById("av-count").textContent=avCnt;
+setInterval(function(){avCnt+=Math.random()>.5?1:-1;avCnt=Math.max(22,Math.min(48,avCnt));document.getElementById("av-count").textContent=avCnt;},7000);
+function avShowPopup(){var b=avBuyers[avBi%avBuyers.length];avBi++;var p=document.getElementById("av-popup");document.getElementById("av-avatar").textContent=b.a;document.getElementById("av-name").textContent=b.n;document.getElementById("av-time").textContent=b.t;p.style.display="flex";setTimeout(function(){p.style.opacity="1";},50);setTimeout(function(){p.style.opacity="0";setTimeout(function(){p.style.display="none";},300);},4500);}
+setTimeout(avShowPopup,10000);setInterval(avShowPopup,30000);
+</script>
+
 </body>
 </html>

@@ -450,12 +450,13 @@
     }
     @media(max-width:560px){ .author-block{ grid-template-columns:1fr; } }
     .author-photo {
-      width: 88px; height: 88px; border-radius: 50%;
+      width: 120px; height: 120px; border-radius: 50%;
       background: linear-gradient(135deg, rgba(200,169,126,0.3), rgba(200,169,126,0.1));
-      border: 1px solid rgba(200,169,126,0.25);
+      border: 2px solid rgba(200,169,126,0.6);
       display: flex; align-items: center; justify-content: center;
-      font-size: 36px;
+      font-size: 36px; overflow: hidden; flex-shrink: 0;
     }
+    .author-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
     .author-name { font-size: 22px; font-weight: 800; color: var(--white); letter-spacing: -.5px; margin-bottom: 4px; }
     .author-role-t { font-size: 13px; color: var(--gold); font-weight: 500; margin-bottom: 16px; letter-spacing: .3px; }
     .author-text { font-size: 15px; color: var(--muted); line-height: 1.75; }

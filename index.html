@@ -37,7 +37,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
     :root {
-      --bg: #0a0a12;
+      --bg: #0f0f1e;
       --surface: rgba(255,255,255,0.03);
       --border: rgba(255,255,255,0.08);
       --border-h: rgba(255,255,255,0.18);
@@ -572,8 +572,71 @@ section, .card, [class*="card"] {
   color: #06b6d4 !important;
 }
 </style>
+
+<style>
+/* NEON TUBES */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #7c3aed, #06b6d4, #10b981, #7c3aed, transparent);
+  z-index: 9998;
+  box-shadow: 0 0 20px #7c3aed, 0 0 40px #06b6d4;
+}
+
+/* Неоновые трубки по бокам */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #7c3aed, transparent 30%, #06b6d4 60%, transparent);
+  z-index: 9997;
+  box-shadow: 0 0 15px #7c3aed;
+}
+
+/* Правая трубка */
+.neon-right-tube {
+  position: fixed;
+  top: 0; right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #06b6d4, transparent 30%, #7c3aed 60%, transparent);
+  z-index: 9997;
+  box-shadow: 0 0 15px #06b6d4;
+  pointer-events: none;
+}
+
+/* Горизонтальные трубки в hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 60px; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,0.4), rgba(6,182,212,0.4), transparent);
+  box-shadow: 0 0 10px rgba(124,58,237,0.3);
+}
+
+/* Осветляем немного */
+body { background: #0f0f1e !important; }
+section { background: transparent; }
+
+/* Карточки чуть светлее */
+[class*="card"], .faq-item, .program-item {
+  background: rgba(124,58,237,0.06) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Неоновый акцент на цене */
+.price-amount, .price-original {
+  text-shadow: 0 0 20px rgba(124,58,237,0.8);
+}
+</style>
 </head>
 <body>
+<div class="neon-right-tube"></div>
 
 <canvas id="bg-canvas"></canvas>
 <div class="noise"></div>

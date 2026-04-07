@@ -202,6 +202,12 @@
       background: rgba(255,255,255,0.03);
     }
     .hero-img {
+      display: block;
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+      border-radius: 20px;
+      object-fit: cover;
       width: 100%;
       display: block;
       border-radius: 24px;
@@ -595,58 +601,8 @@
     <!-- Hero Visual -->
     <div class="hero-visual">
       <div class="hero-visual-inner">
-        <div class="hero-svg-wrap">
-          <div class="hero-glow-orb a"></div>
-          <div class="hero-glow-orb b"></div>
-          <svg class="hero-avatar-svg" width="360" height="210" viewBox="0 0 380 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="190" cy="200" rx="80" ry="12" fill="rgba(200,169,126,0.08)"/>
-            <rect x="165" y="130" width="50" height="65" rx="8" fill="url(#bodyGrad)"/>
-            <circle cx="190" cy="110" r="28" fill="url(#headGrad)"/>
-            <circle cx="190" cy="108" r="20" fill="rgba(200,169,126,0.12)"/>
-            <circle cx="182" cy="106" r="5" fill="rgba(200,169,126,0.3)"/>
-            <circle cx="198" cy="106" r="5" fill="rgba(200,169,126,0.3)"/>
-            <circle cx="182" cy="106" r="3.5" fill="url(#eyeGrad)"/>
-            <circle cx="198" cy="106" r="3.5" fill="url(#eyeGrad)"/>
-            <line x1="190" y1="82" x2="190" y2="50" stroke="rgba(200,169,126,0.4)" stroke-width="1" stroke-dasharray="3,3"/>
-            <circle cx="190" cy="48" r="4" fill="rgba(200,169,126,0.6)"/>
-            <line x1="162" y1="92" x2="130" y2="75" stroke="rgba(200,169,126,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
-            <line x1="218" y1="92" x2="250" y2="75" stroke="rgba(200,169,126,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
-            <ellipse cx="190" cy="110" rx="50" ry="15" stroke="rgba(200,169,126,0.2)" stroke-width="1" fill="none" transform="rotate(-20 190 110)"/>
-            <ellipse cx="190" cy="110" rx="65" ry="20" stroke="rgba(140,100,200,0.15)" stroke-width="1" fill="none" transform="rotate(15 190 110)"/>
-            <rect x="50" y="60" width="60" height="28" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(200,169,126,0.25)" stroke-width="1"/>
-            <text x="80" y="77" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="9" fill="rgba(200,169,126,0.9)" font-weight="600">HeyGen</text>
-            <line x1="110" y1="74" x2="140" y2="90" stroke="rgba(200,169,126,0.2)" stroke-width="1"/>
-            <rect x="40" y="108" width="72" height="28" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(200,169,126,0.25)" stroke-width="1"/>
-            <text x="76" y="125" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="9" fill="rgba(200,169,126,0.9)" font-weight="600">ElevenLabs</text>
-            <line x1="112" y1="122" x2="145" y2="132" stroke="rgba(200,169,126,0.2)" stroke-width="1"/>
-            <rect x="268" y="60" width="72" height="28" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(200,169,126,0.25)" stroke-width="1"/>
-            <text x="304" y="77" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="8" fill="rgba(200,169,126,0.9)" font-weight="600">Adobe Podcast</text>
-            <line x1="268" y1="74" x2="240" y2="90" stroke="rgba(200,169,126,0.2)" stroke-width="1"/>
-            <rect x="272" y="108" width="62" height="28" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(140,100,200,0.35)" stroke-width="1"/>
-            <text x="303" y="125" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="9" fill="rgba(160,130,220,0.9)" font-weight="600">AI Voice</text>
-            <line x1="272" y1="122" x2="237" y2="132" stroke="rgba(140,100,200,0.2)" stroke-width="1"/>
-            <circle cx="155" cy="140" r="2" fill="rgba(200,169,126,0.6)"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></circle>
-            <circle cx="225" cy="145" r="2" fill="rgba(200,169,126,0.6)"><animate attributeName="opacity" values="0;1;0" dur="2.5s" begin="0.5s" repeatCount="indefinite"/></circle>
-            <circle cx="170" cy="170" r="1.5" fill="rgba(140,100,200,0.7)"><animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="1s" repeatCount="indefinite"/></circle>
-            <circle cx="210" cy="168" r="1.5" fill="rgba(140,100,200,0.7)"><animate attributeName="opacity" values="0;1;0" dur="2.2s" begin="0.3s" repeatCount="indefinite"/></circle>
-            <rect x="148" y="18" width="84" height="20" rx="10" fill="rgba(200,169,126,0.1)" stroke="rgba(200,169,126,0.3)" stroke-width="1"/>
-            <text x="190" y="31" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="9" fill="rgba(200,169,126,1)" font-weight="700" letter-spacing="1.5">AI AVATAR</text>
-            <defs>
-              <linearGradient id="bodyGrad" x1="165" y1="130" x2="215" y2="195" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="rgba(200,169,126,0.25)"/>
-                <stop offset="100%" stop-color="rgba(200,169,126,0.08)"/>
-              </linearGradient>
-              <linearGradient id="headGrad" x1="162" y1="82" x2="218" y2="138" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="rgba(200,169,126,0.35)"/>
-                <stop offset="100%" stop-color="rgba(200,169,126,0.12)"/>
-              </linearGradient>
-              <radialGradient id="eyeGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="rgba(200,169,126,1)"/>
-                <stop offset="100%" stop-color="rgba(200,169,126,0.5)"/>
-              </radialGradient>
-            </defs>
-          </svg>
-        </div>
+        <img src="hero.jpg" class="hero-img" alt="AI Avatar — создай цифрового себя" style="border-radius:20px;box-shadow:0 8px 40px rgba(138,90,255,0.35);">
+
         <div class="hero-badge">
           <div class="hero-badge-dot"></div>
           <div>

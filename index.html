@@ -615,6 +615,10 @@ section, .card, [class*="card"] {
     Реалистичный AI-аватар без студии и камеры.<br>
     <strong>HeyGen · ElevenLabs · Adobe Podcast</strong>
   </p>
+  <div id="hero-timer" style="margin:18px 0 10px;display:flex;align-items:center;gap:10px;background:rgba(255,60,60,0.10);border:1px solid rgba(255,80,80,0.25);border-radius:12px;padding:10px 20px;width:fit-content">
+    <span style="font-size:18px">⏰</span>
+    <span style="font-size:14px;color:#ff6b6b;font-weight:600;letter-spacing:0.5px">Скидка 81% заканчивается через: <span id="countdown" style="font-variant-numeric:tabular-nums;font-size:16px;color:#fff">23:59:59</span></span>
+  </div>
   <div class="hero-actions">
     <a href="https://t.me/AiAvatar_1bot" onclick="fbq('track', 'InitiateCheckout', {value: 19, currency: 'USD'})"   class="btn-white">Начать за $19 →</a>
     <a href="#program" class="btn-outline">Смотреть программу</a>
@@ -814,6 +818,10 @@ section, .card, [class*="card"] {
         <li><div class="price-check">✦</div>Доступ к урокам навсегда</li>
         <li><div class="price-check">✦</div>Работает из любой страны</li>
       </ul>
+      <div style="margin:0 0 18px;display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,60,60,0.10);border:1px solid rgba(255,80,80,0.25);border-radius:12px;padding:10px 20px">
+        <span style="font-size:16px">⏰</span>
+        <span style="font-size:13px;color:#ff6b6b;font-weight:600">Скидка закрывается через: <span id="countdown2" style="font-variant-numeric:tabular-nums;color:#fff">23:59:59</span></span>
+      </div>
       <a href="https://t.me/AiAvatar_1bot" onclick="fbq('track', 'InitiateCheckout', {value: 19, currency: 'USD'})"   class="price-cta">Купить за $19 — старт сейчас →</a>
       <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,0.04);border-radius:14px;border:1px solid rgba(255,255,255,0.08);text-align:left;">
         <div style="font-size:15px;font-weight:700;margin-bottom:4px;">🛡 Гарантия возврата 24 часа</div>
@@ -1118,6 +1126,38 @@ setTimeout(avShowPopup,10000);setInterval(avShowPopup,30000);
 </script>
 
 <a href="https://t.me/Farrukh_2015" target="_blank" style="position:fixed;bottom:58px;left:16px;z-index:1000;background:#2b5faa;color:#fff;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(43,95,170,0.5);text-decoration:none;" title="Связаться с нами">💬</a>
+<script>
+// Countdown timer — 24h from first visit, saved in localStorage
+(function() {
+  var KEY = 'avatar_timer_end';
+  var end = localStorage.getItem(KEY);
+  if (!end) {
+    end = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem(KEY, end);
+  } else {
+    end = parseInt(end);
+    if (Date.now() > end) {
+      end = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem(KEY, end);
+    }
+  }
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  function tick() {
+    var diff = end - Date.now();
+    if (diff < 0) diff = 0;
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var str = pad(h) + ':' + pad(m) + ':' + pad(s);
+    var el1 = document.getElementById('countdown');
+    var el2 = document.getElementById('countdown2');
+    if (el1) el1.textContent = str;
+    if (el2) el2.textContent = str;
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
 </body>
 <!-- Плавающая кнопка поддержки -->
 

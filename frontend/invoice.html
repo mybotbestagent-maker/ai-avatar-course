@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Invoice | Gold Hands Handyman</title>
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f5f7;color:#172b4d}
+.header{background:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.logo{font-size:18px;font-weight:800;color:#e94560}
+.logo span{color:#172b4d}
+.secure{font-size:11px;color:#00875a;display:flex;align-items:center;gap:4px}
+.container{max-width:600px;margin:20px auto;padding:0 16px 40px}
+.card{background:#fff;border-radius:10px;padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.balance-card{background:linear-gradient(135deg,#0052cc,#0747a6);color:#fff;border-radius:10px;padding:24px 20px;margin-bottom:12px;text-align:center}
+.balance-label{font-size:13px;opacity:.8;margin-bottom:6px}
+.balance-amount{font-size:42px;font-weight:800;line-height:1}
+.balance-sub{font-size:12px;opacity:.7;margin-top:6px}
+.section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6b778c;margin-bottom:12px}
+.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+.info-row:last-child{border-bottom:none}
+.info-label{color:#6b778c}
+.info-val{font-weight:600}
+.line-item{display:grid;grid-template-columns:1fr auto;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+.line-item:last-child{border-bottom:none}
+.item-desc{font-weight:500}
+.item-meta{color:#6b778c;font-size:12px;margin-top:2px}
+.item-price{font-weight:700;text-align:right;white-space:nowrap}
+.total-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
+.total-final{font-size:18px;font-weight:800;color:#172b4d;border-top:2px solid #172b4d;padding-top:10px;margin-top:4px}
+
+/* Tip */
+.tip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.tip-btn{padding:12px 8px;border:2px solid #dfe1e6;border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-size:14px;font-weight:600;transition:all .15s}
+.tip-btn.active{border-color:#0052cc;background:#deebff;color:#0052cc}
+.tip-custom{margin-top:8px;display:none}
+.tip-custom input{width:100%;padding:10px 14px;border:2px solid #dfe1e6;border-radius:8px;font-size:16px;text-align:center}
+.tip-custom.show{display:block}
+
+/* Signature */
+#sig-canvas{width:100%;height:150px;border:2px dashed #dfe1e6;border-radius:8px;cursor:crosshair;touch-action:none;background:#fafafa}
+#sig-canvas.signed{border-color:#00875a;background:#f0fff4}
+.sig-actions{display:flex;gap:8px;margin-top:8px}
+
+/* Payment */
+#payment-form{display:none}
+#card-element{padding:12px;border:2px solid #dfe1e6;border-radius:8px;background:#fff;margin-bottom:12px}
+#card-errors{color:#ff5630;font-size:13px;margin-bottom:8px;min-height:20px}
+.btn{width:100%;padding:16px;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;margin-bottom:8px}
+.btn-pay{background:#ff8b00;color:#fff}
+.btn-pay:hover{background:#ff9f1f}
+.btn-pay:disabled{background:#ccc;cursor:not-allowed}
+.btn-sign{background:#0052cc;color:#fff}
+.btn-sign:hover{background:#0747a6}
+.btn-outline{background:#fff;color:#0052cc;border:2px solid #0052cc}
+.payment-methods{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.pm-btn{flex:1;min-width:100px;padding:10px 8px;border:2px solid #dfe1e6;border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-size:13px;font-weight:600;transition:all .15s}
+.pm-btn.active{border-color:#0052cc;background:#deebff;color:#0052cc}
+.offline-info{background:#f4f5f7;border-radius:8px;padding:14px;font-size:13px;line-height:1.6;display:none}
+.offline-info.show{display:block}
+.success-screen{display:none;text-align:center;padding:40px 20px}
+.success-screen.show{display:block}
+.success-icon{font-size:64px;margin-bottom:16px}
+.loader{display:none;text-align:center;padding:20px;color:#6b778c}
+.loader.show{display:block}
+.terms{font-size:11px;color:#97a0af;line-height:1.5;margin-top:12px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">🔨 GOLD<span>HANDS</span></div>
+  <div class="secure">🔒 SSL Secure Payment</div>
+</div>
+
+<div class="container" id="main-container">
+  <div class="loader show" id="loader">Loading invoice...</div>
+</div>
+
+<script>
+const invoiceId = window.location.pathname.split('/').pop();
+let invoiceData = null, signatureData = null, selectedTip = 0, stripe = null, elements = null, paymentMethod = 'card';
+
+async function loadInvoice() {
+  try {
+    const r = await fetch('/crm/api/invoices/' + invoiceId);
+    invoiceData = await r.json();
+    if (invoiceData.error) { document.getElementById('loader').textContent = 'Invoice not found.'; return; }
+    document.getElementById('loader').className = 'loader';
+    renderInvoice();
+  } catch(e) {
+    document.getElementById('loader').textContent = 'Error loading invoice.';
+  }
+}
+
+function renderInvoice() {
+  const inv = invoiceData;
+  const items = typeof inv.items === 'string' ? JSON.parse(inv.items) : (inv.items || []);
+  const tax = +inv.tax || 0;
+  const subtotal = +inv.subtotal || 0;
+  const taxAmt = subtotal * tax / 100;
+  const total = +inv.total || 0;
+  const isPaid = inv.status === 'paid';
+
+  const today = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const due = inv.due_date ? new Date(inv.due_date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+
+  document.getElementById('main-container').innerHTML = `
+    ${isPaid ? `<div style="background:#e3fcef;border-radius:10px;padding:16px;text-align:center;margin-bottom:12px;color:#006644;font-weight:700;font-size:16px">✅ Invoice Paid — Thank You!</div>` : ''}
+
+    <div class="balance-card">
+      <div class="balance-label">${isPaid ? 'Amount Paid' : 'Balance Due'}</div>
+      <div class="balance-amount">$${total.toFixed(2)}</div>
+      <div class="balance-sub">Due: ${due}</div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Invoice Details</div>
+      <div class="info-row"><span class="info-label">Invoice #</span><span class="info-val">${inv.id}</span></div>
+      <div class="info-row"><span class="info-label">Client</span><span class="info-val">${inv.client_name || '—'}</span></div>
+      <div class="info-row"><span class="info-label">Date</span><span class="info-val">${today}</span></div>
+      <div class="info-row"><span class="info-label">Status</span><span class="info-val">${inv.status}</span></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Services</div>
+      ${items.map(item=>`
+        <div class="line-item">
+          <div><div class="item-desc">${item.description}</div><div class="item-meta">${item.qty} × $${(+item.price).toFixed(2)}</div></div>
+          <div class="item-price">$${(item.qty * item.price).toFixed(2)}</div>
+        </div>`).join('')}
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid #f0f0f0">
+        <div class="total-row"><span style="color:#6b778c">Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>
+        ${tax ? `<div class="total-row"><span style="color:#6b778c">Tax (${tax}%)</span><span>$${taxAmt.toFixed(2)}</span></div>` : ''}
+        <div class="total-row total-final"><span>Total</span><span>$${total.toFixed(2)}</span></div>
+      </div>
+    </div>
+
+    ${inv.notes ? `<div class="card"><div class="section-title">Notes</div><div style="font-size:14px;color:#555">${inv.notes}</div></div>` : ''}
+
+    ${!isPaid ? `
+    <!-- Signature -->
+    <div class="card" id="sig-section">
+      <div class="section-title">Signature</div>
+      <p style="font-size:13px;color:#6b778c;margin-bottom:10px">By signing, you confirm all work was completed satisfactorily.</p>
+      <canvas id="sig-canvas"></canvas>
+      <div class="sig-actions">
+        <button class="btn btn-sign" onclick="clearSig()" style="width:auto;padding:8px 16px;font-size:13px">Clear</button>
+        <button class="btn btn-outline" onclick="saveSig()" style="width:auto;padding:8px 16px;font-size:13px">✅ Save Signature</button>
+      </div>
+    </div>
+
+    <!-- Tip -->
+    <div class="card">
+      <div class="section-title">Add a Tip (Optional)</div>
+      <div class="tip-grid">
+        <div class="tip-btn" onclick="setTip(0,this)">None</div>
+        <div class="tip-btn" onclick="setTip(${(total*0.17).toFixed(2)},this)">17%<br><span style="font-size:11px;opacity:.7">$${(total*0.17).toFixed(2)}</span></div>
+        <div class="tip-btn" onclick="setTip(${(total*0.20).toFixed(2)},this)">20%<br><span style="font-size:11px;opacity:.7">$${(total*0.20).toFixed(2)}</span></div>
+        <div class="tip-btn" onclick="setTip('custom',this)">Custom</div>
+      </div>
+      <div class="tip-custom" id="tip-custom-div">
+        <input type="number" id="tip-custom-val" placeholder="Enter tip amount $" oninput="setTip(+this.value||0)">
+      </div>
+      <div style="text-align:right;font-size:14px;color:#6b778c;margin-top:8px">Total with tip: <strong id="total-with-tip">$${total.toFixed(2)}</strong></div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="card">
+      <div class="section-title">Payment Method</div>
+      <div class="payment-methods">
+        <div class="pm-btn active" onclick="selectPM('card',this)">💳 Credit Card</div>
+        <div class="pm-btn" onclick="selectPM('bank',this)">🏦 Bank Transfer</div>
+        <div class="pm-btn" onclick="selectPM('zelle',this)">📱 Zelle</div>
+        <div class="pm-btn" onclick="selectPM('cash',this)">💵 Cash</div>
+      </div>
+
+      <div id="payment-form">
+        <div id="card-element"></div>
+        <div id="card-errors"></div>
+      </div>
+
+      <div class="offline-info" id="offline-zelle">
+        <strong>Zelle:</strong><br>
+        Phone: <strong>(737) 530-8110</strong><br>
+        Name: <strong>Handyman Gold Hands</strong><br>
+        <br>After sending, click "Mark as Sent" below.
+      </div>
+      <div class="offline-info" id="offline-cash">
+        <strong>Cash Payment</strong><br>
+        Please have exact amount ready: <strong>$<span id="cash-amount">${total.toFixed(2)}</span></strong>
+      </div>
+      <div class="offline-info" id="offline-bank">
+        <strong>Bank Transfer (ACH)</strong><br>
+        Please contact us at (737) 530-8110 for bank details.
+      </div>
+
+      <button class="btn btn-pay" id="pay-btn" onclick="submitPayment()">
+        Pay $<span id="pay-amount">${total.toFixed(2)}</span>
+      </button>
+      <div class="terms">By submitting payment you agree to our terms of service. All payments are processed securely.</div>
+    </div>
+    ` : ''}
+
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">✅</div>
+      <h2 style="margin-bottom:8px">Payment Successful!</h2>
+      <p style="color:#6b778c">Thank you for your business!<br>Gold Hands Handyman</p>
+    </div>
+
+    <div style="text-align:center;padding:20px;font-size:12px;color:#97a0af">
+      Gold Hands Handyman · (737) 530-8110 · handymangoldhands@gmail.com
+    </div>`;
+
+  if (!isPaid) {
+    initSignature();
+    initStripe();
+  }
+}
+
+// ── Signature ──
+let sigCanvas, sigCtx, drawing = false;
+function initSignature() {
+  sigCanvas = document.getElementById('sig-canvas');
+  if (!sigCanvas) return;
+  sigCtx = sigCanvas.getContext('2d');
+  sigCanvas.width = sigCanvas.offsetWidth;
+  sigCanvas.height = 150;
+  sigCtx.strokeStyle = '#172b4d'; sigCtx.lineWidth = 2; sigCtx.lineCap = 'round';
+  sigCanvas.addEventListener('mousedown', e => { drawing=true; sigCtx.beginPath(); sigCtx.moveTo(e.offsetX, e.offsetY); });
+  sigCanvas.addEventListener('mousemove', e => { if(!drawing) return; sigCtx.lineTo(e.offsetX, e.offsetY); sigCtx.stroke(); });
+  sigCanvas.addEventListener('mouseup', ()=> drawing=false);
+  sigCanvas.addEventListener('touchstart', e => { e.preventDefault(); drawing=true; const t=e.touches[0]; const r=sigCanvas.getBoundingClientRect(); sigCtx.beginPath(); sigCtx.moveTo(t.clientX-r.left, t.clientY-r.top); });
+  sigCanvas.addEventListener('touchmove', e => { e.preventDefault(); if(!drawing) return; const t=e.touches[0]; const r=sigCanvas.getBoundingClientRect(); sigCtx.lineTo(t.clientX-r.left, t.clientY-r.top); sigCtx.stroke(); });
+  sigCanvas.addEventListener('touchend', ()=> drawing=false);
+}
+function clearSig() { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); sigCanvas.classList.remove('signed'); signatureData=null; }
+async function saveSig() {
+  signatureData = sigCanvas.toDataURL();
+  sigCanvas.classList.add('signed');
+  await fetch('/crm/api/payments/sign/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({signature:signatureData})});
+  alert('✅ Signature saved!');
+}
+
+// ── Tip ──
+function setTip(val, el) {
+  if (el) { document.querySelectorAll('.tip-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active'); }
+  if (val === 'custom') { document.getElementById('tip-custom-div').classList.add('show'); return; }
+  else document.getElementById('tip-custom-div').classList.remove('show');
+  selectedTip = +val || 0;
+  const total = (+invoiceData.total || 0) + selectedTip;
+  document.getElementById('total-with-tip').textContent = '$'+total.toFixed(2);
+  document.getElementById('pay-amount').textContent = total.toFixed(2);
+  document.getElementById('cash-amount').textContent = total.toFixed(2);
+}
+
+// ── Payment Method ──
+function selectPM(method, el) {
+  paymentMethod = method;
+  document.querySelectorAll('.pm-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.offline-info').forEach(d=>d.classList.remove('show'));
+  document.getElementById('payment-form').style.display = 'none';
+  if (method === 'card' || method === 'bank') {
+    document.getElementById('payment-form').style.display = 'block';
+  } else {
+    document.getElementById('offline-'+method)?.classList.add('show');
+  }
+  const payBtn = document.getElementById('pay-btn');
+  if (method === 'zelle' || method === 'cash') payBtn.textContent = 'Mark as Sent / Received';
+  else payBtn.innerHTML = 'Pay $<span id="pay-amount">'+(+invoiceData.total+selectedTip).toFixed(2)+'</span>';
+}
+
+// ── Stripe ──
+function initStripe() {
+  fetch('/crm/api/payments/create-payment-intent/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:0})})
+    .then(r=>r.json()).then(data => {
+      if (data.error) return;
+      stripe = Stripe(data.publishableKey);
+      elements = stripe.elements();
+      const cardEl = elements.create('card', {style:{base:{fontSize:'16px',color:'#172b4d'}}});
+      cardEl.mount('#card-element');
+      document.getElementById('payment-form').style.display = 'block';
+      window._clientSecret = data.clientSecret;
+    });
+}
+
+async function submitPayment() {
+  const btn = document.getElementById('pay-btn');
+  btn.disabled = true; btn.textContent = 'Processing...';
+
+  if (paymentMethod === 'zelle' || paymentMethod === 'cash') {
+    await fetch('/crm/api/payments/payment-success/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:selectedTip})});
+    document.getElementById('success-screen').classList.add('show');
+    document.getElementById('main-container').style.display='none';
+    return;
+  }
+
+  try {
+    // Refresh payment intent with tip
+    const piResp = await fetch('/crm/api/payments/create-payment-intent/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:selectedTip})});
+    const piData = await piResp.json();
+
+    const result = await stripe.confirmCardPayment(piData.clientSecret, {
+      payment_method: { card: elements.getElement('card') }
+    });
+
+    if (result.error) {
+      document.getElementById('card-errors').textContent = result.error.message;
+      btn.disabled = false; btn.innerHTML = 'Pay $<span id="pay-amount">'+(+invoiceData.total+selectedTip).toFixed(2)+'</span>';
+    } else {
+      await fetch('/crm/api/payments/payment-success/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({payment_intent_id:result.paymentIntent.id,tip:selectedTip})});
+      document.getElementById('success-screen').classList.add('show');
+      document.getElementById('main-container').style.display='none';
+    }
+  } catch(e) {
+    document.getElementById('card-errors').textContent = 'Payment failed. Please try again.';
+    btn.disabled = false;
+  }
+}
+
+loadInvoice();
+</script>
+</body>
+</html>

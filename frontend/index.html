@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Hands CRM</title>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv1RM_GnuwsJIHjcrKJQr8EM_950DMwWw&libraries=places&callback=initAutocomplete" async defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f4f5f7;display:flex;height:100vh;overflow:hidden;color:#172b4d}
+
+/* ── Login ── */
+#login-screen{display:none;position:fixed;inset:0;background:linear-gradient(135deg,#0052cc,#0747a6);z-index:9999;justify-content:center;align-items:center}
+#login-screen.show{display:flex}
+.login-box{background:#fff;border-radius:12px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center}
+.login-logo{font-size:28px;font-weight:800;color:#0052cc;margin-bottom:4px}
+.login-logo span{color:#e94560}
+.login-sub{color:#6b778c;font-size:14px;margin-bottom:28px}
+.login-input{width:100%;padding:12px 14px;border:2px solid #dfe1e6;border-radius:6px;font-size:15px;margin-bottom:14px;transition:border .15s}
+.login-input:focus{outline:none;border-color:#0052cc}
+.login-btn{width:100%;padding:13px;background:#0052cc;color:#fff;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s}
+.login-btn:hover{background:#0747a6}
+.login-err{color:#ff5630;font-size:13px;margin-top:8px;min-height:20px}
+
+/* ── Sidebar ── */
+.sidebar{width:220px;background:#0052cc;color:#fff;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar-logo{padding:16px 18px;font-size:16px;font-weight:800;border-bottom:1px solid rgba(255,255,255,.15);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.sidebar-logo .ico{font-size:20px}
+.nav-section{padding:10px 0 2px 14px;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);font-weight:600}
+.nav-item{padding:9px 14px;cursor:pointer;display:flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,.8);margin:1px 6px;border-radius:6px;transition:all .15s}
+.nav-item:hover{background:rgba(255,255,255,.15);color:#fff}
+.nav-item.active{background:#fff;color:#0052cc;font-weight:600}
+.nav-item .ico{width:18px;text-align:center;font-size:15px}
+.nav-item .lbl{flex:1}
+.nav-badge{background:#ff5630;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700}
+.qr-btn{padding:5px 12px;border:1px solid #ddd;border-radius:14px;background:#fff;cursor:pointer;font-size:12px;color:#333;transition:all .2s}
+.qr-btn:hover{background:#2c5282;color:#fff;border-color:#2c5282}
+.conv-item{padding:12px 16px;cursor:pointer;border-bottom:1px solid #f5f5f5;transition:background .15s}
+.conv-item:hover{background:#f8f9fa}
+.conv-item.active{background:#ebf4ff}
+.sidebar-footer{margin-top:auto;padding:12px;border-top:1px solid rgba(255,255,255,.1)}
+.logout-btn{width:100%;padding:8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:none;border-radius:6px;cursor:pointer;font-size:13px}
+.logout-btn:hover{background:rgba(255,255,255,.2)}
+
+/* ── Main ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{background:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8ecf0;gap:10px}
+.topbar h1{font-size:17px;font-weight:700;color:#172b4d}
+.topbar-search{padding:7px 12px;border:1px solid #dfe1e6;border-radius:20px;font-size:13px;width:200px;background:#f4f5f7;outline:none}
+.topbar-search:focus{background:#fff;border-color:#0052cc}
+
+.btn{padding:7px 14px;border:none;border-radius:4px;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.btn-primary{background:#0052cc;color:#fff}.btn-primary:hover{background:#0747a6}
+.btn-success{background:#00875a;color:#fff}.btn-success:hover{background:#006644}
+.btn-danger{background:#ff5630;color:#fff}
+.btn-light{background:#f4f5f7;color:#42526e;border:1px solid #dfe1e6}.btn-light:hover{background:#ebecf0}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-xs{padding:2px 7px;font-size:11px}
+
+/* ── Content ── */
+.content{flex:1;overflow-y:auto;padding:18px 20px}
+.page{display:none}.page.active{display:block}
+#page-messages.active{display:flex!important}
+
+/* ── Stats ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.stat-card{background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 2px rgba(0,0,0,.08);border-left:3px solid #0052cc}
+.stat-card.green{border-color:#00875a}.stat-card.orange{border-color:#ff8b00}.stat-card.red{border-color:#ff5630}.stat-card.purple{border-color:#6554c0}
+.stat-lbl{font-size:10px;color:#6b778c;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.stat-val{font-size:26px;font-weight:700;color:#172b4d;margin-top:3px;line-height:1}
+.stat-sub{font-size:11px;color:#6b778c;margin-top:2px}
+
+/* ── Card / Table ── */
+.card{background:#fff;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.08);overflow:hidden;margin-bottom:14px}
+.card-header{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0f0f0;gap:8px;flex-wrap:wrap}
+.card-header h2{font-size:14px;font-weight:700;color:#172b4d}
+.filter-tabs{display:flex;gap:3px;flex-wrap:wrap}
+.tab{padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;border:1px solid #dfe1e6;background:#fff;color:#42526e;font-weight:500}
+.tab.active{background:#0052cc;color:#fff;border-color:#0052cc}
+table{width:100%;border-collapse:collapse}
+th{padding:8px 14px;text-align:left;font-size:10px;color:#6b778c;text-transform:uppercase;letter-spacing:.5px;font-weight:600;border-bottom:2px solid #f0f0f0;white-space:nowrap}
+td{padding:10px 14px;font-size:13px;border-bottom:1px solid #f8f8f8;vertical-align:middle}
+tr:hover td{background:#f8f9ff;cursor:pointer}
+tr:last-child td{border-bottom:none}
+.no-data{text-align:center;padding:40px 20px;color:#97a0af;font-size:13px}
+
+/* ── Badges ── */
+.badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:10px;font-weight:700;text-transform:uppercase}
+.b-new{background:#deebff;color:#0052cc}.b-contacted{background:#fff3cd;color:#974f0c}
+.b-booked{background:#e3fcef;color:#006644}.b-closed{background:#e4e9f0;color:#42526e}
+.b-lost{background:#ffebe6;color:#bf2600}.b-scheduled{background:#deebff;color:#0052cc}
+.b-in_progress{background:#fff0b3;color:#974f0c}.b-completed{background:#e3fcef;color:#006644}
+.b-cancelled{background:#ffebe6;color:#bf2600}.b-draft{background:#f4f5f7;color:#6b778c}
+.b-pending{background:#fff0b3;color:#974f0c}.b-paid{background:#e3fcef;color:#006644}
+.b-converted{background:#e3fcef;color:#006644}
+.tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;margin:1px}
+.tag-member{background:#e6fcff;color:#006c8e}.tag-vip{background:#fff0b3;color:#974f0c}
+.tag-frod{background:#ffebe6;color:#bf2600}.tag-regular{background:#f4f5f7;color:#42526e}
+
+/* ── Modal ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;justify-content:center;align-items:center;padding:16px}
+.overlay.show{display:flex}
+.modal{background:#fff;border-radius:8px;padding:22px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.25);position:relative}
+.modal-lg{max-width:700px}
+.modal h2{font-size:16px;font-weight:700;margin-bottom:18px;color:#172b4d}
+.modal-x{position:absolute;right:14px;top:14px;background:none;border:none;font-size:20px;cursor:pointer;color:#97a0af;line-height:1}
+.modal-x:hover{color:#172b4d}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:11px;font-weight:600;color:#42526e;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 10px;border:2px solid #dfe1e6;border-radius:4px;font-size:13px;transition:border .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#0052cc}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid #f0f0f0}
+
+/* ── Detail ── */
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.detail-field{background:#f4f5f7;border-radius:6px;padding:10px}
+.detail-field .lbl{font-size:10px;color:#6b778c;font-weight:600;text-transform:uppercase;margin-bottom:3px}
+.detail-field .val{font-size:13px;color:#172b4d;font-weight:500}
+
+/* ── Line items ── */
+.line-items{border:1px solid #dfe1e6;border-radius:6px;overflow:hidden;margin-bottom:10px}
+.li-header{display:grid;grid-template-columns:1fr 55px 75px 75px 28px;gap:6px;padding:7px 10px;background:#f4f5f7;font-size:10px;font-weight:600;color:#6b778c;text-transform:uppercase}
+.li-row{display:grid;grid-template-columns:1fr 55px 75px 75px 28px;gap:6px;padding:6px 10px;border-top:1px solid #f0f0f0;align-items:center}
+.li-row input{padding:5px 7px;border:1px solid #dfe1e6;border-radius:3px;font-size:12px;width:100%;min-width:0}
+.btn-icon{background:none;border:none;cursor:pointer;color:#97a0af;font-size:15px;padding:2px 3px}.btn-icon:hover{color:#ff5630}
+
+/* ── Calendar ── */
+.cal-nav{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.cal-nav h3{font-size:16px;font-weight:700}
+.cal-week{display:grid;grid-template-columns:60px repeat(7,1fr);border:1px solid #dfe1e6;border-radius:8px;overflow:hidden;background:#fff}
+.cal-th{padding:8px 4px;text-align:center;font-size:11px;font-weight:700;color:#6b778c;border-bottom:2px solid #dfe1e6;background:#f4f5f7}
+.cal-time{padding:6px 8px;font-size:10px;color:#97a0af;text-align:right;border-right:1px solid #f0f0f0;border-bottom:1px solid #f8f8f8;background:#fafafa}
+.cal-cell{border-bottom:1px solid #f8f8f8;border-right:1px solid #f0f0f0;min-height:40px;padding:2px;position:relative;cursor:pointer;transition:background .1s}
+.cal-cell:hover{background:#f0f7ff}
+.cal-cell:last-child{border-right:none}
+.cal-job{border-radius:3px;padding:2px 4px;font-size:10px;font-weight:600;color:#fff;margin-bottom:2px;cursor:pointer;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+/* ── Avatar ── */
+.avatar{width:30px;height:30px;border-radius:50%;background:#0052cc;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:20px;right:20px;background:#172b4d;color:#fff;padding:10px 18px;border-radius:6px;font-size:13px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:#00875a}
+.toast.error{background:#ff5630}
+
+/* ── Needs Attention ── */
+.attention-list{display:flex;flex-direction:column;gap:8px}
+.attention-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fff7e6;border-radius:6px;border-left:3px solid #ff8b00}
+
+/* ── Mobile ── */
+@media(max-width:768px){
+  .sidebar{width:50px}
+  .sidebar-logo .lbl,.nav-section,.nav-item .lbl,.nav-badge,.sidebar-footer .logout-btn span{display:none}
+  .sidebar-logo{justify-content:center;padding:14px}
+  .nav-item{justify-content:center;padding:12px 0;margin:1px 2px}
+  .content{padding:10px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  .detail-grid{grid-template-columns:1fr}
+  .overlay{padding:0}
+  .modal{border-radius:0;max-height:100vh;height:100vh}
+  .li-header,.li-row{grid-template-columns:1fr 45px 65px 65px 24px}
+  table{display:block;overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="show">
+  <div class="login-box">
+    <div class="login-logo">🔨 GOLD<span>HANDS</span></div>
+    <div class="login-sub">CRM System — Dispatcher Login</div>
+    <input class="login-input" type="text" id="l-user" placeholder="Username" value="dispatcher">
+    <input class="login-input" type="password" id="l-pass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="l-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none;width:100%;display:flex;height:100vh">
+
+<div class="sidebar">
+  <div class="sidebar-logo"><span class="ico">🔨</span><span class="lbl">Gold Hands</span></div>
+  <div class="nav-section">Main</div>
+  <div class="nav-item active" onclick="nav('dashboard')"><span class="ico">📊</span><span class="lbl">Dashboard</span></div>
+  <div class="nav-item" onclick="nav('leads')"><span class="ico">👤</span><span class="lbl">Leads</span><span class="nav-badge" id="badge-leads">0</span></div>
+  <div class="nav-item" onclick="nav('clients')"><span class="ico">👥</span><span class="lbl">Clients</span></div>
+  <div class="nav-item" onclick="nav('jobs')"><span class="ico">🗓️</span><span class="lbl">Jobs</span></div>
+  <div class="nav-item" onclick="nav('calendar')"><span class="ico">📅</span><span class="lbl">Calendar</span></div>
+  <div class="nav-item" onclick="nav('messages')"><span class="ico">💬</span><span class="lbl">Messages</span><span class="nav-badge" id="badge-messages" style="display:none">0</span></div>
+  <div class="nav-section">Finance</div>
+  <div class="nav-item" onclick="nav('estimates')"><span class="ico">📋</span><span class="lbl">Estimates</span></div>
+  <div class="nav-item" onclick="nav('invoices')"><span class="ico">💰</span><span class="lbl">Invoices</span></div>
+  <div class="nav-section">Settings</div>
+  <div class="nav-item" onclick="nav('technicians')"><span class="ico">🔧</span><span class="lbl">Technicians</span></div>
+  <div class="nav-item" onclick="nav('pricebook')"><span class="ico">📒</span><span class="lbl">Price Book</span></div>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="doLogout()">🚪 <span>Logout</span></button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <h1 id="page-title">Dashboard</h1>
+    <div style="display:flex;align-items:center;gap:8px">
+      <input class="topbar-search" placeholder="🔍 Search leads..." oninput="globalSearch(this.value)">
+      <div id="topbar-btn"></div>
+    </div>
+  </div>
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-lbl">New Today</div><div class="stat-val" id="s-leads-today">—</div></div>
+        <div class="stat-card orange"><div class="stat-lbl">Awaiting</div><div class="stat-val" id="s-leads-new">—</div></div>
+        <div class="stat-card green"><div class="stat-lbl">Jobs Today</div><div class="stat-val" id="s-jobs-today">—</div></div>
+        <div class="stat-card green"><div class="stat-lbl">Revenue/Week</div><div class="stat-val" id="s-rev-week">—</div></div>
+        <div class="stat-card purple"><div class="stat-lbl">Revenue/Month</div><div class="stat-val" id="s-rev-month">—</div></div>
+        <div class="stat-card"><div class="stat-lbl">Conversion</div><div class="stat-val" id="s-conv">—</div><div class="stat-sub">leads → booked</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="card">
+          <div class="card-header"><h2>🔥 Recent Leads</h2><button class="btn btn-primary btn-sm" onclick="openNewLead()">+ Lead</button></div>
+          <table><thead><tr><th>Client</th><th>Job</th><th>Status</th><th>Time</th></tr></thead>
+          <tbody id="dash-leads"></tbody></table>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-header"><h2>⚠️ Needs Attention</h2></div>
+            <div class="attention-list" id="dash-attention" style="padding:12px"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h2>🏆 Top Technicians</h2></div>
+            <div id="dash-techs" style="padding:12px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEADS -->
+    <div class="page" id="page-leads">
+      <div class="card">
+        <div class="card-header">
+          <h2>Leads</h2>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+            <div class="filter-tabs">
+              <span class="tab active" onclick="filterLeads('',this)">All</span>
+              <span class="tab" onclick="filterLeads('new',this)">New</span>
+              <span class="tab" onclick="filterLeads('contacted',this)">Contacted</span>
+              <span class="tab" onclick="filterLeads('booked',this)">Booked</span>
+              <span class="tab" onclick="filterLeads('lost',this)">Lost</span>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="openNewLead()">+ New Lead</button>
+          </div>
+        </div>
+        <table><thead><tr><th>Client</th><th>Phone</th><th>Job Type</th><th>City</th><th>Source</th><th>Status</th><th>Date</th><th></th></tr></thead>
+        <tbody id="leads-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- CLIENTS -->
+    <div class="page" id="page-clients">
+      <div class="card">
+        <div class="card-header"><h2>Clients</h2></div>
+        <table><thead><tr><th>Client</th><th>Phone</th><th>Jobs</th><th>Total Spent</th><th>Tags</th><th>Last Job</th></tr></thead>
+        <tbody id="clients-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- JOBS -->
+    <div class="page" id="page-jobs">
+      <div class="card">
+        <div class="card-header">
+          <h2>Jobs</h2>
+          <div class="filter-tabs">
+            <span class="tab active" onclick="filterJobs('',this)">All</span>
+            <span class="tab" onclick="filterJobs('scheduled',this)">Scheduled</span>
+            <span class="tab" onclick="filterJobs('in_progress',this)">In Progress</span>
+            <span class="tab" onclick="filterJobs('completed',this)">Completed</span>
+          </div>
+        </div>
+        <table><thead><tr><th>Date</th><th>Time</th><th>Client</th><th>Phone</th><th>Job</th><th>Address</th><th>Technician</th><th>Status</th></tr></thead>
+        <tbody id="jobs-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="page" id="page-calendar">
+      <div class="cal-nav">
+        <button class="btn btn-light btn-sm" onclick="calPrev()">← Prev</button>
+        <h3 id="cal-title">Week</h3>
+        <button class="btn btn-light btn-sm" onclick="calNext()">Next →</button>
+        <button class="btn btn-primary btn-sm" onclick="calToday()">Today</button>
+      </div>
+      <div id="cal-container" style="overflow-x:auto"></div>
+    </div>
+
+    <!-- ESTIMATES -->
+    <div class="page" id="page-estimates">
+      <div class="card">
+        <div class="card-header"><h2>Estimates</h2><button class="btn btn-primary btn-sm" onclick="openNewEstimate()">+ New</button></div>
+        <table><thead><tr><th>#</th><th>Client</th><th>Title</th><th>Total</th><th>Status</th><th>Date</th><th></th></tr></thead>
+        <tbody id="est-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- INVOICES -->
+    <div class="page" id="page-invoices">
+      <div class="card">
+        <div class="card-header"><h2>Invoices</h2><button class="btn btn-primary btn-sm" onclick="openNewInvoice()">+ New</button></div>
+        <table><thead><tr><th>#</th><th>Client</th><th>Title</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th><th>Due</th><th></th></tr></thead>
+        <tbody id="inv-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- TECHNICIANS -->
+    <div class="page" id="page-technicians">
+      <div class="card">
+        <div class="card-header"><h2>Technicians</h2><button class="btn btn-primary btn-sm" onclick="openNewTech()">+ Add</button></div>
+        <table><thead><tr><th>Name</th><th>Phone</th><th>Cities</th><th></th></tr></thead>
+        <tbody id="techs-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- PRICE BOOK -->
+    <div class="page" id="page-pricebook">
+      <div class="card">
+        <div class="card-header">
+          <h2>Price Book</h2>
+          <div style="display:flex;gap:8px">
+            <input class="topbar-search" placeholder="🔍 Search..." oninput="searchPricebook(this.value)" style="width:180px">
+            <button class="btn btn-primary btn-sm" onclick="openNewService()">+ Add</button>
+          </div>
+        </div>
+        <div id="pb-categories"></div>
+      </div>
+    </div>
+
+  </div>
+
+<!-- MESSAGES PAGE -->
+<div class="page" id="page-messages" style="padding:0;height:calc(100vh - 60px)">
+  <div style="display:flex;width:100%;height:100%">
+    <!-- Conversations list -->
+    <div id="conv-list" style="width:280px;min-width:280px;border-right:1px solid #e0e0e0;overflow-y:auto;background:#fff"></div>
+    <!-- Chat panel -->
+    <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+      <div id="chat-header" style="padding:16px 20px;border-bottom:1px solid #e0e0e0;font-weight:600;font-size:15px;background:#fff;color:#1a1a2e">Select a conversation</div>
+      <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;background:#f8f9fa"></div>
+      <!-- Quick replies -->
+      <div style="padding:8px 16px;border-top:1px solid #f0f0f0;background:#fff;display:flex;gap:6px;flex-wrap:wrap">
+        <button onclick="qr('Hi! This is Gold Hands Handyman. How can we help you today?')" class="qr-btn">Hello</button>
+        <button onclick="qr('Our pricing depends on the job. Could you describe what you need? We can give you a free estimate!')" class="qr-btn">Price</button>
+        <button onclick="qr('You can send payment via Zelle to: goldhandshandyman@gmail.com')" class="qr-btn">Zelle</button>
+        <button onclick="qr('You can pay via Venmo: @GoldHands-Handyman')" class="qr-btn">Venmo</button>
+        <button onclick="qr('You can pay via CashApp: $GoldHandsHandyman')" class="qr-btn">CashApp</button>
+        <button onclick="qr('Great! Let\'s get you scheduled. What\'s the best date and time for you?')" class="qr-btn">Book</button>
+      </div>
+      <!-- Input -->
+      <div style="padding:12px 16px;border-top:1px solid #e0e0e0;background:#fff;display:flex;gap:8px;align-items:center">
+        <input id="msg-input" type="text" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMsg()" style="flex:1;padding:10px 16px;border:1px solid #ddd;border-radius:24px;outline:none;font-size:14px">
+        <button onclick="sendMsg()" style="padding:10px 22px;background:#2c5282;color:#fff;border:none;border-radius:24px;cursor:pointer;font-weight:500">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<!-- ══ MODALS ══ -->
+<!-- New Lead -->
+<div class="overlay" id="m-new-lead">
+  <div class="modal">
+    <button class="modal-x" onclick="closeM('m-new-lead')">×</button>
+    <h2>New Lead</h2>
+    <div class="form-row"><div class="form-group"><label>Name *</label><input id="nl-name" placeholder="John Smith"></div><div class="form-group"><label>Phone</label><input id="nl-phone" placeholder="+1 (305) 555-0000"></div></div>
+    <div class="form-row"><div class="form-group"><label>Job Type</label><input id="nl-job" placeholder="TV Mounting..."></div><div class="form-group"><label>City</label><input id="nl-city" placeholder="Miami"></div></div>
+    <div class="form-group"><label>Description</label><textarea id="nl-desc" rows="2" placeholder="Details..."></textarea></div>
+    <div class="form-group"><label>Source</label><select id="nl-src"><option value="manual">Manual</option><option value="thumbtack">Thumbtack</option><option value="website">Website</option><option value="referral">Referral</option><option value="phone">Phone</option></select></div>
+    <div class="modal-footer"><button class="btn btn-light" onclick="closeM('m-new-lead')">Cancel</button><button class="btn btn-primary" onclick="createLead()">Create & SMS</button></div>
+  </div>
+</div>
+
+<!-- Lead Detail -->
+<div class="overlay" id="m-lead">
+  <div class="modal modal-lg">
+    <button class="modal-x" onclick="closeM('m-lead')">×</button>
+    <h2 id="m-lead-title">Lead</h2>
+    <div id="m-lead-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-light" onclick="closeM('m-lead')">Close</button>
+      <button class="btn btn-success" id="btn-call" onclick="callClient()">📞 Call</button>
+      <button class="btn btn-primary" onclick="openBookFromLead()">📅 Book Job</button>
+    </div>
+  </div>
+</div>
+
+<!-- Book Job -->
+<div class="overlay" id="m-book">
+  <div class="modal">
+    <button class="modal-x" onclick="closeM('m-book')">×</button>
+    <h2>Book Job</h2>
+    <div class="form-row"><div class="form-group"><label>Date *</label><input type="date" id="bj-date"></div><div class="form-group"><label>Time</label><input type="time" id="bj-time" value="09:00"></div></div>
+    <div class="form-group"><label>Technician</label><select id="bj-tech"><option value="">— Unassigned —</option></select></div>
+    <div class="form-row"><div class="form-group"><label>City</label><input id="bj-city" placeholder="Miami"></div><div class="form-group"><label>Address</label><input id="bj-addr" placeholder="123 Main St"></div></div>
+    <div class="form-group"><label>Description</label><textarea id="bj-desc" rows="2"></textarea></div>
+    <div class="form-group"><label>Notes</label><input id="bj-notes"></div>
+    <div class="modal-footer"><button class="btn btn-light" onclick="closeM('m-book')">Cancel</button><button class="btn btn-success" onclick="bookJob()">✅ Confirm & SMS</button></div>
+  </div>
+</div>
+
+<!-- New Estimate -->
+<div class="overlay" id="m-est">
+  <div class="modal modal-lg">
+    <button class="modal-x" onclick="closeM('m-est')">×</button>
+    <h2>New Estimate</h2>
+    <div class="form-row"><div class="form-group"><label>Client</label><select id="est-lead"><option value="">— Select —</option></select></div><div class="form-group"><label>Title</label><input id="est-title" placeholder="Estimate title"></div></div>
+    <div class="form-group"><label>Line Items</label></div>
+    <div class="line-items"><div class="li-header"><span>Description</span><span>Qty</span><span>Price</span><span>Total</span><span></span></div><div id="est-items"></div></div>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <button class="btn btn-light btn-sm" onclick="addEstItem()">+ Line</button>
+      <button class="btn btn-light btn-sm" onclick="openPBPick('est')">📒 Price Book</button>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="form-group" style="flex:1;margin:0"><label>Tax %</label><input type="number" id="est-tax" value="0" min="0" oninput="calcEst()"></div>
+      <div style="font-weight:700;font-size:15px">Total: $<span id="est-total">0.00</span></div>
+    </div>
+    <div class="form-group" style="margin-top:10px"><label>Notes</label><textarea id="est-notes" rows="2"></textarea></div>
+    <div class="modal-footer"><button class="btn btn-light" onclick="closeM('m-est')">Cancel</button><button class="btn btn-primary" onclick="saveEstimate()">Save</button></div>
+  </div>
+</div>
+
+<!-- New Invoice -->
+<div class="overlay" id="m-inv">
+  <div class="modal modal-lg">
+    <button class="modal-x" onclick="closeM('m-inv')">×</button>
+    <h2>New Invoice</h2>
+    <div class="form-row"><div class="form-group"><label>Client</label><select id="inv-lead"><option value="">— Select —</option></select></div><div class="form-group"><label>Title</label><input id="inv-title" placeholder="Invoice title"></div></div>
+    <div class="form-group"><label>Due Date</label><input type="date" id="inv-due"></div>
+    <div class="form-group"><label>Line Items</label></div>
+    <div class="line-items"><div class="li-header"><span>Description</span><span>Qty</span><span>Price</span><span>Total</span><span></span></div><div id="inv-items"></div></div>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <button class="btn btn-light btn-sm" onclick="addInvItem()">+ Line</button>
+      <button class="btn btn-light btn-sm" onclick="openPBPick('inv')">📒 Price Book</button>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="form-group" style="flex:1;margin:0"><label>Tax %</label><input type="number" id="inv-tax" value="0" min="0" oninput="calcInv()"></div>
+      <div style="font-weight:700;font-size:15px">Total: $<span id="inv-total">0.00</span></div>
+    </div>
+    <div class="form-group" style="margin-top:10px"><label>Notes</label><textarea id="inv-notes" rows="2"></textarea></div>
+    <div class="modal-footer"><button class="btn btn-light" onclick="closeM('m-inv')">Cancel</button><button class="btn btn-light" onclick="previewInvoice()">👁️ Preview</button><button class="btn btn-primary" onclick="saveInvoice()">Save</button></div>
+  </div>
+</div>
+
+<!-- Invoice Preview -->
+<div class="overlay" id="m-inv-preview">
+  <div class="modal modal-lg">
+    <button class="modal-x" onclick="closeM('m-inv-preview')">×</button>
+    <div id="inv-preview-content"></div>
+    <div class="modal-footer"><button class="btn btn-light" onclick="closeM('m-inv-preview')">Close</button><button class="btn btn-primary" onclick="window.print()">🖨️ Print PDF</button></div>
+  </div>
+</div>
+
+<!-- Client Detail -->
+<div class="overlay" id="m-client">
+  <div class="modal modal-lg">
+    <button class="modal-x" onclick="closeM('m-client')">×</button>
+    <h2 id="m-client-title">Client</h2>
+    <div id="m-client-body"></div>
+    <div class="modal-footer"><button class="btn btn-light" onclick="closeM('m-client')">Close</button></div>
+  </div>
+</div>
+
+<!-- New Tech -->
+<div class="overlay" id="m-tech">
+  <div class="modal">
+    <button class="modal-x" onclick="closeM('m-tech')">×</button>
+    <h2>Add Technician</h2>
+    <div class="form-row"><div class="form-group"><label>Name *</label><input id="nt-name"></div><div class="form-group"><label>Phone</label><input id="nt-phone"></div></div>
+    <div class="form-group"><label>Cities (comma separated)</label><input id="nt-cities" placeholder="Miami, Fort Lauderdale"></div>
+    <div class="modal-footer"><button class="btn btn-light" onclick="closeM('m-tech')">Cancel</button><button class="btn btn-primary" onclick="saveTech()">Add</button></div>
+  </div>
+</div>
+
+<!-- New Service -->
+<div class="overlay" id="m-new-service">
+  <div class="modal">
+    <button class="modal-x" onclick="closeM('m-new-service')">×</button>
+    <h2>Add Service</h2>
+    <div class="form-group"><label>Name *</label><input id="ns-name"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Price ($)</label><input type="number" id="ns-price" min="0" step="0.01"></div>
+      <div class="form-group"><label>Category</label><select id="ns-cat"><option>Electrical</option><option>TV & Media</option><option>Plumbing</option><option>Doors & Windows</option><option>Carpentry</option><option>Painting</option><option>Outdoor</option><option>Drywall</option><option>Labor</option><option>General</option></select></div>
+    </div>
+    <div class="form-group"><label>Note</label><input id="ns-note"></div>
+    <div class="modal-footer"><button class="btn btn-light" onclick="closeM('m-new-service')">Cancel</button><button class="btn btn-primary" onclick="saveService()">Save</button></div>
+  </div>
+</div>
+
+<!-- PB Picker -->
+<div class="overlay" id="m-pb-pick">
+  <div class="modal modal-lg">
+    <button class="modal-x" onclick="closeM('m-pb-pick')">×</button>
+    <h2>Select from Price Book</h2>
+    <input class="topbar-search" placeholder="🔍 Search..." oninput="pbPickSearch(this.value)" style="width:100%;margin-bottom:12px">
+    <div id="pb-pick-list" style="max-height:380px;overflow-y:auto"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const BASE='/crm';
+let TOKEN=localStorage.getItem('crm_token')||'';
+let CUR_LEAD=null, CUR_LEADS=[], CUR_JOBS=[], allTechs=[], pbData=[], pbPickTarget='est';
+let calWeekOffset=0;
+const TECH_COLORS=['#0052cc','#00875a','#6554c0','#ff5630','#ff8b00','#00b8d9','#36b37e'];
+
+// ── Auth ──
+function doLogout(){localStorage.removeItem('crm_token');TOKEN='';showLogin()}
+function showLogin(){document.getElementById('login-screen').classList.add('show');document.getElementById('app').style.display='none'}
+function showApp(){document.getElementById('login-screen').classList.remove('show');document.getElementById('app').style.display='flex';loadDash()}
+
+async function doLogin(){
+  const u=document.getElementById('l-user').value, p=document.getElementById('l-pass').value;
+  document.getElementById('l-err').textContent='';
+  try{
+    const r=await fetch(BASE+'/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+    const d=await r.json();
+    if(d.error||!d.token){document.getElementById('l-err').textContent='Invalid credentials';return}
+    TOKEN=d.token;localStorage.setItem('crm_token',TOKEN);
+    showApp();
+  }catch(e){document.getElementById('l-err').textContent='Connection error'}
+}
+
+// ── Utils ──
+function toast(msg,type='',ms=3000){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+(type||'');setTimeout(()=>t.className='toast',ms)}
+function openM(id){document.getElementById(id).classList.add('show')}
+function closeM(id){document.getElementById(id).classList.remove('show')}
+function badge(s){return`<span class="badge b-${(s||'draft').replace(' ','_')}">${(s||'').replace('_',' ')}</span>`}
+function money(n){return'$'+(+n||0).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fmt(dt){if(!dt)return'—';const d=new Date(dt),now=new Date(),diff=Math.floor((now-d)/60000);if(diff<1)return'just now';if(diff<60)return diff+'m ago';if(diff<1440)return Math.floor(diff/60)+'h ago';return d.toLocaleDateString()}
+function initials(n){return(n||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
+async function api(path,opts={}){
+  const r=await fetch(BASE+path,{headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},...opts});
+  if(r.status===401){showLogin();return{}}
+  return r.json();
+}
+
+// ── Nav ──
+const PAGES=['dashboard','leads','clients','jobs','calendar','estimates','invoices','technicians','pricebook','messages'];
+function nav(name){
+  PAGES.forEach(p=>document.getElementById('page-'+p).classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  const idx=PAGES.indexOf(name);
+  document.querySelectorAll('.nav-item')[idx]?.classList.add('active');
+  const titles={dashboard:'Dashboard',leads:'Leads',clients:'Clients',jobs:'Jobs',calendar:'Calendar',estimates:'Estimates',invoices:'Invoices',technicians:'Technicians',pricebook:'Price Book',messages:'Messages'};
+  document.getElementById('page-title').textContent=titles[name]||name;
+  const actions={leads:'<button class="btn btn-primary btn-sm" onclick="openNewLead()">+ Lead</button>',estimates:'<button class="btn btn-primary btn-sm" onclick="openNewEstimate()">+ Estimate</button>',invoices:'<button class="btn btn-primary btn-sm" onclick="openNewInvoice()">+ Invoice</button>'};
+  document.getElementById('topbar-btn').innerHTML=actions[name]||'';
+  if(name==='dashboard')loadDash();
+  if(name==='leads')loadLeads();
+  if(name==='clients')loadClients();
+  if(name==='jobs')loadJobs();
+  if(name==='calendar')loadCalendar();
+  if(name==='estimates')loadEstimates();
+  if(name==='invoices')loadInvoices();
+  if(name==='technicians')loadTechs();
+  if(name==='pricebook')loadPricebook();
+  if(name==='messages')loadConversations();
+}
+
+// ── Messages ──
+let currentPhone = null;
+
+function qr(text){ const i=document.getElementById('msg-input'); if(i){i.value=text;i.focus();} }
+
+async function loadConversations(){
+  const convs = await api('/api/messages');
+  const list = document.getElementById('conv-list');
+  if(!list) return;
+  let unread = 0;
+  list.innerHTML = convs.map(c => {
+    if(c.unread>0) unread+=c.unread;
+    const time = c.created_at ? new Date(c.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
+    return `<div class="conv-item${currentPhone===c.phone?' active':''}" onclick="openChat('${c.phone}')">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-weight:${c.unread?'700':'500'};font-size:13px;color:#1a1a2e">${c.phone}</span>
+        <span style="font-size:11px;color:#888">${time}</span>
+      </div>
+      <div style="font-size:12px;color:#666;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.body||''}</div>
+      ${c.unread>0?`<span style="background:#ff5630;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px">${c.unread}</span>`:''}
+    </div>`;
+  }).join('');
+  if(!convs.length) list.innerHTML='<div style="padding:20px;color:#999;text-align:center">No conversations yet</div>';
+  const badge = document.getElementById('badge-messages');
+  if(badge){ badge.textContent=unread; badge.style.display=unread?'inline':'none'; }
+}
+
+async function openChat(phone){
+  currentPhone = phone;
+  const header = document.getElementById('chat-header');
+  if(header) header.textContent = phone;
+  const msgs = await api('/api/messages/'+encodeURIComponent(phone));
+  const box = document.getElementById('chat-messages');
+  if(!box) return;
+  box.innerHTML = msgs.map(m=>`
+    <div style="display:flex;justify-content:${m.direction==='out'?'flex-end':'flex-start'};margin-bottom:10px">
+      <div style="max-width:70%;padding:10px 14px;border-radius:18px;background:${m.direction==='out'?'#2c5282':'#fff'};color:${m.direction==='out'?'#fff':'#333'};box-shadow:0 1px 3px rgba(0,0,0,.1);font-size:14px;line-height:1.4">
+        ${m.body}
+        <div style="font-size:10px;opacity:.65;margin-top:4px;text-align:right">${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
+      </div>
+    </div>`).join('');
+  box.scrollTop = box.scrollHeight;
+  loadConversations();
+}
+
+async function sendMsg(){
+  if(!currentPhone) return;
+  const input = document.getElementById('msg-input');
+  const body = input.value.trim();
+  if(!body) return;
+  input.value='';
+  await api('/api/messages/send','POST',{phone:currentPhone,body});
+  openChat(currentPhone);
+}
+
+// Poll messages every 15s when on messages page
+setInterval(()=>{
+  const p=document.getElementById('page-messages');
+  if(p&&p.classList.contains('active')){ loadConversations(); if(currentPhone) openChat(currentPhone); }
+},15000);
+
+// ── Dashboard ──
+async function loadDash(){
+  const s=await api('/api/stats');
+  if(!s.leads_today&&s.leads_today!==0)return;
+  document.getElementById('s-leads-today').textContent=s.leads_today;
+  document.getElementById('s-leads-new').textContent=s.leads_new;
+  document.getElementById('s-jobs-today').textContent=s.jobs_today;
+  document.getElementById('s-rev-week').textContent=money(s.revenue_week);
+  document.getElementById('s-rev-month').textContent=money(s.revenue_month);
+  document.getElementById('s-conv').textContent=(s.conversion_rate||0)+'%';
+  document.getElementById('badge-leads').textContent=s.leads_new;
+
+  // Needs attention
+  const attn=document.getElementById('dash-attention');
+  if(s.needs_attention>0){
+    const old=await api('/api/leads?status=new');
+    const hourAgo=Date.now()-3600000;
+    const stale=(Array.isArray(old)?old:[]).filter(l=>new Date(l.created_at).getTime()<hourAgo);
+    attn.innerHTML=stale.slice(0,5).map(l=>`<div class="attention-item"><div><strong>${l.name}</strong><br><span style="font-size:11px;color:#6b778c">${l.job_type||''} · ${fmt(l.created_at)}</span></div><button class="btn btn-primary btn-xs" onclick="openLead(${l.id})">View</button></div>`).join('')||'<div style="color:#6b778c;font-size:13px">All caught up ✓</div>';
+  } else attn.innerHTML='<div style="color:#6b778c;font-size:13px">All caught up ✓</div>';
+
+  // Top techs
+  document.getElementById('dash-techs').innerHTML=(s.top_techs||[]).map((t,i)=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px"><span>${i+1}. ${t.name}</span><span style="font-weight:700">${t.jobs} jobs</span></div>`).join('')||'<div style="color:#6b778c;font-size:13px">No data yet</div>';
+
+  // Recent leads
+  const leads=await api('/api/leads');
+  document.getElementById('dash-leads').innerHTML=(Array.isArray(leads)?leads:[]).slice(0,8).map(l=>`
+    <tr onclick="openLead(${l.id})">
+      <td><div style="display:flex;align-items:center;gap:7px"><div class="avatar">${initials(l.name)}</div><strong>${l.name}</strong></div></td>
+      <td>${l.job_type||'—'}</td><td>${badge(l.status)}</td><td>${fmt(l.created_at)}</td>
+    </tr>`).join('')||'<tr><td colspan="4" class="no-data">No leads yet</td></tr>';
+}
+
+// ── Leads ──
+let leadsFilter='';
+async function loadLeads(status=''){
+  leadsFilter=status;
+  CUR_LEADS=await api('/api/leads'+(status?'?status='+status:''));
+  renderLeads(CUR_LEADS);
+}
+function filterLeads(s,el){document.querySelectorAll('#page-leads .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');loadLeads(s)}
+function renderLeads(leads){
+  document.getElementById('leads-tbody').innerHTML=(Array.isArray(leads)?leads:[]).map(l=>`
+    <tr onclick="openLead(${l.id})">
+      <td><div style="display:flex;align-items:center;gap:7px"><div class="avatar">${initials(l.name)}</div><strong>${l.name}</strong></div></td>
+      <td>${l.phone?`<a href="tel:${l.phone}" onclick="event.stopPropagation()">${l.phone}</a>`:'—'}</td>
+      <td>${l.job_type||'—'}</td><td>${l.city||'—'}</td>
+      <td><span class="badge b-draft">${l.source}</span></td>
+      <td>${badge(l.status)}</td><td>${fmt(l.created_at)}</td>
+      <td><button class="btn btn-primary btn-xs" onclick="event.stopPropagation();openLead(${l.id})">View</button></td>
+    </tr>`).join('')||'<tr><td colspan="8" class="no-data">No leads</td></tr>';
+}
+function globalSearch(v){
+  if(!v){renderLeads(CUR_LEADS);return}
+  const q=v.toLowerCase();
+  renderLeads(CUR_LEADS.filter(l=>(l.name+l.phone+l.job_type+l.city).toLowerCase().includes(q)));
+}
+async function openLead(id){
+  CUR_LEAD=await api('/api/leads/'+id);
+  document.getElementById('m-lead-title').textContent=CUR_LEAD.name;
+  document.getElementById('btn-call').textContent=CUR_LEAD.phone?`📞 ${CUR_LEAD.phone}`:'No phone';
+  document.getElementById('m-lead-body').innerHTML=`
+    <div class="detail-grid">
+      <div class="detail-field"><div class="lbl">Phone</div><div class="val">${CUR_LEAD.phone||'—'}</div></div>
+      <div class="detail-field"><div class="lbl">Job Type</div><div class="val">${CUR_LEAD.job_type||'—'}</div></div>
+      <div class="detail-field"><div class="lbl">City</div><div class="val">${CUR_LEAD.city||'—'}</div></div>
+      <div class="detail-field"><div class="lbl">Source</div><div class="val">${CUR_LEAD.source}</div></div>
+    </div>
+    ${CUR_LEAD.description?`<div class="detail-field" style="margin-bottom:12px"><div class="lbl">Description</div><div class="val">${CUR_LEAD.description}</div></div>`:''}
+    <div class="form-group"><label>Status</label>
+      <select onchange="updateStatus(${CUR_LEAD.id},this.value)">
+        ${['new','contacted','booked','closed','lost'].map(s=>`<option value="${s}"${s===CUR_LEAD.status?' selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+      </select>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn btn-light btn-sm" onclick="openEstimateForLead()">📋 Estimate</button>
+      <button class="btn btn-light btn-sm" onclick="openInvoiceForLead()">💰 Invoice</button>
+    </div>`;
+  document.getElementById('bj-city').value=CUR_LEAD.city||'';
+  document.getElementById('bj-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('bj-desc').value=CUR_LEAD.description||'';
+  openM('m-lead');
+}
+async function updateStatus(id,status){
+  await api('/api/leads/'+id,{method:'PUT',body:JSON.stringify({status})});
+  toast('Status updated ✓','success');loadLeads(leadsFilter);loadDash();
+}
+function callClient(){if(CUR_LEAD?.phone)window.open('tel:'+CUR_LEAD.phone)}
+function openNewLead(){openM('m-new-lead')}
+async function createLead(){
+  const name=document.getElementById('nl-name').value.trim();
+  if(!name)return toast('Name required','error');
+  await api('/api/leads',{method:'POST',body:JSON.stringify({name,phone:document.getElementById('nl-phone').value,job_type:document.getElementById('nl-job').value,city:document.getElementById('nl-city').value,description:document.getElementById('nl-desc').value,source:document.getElementById('nl-src').value})});
+  closeM('m-new-lead');toast('✅ Lead created!','success');
+  ['nl-name','nl-phone','nl-job','nl-city','nl-desc'].forEach(id=>document.getElementById(id).value='');
+  loadLeads();loadDash();
+}
+
+// ── Clients ──
+async function loadClients(){
+  const clients=await api('/api/clients');
+  document.getElementById('clients-tbody').innerHTML=(Array.isArray(clients)?clients:[]).map(c=>{
+    const tags=JSON.parse(c.tags||'[]');
+    return`<tr onclick="openClient(${c.id})">
+      <td><div style="display:flex;align-items:center;gap:7px"><div class="avatar">${initials(c.name)}</div><strong>${c.name}</strong></div></td>
+      <td>${c.phone?`<a href="tel:${c.phone}" onclick="event.stopPropagation()">${c.phone}</a>`:'—'}</td>
+      <td><strong>${c.jobs_count||0}</strong></td>
+      <td style="color:#00875a;font-weight:700">${money(c.total_spent||0)}</td>
+      <td>${tags.map(t=>`<span class="tag tag-${t.toLowerCase().replace(/\s/g,'-')}">${t}</span>`).join('')||'—'}</td>
+      <td>${c.last_job_date||'—'}</td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="6" class="no-data">No clients yet. Clients are created when leads are booked.</td></tr>';
+}
+async function openClient(id){
+  const c=await api('/api/clients/'+id);
+  document.getElementById('m-client-title').textContent=c.name;
+  const tags=JSON.parse(c.tags||'[]');
+  document.getElementById('m-client-body').innerHTML=`
+    <div class="detail-grid">
+      <div class="detail-field"><div class="lbl">Phone</div><div class="val">${c.phone||'—'}</div></div>
+      <div class="detail-field"><div class="lbl">City</div><div class="val">${c.city||'—'}</div></div>
+    </div>
+    <div class="form-group"><label>Tags</label>
+      <select multiple id="client-tags" style="height:90px">
+        ${['Member $200','Member $300','Regular','VIP','FROD'].map(t=>`<option value="${t}"${tags.includes(t)?' selected':''}>${t}</option>`).join('')}
+      </select>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="saveClientTags(${c.id})" style="margin-bottom:16px">Save Tags</button>
+    <div class="card-header" style="padding:8px 0"><h2>Job History (${(c.jobs||[]).length})</h2></div>
+    ${(c.jobs||[]).map(j=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:13px"><span>${j.scheduled_date} ${j.scheduled_time||''}</span><span>${j.tech_name||'—'}</span><span>${badge(j.status)}</span></div>`).join('')||'<div style="color:#6b778c;font-size:13px;padding:8px 0">No jobs yet</div>'}
+    <div class="card-header" style="padding:8px 0;margin-top:12px"><h2>Invoices (${(c.invoices||[]).length})</h2></div>
+    ${(c.invoices||[]).map(i=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:13px"><span>#${i.id}</span><span style="font-weight:700">${money(i.total)}</span><span>${badge(i.status)}</span></div>`).join('')||'<div style="color:#6b778c;font-size:13px;padding:8px 0">No invoices yet</div>'}`;
+  openM('m-client');
+}
+async function saveClientTags(id){
+  const sel=document.getElementById('client-tags');
+  const tags=Array.from(sel.selectedOptions).map(o=>o.value);
+  await api('/api/clients/'+id,{method:'PUT',body:JSON.stringify({tags})});
+  toast('Tags saved ✓','success');loadClients();
+}
+
+// ── Book Job ──
+async function openBookFromLead(){
+  closeM('m-lead');
+  allTechs=await api('/api/technicians');
+  const sel=document.getElementById('bj-tech');
+  sel.innerHTML='<option value="">— Unassigned —</option>'+(Array.isArray(allTechs)?allTechs:[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+  openM('m-book');
+  setTimeout(initAutocomplete,200);
+}
+async function bookJob(){
+  const date=document.getElementById('bj-date').value;
+  if(!date)return toast('Date required','error');
+  const job=await api('/api/jobs',{method:'POST',body:JSON.stringify({lead_id:CUR_LEAD.id,technician_id:document.getElementById('bj-tech').value||null,scheduled_date:date,scheduled_time:document.getElementById('bj-time').value,city:document.getElementById('bj-city').value,address:document.getElementById('bj-addr').value,description:document.getElementById('bj-desc').value,notes:document.getElementById('bj-notes').value})});
+  // Auto-create client if not exists
+  if(CUR_LEAD){
+    const existing=await api('/api/clients');
+    const found=(Array.isArray(existing)?existing:[]).find(c=>c.lead_id===CUR_LEAD.id);
+    if(!found) await api('/api/clients',{method:'POST',body:JSON.stringify({name:CUR_LEAD.name,phone:CUR_LEAD.phone,city:CUR_LEAD.city,lead_id:CUR_LEAD.id})});
+  }
+  closeM('m-book');toast('✅ Job booked! SMS sent','success');
+  loadJobs();loadDash();loadCalendar();
+}
+
+// ── Jobs ──
+async function loadJobs(status=''){
+  CUR_JOBS=await api('/api/jobs');
+  const filtered=status?(Array.isArray(CUR_JOBS)?CUR_JOBS:[]).filter(j=>j.status===status):CUR_JOBS;
+  document.getElementById('jobs-tbody').innerHTML=(Array.isArray(filtered)?filtered:[]).map(j=>`
+    <tr>
+      <td><strong>${j.scheduled_date||'—'}</strong></td>
+      <td>${j.scheduled_time||'—'}</td>
+      <td><div style="display:flex;align-items:center;gap:6px"><div class="avatar" style="width:24px;height:24px;font-size:10px">${initials(j.client_name)}</div>${j.client_name||'—'}</div></td>
+      <td>${j.client_phone?`<a href="tel:${j.client_phone}">${j.client_phone}</a>`:'—'}</td>
+      <td>${j.job_type||j.description||'—'}</td>
+      <td>${j.address||'—'}</td>
+      <td>${j.tech_name||'—'}</td>
+      <td>${badge(j.status)}</td>
+    </tr>`).join('')||'<tr><td colspan="8" class="no-data">No jobs</td></tr>';
+}
+function filterJobs(s,el){document.querySelectorAll('#page-jobs .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');loadJobs(s)}
+
+// ── Calendar ──
+async function loadCalendar(){
+  const jobs=await api('/api/jobs');
+  const techs=await api('/api/technicians');
+  const techMap={};
+  (Array.isArray(techs)?techs:[]).forEach((t,i)=>techMap[t.id]=TECH_COLORS[i%TECH_COLORS.length]);
+
+  const now=new Date();
+  const startOfWeek=new Date(now);
+  startOfWeek.setDate(now.getDate()-now.getDay()+1+calWeekOffset*7); // Monday
+  const days=[];
+  for(let i=0;i<7;i++){const d=new Date(startOfWeek);d.setDate(d.getDate()+i);days.push(d);}
+
+  const endOfWeek=days[6];
+  document.getElementById('cal-title').textContent=`${days[0].toLocaleDateString('en-US',{month:'short',day:'numeric'})} – ${endOfWeek.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
+
+  const hours=[];for(let h=7;h<=20;h++)hours.push(h);
+  const dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  let html=`<div class="cal-week">`;
+  // Header
+  html+=`<div class="cal-th"></div>`;
+  days.forEach((d,i)=>{
+    const isToday=d.toDateString()===new Date().toDateString();
+    html+=`<div class="cal-th" style="${isToday?'background:#deebff;color:#0052cc':''}"><div>${dayNames[i]}</div><div style="font-size:14px;font-weight:700">${d.getDate()}</div></div>`;
+  });
+  // Time slots
+  hours.forEach(h=>{
+    html+=`<div class="cal-time">${h}:00</div>`;
+    days.forEach(d=>{
+      const dateStr=d.toISOString().split('T')[0];
+      const slotJobs=(Array.isArray(jobs)?jobs:[]).filter(j=>{
+        if(j.scheduled_date!==dateStr)return false;
+        if(!j.scheduled_time)return false;
+        const jh=parseInt(j.scheduled_time.split(':')[0]);
+        return jh===h;
+      });
+      const onclick=`openCalSlot('${dateStr}','${String(h).padStart(2,'0')}:00')`;
+      html+=`<div class="cal-cell" onclick="${onclick}">${slotJobs.map(j=>`<div class="cal-job" style="background:${techMap[j.technician_id]||'#6b778c'}" onclick="event.stopPropagation();showJobInfo(${j.id})" title="${j.client_name||''} — ${j.description||j.job_type||''}">${j.client_name||'Job'}</div>`).join('')}</div>`;
+    });
+  });
+  html+=`</div>`;
+  document.getElementById('cal-container').innerHTML=html;
+}
+function calPrev(){calWeekOffset--;loadCalendar()}
+function calNext(){calWeekOffset++;loadCalendar()}
+function calToday(){calWeekOffset=0;loadCalendar()}
+async function openCalSlot(date,time){
+  allTechs=await api('/api/technicians');
+  // Need a lead to book — prompt or open new lead
+  toast('Select a lead first, then use "Book Job" button','');
+}
+function showJobInfo(id){
+  const job=(Array.isArray(CUR_JOBS)?CUR_JOBS:[]).find(j=>j.id===id);
+  if(!job)return;
+  toast(`${job.client_name||'?'} · ${job.scheduled_time||''} · ${job.address||job.city||''} · ${job.tech_name||'Unassigned'}`,'',5000);
+}
+
+// ── Estimates ──
+async function loadEstimates(){
+  const ests=await api('/api/estimates');
+  document.getElementById('est-tbody').innerHTML=(Array.isArray(ests)?ests:[]).map(e=>`
+    <tr>
+      <td>#${e.id}</td><td>${e.client_name||'—'}</td><td>${e.title||'—'}</td>
+      <td><strong>${money(e.total)}</strong></td><td>${badge(e.status)}</td><td>${fmt(e.created_at)}</td>
+      <td>${e.status!=='converted'?`<button class="btn btn-success btn-xs" onclick="convertEst(${e.id})">→ Invoice</button>`:''}</td>
+    </tr>`).join('')||'<tr><td colspan="7" class="no-data">No estimates</td></tr>';
+}
+async function openNewEstimate(){
+  const leads=await api('/api/leads');
+  document.getElementById('est-lead').innerHTML='<option value="">— Select —</option>'+(Array.isArray(leads)?leads:[]).map(l=>`<option value="${l.id}">${l.name}</option>`).join('');
+  document.getElementById('est-items').innerHTML='';
+  document.getElementById('est-tax').value=0;document.getElementById('est-total').textContent='0.00';
+  addEstItem();openM('m-est');
+}
+function openEstimateForLead(){closeM('m-lead');openNewEstimate().then(()=>{if(CUR_LEAD)document.getElementById('est-lead').value=CUR_LEAD.id})}
+let estRows=0;
+function addEstItem(desc='',qty=1,price=0){
+  const id='er'+(++estRows);const div=document.createElement('div');div.className='li-row';div.id=id;
+  div.innerHTML=`<input placeholder="Description" value="${desc}" oninput="calcEst()"><input type="number" value="${qty}" min="1" oninput="calcEst()"><input type="number" value="${price}" step="0.01" min="0" oninput="calcEst()"><span style="font-weight:600;font-size:12px">$${(qty*price).toFixed(2)}</span><button class="btn-icon" onclick="document.getElementById('${id}').remove();calcEst()">×</button>`;
+  document.getElementById('est-items').appendChild(div);calcEst();
+}
+function calcEst(){let s=0;document.querySelectorAll('#est-items .li-row').forEach(r=>{const i=r.querySelectorAll('input');const t=(+i[1].value||0)*(+i[2].value||0);s+=t;r.querySelector('span').textContent='$'+t.toFixed(2)});const tax=+document.getElementById('est-tax').value||0;document.getElementById('est-total').textContent=(s+s*tax/100).toFixed(2)}
+async function saveEstimate(){
+  const items=[];document.querySelectorAll('#est-items .li-row').forEach(r=>{const i=r.querySelectorAll('input');items.push({description:i[0].value,qty:+i[1].value||1,price:+i[2].value||0})});
+  await api('/api/estimates',{method:'POST',body:JSON.stringify({lead_id:document.getElementById('est-lead').value||null,title:document.getElementById('est-title').value,items,tax:+document.getElementById('est-tax').value,notes:document.getElementById('est-notes').value})});
+  closeM('m-est');toast('✅ Estimate saved','success');loadEstimates();
+}
+async function convertEst(id){
+  if(!confirm('Convert to Invoice?'))return;
+  await api('/api/estimates/'+id+'/convert',{method:'POST'});
+  toast('✅ Converted to Invoice','success');loadEstimates();loadInvoices();
+}
+
+// ── Invoices ──
+async function loadInvoices(){
+  const invs=await api('/api/invoices');
+  document.getElementById('inv-tbody').innerHTML=(Array.isArray(invs)?invs:[]).map(i=>`
+    <tr>
+      <td>#${i.id}</td><td>${i.client_name||'—'}</td><td>${i.title||'—'}</td>
+      <td><strong>${money(i.total)}</strong></td><td style="color:#00875a">${money(i.paid)}</td>
+      <td style="color:${(i.total-i.paid)>0?'#ff5630':'#00875a'}">${money(i.total-i.paid)}</td>
+      <td>${badge(i.status)}</td><td>${i.due_date||'—'}</td>
+      <td style="display:flex;gap:4px">
+        <button class="btn btn-light btn-xs" onclick="copyInvoiceLink(${i.id})" title="Copy link for client">🔗</button>
+        ${i.status!=='paid'?`<button class="btn btn-success btn-xs" onclick="markPaid(${i.id},${i.total})">Paid</button>`:'✓'}
+      </td>
+    </tr>`).join('')||'<tr><td colspan="9" class="no-data">No invoices</td></tr>';
+}
+function copyInvoiceLink(id){
+  const link=`${location.protocol}//${location.hostname}/invoice/${id}`;
+  navigator.clipboard.writeText(link).then(()=>toast(`✅ Link copied! Send to client via SMS:\n${link}`,'success',5000)).catch(()=>toast(`Invoice link: ${link}`,'',8000));
+}
+async function openNewInvoice(){
+  const leads=await api('/api/leads');
+  document.getElementById('inv-lead').innerHTML='<option value="">— Select —</option>'+(Array.isArray(leads)?leads:[]).map(l=>`<option value="${l.id}">${l.name}</option>`).join('');
+  document.getElementById('inv-items').innerHTML='';
+  document.getElementById('inv-tax').value=0;document.getElementById('inv-total').textContent='0.00';
+  addInvItem();openM('m-inv');
+}
+function openInvoiceForLead(){closeM('m-lead');openNewInvoice().then(()=>{if(CUR_LEAD)document.getElementById('inv-lead').value=CUR_LEAD.id})}
+let invRows=0;
+function addInvItem(desc='',qty=1,price=0){
+  const id='ir'+(++invRows);const div=document.createElement('div');div.className='li-row';div.id=id;
+  div.innerHTML=`<input placeholder="Description" value="${desc}" oninput="calcInv()"><input type="number" value="${qty}" min="1" oninput="calcInv()"><input type="number" value="${price}" step="0.01" min="0" oninput="calcInv()"><span style="font-weight:600;font-size:12px">$${(qty*price).toFixed(2)}</span><button class="btn-icon" onclick="document.getElementById('${id}').remove();calcInv()">×</button>`;
+  document.getElementById('inv-items').appendChild(div);calcInv();
+}
+function calcInv(){let s=0;document.querySelectorAll('#inv-items .li-row').forEach(r=>{const i=r.querySelectorAll('input');const t=(+i[1].value||0)*(+i[2].value||0);s+=t;r.querySelector('span').textContent='$'+t.toFixed(2)});const tax=+document.getElementById('inv-tax').value||0;document.getElementById('inv-total').textContent=(s+s*tax/100).toFixed(2)}
+async function saveInvoice(){
+  const items=[];document.querySelectorAll('#inv-items .li-row').forEach(r=>{const i=r.querySelectorAll('input');items.push({description:i[0].value,qty:+i[1].value||1,price:+i[2].value||0})});
+  const inv=await api('/api/invoices',{method:'POST',body:JSON.stringify({lead_id:document.getElementById('inv-lead').value||null,title:document.getElementById('inv-title').value,items,tax:+document.getElementById('inv-tax').value,due_date:document.getElementById('inv-due').value,notes:document.getElementById('inv-notes').value})});
+  closeM('m-inv');toast('✅ Invoice saved! Use 🔗 to send link to client','success',4000);loadInvoices();
+}
+async function markPaid(id,total){
+  await api('/api/invoices/'+id,{method:'PUT',body:JSON.stringify({status:'paid',paid:total})});
+  toast('✅ Marked as paid','success');loadInvoices();
+}
+function previewInvoice(){
+  const leadEl=document.getElementById('inv-lead');
+  const clientName=leadEl.options[leadEl.selectedIndex]?.text||'Client';
+  const title=document.getElementById('inv-title').value||'Invoice';
+  const due=document.getElementById('inv-due').value;
+  const notes=document.getElementById('inv-notes').value;
+  const items=[];
+  document.querySelectorAll('#inv-items .li-row').forEach(r=>{const i=r.querySelectorAll('input');const desc=i[0].value,qty=+i[1].value||1,price=+i[2].value||0;if(desc||price)items.push({description:desc||'Service',qty,price,total:qty*price})});
+  const subtotal=items.reduce((s,i)=>s+i.total,0);
+  const tax=+document.getElementById('inv-tax').value||0;
+  const taxAmt=subtotal*tax/100;
+  const total=subtotal+taxAmt;
+  const today=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  const dueFormatted=due?new Date(due+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}):'—';
+  const invNum=Math.floor(Math.random()*100)+700;
+  document.getElementById('inv-preview-content').innerHTML=`
+    <div style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto;color:#333;font-size:13px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+        <div><div style="font-size:20px;font-weight:900;color:#e94560">🔨 GOLD HANDS</div><div style="font-weight:700;margin-top:2px">Handyman Gold Hands</div><div style="color:#555;line-height:1.6;font-size:12px">201 178th Dr Sunny Isles Beach FL 33160<br>(737) 530-8110<br>handymangoldhands@gmail.com</div></div>
+        <div style="text-align:right"><div style="font-size:20px;font-weight:700">INVOICE</div><table style="margin-top:6px;margin-left:auto;font-size:12px"><tr><td style="color:#888;padding:2px 10px 2px 0">Invoice #</td><td style="font-weight:600">${invNum}</td></tr><tr><td style="color:#888;padding:2px 10px 2px 0">Date</td><td>${today}</td></tr><tr><td style="color:#888;padding:2px 10px 2px 0">Balance</td><td style="font-weight:700">$${total.toFixed(2)}</td></tr><tr><td style="color:#888;padding:2px 10px 2px 0">Due</td><td>${dueFormatted}</td></tr></table></div>
+      </div>
+      <hr style="border:none;border-top:1px solid #ddd;margin:12px 0">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px"><div><div style="font-weight:700;margin-bottom:4px">Bill To:</div><div style="font-weight:600">${clientName}</div></div><div><div style="font-weight:700;margin-bottom:4px">Service Location:</div><div>${clientName}</div></div></div>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:14px"><thead><tr style="border-bottom:2px solid #333"><th style="padding:7px 8px;text-align:left;font-size:11px">Description</th><th style="padding:7px 8px;text-align:center;font-size:11px">QTY</th><th style="padding:7px 8px;text-align:right;font-size:11px">Price</th><th style="padding:7px 8px;text-align:right;font-size:11px">Amount</th></tr></thead><tbody>${items.map(item=>`<tr style="border-bottom:1px solid #eee"><td style="padding:9px 8px;font-weight:600">${item.description}</td><td style="padding:9px 8px;text-align:center">${item.qty.toFixed(2)}</td><td style="padding:9px 8px;text-align:right">$${item.price.toFixed(2)}</td><td style="padding:9px 8px;text-align:right">$${item.total.toFixed(2)}</td></tr>`).join('')}</tbody></table>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:16px"><table style="width:240px;font-size:13px"><tr><td style="padding:3px 0;color:#666">Sub total</td><td style="text-align:right">$${subtotal.toFixed(2)}</td></tr>${tax?`<tr><td style="padding:3px 0;color:#666">Tax (${tax}%)</td><td style="text-align:right">$${taxAmt.toFixed(2)}</td></tr>`:''}<tr><td style="padding:5px 0;font-weight:700">Total</td><td style="text-align:right;font-weight:700">$${total.toFixed(2)}</td></tr><tr style="border-top:2px solid #333"><td style="padding:5px 0;font-weight:700">Balance Due</td><td style="text-align:right;font-weight:800;font-size:15px">$${total.toFixed(2)}</td></tr></table></div>
+      ${notes?`<div style="margin-bottom:10px"><div style="font-weight:700;margin-bottom:3px">Notes:</div><div style="color:#555">${notes}</div></div>`:''}
+      <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:14px"><strong>Terms:</strong> By paying the due balance on invoices provided, the Client hereby acknowledges that all requested service items have been performed satisfactorily, unless otherwise stated. By accepting this invoice, the Client agrees to pay in full.</div>
+      <div style="text-align:center;font-style:italic;font-weight:700">Thank You For Your Business!</div>
+    </div>`;
+  openM('m-inv-preview');
+}
+
+// ── Technicians ──
+async function loadTechs(){
+  allTechs=await api('/api/technicians');
+  document.getElementById('techs-tbody').innerHTML=(Array.isArray(allTechs)?allTechs:[]).map(t=>`
+    <tr>
+      <td><div style="display:flex;align-items:center;gap:7px"><div class="avatar">${initials(t.name)}</div><strong>${t.name}</strong></div></td>
+      <td>${t.phone?`<a href="tel:${t.phone}">${t.phone}</a>`:'—'}</td>
+      <td>${JSON.parse(t.cities||'[]').join(', ')||'—'}</td>
+      <td><button class="btn btn-light btn-xs" onclick="deleteTech(${t.id})">Remove</button></td>
+    </tr>`).join('')||'<tr><td colspan="4" class="no-data">No technicians</td></tr>';
+}
+function openNewTech(){openM('m-tech')}
+async function saveTech(){
+  const name=document.getElementById('nt-name').value.trim();
+  if(!name)return toast('Name required','error');
+  const cities=document.getElementById('nt-cities').value.split(',').map(c=>c.trim()).filter(Boolean);
+  await api('/api/technicians',{method:'POST',body:JSON.stringify({name,phone:document.getElementById('nt-phone').value,cities})});
+  closeM('m-tech');toast('✅ Added','success');loadTechs();
+  ['nt-name','nt-phone','nt-cities'].forEach(id=>document.getElementById(id).value='');
+}
+async function deleteTech(id){
+  if(!confirm('Remove?'))return;
+  await api('/api/technicians/'+id,{method:'DELETE'});
+  toast('Removed','success');loadTechs();
+}
+
+// ── Price Book ──
+async function loadPricebook(){
+  pbData=await api('/api/pricebook');
+  renderPBCategories(Array.isArray(pbData)?pbData:[]);
+}
+function renderPBCategories(items){
+  const cats={};items.forEach(s=>{if(!cats[s.category])cats[s.category]=[];cats[s.category].push(s)});
+  document.getElementById('pb-categories').innerHTML=Object.entries(cats).map(([cat,svcs])=>`
+    <div><div style="padding:8px 16px;background:#f4f5f7;font-size:11px;font-weight:700;color:#42526e;text-transform:uppercase">${cat}</div>
+    <table style="width:100%">${svcs.map(s=>`<tr><td style="padding:9px 16px;font-size:13px">${s.name}</td><td style="padding:9px;color:#00875a;font-weight:700;white-space:nowrap">$${s.price}</td><td style="padding:9px;color:#97a0af;font-size:11px">${s.note||''}</td><td style="padding:9px"><button class="btn btn-xs" style="background:#ffebe6;color:#bf2600;border:none;border-radius:3px;cursor:pointer" onclick="deleteService(${s.id})">×</button></td></tr>`).join('')}</table></div>`).join('');
+}
+function searchPricebook(q){renderPBCategories(q?(Array.isArray(pbData)?pbData:[]).filter(s=>(s.name+s.category).toLowerCase().includes(q.toLowerCase())):pbData)}
+function openNewService(){openM('m-new-service')}
+async function saveService(){
+  const name=document.getElementById('ns-name').value.trim();
+  if(!name)return toast('Name required','error');
+  await api('/api/pricebook',{method:'POST',body:JSON.stringify({name,price:+document.getElementById('ns-price').value||0,category:document.getElementById('ns-cat').value,note:document.getElementById('ns-note').value})});
+  closeM('m-new-service');toast('✅ Added','success');
+  ['ns-name','ns-price','ns-note'].forEach(id=>document.getElementById(id).value='');
+  loadPricebook();
+}
+async function deleteService(id){
+  if(!confirm('Remove?'))return;
+  await api('/api/pricebook/'+id,{method:'DELETE'});
+  toast('Removed','success');loadPricebook();
+}
+async function openPBPick(target){
+  pbPickTarget=target;
+  const items=await api('/api/pricebook');
+  renderPBPick(Array.isArray(items)?items:[]);
+  openM('m-pb-pick');
+}
+function renderPBPick(items){
+  const cats={};items.forEach(s=>{if(!cats[s.category])cats[s.category]=[];cats[s.category].push(s)});
+  document.getElementById('pb-pick-list').innerHTML=Object.entries(cats).map(([cat,svcs])=>`
+    <div style="margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:#6b778c;text-transform:uppercase;padding:5px 0 3px">${cat}</div>
+    ${svcs.map(s=>`<div onclick="pickService(${s.id},'${s.name.replace(/'/g,"\\'")}',${s.price})" style="display:flex;justify-content:space-between;padding:9px 10px;border-radius:5px;cursor:pointer;border:1px solid #f0f0f0;margin-bottom:3px" onmouseover="this.style.background='#f4f5f7'" onmouseout="this.style.background=''"><span style="font-size:13px">${s.name}</span><span style="font-weight:700;color:#00875a;white-space:nowrap;margin-left:10px">$${s.price}</span></div>`).join('')}</div>`).join('');
+}
+function pbPickSearch(q){api('/api/pricebook'+(q?'?search='+encodeURIComponent(q):'')).then(items=>renderPBPick(Array.isArray(items)?items:[]))}
+function pickService(id,name,price){closeM('m-pb-pick');if(pbPickTarget==='est')addEstItem(name,1,price);else addInvItem(name,1,price)}
+
+// ── Google Places Autocomplete ──
+function initAutocomplete(){
+  if(!window.google)return;
+  [['bj-addr','address'],['bj-city','(cities)'],['nl-city','(cities)']].forEach(([id,type])=>{
+    const el=document.getElementById(id);
+    if(!el||el._ac)return;
+    el._ac=true;
+    const ac=new google.maps.places.Autocomplete(el,{componentRestrictions:{country:'us'},fields:['formatted_address','address_components'],types:[type]});
+    ac.addListener('place_changed',()=>{
+      const p=ac.getPlace();
+      if(!p.formatted_address)return;
+      el.value=p.formatted_address;
+      if(id==='bj-addr'){const city=p.address_components?.find(c=>c.types.includes('locality'));if(city)document.getElementById('bj-city').value=city.long_name}
+    });
+  });
+}
+
+// ── Auto-refresh ──
+setInterval(()=>{if(document.getElementById('page-dashboard').classList.contains('active'))loadDash()},30000);
+
+// ── Init ──
+if(TOKEN){showApp()}else{showLogin()}
+</script>
+</body>
+</html>

@@ -602,22 +602,10 @@ section, .card, [class*="card"] {
 <section class="hero" style="padding-top:0;">
 
   <!-- Demo Video TOP -->
-  <div style="margin:0 auto 24px;width:100%;border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(138,90,255,0.35);position:relative;">
-    <video id="heroVideo" autoplay muted loop playsinline controls style="width:100%;display:block;max-height:70vh;object-fit:cover;">
+  <div style="margin:0 auto 24px;width:100%;border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(138,90,255,0.35);">
+    <video autoplay muted loop playsinline controls style="width:100%;display:block;max-height:70vh;object-fit:cover;">
       <source src="demo.mp4" type="video/mp4">
     </video>
-    <div id="unmuteBtn" onclick="
-      var v=document.getElementById('heroVideo');
-      v.muted=false;
-      v.play();
-      this.style.display='none';
-    " style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
-      background:rgba(0,0,0,0.75);color:#fff;padding:10px 22px;border-radius:50px;
-      font-size:15px;font-weight:700;cursor:pointer;z-index:10;
-      display:flex;align-items:center;gap:8px;white-space:nowrap;
-      backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.2);">
-      🔊 Нажми для звука
-    </div>
   </div>
 
   <div class="hero-eyebrow">

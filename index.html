@@ -37,13 +37,13 @@
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
     :root {
-      --bg: #0a0a12;
-      --surface: rgba(255,255,255,0.03);
-      --border: rgba(255,255,255,0.08);
-      --border-h: rgba(255,255,255,0.18);
-      --text: #f0f0f5;
+      --bg: #f8f6ff;
+      --surface: rgba(124,58,237,0.06);
+      --border: rgba(124,58,237,0.15);
+      --border-h: rgba(124,58,237,0.35);
+      --text: #1a1030;
       --muted: #6b6b80;
-      --sub: #9090a8;
+      --sub: #7070a0;
       --gold: #7c3aed;
       --gold2: #06b6d4;
       --white: #ffffff;
@@ -57,6 +57,17 @@
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
+    }
+    /* Светлый фон с градиентом */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 20%, rgba(124,58,237,0.12) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 80%, rgba(6,182,212,0.10) 0%, transparent 50%),
+                  #f8f6ff;
+      z-index: -1;
+      pointer-events: none;
     }
 
     /* ─── CANVAS BG ─── */
@@ -84,7 +95,7 @@
       position: sticky; top: 0; z-index: 100;
       backdrop-filter: blur(32px) saturate(180%);
       -webkit-backdrop-filter: blur(32px) saturate(180%);
-      background: rgba(8,8,16,0.75);
+      background: rgba(248,246,255,0.75);
       border-bottom: 1px solid var(--border);
     }
     .nav-inner {
@@ -166,7 +177,7 @@
       padding: 16px 36px; border-radius: 100px;
       text-decoration: none; letter-spacing: -0.3px;
       transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 20px 60px rgba(255,255,255,0.08);
+      box-shadow: 0 0 0 1px rgba(124,58,237,0.10), 0 20px 60px rgba(124,58,237,0.12);
     }
     .btn-white:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 30px 80px rgba(255,255,255,0.12); }
     .btn-outline {
@@ -199,7 +210,7 @@
       border-radius: 24px;
       overflow: hidden;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03);
+      background: rgba(124,58,237,0.05);
     }
     .hero-img {
       display: block;
@@ -258,7 +269,7 @@
     .hero-badge {
       position: absolute;
       bottom: 16px; left: 16px;
-      background: rgba(8,8,16,0.85);
+      background: rgba(248,246,255,0.85);
       backdrop-filter: blur(12px);
       border: 1px solid var(--border-h);
       border-radius: 12px;
@@ -346,7 +357,7 @@
       transition: border-color .25s, background .25s;
       cursor: default;
     }
-    .lesson-row:hover { border-color: var(--border-h); background: rgba(255,255,255,0.05); }
+    .lesson-row:hover { border-color: var(--border-h); background: rgba(124,58,237,0.07); }
     .lesson-n {
       font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
       color: var(--gold); text-transform: uppercase;
@@ -358,7 +369,7 @@
     .lesson-badge {
       font-size: 12px; font-weight: 600; white-space: nowrap;
       padding: 6px 14px; border-radius: 100px;
-      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      background: rgba(124,58,237,0.07); border: 1px solid var(--border);
       color: var(--sub);
     }
     .lesson-badge.now {
@@ -381,7 +392,7 @@
     .tool-card:hover { border-color: var(--border-h); transform: translateY(-3px); }
     .tool-icon-box {
       width: 48px; height: 48px; flex-shrink: 0; border-radius: 14px;
-      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      background: rgba(124,58,237,0.07); border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       font-size: 22px;
     }
@@ -450,7 +461,7 @@
       font-weight: 700; font-size: 16px; letter-spacing: -.3px;
       padding: 18px; border-radius: 100px; text-decoration: none;
       transition: transform .2s, opacity .2s;
-      box-shadow: 0 20px 60px rgba(255,255,255,0.1);
+      box-shadow: 0 20px 60px rgba(124,58,237,0.10);
     }
     .price-cta:hover { transform: translateY(-2px); opacity: .92; }
     .price-secure { font-size: 12px; color: var(--muted); margin-top: 16px; }
@@ -806,7 +817,7 @@ section, .card, [class*="card"] {
   </div>
   <!-- Текстовые отзывы -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:40px;">
-    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;">
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(124,58,237,0.12);border-radius:20px;padding:28px;">
       <div style="font-size:22px;margin-bottom:12px;">⭐⭐⭐⭐⭐</div>
       <p style="font-size:15px;color:#b0b0c8;line-height:1.7;margin-bottom:16px;">"Сделала аватар за один вечер. Теперь записываю Reels без камеры — просто пишу текст и аватар говорит. Сэкономила часы каждую неделю!"</p>
       <div style="display:flex;align-items:center;gap:12px;">
@@ -814,7 +825,7 @@ section, .card, [class*="card"] {
         <div><div style="font-size:14px;font-weight:600;color:#fff;">Анастасія С.</div><div style="font-size:12px;color:#6b6b80;">Контент-мейкер · Украина</div></div>
       </div>
     </div>
-    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;">
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(124,58,237,0.12);border-radius:20px;padding:28px;">
       <div style="font-size:22px;margin-bottom:12px;">⭐⭐⭐⭐⭐</div>
       <p style="font-size:15px;color:#b0b0c8;line-height:1.7;margin-bottom:16px;">"Не верил что за $19 можно получить такой результат. Создал аватар с клоном голоса — клиенты думают что я лично записал видео. Рекомендую!"</p>
       <div style="display:flex;align-items:center;gap:12px;">
@@ -822,7 +833,7 @@ section, .card, [class*="card"] {
         <div><div style="font-size:14px;font-weight:600;color:#fff;">Максим Д.</div><div style="font-size:12px;color:#6b6b80;">Онлайн-предприниматель · Казахстан</div></div>
       </div>
     </div>
-    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;">
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(124,58,237,0.12);border-radius:20px;padding:28px;">
       <div style="font-size:22px;margin-bottom:12px;">⭐⭐⭐⭐⭐</div>
       <p style="font-size:15px;color:#b0b0c8;line-height:1.7;margin-bottom:16px;">"Adobe Podcast — вообще магия. Записала голос в шумном кафе — после обработки звучит как студия. Курс окупился за первый же пост."</p>
       <div style="display:flex;align-items:center;gap:12px;">
@@ -858,7 +869,7 @@ section, .card, [class*="card"] {
         <li><div class="price-check">✔</div><span>Пошаговые видеоуроки <span style="color:rgba(255,255,255,0.35);font-size:13px;">(стоит 7)</span></span></li>
         <li><div class="price-check">✔</div><span>Доступ навсегда</span></li>
       </ul>
-      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;margin-bottom:20px;text-align:center;">
+      <div style="background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.12);border-radius:12px;padding:12px 16px;margin-bottom:20px;text-align:center;">
         <span style="font-size:13px;color:rgba(255,255,255,0.4);">Общая ценность: </span><span style="text-decoration:line-through;color:rgba(255,255,255,0.3);font-size:13px;">97</span><span style="font-size:15px;font-weight:700;color:#fff;"> → ты платишь <span style="color:#4ade80;">$19</span></span>
       </div>
       <div style="margin:0 0 18px;display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,60,60,0.10);border:1px solid rgba(255,80,80,0.25);border-radius:12px;padding:10px 20px">
@@ -866,11 +877,11 @@ section, .card, [class*="card"] {
         <span style="font-size:13px;color:#ff6b6b;font-weight:600">Скидка закрывается через: <span id="countdown2" style="font-variant-numeric:tabular-nums;color:#fff">23:59:59</span></span>
       </div>
       <a href="https://t.me/AiAvatar_1bot" onclick="fbq('track', 'InitiateCheckout', {value: 19, currency: 'USD'})"   class="price-cta">Купить за $19 — старт сейчас →</a>
-      <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,0.04);border-radius:14px;border:1px solid rgba(255,255,255,0.08);text-align:left;">
+      <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,0.04);border-radius:14px;border:1px solid rgba(124,58,237,0.12);text-align:left;">
         <div style="font-size:15px;font-weight:700;margin-bottom:4px;">🛡 Гарантия возврата 24 часа</div>
         <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;">Если за 24 часа не создашь свой AI-аватар — верну $19 и дам бонусный урок бесплатно. Весь риск на мне.</div>
       </div>
-      <div style="margin-top:12px;padding:14px 16px;background:rgba(255,255,255,0.03);border-radius:14px;border:1px solid rgba(255,255,255,0.06);text-align:left;">
+      <div style="margin-top:12px;padding:14px 16px;background:rgba(124,58,237,0.05);border-radius:14px;border:1px solid rgba(255,255,255,0.06);text-align:left;">
         <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px;">сравни с агентствами</div>
         <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:2.0;">Создание AI-аватара в агентстве — от $500<br>Озвучка у профи — от $200<br>Монтаж видео — от $150</div>
         <div style="margin-top:8px;font-size:14px;font-weight:700;color:#fff;">Итого у агентств: $850+ → ты делаешь сам за $19</div>

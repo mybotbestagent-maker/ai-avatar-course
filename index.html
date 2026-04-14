@@ -961,8 +961,8 @@ section, .card, [class*="card"] {
 <!-- COMPARE — vs other course platforms -->
 <section style="padding:60px 0 100px;">
   <div class="sh center reveal"><div class="sh-eye">Сравнение</div><h2>Почему не<br>Udemy или YouTube?</h2></div>
-  <div class="reveal" style="max-width:860px;margin:48px auto 0;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
-    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+  <div class="reveal compare-wrap" style="max-width:860px;margin:48px auto 0;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow-x:auto;-webkit-overflow-scrolling:touch;">
+    <table style="width:100%;min-width:640px;border-collapse:collapse;font-size:14px;">
       <thead>
         <tr>
           <th style="text-align:left;padding:20px 24px;color:rgba(255,255,255,0.5);font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;">&nbsp;</th>
@@ -1021,7 +1021,14 @@ section, .card, [class*="card"] {
   <p style="text-align:center;margin-top:32px;max-width:580px;margin-left:auto;margin-right:auto;font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;">
     Можно найти эти знания бесплатно. Но уйдут часы на поиск, тестирование ошибок и отделение рабочих советов от шума. За $19 ты получаешь готовую проверенную схему.
   </p>
-  <style>@media(max-width:640px){section table{font-size:12px !important;}section table td, section table th{padding:10px 8px !important;}}</style>
+  <style>
+    @media(max-width:640px){
+      .compare-wrap{margin-left:-16px !important;margin-right:-16px !important;border-radius:0 !important;border-left:none !important;border-right:none !important;}
+      .compare-wrap table{font-size:12px !important;min-width:580px !important;}
+      .compare-wrap table td, .compare-wrap table th{padding:12px 10px !important;}
+      .compare-wrap::after{content:'← листай →';display:block;text-align:center;font-size:11px;color:rgba(255,255,255,0.4);padding:8px;letter-spacing:1px;}
+    }
+  </style>
 </section>
 
 <!-- HOW -->

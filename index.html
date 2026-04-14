@@ -669,10 +669,28 @@ section, .card, [class*="card"] {
     </div>
   </div>
   <script>
-    // Запускаем видео сразу при загрузке
+    // Autoplay muted + unmute on FIRST user interaction (scroll/touch/click)
+    // Browsers block autoplay with sound on first load — this is the workaround
     document.addEventListener('DOMContentLoaded', function() {
       var v = document.getElementById('heroVideo');
+      if (!v) return;
+      v.muted = true;
       v.play().catch(function(){});
+
+      var unmuted = false;
+      function unmuteOnInteraction() {
+        if (unmuted) return;
+        unmuted = true;
+        try {
+          v.muted = false;
+          v.play().catch(function(){});
+          var btn = document.getElementById('soundBtn');
+          if (btn) btn.style.display = 'none';
+        } catch(e) {}
+      }
+      ['touchstart','click','scroll','keydown'].forEach(function(ev){
+        window.addEventListener(ev, unmuteOnInteraction, { once: true, passive: true });
+      });
     });
   </script>
 
@@ -1195,7 +1213,9 @@ document.querySelectorAll('.faq-q').forEach(q => {
   <a href="https://t.me/AiAvatar_1bot" onclick="fbq('track','InitiateCheckout',{value:19,currency:'USD'})">Купить →</a>
 </div>
 
-<a href="https://t.me/Farrukh_2015" target="_blank" style="position:fixed;bottom:58px;left:16px;z-index:1000;background:#2b5faa;color:#fff;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(43,95,170,0.5);text-decoration:none;" title="Связаться с нами">💬</a>
+<!-- Floating support — show only on desktop (mobile has sticky-cta) -->
+<a href="https://t.me/handy_dad" target="_blank" style="position:fixed;bottom:24px;right:24px;z-index:1000;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#fff;border-radius:50px;padding:12px 20px;display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;" class="desktop-support" title="Связаться с нами">💬 Написать</a>
+<style>@media(max-width:720px){.desktop-support{display:none !important;}}</style>
 <script>
 // Countdown timer — 24h from first visit, saved in localStorage
 (function() {

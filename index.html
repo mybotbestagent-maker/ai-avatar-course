@@ -1096,6 +1096,25 @@ section, .card, [class*="card"] {
   </div>
 </section>
 
+<!-- LIVE PROOF — Instagram Reels embed -->
+<section style="padding:60px 0 100px;">
+  <div class="sh center reveal"><div class="sh-eye">Живое доказательство</div><h2>Вот мои Reels,<br>сделанные AI-аватаром</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:560px;margin:16px auto 0;line-height:1.7;">Оба видео сгенерированы ровно тем способом, которому я учу в курсе. Ни одна секунда не снята на камеру.</p>
+  </div>
+  <div class="reveal" style="max-width:760px;margin:48px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+    <div style="border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#000;aspect-ratio:9/16;">
+      <iframe src="https://www.instagram.com/reel/DW1Ok44jOBH/embed/" loading="lazy" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
+    </div>
+    <div style="border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#000;aspect-ratio:9/16;">
+      <iframe src="https://www.instagram.com/reel/DWyrNR9jHWr/embed/" loading="lazy" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:32px;font-size:14px;color:rgba(255,255,255,0.5);">
+    Хочешь больше? <a href="https://instagram.com/handydad_" target="_blank" style="color:#06b6d4;text-decoration:none;font-weight:600;">@handydad_ в Instagram →</a>
+  </p>
+  <style>@media(max-width:640px){section[class=""] div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}}</style>
+</section>
+
 <!-- AUTHOR -->
 <section>
   <div class="sh reveal"><div class="sh-eye">Автор</div><h2>Кто ведёт курс</h2></div>
@@ -1401,11 +1420,16 @@ document.querySelectorAll('.faq-q').forEach(q => {
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn 0.3s ease;';
     overlay.innerHTML = '<div style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:48px 40px;max-width:460px;width:100%;position:relative;text-align:center;box-shadow:0 40px 120px rgba(0,0,0,0.8);animation:slideUp 0.4s cubic-bezier(0.16,1,0.3,1);">' +
       '<button id="exit-close" style="position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;transition:all 0.2s;">×</button>' +
-      '<div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#4ade80;margin-bottom:16px;font-weight:700;">Подожди</div>' +
-      '<h3 style="font-size:32px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;color:#fff;margin-bottom:16px;">Возьми<br>с собой идею</h3>' +
-      '<p style="font-size:15px;color:rgba(255,255,255,0.65);line-height:1.65;margin-bottom:28px;">Ты уже здесь. Попробуй — если за 24 часа не сделаешь свой AI-аватар, вернём $19 обратно. Никаких вопросов, никакого риска.</p>' +
-      '<a href="https://t.me/AiAvatar_1bot" onclick="fbq(\'track\',\'InitiateCheckout\',{value:19,currency:\'USD\'});fbq(\'track\',\'ViewContent\',{content_name:\'exit_popup\'})" style="display:block;background:#fff;color:#000;font-weight:800;font-size:16px;padding:18px;border-radius:100px;text-decoration:none;transition:transform 0.2s;">Попробовать за $19 →</a>' +
-      '<div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,0.4);">🔒 Гарантия возврата 24 часа</div>' +
+      '<div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#4ade80;margin-bottom:16px;font-weight:700;">Специально для тебя</div>' +
+      '<h3 style="font-size:32px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;color:#fff;margin-bottom:20px;">Скидка $4<br>только сейчас</h3>' +
+      '<div style="display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:20px;">' +
+      '<span style="font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px;">$15</span>' +
+      '<span style="font-size:22px;color:rgba(255,255,255,0.4);text-decoration:line-through;">$19</span>' +
+      '<span style="font-size:12px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);color:#4ade80;padding:4px 10px;border-radius:100px;font-weight:700;">−$4</span>' +
+      '</div>' +
+      '<p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:28px;">Ты уже здесь — попробуй. Если за 24 часа не сделаешь свой AI-аватар, вернём $15 обратно. Никаких вопросов.</p>' +
+      '<a href="https://t.me/AiAvatar_1bot?start=exit15" onclick="fbq(\'track\',\'InitiateCheckout\',{value:15,currency:\'USD\'});fbq(\'track\',\'ViewContent\',{content_name:\'exit_popup_discount\'})" style="display:block;background:#fff;color:#000;font-weight:800;font-size:16px;padding:18px;border-radius:100px;text-decoration:none;transition:transform 0.2s;">Получить за $15 →</a>' +
+      '<div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,0.4);">🔒 Гарантия возврата 24 часа · Visa · Mastercard · Apple Pay</div>' +
       '</div>';
     document.body.appendChild(overlay);
     overlay.querySelector('#exit-close').onclick = function() { overlay.remove(); };

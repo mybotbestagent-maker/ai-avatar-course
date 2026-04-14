@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = process.env.STRIPE_SECRET_KEY ? require('stripe')(process.env.STRIPE_SECRET_KEY) : null;
 
 // Create payment intent for invoice
 router.post('/create-payment-intent/:invoiceId', async (req, res) => {
+  if (!stripe) return res.status(503).json({ error: 'Stripe not configured' });
   try {
     const inv = db.prepare('SELECT * FROM invoices WHERE id = ?').get(req.params.invoiceId);
     if (!inv) return res.status(404).json({ error: 'Invoice not found' });
@@ -35,15 +36,33 @@ router.post('/create-payment-intent/:invoiceId', async (req, res) => {
   }
 });
 
-// Mark invoice paid after successful payment
-router.post('/payment-success/:invoiceId', async (req, res) => {
-  const { payment_intent_id, tip = 0 } = req.body;
-  const inv = db.prepare('SELECT * FROM invoices WHERE id = ?').get(req.params.invoiceId);
-  if (!inv) return res.status(404).json({ error: 'Not found' });
+// NOTE: previously a public `/payment-success/:invoiceId` endpoint let anyone
+// mark an invoice paid. Removed. Use the Stripe webhook below as source of truth.
+// For manual payments (cash, Zelle, bank transfer) use the authenticated
+// PUT /api/invoices/:id with status='paid'.
 
-  db.prepare("UPDATE invoices SET status='paid', paid=total+? WHERE id=?").run(tip, req.params.invoiceId);
-  console.log(`[PAYMENT] Invoice #${req.params.invoiceId} paid. PI: ${payment_intent_id}`);
-  res.json({ success: true });
+const bodyParser = require('express').raw({ type: 'application/json' });
+router.post('/stripe-webhook', bodyParser, async (req, res) => {
+  if (!stripe) return res.status(503).send('stripe-not-configured');
+  const sig = req.headers['stripe-signature'];
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  if (!secret) return res.status(503).send('webhook-secret-missing');
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, secret);
+  } catch (err) {
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+  if (event.type === 'payment_intent.succeeded') {
+    const pi = event.data.object;
+    const invoiceId = pi.metadata?.invoice_id;
+    const tip = parseFloat(pi.metadata?.tip || '0');
+    if (invoiceId) {
+      db.prepare("UPDATE invoices SET status='paid', paid=total+? WHERE id=?").run(tip, invoiceId);
+      console.log(`[STRIPE WEBHOOK] Invoice #${invoiceId} paid via PI ${pi.id}`);
+    }
+  }
+  res.json({ received: true });
 });
 
 // Save signature

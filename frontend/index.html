@@ -515,7 +515,7 @@ tr:last-child td{border-bottom:none}
 <div class="toast" id="toast"></div>
 
 <script>
-const BASE='/crm';
+const BASE=(location.pathname.startsWith('/crm')?'/crm':'');
 let TOKEN=localStorage.getItem('crm_token')||'';
 let CUR_LEAD=null, CUR_LEADS=[], CUR_JOBS=[], allTechs=[], pbData=[], pbPickTarget='est';
 let calWeekOffset=0;
@@ -627,7 +627,7 @@ async function sendMsg(){
   const body = input.value.trim();
   if(!body) return;
   input.value='';
-  await api('/api/messages/send','POST',{phone:currentPhone,body});
+  await api('/api/messages/send',{method:'POST',body:JSON.stringify({phone:currentPhone,body})});
   openChat(currentPhone);
 }
 

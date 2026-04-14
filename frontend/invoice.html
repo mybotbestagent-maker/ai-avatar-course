@@ -85,7 +85,7 @@ let invoiceData = null, signatureData = null, selectedTip = 0, stripe = null, el
 
 async function loadInvoice() {
   try {
-    const r = await fetch('/crm/api/invoices/' + invoiceId);
+    const r = await fetch((location.pathname.startsWith('/crm')?'/crm':'') + '/api/invoices/' + invoiceId);
     invoiceData = await r.json();
     if (invoiceData.error) { document.getElementById('loader').textContent = 'Invoice not found.'; return; }
     document.getElementById('loader').className = 'loader';
@@ -240,7 +240,7 @@ function clearSig() { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); si
 async function saveSig() {
   signatureData = sigCanvas.toDataURL();
   sigCanvas.classList.add('signed');
-  await fetch('/crm/api/payments/sign/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({signature:signatureData})});
+  await fetch((location.pathname.startsWith('/crm')?'/crm':'') + '/api/payments/sign/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({signature:signatureData})});
   alert('✅ Signature saved!');
 }
 
@@ -275,7 +275,7 @@ function selectPM(method, el) {
 
 // ── Stripe ──
 function initStripe() {
-  fetch('/crm/api/payments/create-payment-intent/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:0})})
+  fetch((location.pathname.startsWith('/crm')?'/crm':'') + '/api/payments/create-payment-intent/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:0})})
     .then(r=>r.json()).then(data => {
       if (data.error) return;
       stripe = Stripe(data.publishableKey);
@@ -292,7 +292,7 @@ async function submitPayment() {
   btn.disabled = true; btn.textContent = 'Processing...';
 
   if (paymentMethod === 'zelle' || paymentMethod === 'cash') {
-    await fetch('/crm/api/payments/payment-success/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:selectedTip})});
+    await fetch((location.pathname.startsWith('/crm')?'/crm':'') + '/api/payments/payment-success/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:selectedTip})});
     document.getElementById('success-screen').classList.add('show');
     document.getElementById('main-container').style.display='none';
     return;
@@ -300,7 +300,7 @@ async function submitPayment() {
 
   try {
     // Refresh payment intent with tip
-    const piResp = await fetch('/crm/api/payments/create-payment-intent/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:selectedTip})});
+    const piResp = await fetch((location.pathname.startsWith('/crm')?'/crm':'') + '/api/payments/create-payment-intent/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tip:selectedTip})});
     const piData = await piResp.json();
 
     const result = await stripe.confirmCardPayment(piData.clientSecret, {
@@ -311,7 +311,7 @@ async function submitPayment() {
       document.getElementById('card-errors').textContent = result.error.message;
       btn.disabled = false; btn.innerHTML = 'Pay $<span id="pay-amount">'+(+invoiceData.total+selectedTip).toFixed(2)+'</span>';
     } else {
-      await fetch('/crm/api/payments/payment-success/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({payment_intent_id:result.paymentIntent.id,tip:selectedTip})});
+      await fetch((location.pathname.startsWith('/crm')?'/crm':'') + '/api/payments/payment-success/'+invoiceId, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({payment_intent_id:result.paymentIntent.id,tip:selectedTip})});
       document.getElementById('success-screen').classList.add('show');
       document.getElementById('main-container').style.display='none';
     }

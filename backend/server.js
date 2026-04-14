@@ -3,16 +3,32 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const rateLimit = require('express-rate-limit');
+const db = require('./database');
 
 const app = express();
 const PORT = process.env.PORT || 3335;
-const JWT_SECRET = 'goldHands_jwt_secret_2026';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET || JWT_SECRET.length < 32) {
+  console.error('❌ JWT_SECRET missing or too short (need 32+ chars). Set it in .env.');
+  process.exit(1);
+}
 
-app.use(cors());
-app.use(express.json());
+const allowedOrigins = (process.env.CORS_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean);
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) return cb(null, true);
+    cb(new Error('CORS blocked: ' + origin));
+  },
+}));
+app.use(express.json({ limit: '1mb' }));
+
+// Stripe webhook needs raw body — must be mounted BEFORE express.json for that specific path.
+// Here it's handled inside routes/payments.js via bodyParser.raw for that route only.
+
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// ── Auth middleware ──
 function authMiddleware(req, res, next) {
   const auth = req.headers['authorization'];
   const token = auth && auth.split(' ')[1];
@@ -20,35 +36,59 @@ function authMiddleware(req, res, next) {
   try {
     req.user = jwt.verify(token, JWT_SECRET);
     next();
-  } catch(e) {
+  } catch (e) {
     res.status(401).json({ error: 'Invalid token' });
   }
 }
 
-// ── Auth routes (public) ──
-app.post('/api/auth/login', (req, res) => {
-  const { username, password } = req.body;
-  const users = [
-    { username: 'dispatcher', password: 'goldHands2026', role: 'dispatcher' },
-    { username: 'admin', password: 'admin2026', role: 'admin' },
-  ];
-  const user = users.find(u => u.username === username && u.password === password);
-  if (!user) return res.status(401).json({ error: 'Invalid credentials' });
+function requireRole(...roles) {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+    next();
+  };
+}
+
+// Seed default admin if users table is empty (one-time bootstrap from env)
+(function seedUsers() {
+  const count = db.prepare('SELECT COUNT(*) as c FROM users').get().c;
+  if (count === 0) {
+    const adminPwd = process.env.ADMIN_BOOTSTRAP_PASSWORD;
+    if (adminPwd) {
+      const hash = bcrypt.hashSync(adminPwd, 10);
+      db.prepare('INSERT INTO users (username, password_hash, role) VALUES (?,?,?)').run('admin', hash, 'admin');
+      console.log('✅ Bootstrap admin user created (username: admin)');
+    } else {
+      console.warn('⚠️  No users in DB and ADMIN_BOOTSTRAP_PASSWORD not set. Login will not work.');
+    }
+  }
+})();
+
+const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, standardHeaders: true, legacyHeaders: false });
+
+app.post('/api/auth/login', loginLimiter, (req, res) => {
+  const { username, password } = req.body || {};
+  if (!username || !password) return res.status(400).json({ error: 'Missing credentials' });
+  const user = db.prepare('SELECT * FROM users WHERE username=?').get(username);
+  if (!user || !bcrypt.compareSync(password, user.password_hash)) {
+    return res.status(401).json({ error: 'Invalid credentials' });
+  }
   const token = jwt.sign({ username: user.username, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
   res.json({ token, username: user.username, role: user.role });
 });
 
-// ── Public routes ──
+app.get('/health', (req, res) => res.json({ ok: true, ts: Date.now() }));
+
 app.get('/invoice/:id', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/invoice.html'));
 });
-app.use('/api/payments', require('./routes/payments')); // Stripe webhooks need to be public
+
 app.use('/webhook', require('./routes/webhook'));
 app.get('/auth/callback', (req, res) => {
   res.send('<h2>✅ Authorization received! You can close this window.</h2>');
 });
 
-// ── Protected API routes ──
 app.use('/api', authMiddleware);
 
 app.use('/api/leads', require('./routes/leads'));
@@ -59,10 +99,9 @@ app.use('/api/invoices', require('./routes/invoices'));
 app.use('/api/pricebook', require('./routes/pricebook'));
 app.use('/api/clients', require('./routes/clients'));
 app.use('/api/messages', require('./routes/messages'));
+app.use('/api/payments', require('./routes/payments'));
 
-// Dashboard stats
 app.get('/api/stats', (req, res) => {
-  const db = require('./database');
   const today = new Date().toISOString().split('T')[0];
   const weekAgo = new Date(Date.now() - 7*24*60*60*1000).toISOString().split('T')[0];
   const monthAgo = new Date(Date.now() - 30*24*60*60*1000).toISOString().split('T')[0];
@@ -85,7 +124,6 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
-// SPA fallback
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
@@ -93,3 +131,5 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 CRM Gold Hands running on http://localhost:${PORT}`);
 });
+
+module.exports = { requireRole };

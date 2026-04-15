@@ -17,12 +17,15 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '2166647804098712');
     fbq('track', 'PageView');
+    var _p = new URLSearchParams(location.search);
+    var _amt = parseFloat(_p.get('amount') || '19');
     fbq('track', 'Purchase', {
-        value: 19.00,
+        value: _amt,
         currency: 'USD',
         content_name: 'AI Avatar Course',
         content_type: 'product'
     });
+    setTimeout(function(){ location.href = 'https://t.me/AiAvatar_1bot?start=paid'; }, 3500);
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2166647804098712&ev=Purchase&noscript=1"

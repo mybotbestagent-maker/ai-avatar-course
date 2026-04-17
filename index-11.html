@@ -702,7 +702,20 @@ section, .card, [class*="card"] {
       var v = document.getElementById('heroVideo');
       if (!v) return;
       v.muted = true;
-      v.play().catch(function(){});
+      v.setAttribute('playsinline','');
+      v.setAttribute('webkit-playsinline','');
+      v.play().catch(function(){
+        // iOS fallback: retry on visibility change
+        document.addEventListener('visibilitychange', function(){
+          if(!document.hidden) v.play().catch(function(){});
+        }, {once:true});
+      });
+      // Force play on intersection (when video scrolls into view)
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function(entries){
+          entries.forEach(function(e){ if(e.isIntersecting) v.play().catch(function(){}); });
+        }).observe(v);
+      }
 
       var unmuted = false;
       function unmuteOnInteraction() {

@@ -33,7 +33,7 @@
     },
     "offers": {
       "@type": "Offer",
-      "price": "19.00",
+      "price": "11.00",
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock",
       "url": "https://t.me/AiAvatar_1bot?start=price11"
@@ -744,7 +744,7 @@ section, .card, [class*="card"] {
   <div style="margin:0 0 12px;display:flex;align-items:baseline;gap:12px;justify-content:center;">
     <span style="font-size:42px;font-weight:900;color:#fff;letter-spacing:-2px;">$11</span>
     <span style="font-size:22px;color:rgba(255,255,255,0.35);text-decoration:line-through;font-weight:500;">$97</span>
-    <span style="font-size:13px;background:rgba(255,60,60,0.2);color:#ff6b6b;border:1px solid rgba(255,60,60,0.3);border-radius:20px;padding:3px 10px;font-weight:600;">− 81%</span>
+    <span style="font-size:13px;background:rgba(255,60,60,0.2);color:#ff6b6b;border:1px solid rgba(255,60,60,0.3);border-radius:20px;padding:3px 10px;font-weight:600;">− 89%</span>
   </div>
   <div class="hero-actions">
     <a href="https://t.me/AiAvatar_1bot?start=price11" onclick="fbq('track', 'InitiateCheckout', {value: 11, currency: 'USD'})"   class="btn-white">Получить курс за $11 →</a>
@@ -1168,7 +1168,7 @@ section, .card, [class*="card"] {
     <div class="faq-item reveal d2"><div class="faq-q">Когда я получу уроки?<div class="faq-chevron">＋</div></div><div class="faq-a">Сразу после оплаты — все 3 урока прилетают в бот @AiAvatar_1bot в Telegram. Плюс бонус с 10 способами автоматизации Instagram.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q">Как долго будет доступ?<div class="faq-chevron">＋</div></div><div class="faq-a">Навсегда. Оплатил один раз — доступ в боте не истекает никогда.</div></div>
     <div class="faq-item reveal"><div class="faq-q">Работает ли в моей стране?<div class="faq-chevron">＋</div></div><div class="faq-a">Да. Оплата через Stripe — принимает карты Visa/Mastercard/Apple Pay со всего мира. HeyGen и ElevenLabs доступны глобально. Adobe Podcast — бесплатно, работает везде.</div></div>
-    <div class="faq-item reveal d1"><div class="faq-q">А если не получится — вернут деньги?<div class="faq-chevron">＋</div></div><div class="faq-a">Да, 24 часа полный refund без вопросов. Напиши @handy_dad — вернём $11 на карту. Весь риск на нас.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q">А если не получится — вернут деньги?<div class="faq-chevron">＋</div></div><div class="faq-a">Да, 7 дней полный refund без вопросов. Напиши @handy_dad — вернём $11 на карту. Весь риск на нас.</div></div>
   </div>
 </section>
 
@@ -1176,7 +1176,7 @@ section, .card, [class*="card"] {
 <section class="final-sec">
   <div class="reveal">
     <h2>Завтра у тебя<br>будет <em>AI-аватар</em></h2>
-    <p>Или $11 возврат. Никаких вопросов. 24 часа на решение.</p>
+    <p>Или $11 возврат. Никаких вопросов. 7 дней на решение.</p>
     <a href="https://t.me/AiAvatar_1bot?start=price11" onclick="fbq('track', 'InitiateCheckout', {value: 11, currency: 'USD'})" class="btn-white">Получить курс за $11 →</a>
     <div style="margin-top:20px;font-size:13px;color:rgba(255,255,255,0.4);">⚡ Доступ открывается мгновенно в @AiAvatar_1bot</div>
   </div>
@@ -1429,46 +1429,14 @@ document.querySelectorAll('.faq-q').forEach(q => {
 
 <div class="sticky-cta">
   <div class="price">$11<small>$97</small></div>
-  <a href="https://t.me/AiAvatar_1bot?start=price11" onclick="fbq('track','InitiateCheckout',{value:19,currency:'USD'})">Купить →</a>
+  <a href="https://t.me/AiAvatar_1bot?start=price11" onclick="fbq('track','InitiateCheckout',{value:11,currency:'USD'})">Купить →</a>
 </div>
 
 <!-- Floating support — show only on desktop (mobile has sticky-cta) -->
 <a href="https://t.me/handy_dad" target="_blank" style="position:fixed;bottom:24px;right:24px;z-index:1000;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#fff;border-radius:50px;padding:12px 20px;display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;" class="desktop-support" title="Связаться с нами">💬 Написать</a>
 <style>@media(max-width:720px){.desktop-support{display:none !important;}}</style>
 <script>
-// Exit intent popup — desktop only (mobile has sticky CTA)
-(function() {
-  if (window.innerWidth < 720) return;
-  if (localStorage.getItem('exit_shown')) return;
-  var shown = false;
-  function showExit() {
-    if (shown) return;
-    shown = true;
-    localStorage.setItem('exit_shown', '1');
-    var overlay = document.createElement('div');
-    overlay.id = 'exit-overlay';
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn 0.3s ease;';
-    overlay.innerHTML = '<div style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:48px 40px;max-width:460px;width:100%;position:relative;text-align:center;box-shadow:0 40px 120px rgba(0,0,0,0.8);animation:slideUp 0.4s cubic-bezier(0.16,1,0.3,1);">' +
-      '<button id="exit-close" style="position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;transition:all 0.2s;">×</button>' +
-      '<div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#4ade80;margin-bottom:16px;font-weight:700;">Специально для тебя</div>' +
-      '<h3 style="font-size:32px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;color:#fff;margin-bottom:20px;">Скидка $4<br>только сейчас</h3>' +
-      '<div style="display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:20px;">' +
-      '<span style="font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px;">$15</span>' +
-      '<span style="font-size:22px;color:rgba(255,255,255,0.4);text-decoration:line-through;">$11</span>' +
-      '<span style="font-size:12px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);color:#4ade80;padding:4px 10px;border-radius:100px;font-weight:700;">−$4</span>' +
-      '</div>' +
-      '<p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:28px;">Ты уже здесь — попробуй. Если за 24 часа не сделаешь свой AI-аватар, вернём $15 обратно. Никаких вопросов.</p>' +
-      '<a href="https://t.me/AiAvatar_1bot?start=price11" onclick="fbq(\'track\',\'InitiateCheckout\',{value:15,currency:\'USD\'});fbq(\'track\',\'ViewContent\',{content_name:\'exit_popup_discount\'})" style="display:block;background:#fff;color:#000;font-weight:800;font-size:16px;padding:18px;border-radius:100px;text-decoration:none;transition:transform 0.2s;">Получить за $15 →</a>' +
-      '<div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,0.4);">🔒 Гарантия возврата 24 часа · Visa · Mastercard · Apple Pay</div>' +
-      '</div>';
-    document.body.appendChild(overlay);
-    overlay.querySelector('#exit-close').onclick = function() { overlay.remove(); };
-    overlay.onclick = function(e) { if (e.target === overlay) overlay.remove(); };
-  }
-  document.addEventListener('mouseout', function(e) {
-    if (!e.toElement && !e.relatedTarget && e.clientY < 10) showExit();
-  });
-})();
+// Exit intent popup — disabled for $11 LP (already lowest price)
 var exitStyles = document.createElement('style');
 exitStyles.textContent = '@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}';
 document.head.appendChild(exitStyles);

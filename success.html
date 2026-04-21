@@ -17,15 +17,12 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '2166647804098712');
     fbq('track', 'PageView');
-    var _p = new URLSearchParams(location.search);
-    var _amt = parseFloat(_p.get('amount') || '19');
     fbq('track', 'Purchase', {
-        value: _amt,
+        value: 19,
         currency: 'USD',
         content_name: 'AI Avatar Course',
         content_type: 'product'
     });
-    setTimeout(function(){ location.href = 'https://t.me/AiAvatar_1bot?start=paid'; }, 3500);
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2166647804098712&ev=Purchase&noscript=1"
@@ -33,45 +30,102 @@
     <!-- End Facebook Pixel -->
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0f;
+            color: #f0f0f5;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 2rem;
+            -webkit-font-smoothing: antialiased;
         }
-        .container { max-width: 500px; }
-        .emoji { font-size: 4rem; margin-bottom: 1.5rem; }
-        h1 { font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 1.5rem; line-height: 1.6; }
+        .container { max-width: 540px; width: 100%; }
+        .celebration { font-size: 4.5rem; margin-bottom: 1.5rem; animation: bounce 0.6s ease-in-out; }
+        @keyframes bounce {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        h1 {
+            font-size: 2.2rem; font-weight: 800; margin-bottom: 0.8rem;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .subtitle { font-size: 1.15rem; opacity: 0.8; margin-bottom: 2rem; line-height: 1.6; }
+        .card {
+            background: #12121a; border: 1px solid rgba(124,58,237,0.2);
+            border-radius: 16px; padding: 28px 24px; margin-bottom: 1.5rem; text-align: left;
+        }
+        .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #fff; }
+        .card p { font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.7); }
         .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-top: 1rem;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            color: white; padding: 16px 32px; border-radius: 100px;
+            text-decoration: none; font-size: 1.1rem; font-weight: 700;
+            margin-top: 0.5rem; transition: transform 0.2s, box-shadow 0.2s;
         }
-        .note { margin-top: 2rem; font-size: 0.9rem; opacity: 0.5; }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.3); }
+        .optional { margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.45); }
+        .contact {
+            margin-top: 2rem; padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.9rem; color: rgba(255,255,255,0.4);
+        }
+        .contact a { color: #64b5f6; text-decoration: none; }
+        .confetti { position: fixed; top:0; left:0; right:0; bottom:0; pointer-events: none; z-index: 10; overflow: hidden; }
+        .confetti span {
+            position: absolute; width: 10px; height: 10px; border-radius: 2px;
+            animation: fall 3s ease-out forwards; opacity: 0;
+        }
+        @keyframes fall {
+            0% { opacity: 1; transform: translateY(-20px) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+        }
     </style>
 </head>
 <body>
+    <div class="confetti" id="confetti"></div>
     <div class="container">
-        <div class="emoji">🎉</div>
-        <h1>Оплата прошла!</h1>
-        <p>Добро пожаловать в AI Avatar Course.<br>Твой аватар ждёт тебя в боте.</p>
-        <a href="https://t.me/AiAvatar_1bot" class="cta-button">
-            Открыть бот → @AiAvatar_1bot
+        <div class="celebration">&#x1F389;</div>
+        <h1>Поздравляем! Оплата прошла успешно!</h1>
+        <p class="subtitle">Уроки отправлены на твой email, указанный при оплате.</p>
+
+        <div class="card">
+            <h3>&#x1F4AC; Хочешь получить уроки в Telegram?</h3>
+            <p>Наш бот отправит тебе все материалы прямо в чат. Удобно, быстро, всё под рукой.</p>
+        </div>
+
+        <a href="https://t.me/AiAvatar_1bot?start=paid" class="cta-button">
+            Перейти в Telegram бот
         </a>
-        <p class="note">Если бот не отвечает — напиши @handy_dad</p>
+
+        <p class="optional">Если не хочешь Telegram — все уроки уже на твоей почте.</p>
+
+        <div class="contact">
+            Вопросы? Напиши <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>
+        </div>
     </div>
+
+    <script>
+    (function() {
+        var c = document.getElementById('confetti');
+        var colors = ['#7c3aed','#06b6d4','#10b981','#f59e0b','#ef4444','#ec4899'];
+        for (var i = 0; i < 50; i++) {
+            var s = document.createElement('span');
+            s.style.left = Math.random() * 100 + '%';
+            s.style.background = colors[Math.floor(Math.random() * colors.length)];
+            s.style.animationDelay = Math.random() * 2 + 's';
+            s.style.width = (Math.random() * 8 + 6) + 'px';
+            s.style.height = (Math.random() * 8 + 6) + 'px';
+            c.appendChild(s);
+        }
+    })();
+    </script>
 </body>
 </html>

@@ -116,14 +116,14 @@
 
         <div class="card">
             <h3>&#x1F512; Закрытый Telegram-канал</h3>
-            <p>Все уроки и бонусы лежат в закрытом канале. Контент защищён: нельзя переслать или сделать скриншот.</p>
+            <p>Все уроки и бонусы лежат в закрытом канале. Контент защищён: нельзя переслать или сделать скриншот. Доступ — по твоей персональной ссылке ниже (одноразовая, только для тебя).</p>
         </div>
 
-        <a href="https://t.me/+fAyYphP1lwI3YWQy" target="_blank" class="cta-button">
-            🔒 Войти в закрытый канал →
+        <a id="channelBtn" href="#" class="cta-button" disabled>
+            <span class="spinner"></span>Готовим персональную ссылку...
         </a>
 
-        <p class="optional">Нажми на кнопку выше — откроется Telegram, жми «Вступить». Если что-то не так — <a href="https://t.me/handy_dad" style="color:#64b5f6;">напиши @handy_dad</a>.</p>
+        <p class="optional" id="channelHint">Ссылка появится через пару секунд. Если долго не появилась — <a href="https://t.me/handy_dad" style="color:#64b5f6;">напиши @handy_dad</a>.</p>
 
         <div class="contact">
             Вопросы? <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>
@@ -131,8 +131,8 @@
     </div>
 
     <script>
-    // Confetti only — invite link is static, no polling needed.
     (function() {
+        // Confetti.
         var c = document.getElementById('confetti');
         var colors = ['#7c3aed','#06b6d4','#10b981','#f59e0b','#ef4444','#ec4899'];
         for (var i = 0; i < 50; i++) {
@@ -144,6 +144,50 @@
             s.style.height = (Math.random() * 8 + 6) + 'px';
             c.appendChild(s);
         }
+
+        // Fetch personal invite link via session_id.
+        var WEBHOOK_BASE = 'https://23-94-149-88.sslip.io';
+        var params = new URLSearchParams(window.location.search);
+        var sessionId = params.get('session_id');
+        var btn = document.getElementById('channelBtn');
+        var hint = document.getElementById('channelHint');
+
+        function applyInvite(link) {
+            btn.href = link;
+            btn.target = '_blank';
+            btn.removeAttribute('disabled');
+            btn.innerHTML = '🔒 Войти в закрытый канал →';
+            hint.innerHTML = 'Персональная одноразовая ссылка. Не делись ею — это твой доступ, по нему зайдёт только один человек.';
+        }
+        function fallback(msg) {
+            btn.removeAttribute('disabled');
+            btn.href = 'https://t.me/handy_dad?text=Оплатил%20курс%20—%20не%20пришла%20ссылка';
+            btn.target = '_blank';
+            btn.innerHTML = 'Связаться с @handy_dad';
+            hint.textContent = msg;
+        }
+
+        if (!sessionId) {
+            fallback('Не получили параметр оплаты. Напиши @handy_dad — выдадим доступ лично.');
+            return;
+        }
+
+        var tries = 0;
+        function poll() {
+            tries++;
+            fetch(WEBHOOK_BASE + '/invite/' + encodeURIComponent(sessionId), {cache:'no-store'})
+              .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+              .then(function(data){
+                  if (data && data.invite_link) applyInvite(data.invite_link);
+                  else if (tries < 15) setTimeout(poll, 2000);
+                  else fallback('Что-то пошло не так. Напиши @handy_dad — мгновенно дадим доступ.');
+              })
+              .catch(function(){
+                  if (tries < 15) setTimeout(poll, 2000);
+                  else fallback('Что-то пошло не так. Напиши @handy_dad — мгновенно дадим доступ.');
+              });
+        }
+        poll();
     })();
     </script>
 </body>

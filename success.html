@@ -17,12 +17,16 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '2166647804098712');
     fbq('track', 'PageView');
-    fbq('track', 'Purchase', {
-        value: 19,
-        currency: 'USD',
-        content_name: 'AI Avatar Course',
-        content_type: 'product'
-    });
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var plan = parseInt(params.get('plan')) || 19;
+      fbq('track', 'Purchase', {
+          value: plan,
+          currency: 'USD',
+          content_name: 'AI Avatar Course',
+          content_type: 'product'
+      });
+    })();
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2166647804098712&ev=Purchase&noscript=1"
@@ -62,15 +66,17 @@
             border-radius: 16px; padding: 28px 24px; margin-bottom: 1.5rem; text-align: left;
         }
         .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #fff; }
-        .card p { font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.7); }
+        .card p { font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, #7c3aed, #06b6d4);
             color: white; padding: 16px 32px; border-radius: 100px;
             text-decoration: none; font-size: 1.1rem; font-weight: 700;
             margin-top: 0.5rem; transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 280px;
         }
         .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.3); }
+        .cta-button[disabled] { opacity: 0.5; pointer-events: none; }
         .optional { margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.45); }
         .contact {
             margin-top: 2rem; padding-top: 1.5rem;
@@ -87,33 +93,46 @@
             0% { opacity: 1; transform: translateY(-20px) rotate(0deg); }
             100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
         }
+        .spinner {
+            display: inline-block; width: 16px; height: 16px;
+            border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+            border-radius: 50%; animation: spin 0.8s linear infinite;
+            vertical-align: middle; margin-right: 8px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <div class="confetti" id="confetti"></div>
     <div class="container">
         <div class="celebration">&#x1F389;</div>
-        <h1>Поздравляем! Оплата прошла успешно!</h1>
-        <p class="subtitle">Уроки отправлены на твой email, указанный при оплате.</p>
+        <h1>Оплата прошла!</h1>
+        <p class="subtitle">Доступ открыт. Уроки уже идут двумя путями — на твой email и в закрытом Telegram-канале.</p>
 
         <div class="card">
-            <h3>&#x1F4AC; Хочешь получить уроки в Telegram?</h3>
-            <p>Наш бот отправит тебе все материалы прямо в чат. Удобно, быстро, всё под рукой.</p>
+            <h3>&#x1F4E7; Письмо с уроками — на твоей почте</h3>
+            <p>Проверь входящие (и папку «Спам»). В письме — все 3 урока + бонусы, ссылки на Google Drive и YouTube. Доступ навсегда.</p>
         </div>
 
-        <a href="https://t.me/AiAvatar_1bot?start=paid" class="cta-button">
-            Перейти в Telegram бот
+        <div class="card">
+            <h3>&#x1F512; Закрытый Telegram-канал</h3>
+            <p>Все уроки и бонусы лежат в закрытом канале. Контент защищён: нельзя переслать или сделать скриншот. Доступ — по твоей уникальной ссылке ниже (работает 24 часа).</p>
+        </div>
+
+        <a id="channelBtn" href="#" class="cta-button" disabled>
+            <span class="spinner"></span>Готовим приглашение...
         </a>
 
-        <p class="optional">Если не хочешь Telegram — все уроки уже на твоей почте.</p>
+        <p class="optional" id="channelHint">Ссылка появится через пару секунд. Если не появилась — <a href="https://t.me/handy_dad" style="color:#64b5f6;">напиши @handy_dad</a>.</p>
 
         <div class="contact">
-            Вопросы? Напиши <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>
+            Вопросы? <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>
         </div>
     </div>
 
     <script>
     (function() {
+        // Confetti.
         var c = document.getElementById('confetti');
         var colors = ['#7c3aed','#06b6d4','#10b981','#f59e0b','#ef4444','#ec4899'];
         for (var i = 0; i < 50; i++) {
@@ -125,6 +144,51 @@
             s.style.height = (Math.random() * 8 + 6) + 'px';
             c.appendChild(s);
         }
+
+        // Fetch personalized invite link from backend by Stripe session_id.
+        var WEBHOOK_BASE = 'https://23-94-149-88.sslip.io';
+        var params = new URLSearchParams(window.location.search);
+        var sessionId = params.get('session_id');
+        var btn = document.getElementById('channelBtn');
+        var hint = document.getElementById('channelHint');
+
+        function applyInvite(link){
+            btn.href = link;
+            btn.removeAttribute('disabled');
+            btn.innerHTML = '🔒 Войти в закрытый канал →';
+            hint.textContent = 'Ссылка одноразовая и активна 24 часа. Не делись ею — только для тебя.';
+        }
+
+        if (!sessionId) {
+            btn.removeAttribute('disabled');
+            btn.innerHTML = 'Открыть канал (связаться с поддержкой)';
+            btn.href = 'https://t.me/handy_dad';
+            hint.textContent = 'Не получили параметр оплаты. Напиши @handy_dad — пришлём ссылку лично.';
+            return;
+        }
+
+        var tries = 0;
+        function poll(){
+            tries++;
+            fetch(WEBHOOK_BASE + '/invite/' + encodeURIComponent(sessionId), {cache:'no-store'})
+              .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+              .then(function(data){
+                  if (data && data.invite_link) applyInvite(data.invite_link);
+                  else if (tries < 15) setTimeout(poll, 2000);
+                  else fallback();
+              })
+              .catch(function(){
+                  if (tries < 15) setTimeout(poll, 2000);
+                  else fallback();
+              });
+        }
+        function fallback(){
+            btn.removeAttribute('disabled');
+            btn.innerHTML = 'Получить ссылку у @handy_dad';
+            btn.href = 'https://t.me/handy_dad?text=Оплатил%20курс%20—%20пришли%20ссылку%20в%20канал';
+            hint.textContent = 'Что-то пошло не так. Напиши @handy_dad — сразу дадим доступ.';
+        }
+        poll();
     })();
     </script>
 </body>

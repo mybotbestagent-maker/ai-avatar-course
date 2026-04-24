@@ -753,7 +753,7 @@ section, .card, [class*="card"] {
       <li><a href="#contacts">Контакты</a></li>
     </ul>
     
-<a href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track', 'InitiateCheckout', {value: 11, currency: 'USD'})"   class="nav-cta">Начать за $11</a>
+<a target="_blank" rel="noopener" href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track', 'InitiateCheckout', {value: 11, currency: 'USD'})"   class="nav-cta">Начать за $11</a>
   </div>
 </nav>
 
@@ -765,7 +765,7 @@ section, .card, [class*="card"] {
   <div class="hv-inner">
     <div class="hv-badge">
       <span class="hv-pulse"></span>
-      127 человек купили за последние 30 дней
+      127 человек уже прошли курс за последние 30 дней
     </div>
 
     <h1 class="hv-h1">
@@ -841,7 +841,7 @@ section, .card, [class*="card"] {
     </div>
 
     <!-- CTA #1 -->
-    <a href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track','InitiateCheckout',{value:11,currency:'USD'})" class="hv-cta">
+    <a target="_blank" rel="noopener" href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track','InitiateCheckout',{value:11,currency:'USD'})" class="hv-cta">
       Создать свой AI-аватар за $11
     </a>
     <p class="hv-cta-sub">Оплата Visa / Mastercard / Apple Pay через Stripe.</p>
@@ -1191,7 +1191,7 @@ section, .card, [class*="card"] {
         Общая ценность: <span style="text-decoration:line-through;">$297</span> → Твоя цена: <span style="color:#fff;font-weight:800;font-size:16px;">$11</span>
       </div>
 
-      <a href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track', 'InitiateCheckout', {value: 11, currency: 'USD'})" class="price-cta">Создать свой AI-аватар за $11 →</a>
+      <a target="_blank" rel="noopener" href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track', 'InitiateCheckout', {value: 11, currency: 'USD'})" class="price-cta">Создать свой AI-аватар за $11 →</a>
 
       <p class="price-secure">🔒 Visa · Mastercard · Apple Pay · через Stripe</p>
 
@@ -1309,7 +1309,7 @@ section, .card, [class*="card"] {
   <div class="reveal">
     <h2>Завтра у тебя<br>будет <em>AI-аватар</em></h2>
     <p>Или $11 возврат. Никаких вопросов. 7 дней на решение.</p>
-    <a href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track', 'InitiateCheckout', {value: 11, currency: 'USD'})" class="btn-white">Создать свой AI-аватар за $11 →</a>
+    <a target="_blank" rel="noopener" href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track', 'InitiateCheckout', {value: 11, currency: 'USD'})" class="btn-white">Создать свой AI-аватар за $11 →</a>
     <div style="margin-top:20px;font-size:13px;color:rgba(255,255,255,0.4);">⚡ Письмо с уроками и ссылкой в закрытый канал — сразу после оплаты</div>
   </div>
 </section>
@@ -1549,24 +1549,22 @@ document.querySelectorAll('.faq-q').forEach(q => {
   });
 });
 
-// ─── COUNTDOWN TIMER ───
+// ─── COUNTDOWN TIMER — honest one-time deadline ───
+// Freezes at 00:00:00 when campaign ends. No localStorage reset loop.
 (function() {
-  function startCountdown() {
-    var end = new Date(Date.now() + 3*24*60*60*1000);
-    try { localStorage.setItem('countdown_end', end.getTime()); } catch(e) {}
-    return end.getTime();
-  }
-  var stored;
-  try { stored = localStorage.getItem('countdown_end'); } catch(e) {}
-  var endTime = (stored && parseInt(stored) > Date.now()) ? parseInt(stored) : startCountdown();
+  // 2026-04-30 23:59:59 Miami time (EDT, UTC-4) => 2026-05-01 03:59:59 UTC
+  var endTime = Date.UTC(2026, 4, 1, 3, 59, 59);
+
+  function pad(n) { return n < 10 ? '0' + n : n; }
 
   function updateCountdown() {
     var diff = endTime - Date.now();
-    if (diff <= 0) { diff = 0; }
-    var h = Math.floor(diff / 3600000);
+    if (diff <= 0) diff = 0;
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
     var m = Math.floor((diff % 3600000) / 60000);
     var s = Math.floor((diff % 60000) / 1000);
-    var str = h + 'ч ' + m + 'м ' + s + 'с';
+    var str = (d > 0 ? d + 'д ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
     var el1 = document.getElementById('countdown');
     var el2 = document.getElementById('countdown-price');
     if (el1) el1.textContent = str;
@@ -1588,7 +1586,7 @@ document.querySelectorAll('.faq-q').forEach(q => {
 
 <div class="sticky-cta">
   <div class="price">$11<small>$97</small></div>
-  <a href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track','InitiateCheckout',{value:11,currency:'USD'})">Купить →</a>
+  <a target="_blank" rel="noopener" href="https://buy.stripe.com/28EeVdfY86Z7a3j4zB9sk0v" onclick="fbq('track','InitiateCheckout',{value:11,currency:'USD'})">Купить →</a>
 </div>
 
 <!-- Floating support — show only on desktop (mobile has sticky-cta) -->
@@ -1602,14 +1600,8 @@ document.head.appendChild(exitStyles);
 
 // Countdown timer — 24h from first visit, saved in localStorage
 (function() {
-  var KEY = 'avatar_timer_end';
-  var end = localStorage.getItem(KEY);
-  if (!end) {
-    end = Date.parse('2026-04-21T00:00:00Z');
-    localStorage.setItem(KEY, end);
-  } else {
-    end = parseInt(end);
-  }
+  // Honest one-time deadline: 2026-04-30 23:59:59 Miami (= 2026-05-01 03:59:59 UTC)
+  var end = Date.UTC(2026, 4, 1, 3, 59, 59);
   function pad(n) { return n < 10 ? '0' + n : n; }
   function tick() {
     var diff = end - Date.now();

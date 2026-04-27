@@ -64,6 +64,46 @@
   /></noscript>
   <!-- End Meta Pixel Code -->
 
+  <!-- Meta CAPI attribution: forward _fbp / _fbc to Stripe via client_reference_id
+       so the server-side webhook can pass them back to Meta and link the Purchase
+       to the original ad click. Without this, Purchase events arrive at Meta
+       without attribution and Ads Manager shows 0 in the Purchases column. -->
+  <script>
+  (function(){
+    function getCookie(name){
+      var m=document.cookie.match(new RegExp('(^|; )'+name+'=([^;]+)'));
+      return m?decodeURIComponent(m[2]):'';
+    }
+    function pack(){
+      var fbp=getCookie('_fbp');
+      var fbc=getCookie('_fbc');
+      if(!fbc){
+        try{
+          var u=new URL(location.href);
+          var fbclid=u.searchParams.get('fbclid');
+          if(fbclid) fbc='fb.1.'+Date.now()+'.'+fbclid;
+        }catch(e){}
+      }
+      var raw=(fbp||'-')+'__'+(fbc||'-');
+      return raw.replace(/[^A-Za-z0-9_-]/g,'_').slice(0,200);
+    }
+    function inject(){
+      var ref=pack();
+      if(!ref || ref==='-__-') return;
+      document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){
+        try{
+          var url=new URL(a.href);
+          url.searchParams.set('client_reference_id',ref);
+          a.href=url.toString();
+        }catch(e){}
+      });
+    }
+    if(document.readyState!=='loading') inject();
+    else document.addEventListener('DOMContentLoaded',inject);
+    document.addEventListener('click',inject,true);
+  })();
+  </script>
+
   <!-- Google Analytics 4 — placeholder, replace G-XXXXXXXXXX with real ID from analytics.google.com -->
   <!--
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>

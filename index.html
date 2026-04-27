@@ -58,6 +58,50 @@
   fbq('init', '1890469218320163');
   fbq('track', 'PageView');
   </script>
+
+  <!-- Meta CAPI attribution: forward _fbp / _fbc to Stripe via client_reference_id
+       so the server-side webhook can pass them back to Meta and link the Purchase
+       to the original ad click. Without this, Purchase events arrive at Meta
+       without attribution and Ads Manager shows 0 in the Purchases column. -->
+  <script>
+  (function(){
+    function getCookie(name){
+      var m=document.cookie.match(new RegExp('(^|; )'+name+'=([^;]+)'));
+      return m?decodeURIComponent(m[2]):'';
+    }
+    function pack(){
+      var fbp=getCookie('_fbp');
+      var fbc=getCookie('_fbc');
+      // If user landed via fbclid in URL but Pixel hasn't written _fbc yet, build it.
+      if(!fbc){
+        try{
+          var u=new URL(location.href);
+          var fbclid=u.searchParams.get('fbclid');
+          if(fbclid) fbc='fb.1.'+Date.now()+'.'+fbclid;
+        }catch(e){}
+      }
+      // Stripe client_reference_id allows [A-Za-z0-9_-], max 200 chars.
+      // We replace dots/colons with safe chars, separate fbp and fbc with '__'.
+      var raw=(fbp||'-')+'__'+(fbc||'-');
+      return raw.replace(/[^A-Za-z0-9_-]/g,'_').slice(0,200);
+    }
+    function inject(){
+      var ref=pack();
+      if(!ref || ref==='-__-') return;
+      document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){
+        try{
+          var url=new URL(a.href);
+          url.searchParams.set('client_reference_id',ref);
+          a.href=url.toString();
+        }catch(e){}
+      });
+    }
+    // Run once at load and again on first interaction (cookies might arrive late).
+    if(document.readyState!=='loading') inject();
+    else document.addEventListener('DOMContentLoaded',inject);
+    document.addEventListener('click',inject,true);
+  })();
+  </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1890469218320163&ev=PageView&noscript=1"
   /></noscript>

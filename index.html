@@ -282,8 +282,79 @@
       100% { transform: scaleY(0); transform-origin: bottom; }
     }
 
+    /* FLOW PATH — connects all sections */
+    #flow-svg {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
+      overflow: visible;
+    }
+    #flow-path {
+      fill: none;
+      stroke: url(#flow-gradient);
+      stroke-width: 2;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 8px rgba(79,70,229,0.4));
+    }
+    #flow-glow {
+      fill: var(--accent);
+      filter: drop-shadow(0 0 12px rgba(79,70,229,0.8)) drop-shadow(0 0 30px rgba(124,58,237,0.4));
+    }
+    .flow-wrapper {
+      position: relative;
+    }
+
+    /* Floating orb that follows scroll */
+    #scroll-orb {
+      position: fixed;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 20px rgba(79,70,229,0.6), 0 0 60px rgba(124,58,237,0.3);
+      pointer-events: none; z-index: 100;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+    }
+    #scroll-orb::after {
+      content: ''; position: absolute;
+      top: -8px; left: -8px; right: -8px; bottom: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(79,70,229,0.3);
+      animation: orbPulse 2s ease infinite;
+    }
+    @keyframes orbPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.8); opacity: 0; }
+    }
+
+    /* Section node markers */
+    .section-node {
+      position: absolute; left: 80px; top: 3rem;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--bg3);
+      border: 2px solid var(--accent);
+      z-index: 5;
+      box-shadow: 0 0 0 4px rgba(79,70,229,0.1);
+      transition: all 0.4s;
+    }
+    .section-node.active {
+      background: var(--accent);
+      box-shadow: 0 0 0 8px rgba(79,70,229,0.15), 0 0 20px rgba(79,70,229,0.3);
+    }
+    .section-node-label {
+      position: absolute; left: 28px; top: -2px;
+      font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); white-space: nowrap;
+      opacity: 0; transform: translateX(-8px);
+      transition: all 0.3s;
+    }
+    .section-node:hover .section-node-label,
+    .section-node.active .section-node-label {
+      opacity: 1; transform: translateX(0);
+    }
+
     /* SECTIONS */
-    section { padding: 8rem 3rem; }
+    section { padding: 8rem 3rem; position: relative; background: transparent; }
     .container { max-width: 1200px; margin: 0 auto; }
 
     .section-label {
@@ -304,8 +375,17 @@
       margin-bottom: 4rem;
     }
 
+    /* Seamless gradient transitions between sections */
+    section::before {
+      content: ''; position: absolute; top: -60px; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+      pointer-events: none; z-index: 0;
+    }
+    #hero::before, #final::before { display: none; }
+
     /* PROBLEM */
-    #problem { background: var(--bg3); }
+    #problem { background: transparent; }
     .problem-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 0;
@@ -337,7 +417,7 @@
     }
 
     /* STEPS */
-    #steps { background: var(--bg); }
+    #steps { background: transparent; }
     .step-item {
       display: grid;
       grid-template-columns: 100px 1fr 1fr;
@@ -370,7 +450,7 @@
     }
 
     /* USE CASES */
-    #cases { background: var(--bg3); }
+    #cases { background: transparent; }
     .cases-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
@@ -416,7 +496,7 @@
     }
 
     /* BONUSES */
-    #bonuses { background: var(--bg); }
+    #bonuses { background: transparent; }
     .bonus-item {
       display: flex; justify-content: space-between;
       align-items: center; gap: 2rem;
@@ -451,7 +531,7 @@
     }
 
     /* TESTIMONIALS */
-    #testimonials { background: var(--bg3); }
+    #testimonials { background: transparent; }
     .testi-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
@@ -488,7 +568,7 @@
 
     /* PRICING */
     #pricing {
-      background: var(--bg);
+      background: transparent;
       position: relative;
     }
     .pricing-card {
@@ -597,7 +677,7 @@
     }
 
     /* FAQ */
-    #faq { background: var(--bg3); }
+    #faq { background: transparent; }
     .faq-list { max-width: 700px; }
     .faq-item { border-bottom: 1px solid var(--sep); }
     .faq-item:first-child { border-top: 1px solid var(--sep); }
@@ -771,6 +851,9 @@
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
+<!-- SCROLL ORB — follows the flow path -->
+<div id="scroll-orb"></div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">AI Avatar</div>
@@ -835,6 +918,7 @@
 
 <!-- PROBLEM -->
 <section id="problem">
+  <div class="section-node" data-section="problem"><span class="section-node-label">Проблема</span></div>
   <div class="container">
     <div class="section-label">Проблема</div>
     <h2 class="section-title">Видео без барьеров</h2>
@@ -861,6 +945,7 @@
 
 <!-- STEPS -->
 <section id="steps">
+  <div class="section-node" data-section="steps"><span class="section-node-label">Процесс</span></div>
   <div class="container">
     <div class="section-label">Процесс</div>
     <h2 class="section-title">Три шага до аватара</h2>
@@ -896,6 +981,7 @@
 
 <!-- USE CASES -->
 <section id="cases">
+  <div class="section-node" data-section="cases"><span class="section-node-label">Результат</span></div>
   <div class="container">
     <div class="section-label">Результат</div>
     <h2 class="section-title">Что ты получишь</h2>
@@ -925,6 +1011,7 @@
 
 <!-- BONUSES -->
 <section id="bonuses">
+  <div class="section-node" data-section="bonuses"><span class="section-node-label">Состав</span></div>
   <div class="container">
     <div class="section-label">Состав</div>
     <h2 class="section-title">Всё включено</h2>
@@ -1046,6 +1133,7 @@
 
 <!-- PRICING -->
 <section id="pricing">
+  <div class="section-node" data-section="pricing"><span class="section-node-label">Цена</span></div>
   <div class="container">
     <div style="text-align:center; margin-bottom: 3rem;">
       <div class="section-label" style="text-align:center">Стоимость</div>
@@ -1452,6 +1540,128 @@ gsap.registerPlugin(ScrollTrigger);
     geo.attributes.position.needsUpdate = true;
     renderer.render(scene, camera);
   })();
+})();
+
+/* FLOW PATH — SVG line connecting all sections */
+(function() {
+  var sections = document.querySelectorAll('.section-node');
+  if (sections.length < 2) return;
+
+  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.id = 'flow-svg';
+  svg.style.position = 'absolute';
+  svg.style.top = '0';
+  svg.style.left = '0';
+  svg.style.width = '100%';
+  svg.style.pointerEvents = 'none';
+  svg.style.zIndex = '1';
+  svg.style.overflow = 'visible';
+
+  var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  var grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+  grad.id = 'flow-gradient';
+  grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+  var stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  stop1.setAttribute('offset', '0%');
+  stop1.setAttribute('stop-color', '#4F46E5');
+  var stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  stop2.setAttribute('offset', '50%');
+  stop2.setAttribute('stop-color', '#7C3AED');
+  var stop3 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  stop3.setAttribute('offset', '100%');
+  stop3.setAttribute('stop-color', '#06B6D4');
+  grad.appendChild(stop1); grad.appendChild(stop2); grad.appendChild(stop3);
+  defs.appendChild(grad);
+  svg.appendChild(defs);
+
+  var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.id = 'flow-path';
+  svg.appendChild(path);
+
+  var glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  glow.id = 'flow-glow';
+  glow.setAttribute('r', '6');
+  svg.appendChild(glow);
+
+  document.body.appendChild(svg);
+
+  function buildPath() {
+    var points = [];
+    var bodyRect = document.body.getBoundingClientRect();
+    sections.forEach(function(node) {
+      var rect = node.getBoundingClientRect();
+      points.push({
+        x: rect.left + rect.width / 2 - bodyRect.left,
+        y: rect.top + rect.height / 2 - bodyRect.top
+      });
+    });
+
+    var totalH = document.body.scrollHeight;
+    svg.style.height = totalH + 'px';
+    svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + totalH);
+    grad.setAttribute('y1', '0');
+    grad.setAttribute('y2', String(totalH));
+
+    var d = 'M ' + points[0].x + ' ' + points[0].y;
+    for (var i = 1; i < points.length; i++) {
+      var prev = points[i - 1];
+      var curr = points[i];
+      var midY = (prev.y + curr.y) / 2;
+      var cpx1 = prev.x + (Math.random() > 0.5 ? 120 : -60);
+      var cpx2 = curr.x + (Math.random() > 0.5 ? -120 : 60);
+      d += ' C ' + cpx1 + ' ' + midY + ', ' + cpx2 + ' ' + midY + ', ' + curr.x + ' ' + curr.y;
+    }
+    path.setAttribute('d', d);
+
+    var len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+
+    gsap.to(path, {
+      strokeDashoffset: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: document.body,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1
+      }
+    });
+
+    ScrollTrigger.create({
+      trigger: document.body,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
+      onUpdate: function(self) {
+        var pt = path.getPointAtLength(self.progress * len);
+        glow.setAttribute('cx', pt.x);
+        glow.setAttribute('cy', pt.y);
+
+        var orb = document.getElementById('scroll-orb');
+        if (orb) {
+          var svgRect = svg.getBoundingClientRect();
+          orb.style.left = (pt.x) + 'px';
+          orb.style.top = (pt.y - window.scrollY + svgRect.top) + 'px';
+        }
+      }
+    });
+  }
+
+  sections.forEach(function(node) {
+    ScrollTrigger.create({
+      trigger: node,
+      start: 'top 60%',
+      end: 'bottom 40%',
+      onEnter: function() { node.classList.add('active'); },
+      onLeave: function() { node.classList.remove('active'); },
+      onEnterBack: function() { node.classList.add('active'); },
+      onLeaveBack: function() { node.classList.remove('active'); }
+    });
+  });
+
+  setTimeout(buildPath, 500);
+  window.addEventListener('resize', function() { setTimeout(buildPath, 200); });
 })();
 
 /* GSAP ANIMATIONS */

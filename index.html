@@ -234,10 +234,21 @@
       overflow: hidden;
       z-index: 2;
     }
+    .hero-centered {
+      justify-content: center;
+      text-align: center;
+    }
     .hero-content {
       position: relative;
       z-index: 10;
       max-width: 650px;
+    }
+    .hero-content-centered {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero-cta-glow:hover {
+      box-shadow: 0 0 30px rgba(99,102,241,0.5), 0 0 60px rgba(139,92,246,0.3);
     }
     .hero-label {
       display: inline-block;
@@ -1036,70 +1047,9 @@
     }
 
     /* ===== FACE MORPH HOLOGRAM ===== */
-    .hero-orb {
-      position: absolute;
-      top: 50%; right: 10%;
-      transform: translateY(-50%);
-      width: 380px; height: 380px;
-      border-radius: 50%;
-      z-index: 6;
-      background: radial-gradient(circle at 40% 40%, rgba(99,102,241,0.4), rgba(139,92,246,0.2) 50%, rgba(34,211,238,0.1) 80%, transparent);
-      box-shadow: 0 0 80px rgba(99,102,241,0.3), 0 0 160px rgba(139,92,246,0.1), inset 0 0 80px rgba(34,211,238,0.15);
-      border: 1px solid rgba(99,102,241,0.25);
-      animation: orbPulse 6s ease-in-out infinite, orbRotate 20s linear infinite;
-      overflow: hidden;
-    }
-    .hero-orb::before {
-      content: '';
-      position: absolute; inset: -50%;
-      background: conic-gradient(from 0deg, transparent, rgba(99,102,241,0.15), transparent, rgba(34,211,238,0.1), transparent);
-      animation: orbSpin 8s linear infinite;
-    }
-    .hero-orb::after {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: 50%;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(99,102,241,0.04) 3px, rgba(99,102,241,0.04) 6px);
-      pointer-events: none;
-    }
-    .hero-orb-inner {
-      position: absolute; inset: 15%;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, rgba(139,92,246,0.5), rgba(99,102,241,0.2) 60%, transparent);
-      animation: orbPulse 4s ease-in-out infinite reverse;
-      box-shadow: inset 0 0 40px rgba(34,211,238,0.15);
-    }
-    .hero-orb-label {
-      position: absolute; bottom: 24px; left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--font-display);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      z-index: 4;
-      text-shadow: 0 0 12px rgba(99,102,241,0.5);
-      white-space: nowrap;
-    }
-    @keyframes orbPulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.04); opacity: 0.9; }
-    }
-    @keyframes orbRotate {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-    @keyframes orbSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
     @media (max-width: 768px) {
-      .hero-orb {
-        width: 220px; height: 220px;
-        right: 50%;
-        transform: translate(50%, -50%);
-        opacity: 0.35;
+      .hero-canvas {
+        opacity: 0.5;
         z-index: 3;
       }
     }
@@ -1177,18 +1127,17 @@
 </nav>
 
 <!-- Hero Section -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-label">AI Avatar Course 2026</div>
-    <h1 class="hero-title">Создай свой <span class="gradient-text">AI Аватар</span> за один вечер</h1>
-    <p class="hero-subtitle">Без камеры. Без студии. Без опыта. Три видеоурока — и твой цифровой двойник говорит твоим голосом на любом языке.</p>
-    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
-      Начать сейчас — $49
+<section class="hero hero-centered">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-content hero-content-centered">
+    <div class="hero-label">AI Avatar Studio 2026</div>
+    <h1 class="hero-title">AI Avatars For <span class="gradient-text">Every Face &amp; Age</span></h1>
+    <p class="hero-subtitle">Instantly generate realistic avatars for any nationality. No camera, no studio, no experience.</p>
+    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta hero-cta-glow" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
+      Create Your Avatar
       <span class="arrow">&rarr;</span>
     </a>
   </div>
-  <canvas class="hero-canvas" id="heroCanvas"></canvas>
-  <div class="hero-orb"><div class="hero-orb-inner"></div><span class="hero-orb-label">AI Avatar Generation</span></div>
   <div class="scroll-indicator">
     <span>Scroll</span>
     <div class="scroll-line"></div>
@@ -1564,76 +1513,235 @@
     cursorRing.style.display = 'none';
   }
 
-  // ===== THREE.JS HERO PARTICLES (sphere removed) =====
+  // ===== THREE.JS MORPHING HEAD =====
   const canvas = document.getElementById('heroCanvas');
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+  const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  camera.position.set(0, 0.2, 3.8);
 
-  camera.position.z = 4;
-
-  // Particles only
-  const particleCount = 800;
-  const particleGeo = new THREE.BufferGeometry();
-  const positions = new Float32Array(particleCount * 3);
-  const velocities = new Float32Array(particleCount * 3);
-
-  for (let i = 0; i < particleCount; i++) {
-    const r = 2.5 + Math.random() * 2;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-    positions[i * 3 + 2] = r * Math.cos(phi);
-    velocities[i * 3] = (Math.random() - 0.5) * 0.002;
-    velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.002;
-    velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.002;
+  // Perlin noise (simplex 3D)
+  const _p = [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180];
+  const _perm = new Array(512);
+  const _g = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
+  for(let i=0;i<512;i++) _perm[i]=_p[i&255];
+  function _dot3(g,x,y,z){return g[0]*x+g[1]*y+g[2]*z;}
+  function _fade(t){return t*t*t*(t*(t*6-15)+10);}
+  function _lerp(a,b,t){return a+(b-a)*t;}
+  function noise3D(x,y,z){
+    var X=Math.floor(x)&255,Y=Math.floor(y)&255,Z=Math.floor(z)&255;
+    x-=Math.floor(x);y-=Math.floor(y);z-=Math.floor(z);
+    var u=_fade(x),v=_fade(y),w=_fade(z);
+    var A=_perm[X]+Y,AA=_perm[A]+Z,AB=_perm[A+1]+Z,B=_perm[X+1]+Y,BA=_perm[B]+Z,BB=_perm[B+1]+Z;
+    return _lerp(_lerp(_lerp(_dot3(_g[_perm[AA]%12],x,y,z),_dot3(_g[_perm[BA]%12],x-1,y,z),u),_lerp(_dot3(_g[_perm[AB]%12],x,y-1,z),_dot3(_g[_perm[BB]%12],x-1,y-1,z),u),v),_lerp(_lerp(_dot3(_g[_perm[AA+1]%12],x,y,z-1),_dot3(_g[_perm[BA+1]%12],x-1,y,z-1),u),_lerp(_dot3(_g[_perm[AB+1]%12],x,y-1,z-1),_dot3(_g[_perm[BB+1]%12],x-1,y-1,z-1),u),v),w);
   }
 
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const particleMat = new THREE.PointsMaterial({
-    color: 0x8B5CF6,
-    size: 0.015,
+  // Head geometry — elongated sphere
+  const headGeo = new THREE.SphereGeometry(1, 64, 48);
+  const basePositions = headGeo.attributes.position.array.slice();
+
+  // Scale to head proportions
+  for(let i=0; i<basePositions.length; i+=3){
+    basePositions[i] *= 0.82;
+    basePositions[i+1] *= 1.1;
+    basePositions[i+2] *= 0.9;
+  }
+  headGeo.attributes.position.array.set(basePositions);
+  headGeo.attributes.position.needsUpdate = true;
+  headGeo.computeVertexNormals();
+
+  // Morph targets (10 "faces")
+  const morphSeeds = [1.0, 2.3, 3.7, 5.1, 6.4, 7.8, 9.2, 10.5, 11.9, 13.3];
+  const morphStrengths = [0.12, 0.15, 0.10, 0.14, 0.11, 0.13, 0.16, 0.12, 0.14, 0.10];
+
+  function computeMorphPositions(seed, strength) {
+    const arr = new Float32Array(basePositions.length);
+    for(let i=0; i<basePositions.length; i+=3){
+      const x=basePositions[i], y=basePositions[i+1], z=basePositions[i+2];
+      const n = noise3D(x*2+seed, y*2+seed, z*2+seed);
+      const n2 = noise3D(x*4+seed*0.5, y*4, z*4) * 0.3;
+      const disp = (n + n2) * strength;
+      const len = Math.sqrt(x*x+y*y+z*z);
+      arr[i] = x + (x/len)*disp;
+      arr[i+1] = y + (y/len)*disp;
+      arr[i+2] = z + (z/len)*disp;
+    }
+    return arr;
+  }
+
+  const morphTargets = morphSeeds.map((s,i) => computeMorphPositions(s, morphStrengths[i]));
+
+  // Solid mesh — holographic material
+  const headMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: {value: 0},
+      uColor1: {value: new THREE.Color(0x6366f1)},
+      uColor2: {value: new THREE.Color(0x22d3ee)},
+      uGlow: {value: new THREE.Color(0x8b5cf6)}
+    },
+    vertexShader: `
+      varying vec3 vNormal;
+      varying vec3 vPosition;
+      void main(){
+        vNormal = normalize(normalMatrix * normal);
+        vPosition = position;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform float uTime;
+      uniform vec3 uColor1;
+      uniform vec3 uColor2;
+      uniform vec3 uGlow;
+      varying vec3 vNormal;
+      varying vec3 vPosition;
+      void main(){
+        vec3 viewDir = normalize(cameraPosition - vPosition);
+        float fresnel = pow(1.0 - max(dot(vNormal, vec3(0,0,1)), 0.0), 3.0);
+        float scan = sin(vPosition.y * 40.0 + uTime * 2.0) * 0.5 + 0.5;
+        scan = smoothstep(0.3, 0.7, scan) * 0.15;
+        vec3 base = mix(uColor1, uColor2, vPosition.y * 0.5 + 0.5);
+        vec3 col = base * 0.3 + uGlow * fresnel * 1.2 + vec3(scan);
+        float alpha = 0.25 + fresnel * 0.7 + scan;
+        gl_FragColor = vec4(col, alpha);
+      }
+    `,
     transparent: true,
-    opacity: 0.6,
-    sizeAttenuation: true
+    side: THREE.FrontSide,
+    depthWrite: false
   });
-  const particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
+  const headMesh = new THREE.Mesh(headGeo, headMat);
+  scene.add(headMesh);
 
-  // Mouse interaction
-  let targetMouseX = 0, targetMouseY = 0;
+  // Wireframe overlay
+  const wireGeo = headGeo.clone();
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0x6366f1,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.12
+  });
+  const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+  scene.add(wireMesh);
+
+  // Outer glow sphere
+  const glowGeo = new THREE.SphereGeometry(1.3, 32, 24);
+  const glowMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: {value:0} },
+    vertexShader: `
+      varying vec3 vNormal;
+      void main(){
+        vNormal = normalize(normalMatrix * normal);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform float uTime;
+      varying vec3 vNormal;
+      void main(){
+        float f = pow(1.0 - max(dot(vNormal, vec3(0,0,1)), 0.0), 4.0);
+        vec3 c = mix(vec3(0.39,0.4,0.95), vec3(0.13,0.83,0.93), sin(uTime)*0.5+0.5);
+        gl_FragColor = vec4(c, f * 0.3);
+      }
+    `,
+    transparent: true,
+    side: THREE.BackSide,
+    depthWrite: false
+  });
+  const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+  scene.add(glowMesh);
+
+  // Particles
+  const pCount = 600;
+  const pGeo = new THREE.BufferGeometry();
+  const pPos = new Float32Array(pCount * 3);
+  const pVel = new Float32Array(pCount * 3);
+  for(let i=0;i<pCount;i++){
+    const r = 1.5 + Math.random()*2.5;
+    const th = Math.random()*Math.PI*2;
+    const ph = Math.acos(2*Math.random()-1);
+    pPos[i*3]=r*Math.sin(ph)*Math.cos(th);
+    pPos[i*3+1]=r*Math.sin(ph)*Math.sin(th);
+    pPos[i*3+2]=r*Math.cos(ph);
+    pVel[i*3]=(Math.random()-0.5)*0.003;
+    pVel[i*3+1]=(Math.random()-0.5)*0.003;
+    pVel[i*3+2]=(Math.random()-0.5)*0.003;
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos,3));
+  const pMat = new THREE.PointsMaterial({color:0x8b5cf6, size:0.012, transparent:true, opacity:0.5, sizeAttenuation:true});
+  const pts = new THREE.Points(pGeo, pMat);
+  scene.add(pts);
+
+  // Morph state
+  let morphCurrent = 0;
+  let morphNext = 1;
+  let morphT = 0;
+  const morphSpeed = 1.0;
+
+  // Mouse
+  let tMX = 0, tMY = 0;
   document.addEventListener('mousemove', (e) => {
-    targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-    targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    tMX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+    tMY = (e.clientY / window.innerHeight - 0.5) * 0.5;
   });
 
-  // Animation loop
+  // Animation
   let uTime = 0;
+  const headGroup = new THREE.Group();
+  headGroup.add(headMesh);
+  headGroup.add(wireMesh);
+  headGroup.add(glowMesh);
+  scene.add(headGroup);
+  scene.remove(headMesh);
+  scene.remove(wireMesh);
+  scene.remove(glowMesh);
+
   function animate() {
     requestAnimationFrame(animate);
+    const dt = 0.016;
+    uTime += dt;
 
-    uTime += 0.01;
-    particles.rotation.y += 0.001;
-    particles.rotation.x += 0.0005;
-
-    // Animate particles
-    const pos = particleGeo.attributes.position.array;
-    for (let i = 0; i < particleCount; i++) {
-      pos[i * 3] += velocities[i * 3];
-      pos[i * 3 + 1] += velocities[i * 3 + 1];
-      pos[i * 3 + 2] += velocities[i * 3 + 2];
-
-      const dist = Math.sqrt(pos[i*3]**2 + pos[i*3+1]**2 + pos[i*3+2]**2);
-      if (dist > 4.5 || dist < 2) {
-        velocities[i * 3] *= -1;
-        velocities[i * 3 + 1] *= -1;
-        velocities[i * 3 + 2] *= -1;
-      }
+    // Morph between faces
+    morphT += dt / morphSpeed;
+    if(morphT >= 1) {
+      morphT = 0;
+      morphCurrent = morphNext;
+      morphNext = (morphNext + 1) % morphTargets.length;
     }
-    particleGeo.attributes.position.needsUpdate = true;
+    const smooth = morphT * morphT * (3 - 2 * morphT);
+    const posArr = headGeo.attributes.position.array;
+    const from = morphTargets[morphCurrent];
+    const to = morphTargets[morphNext];
+    for(let i=0; i<posArr.length; i++){
+      posArr[i] = from[i] + (to[i] - from[i]) * smooth;
+    }
+    headGeo.attributes.position.needsUpdate = true;
+    headGeo.computeVertexNormals();
+
+    // Sync wireframe
+    wireGeo.attributes.position.array.set(posArr);
+    wireGeo.attributes.position.needsUpdate = true;
+
+    // Rotation + breathing
+    headGroup.rotation.y = Math.sin(uTime * 0.3) * 0.4 + uTime * 0.08;
+    headGroup.rotation.x = Math.sin(uTime * 0.2) * 0.1 + tMY * 0.3;
+    headGroup.position.y = Math.sin(uTime * 0.5) * 0.05;
+
+    // Update uniforms
+    headMat.uniforms.uTime.value = uTime;
+    glowMat.uniforms.uTime.value = uTime;
+
+    // Particles
+    const pp = pGeo.attributes.position.array;
+    for(let i=0;i<pCount;i++){
+      pp[i*3]+=pVel[i*3]; pp[i*3+1]+=pVel[i*3+1]; pp[i*3+2]+=pVel[i*3+2];
+      const d=Math.sqrt(pp[i*3]**2+pp[i*3+1]**2+pp[i*3+2]**2);
+      if(d>4||d<1.3){pVel[i*3]*=-1;pVel[i*3+1]*=-1;pVel[i*3+2]*=-1;}
+    }
+    pGeo.attributes.position.needsUpdate = true;
+    pts.rotation.y += 0.0005;
 
     renderer.render(scene, camera);
   }

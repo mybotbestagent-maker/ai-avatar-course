@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mybotbestagent-maker.github.io/ai-avatar-course/sitemap.xml

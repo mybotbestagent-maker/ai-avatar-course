@@ -1098,6 +1098,61 @@
       pointer-events: none;
     }
 
+    /* ===== STICKY BOTTOM CTA ===== */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      padding: 12px 20px;
+      background: rgba(6,6,10,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(99,102,241,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+    .sticky-cta.visible {
+      transform: translateY(0);
+    }
+    .sticky-cta-text {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .sticky-cta-text strong {
+      color: #fff;
+    }
+    .sticky-cta-btn {
+      padding: 12px 28px;
+      background: var(--gradient);
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+    }
+    .sticky-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(99,102,241,0.5);
+    }
+    @media (max-width: 768px) {
+      .sticky-cta { padding: 10px 16px; gap: 10px; }
+      .sticky-cta-text { font-size: 0.75rem; }
+      .sticky-cta-btn { padding: 10px 20px; font-size: 0.8rem; }
+    }
+
     /* ===== UTILITY ===== */
     .reveal { opacity: 0; transform: translateY(40px); }
   </style>
@@ -1131,12 +1186,12 @@
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
   <div class="hero-content hero-content-centered">
     <div class="hero-label"><span style="background:linear-gradient(90deg,#6366f1,#8b5cf6);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;">LIFETIME ACCESS</span></div>
-    <h1 class="hero-title">Создай <span class="gradient-text">100+ AI-аватаров</span> за 60 секунд</h1>
-    <p class="hero-subtitle">Без дизайнеров, без фотографов, без навыков. Любая национальность, возраст, стиль. Первый аватар — через 5 минут после покупки.</p>
+    <h1 class="hero-title">AI Avatars <span class="gradient-text">Для Любого Лица</span> & Национальности</h1>
+    <p class="hero-subtitle">100+ аватаров за 60 секунд. Без дизайнеров, без фотографов, без навыков. Первый аватар — через 5 минут после покупки.</p>
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;">
       <span style="font-size:1.1rem;color:var(--text-muted);text-decoration:line-through;">$997</span>
-      <span style="font-size:2rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span>
-      <span style="background:rgba(34,211,238,0.15);color:var(--accent-cyan);padding:4px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;">НАВСЕГДА</span>
+      <span style="font-size:2.2rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span>
+      <span style="background:rgba(34,211,238,0.15);color:var(--accent-cyan);padding:4px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;">LIFETIME</span>
     </div>
     <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta hero-cta-glow" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
       Получить доступ — $49
@@ -1171,7 +1226,7 @@
 <!-- Avatar Carousel -->
 <div class="stats-bar" style="padding-top:0;">
   <div class="container" style="text-align:center;">
-    <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;">Примеры аватаров, созданных студентами</p>
+    <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;">Реальные результаты наших студентов</p>
     <div style="display:flex;gap:12px;overflow-x:auto;padding:8px 0 16px;justify-content:center;flex-wrap:wrap;">
       <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(99,102,241,0.5);flex-shrink:0;">
       <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(34,211,238,0.5);flex-shrink:0;">
@@ -1435,7 +1490,8 @@
     <h2 class="section-title reveal">Один раз заплати — используй навсегда</h2>
     <p class="section-desc reveal" style="margin-left:auto;margin-right:auto;">Видеограф = $500/ролик. Продакшн-студия = $5000/проект. Этот курс = $49 за навык на всю жизнь.</p>
     <div class="pricing-card reveal">
-      <div class="pricing-timer" id="countdownTimer">&#x23F0; $49 ещё <span id="timerDisplay">23:59:59</span> — потом $97/мес</div>
+      <div class="pricing-timer" id="countdownTimer">&#x1F48E; $49 только <span id="timerDisplay">23:59:59</span> | Потом $97/мес</div>
+      <div style="display:inline-block;padding:6px 16px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:50px;font-size:0.8rem;font-weight:600;color:#EF4444;margin-bottom:24px;"><span id="seatsLeft">14</span> мест осталось из 50</div>
       <div class="pricing-old">$997</div>
       <div class="pricing-current">$49</div>
       <ul class="pricing-features">
@@ -1541,6 +1597,12 @@
       Забрать курс — $49 &rarr;
     </a>
   </div>
+</div>
+
+<!-- Sticky Bottom CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <span class="sticky-cta-text"><strong>$49</strong> — Lifetime</span>
+  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="sticky-cta-btn" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">Получить Lifetime за $49 &rarr;</a>
 </div>
 
 <!-- Scripts -->
@@ -1832,15 +1894,15 @@
   });
 
   // ===== COUNTDOWN TIMER =====
-  const TIMER_KEY = 'aavc_deadline_v6';
+  const TIMER_KEY = 'aavc_deadline_v7';
   let deadline = localStorage.getItem(TIMER_KEY);
   if (!deadline) {
-    deadline = Date.now() + 48 * 60 * 60 * 1000;
+    deadline = Date.now() + 24 * 60 * 60 * 1000;
     localStorage.setItem(TIMER_KEY, deadline);
   } else {
     deadline = parseInt(deadline);
     if (deadline < Date.now()) {
-      deadline = Date.now() + 48 * 60 * 60 * 1000;
+      deadline = Date.now() + 24 * 60 * 60 * 1000;
       localStorage.setItem(TIMER_KEY, deadline);
     }
   }
@@ -1884,6 +1946,16 @@
         answer.style.maxHeight = inner.scrollHeight + 'px';
       }
     });
+  });
+
+  // ===== STICKY CTA =====
+  const stickyCta = document.getElementById('stickyCta');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 600) {
+      stickyCta.classList.add('visible');
+    } else {
+      stickyCta.classList.remove('visible');
+    }
   });
 
   // ===== EXIT POPUP =====

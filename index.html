@@ -130,54 +130,7 @@
     }
 
     /* ===== LOADING SCREEN ===== */
-    #loader {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-    #loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-    .loader-brand {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 40px;
-    }
-    .loader-bar-container {
-      width: 200px;
-      height: 2px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-    .loader-bar {
-      height: 100%;
-      width: 0%;
-      background: var(--gradient);
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-    .loader-percent {
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-    }
+    /* loader removed for speed */
 
     /* ===== CUSTOM CURSOR ===== */
     .cursor-dot {
@@ -557,7 +510,8 @@
       line-height: 1.7;
     }
     .step-badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       padding: 6px 14px;
       background: rgba(99,102,241,0.1);
       border: 1px solid rgba(99,102,241,0.3);
@@ -565,6 +519,16 @@
       font-size: 0.75rem;
       font-weight: 500;
       color: var(--accent-indigo);
+    }
+    .step-badge.heygen { background: rgba(0,102,255,0.1); border-color: rgba(0,102,255,0.3); color: #4d9aff; }
+    .step-badge.elevenlabs { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); color: #fff; }
+    .step-badge.adobe { background: rgba(124,58,237,0.1); border-color: rgba(124,58,237,0.3); color: #a78bfa; }
+    .badge-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 6px;
     }
 
     @media (max-width: 768px) {
@@ -592,14 +556,15 @@
       transform: translateY(-8px);
     }
     .usecase-icon {
-      width: 56px; height: 56px;
-      border-radius: 14px;
+      width: 64px; height: 64px;
+      border-radius: 16px;
       background: linear-gradient(135deg, var(--accent-violet), var(--accent-indigo));
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 24px;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+      position: relative;
     }
     .usecase-card h3 {
       font-family: var(--font-display);
@@ -704,6 +669,19 @@
       line-height: 1.7;
       margin-bottom: 24px;
       font-style: italic;
+    }
+    .testimonial-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border-hover);
+      flex-shrink: 0;
     }
     .testimonial-author {
       font-size: 0.85rem;
@@ -1051,6 +1029,125 @@
       box-shadow: 0 8px 40px rgba(99,102,241,0.5);
     }
 
+    /* ===== FACE MORPH HOLOGRAM ===== */
+    .face-morph-container {
+      position: absolute;
+      top: 50%; right: 10%;
+      transform: translateY(-50%);
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      overflow: hidden;
+      z-index: 6;
+      box-shadow: 0 0 60px rgba(99,102,241,0.3), 0 0 120px rgba(139,92,246,0.15), inset 0 0 60px rgba(34,211,238,0.1);
+      border: 1px solid rgba(99,102,241,0.3);
+      animation: holoFlicker 4s ease-in-out infinite;
+    }
+    .face-morph-container::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(99,102,241,0.03) 2px, rgba(99,102,241,0.03) 4px);
+      z-index: 2;
+      pointer-events: none;
+      animation: scanlineMove 8s linear infinite;
+    }
+    .face-morph-container::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(99,102,241,0.15), transparent 50%, rgba(34,211,238,0.1));
+      z-index: 3;
+      pointer-events: none;
+    }
+    @keyframes scanlineMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(4px); }
+    }
+    @keyframes holoFlicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.95; }
+      52% { opacity: 0.85; }
+      54% { opacity: 1; }
+    }
+    @keyframes rgbGlitch {
+      0%, 100% { filter: none; }
+      25% { filter: hue-rotate(5deg) saturate(1.1); }
+      50% { filter: hue-rotate(-5deg) saturate(0.9); }
+      75% { filter: hue-rotate(3deg) brightness(1.05); }
+    }
+    .face-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      animation: rgbGlitch 6s ease-in-out infinite;
+    }
+    .face-img.active { opacity: 1; }
+    .face-label {
+      position: absolute; bottom: 20px; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      z-index: 4;
+      text-shadow: 0 0 10px rgba(99,102,241,0.5);
+    }
+
+    @media (max-width: 768px) {
+      .face-morph-container {
+        width: 250px; height: 250px;
+        right: 50%;
+        transform: translate(50%, -50%);
+        opacity: 0.4;
+        z-index: 3;
+      }
+    }
+
+    /* ===== USE CASE ICONS ENHANCED ===== */
+    .usecase-icon::after {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 18px;
+      background: radial-gradient(circle, rgba(139,92,246,0.2), transparent 70%);
+      z-index: -1;
+    }
+    .usecase-card.card-phone .usecase-icon::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: 50%; transform: translateX(-50%);
+      width: 30px; height: 50px;
+      border: 2px solid rgba(99,102,241,0.3);
+      border-radius: 6px;
+      pointer-events: none;
+    }
+    .usecase-card.card-laptop .usecase-icon::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: 50%; transform: translateX(-50%);
+      width: 44px; height: 30px;
+      border: 2px solid rgba(99,102,241,0.3);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .usecase-card.card-laptop .usecase-icon .device-base {
+      position: absolute;
+      bottom: -2px; left: 50%; transform: translateX(-50%);
+      width: 52px; height: 3px;
+      background: rgba(99,102,241,0.25);
+      border-radius: 0 0 4px 4px;
+    }
+    .usecase-card.card-globe .usecase-icon::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 48px; height: 48px;
+      border: 2px solid rgba(99,102,241,0.2);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
     /* ===== UTILITY ===== */
     .reveal { opacity: 0; transform: translateY(40px); }
   </style>
@@ -1062,12 +1159,6 @@
 <div class="ambient-blob ambient-blob-2"></div>
 <div class="ambient-blob ambient-blob-3"></div>
 
-<!-- Loader -->
-<div id="loader">
-  <div class="loader-brand">AI Avatar Studio</div>
-  <div class="loader-bar-container"><div class="loader-bar" id="loaderBar"></div></div>
-  <div class="loader-percent" id="loaderPercent">0%</div>
-</div>
 
 <!-- Custom cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
@@ -1097,6 +1188,7 @@
     </a>
   </div>
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="face-morph-container"><span class="face-label">AI Avatar Generation</span></div>
   <div class="scroll-indicator">
     <span>Scroll</span>
     <div class="scroll-line"></div>
@@ -1159,7 +1251,7 @@
         <div class="step-content">
           <h3>Создай аватар</h3>
           <p>Загрузи фото или 2-минутное видео. HeyGen превратит его в цифрового двойника, который говорит и жестикулирует как ты.</p>
-          <span class="step-badge">HeyGen</span>
+          <span class="step-badge heygen"><span class="badge-dot" style="background:#0066FF"></span> HeyGen</span>
         </div>
       </div>
       <div class="step-row reveal">
@@ -1167,7 +1259,7 @@
         <div class="step-content">
           <h3>Клонируй голос</h3>
           <p>Запиши 30 секунд речи. ElevenLabs создаст точную копию твоего голоса — с интонациями и эмоциями.</p>
-          <span class="step-badge">ElevenLabs</span>
+          <span class="step-badge elevenlabs"><span class="badge-dot" style="background:#fff"></span> ElevenLabs</span>
         </div>
       </div>
       <div class="step-row reveal">
@@ -1175,7 +1267,7 @@
         <div class="step-content">
           <h3>Улучши звук до студийного</h3>
           <p>Adobe Podcast уберёт шум, эхо и сделает звук как из профессиональной студии — бесплатно.</p>
-          <span class="step-badge">Adobe Podcast</span>
+          <span class="step-badge adobe"><span class="badge-dot" style="background:#7C3AED"></span> Adobe Podcast</span>
         </div>
       </div>
     </div>
@@ -1189,18 +1281,18 @@
     <h2 class="section-title reveal">Один аватар — бесконечные возможности</h2>
     <p class="section-desc reveal">Вот как студенты используют свои AI-аватары прямо сейчас.</p>
     <div class="usecase-grid">
-      <div class="usecase-card reveal">
-        <div class="usecase-icon">&#x1F4F1;</div>
+      <div class="usecase-card card-phone reveal">
+        <div class="usecase-icon">&#x1F4F2;</div>
         <h3>Продающие Reels</h3>
         <p>Записывай видео для Instagram и TikTok каждый день — без съёмок и монтажа. Экономь 5+ часов в неделю.</p>
       </div>
-      <div class="usecase-card reveal">
-        <div class="usecase-icon">&#x1F4BC;</div>
+      <div class="usecase-card card-laptop reveal">
+        <div class="usecase-icon">&#x1F4BB;<span class="device-base"></span></div>
         <h3>Видео-презентации</h3>
         <p>Питчи инвесторам, обучение сотрудников, welcome-видео для клиентов — всё персонализировано.</p>
       </div>
-      <div class="usecase-card reveal">
-        <div class="usecase-icon">&#x1F680;</div>
+      <div class="usecase-card card-globe reveal">
+        <div class="usecase-icon">&#x1F310;</div>
         <h3>Масштаб контента</h3>
         <p>Один текст = видео на 5 языках. Выходи на международный рынок без знания языков.</p>
       </div>
@@ -1211,44 +1303,58 @@
 <!-- Bonuses -->
 <section id="bonuses">
   <div class="container">
-    <div class="section-label reveal">Бонусы</div>
-    <h2 class="section-title reveal">Что ещё внутри</h2>
-    <p class="section-desc reveal">Помимо 3 видеоуроков ты получаешь всё необходимое для старта.</p>
+    <div class="section-label reveal">Видеоуроки + Бонусы</div>
+    <h2 class="section-title reveal">3 видеоурока + 4 бонуса</h2>
+    <p class="section-desc reveal">$345 ценности — всё включено в один пакет.</p>
     <div class="bonuses-list">
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">PDF-гайд: пошаговая настройка HeyGen</span>
-        </div>
-        <span class="bonus-value">$49</span>
-      </div>
-      <div class="bonus-row reveal">
-        <div class="bonus-info">
-          <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">10 промптов для генерации скриптов</span>
+          <span class="bonus-text">&#x1F3AC; Видеоурок 1: Создание аватара в HeyGen</span>
         </div>
         <span class="bonus-value">$79</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">Шаблоны видео для Instagram/TikTok</span>
+          <span class="bonus-text">&#x1F3AC; Видеоурок 2: Клонирование голоса в ElevenLabs</span>
         </div>
-        <span class="bonus-value">$99</span>
+        <span class="bonus-value">$79</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">Доступ к закрытому чату студентов</span>
+          <span class="bonus-text">&#x1F3AC; Видеоурок 3: Студийный звук в Adobe Podcast</span>
         </div>
-        <span class="bonus-value">$69</span>
+        <span class="bonus-value">$79</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">Поддержка через бот 24/7</span>
+          <span class="bonus-text">&#x1F4DD; 50 промптов для генерации скриптов</span>
         </div>
         <span class="bonus-value">$49</span>
+      </div>
+      <div class="bonus-row reveal">
+        <div class="bonus-info">
+          <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <span class="bonus-text">&#x1F4F1; Шаблоны видео для Instagram и TikTok</span>
+        </div>
+        <span class="bonus-value">$39</span>
+      </div>
+      <div class="bonus-row reveal">
+        <div class="bonus-info">
+          <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <span class="bonus-text">&#x2705; Чек-лист запуска + Telegram-сообщество</span>
+        </div>
+        <span class="bonus-value">$20</span>
+      </div>
+      <div class="bonus-row reveal">
+        <div class="bonus-info">
+          <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <span class="bonus-text">&#x1F916; Личная поддержка автора в Telegram</span>
+        </div>
+        <span class="bonus-value">бесплатно</span>
       </div>
     </div>
   </div>
@@ -1264,20 +1370,35 @@
       <div class="testimonial-card reveal">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="testimonial-text">"За один вечер создала аватар который говорит моим голосом. Показала клиентам — были в шоке. Сразу 3 заказа!"</p>
-        <div class="testimonial-author">Алина К.</div>
-        <div class="testimonial-role">Контент-маркетолог, Киев</div>
+        <div class="testimonial-footer">
+          <img class="testimonial-avatar" src="https://image.pollinations.ai/prompt/professional+portrait+young+slavic+woman+blonde+hair+warm+smile+studio+lighting+dark+background?width=128&height=128&seed=701&nologo=true" alt="Viktoriia">
+          <div>
+            <div class="testimonial-author">Viktoriia</div>
+            <div class="testimonial-role">Контент-маркетолог</div>
+          </div>
+        </div>
       </div>
       <div class="testimonial-card reveal">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="testimonial-text">"Думал, что AI-аватары — сложно и дорого. Оказалось — пара часов и бесплатный план HeyGen хватает."</p>
-        <div class="testimonial-author">Дмитрий В.</div>
-        <div class="testimonial-role">Предприниматель, Алматы</div>
+        <div class="testimonial-footer">
+          <img class="testimonial-avatar" src="https://image.pollinations.ai/prompt/professional+portrait+young+ukrainian+man+dark+hair+confident+look+studio+lighting+dark+background?width=128&height=128&seed=702&nologo=true" alt="Oleksandr">
+          <div>
+            <div class="testimonial-author">Oleksandr</div>
+            <div class="testimonial-role">Предприниматель</div>
+          </div>
+        </div>
       </div>
       <div class="testimonial-card reveal">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="testimonial-text">"Купила за $49 — окупила за день. Записала продающее видео для магазина. Продажи выросли на 40%."</p>
-        <div class="testimonial-author">Мария Т.</div>
-        <div class="testimonial-role">Владелец бизнеса, Тбилиси</div>
+        <div class="testimonial-footer">
+          <img class="testimonial-avatar" src="https://image.pollinations.ai/prompt/professional+portrait+young+kazakh+woman+dark+hair+gentle+smile+studio+lighting+dark+background?width=128&height=128&seed=703&nologo=true" alt="Aselina">
+          <div>
+            <div class="testimonial-author">Aselina B.</div>
+            <div class="testimonial-role">Владелец бизнеса</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1297,7 +1418,7 @@
         <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>3 видеоурока — от фото до видео</li>
         <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Клонирование голоса за 30 секунд</li>
         <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>4 бонуса стоимостью $296</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Поддержка через бот 24/7</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Личная поддержка автора в Telegram</li>
         <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Доступ навсегда + обновления</li>
       </ul>
       <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="pricing-cta" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
@@ -1360,7 +1481,7 @@
           <span class="faq-icon"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">У тебя есть 7 дней, чтобы попробовать. Если курс не подойдёт — напиши в бот @AiAvatar_1bot и получи полный возврат без вопросов.</div>
+          <div class="faq-answer-inner">У тебя есть 7 дней, чтобы попробовать. Если курс не подойдёт — напиши в бот @handy_dad и получи полный возврат без вопросов.</div>
         </div>
       </div>
     </div>
@@ -1382,7 +1503,7 @@
 
 <!-- Footer -->
 <footer class="footer">
-  <p>AI Avatar Studio &copy; 2026. Поддержка: <a href="https://t.me/AiAvatar_1bot" target="_blank">@AiAvatar_1bot</a></p>
+  <p>AI Avatar Studio &copy; 2026. Поддержка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a></p>
 </footer>
 
 <!-- Exit Popup -->
@@ -1392,7 +1513,7 @@
     <h3>Подожди!</h3>
     <p>Специальное предложение для тебя — получи курс со скидкой прямо сейчас:</p>
     <div class="exit-popup-price">$35</div>
-    <a href="https://t.me/AiAvatar_1bot?start=exit15" class="exit-popup-cta" onclick="fbq('track','InitiateCheckout',{value:35,currency:'USD'})">
+    <a href="https://t.me/handy_dad?start=exit15" class="exit-popup-cta" onclick="fbq('track','InitiateCheckout',{value:35,currency:'USD'})">
       Забрать за $35 &rarr;
     </a>
   </div>
@@ -1407,29 +1528,7 @@
 (function() {
   'use strict';
 
-  // ===== LOADER =====
-  const loader = document.getElementById('loader');
-  const loaderBar = document.getElementById('loaderBar');
-  const loaderPercent = document.getElementById('loaderPercent');
-  let progress = 0;
-
-  function animateLoader() {
-    const interval = setInterval(() => {
-      progress += Math.random() * 15 + 5;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        setTimeout(() => {
-          loader.classList.add('hidden');
-          initHeroAnimations();
-        }, 400);
-      }
-      loaderBar.style.width = progress + '%';
-      loaderPercent.textContent = Math.floor(progress) + '%';
-    }, 120);
-  }
-
-  window.addEventListener('load', animateLoader);
+  window.addEventListener('load', function() { initHeroAnimations(); });
 
   // ===== CUSTOM CURSOR =====
   const cursorDot = document.getElementById('cursorDot');
@@ -1465,7 +1564,7 @@
     cursorRing.style.display = 'none';
   }
 
-  // ===== THREE.JS HERO SPHERE =====
+  // ===== THREE.JS HERO PARTICLES (sphere removed) =====
   const canvas = document.getElementById('heroCanvas');
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
@@ -1475,132 +1574,7 @@
 
   camera.position.z = 4;
 
-  // Custom shader material
-  const vertexShader = `
-    uniform float uTime;
-    uniform float uMouseX;
-    uniform float uMouseY;
-    varying vec3 vNormal;
-    varying vec3 vPosition;
-    varying float vDisplacement;
-
-    // Simplex-like noise
-    vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-    vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-    vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
-    vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
-
-    float snoise(vec3 v) {
-      const vec2 C = vec2(1.0/6.0, 1.0/3.0);
-      const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
-      vec3 i = floor(v + dot(v, C.yyy));
-      vec3 x0 = v - i + dot(i, C.xxx);
-      vec3 g = step(x0.yzx, x0.xyz);
-      vec3 l = 1.0 - g;
-      vec3 i1 = min(g.xyz, l.zxy);
-      vec3 i2 = max(g.xyz, l.zxy);
-      vec3 x1 = x0 - i1 + C.xxx;
-      vec3 x2 = x0 - i2 + C.yyy;
-      vec3 x3 = x0 - D.yyy;
-      i = mod289(i);
-      vec4 p = permute(permute(permute(
-        i.z + vec4(0.0, i1.z, i2.z, 1.0))
-        + i.y + vec4(0.0, i1.y, i2.y, 1.0))
-        + i.x + vec4(0.0, i1.x, i2.x, 1.0));
-      float n_ = 0.142857142857;
-      vec3 ns = n_ * D.wyz - D.xzx;
-      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-      vec4 x_ = floor(j * ns.z);
-      vec4 y_ = floor(j - 7.0 * x_);
-      vec4 x = x_ *ns.x + ns.yyyy;
-      vec4 y = y_ *ns.x + ns.yyyy;
-      vec4 h = 1.0 - abs(x) - abs(y);
-      vec4 b0 = vec4(x.xy, y.xy);
-      vec4 b1 = vec4(x.zw, y.zw);
-      vec4 s0 = floor(b0)*2.0 + 1.0;
-      vec4 s1 = floor(b1)*2.0 + 1.0;
-      vec4 sh = -step(h, vec4(0.0));
-      vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
-      vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
-      vec3 p0 = vec3(a0.xy,h.x);
-      vec3 p1 = vec3(a0.zw,h.y);
-      vec3 p2 = vec3(a1.xy,h.z);
-      vec3 p3 = vec3(a1.zw,h.w);
-      vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
-      p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-      vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-      m = m * m;
-      return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
-    }
-
-    void main() {
-      vNormal = normal;
-      vPosition = position;
-
-      float noise = snoise(position * 1.5 + uTime * 0.3 + vec3(uMouseX * 0.2, uMouseY * 0.2, 0.0));
-      float displacement = noise * 0.3;
-      vDisplacement = displacement;
-
-      vec3 newPosition = position + normal * displacement;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
-    }
-  `;
-
-  const fragmentShader = `
-    varying vec3 vNormal;
-    varying vec3 vPosition;
-    varying float vDisplacement;
-    uniform float uTime;
-
-    void main() {
-      // Fresnel effect
-      vec3 viewDirection = normalize(cameraPosition - vPosition);
-      float fresnel = pow(1.0 - dot(viewDirection, vNormal), 2.5);
-
-      // Gradient colors
-      vec3 indigo = vec3(0.388, 0.4, 0.945);
-      vec3 violet = vec3(0.545, 0.361, 0.965);
-      vec3 cyan = vec3(0.133, 0.827, 0.933);
-
-      float t = (vDisplacement + 0.3) / 0.6;
-      vec3 color = mix(indigo, violet, t);
-      color = mix(color, cyan, fresnel * 0.6);
-
-      float alpha = 0.4 + fresnel * 0.5;
-      gl_FragColor = vec4(color, alpha);
-    }
-  `;
-
-  const uniforms = {
-    uTime: { value: 0 },
-    uMouseX: { value: 0 },
-    uMouseY: { value: 0 }
-  };
-
-  const geometry = new THREE.IcosahedronGeometry(1.5, 64);
-  const material = new THREE.ShaderMaterial({
-    vertexShader,
-    fragmentShader,
-    uniforms,
-    transparent: true,
-    side: THREE.DoubleSide
-  });
-
-  const sphere = new THREE.Mesh(geometry, material);
-  scene.add(sphere);
-
-  // Wireframe overlay
-  const wireGeo = new THREE.IcosahedronGeometry(1.52, 16);
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0x6366F1,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.08
-  });
-  const wireframe = new THREE.Mesh(wireGeo, wireMat);
-  scene.add(wireframe);
-
-  // Particles
+  // Particles only
   const particleCount = 800;
   const particleGeo = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
@@ -1637,17 +1611,11 @@
   });
 
   // Animation loop
+  let uTime = 0;
   function animate() {
     requestAnimationFrame(animate);
 
-    uniforms.uTime.value += 0.01;
-    uniforms.uMouseX.value += (targetMouseX - uniforms.uMouseX.value) * 0.05;
-    uniforms.uMouseY.value += (targetMouseY - uniforms.uMouseY.value) * 0.05;
-
-    sphere.rotation.y += 0.003;
-    sphere.rotation.x += 0.001;
-    wireframe.rotation.y += 0.002;
-    wireframe.rotation.x += 0.001;
+    uTime += 0.01;
     particles.rotation.y += 0.001;
     particles.rotation.x += 0.0005;
 
@@ -1677,6 +1645,48 @@
     camera.updateProjectionMatrix();
     renderer.setSize(canvas.clientWidth, canvas.clientHeight);
   });
+
+  // ===== FACE MORPH GALLERY =====
+  (function() {
+    var faces = [
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+young+asian+woman+neutral+expression+studio+lighting+dark+background+4k?width=512&height=512&seed=101&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+african+american+man+30+years+confident+smile+studio+lighting+dark+background+4k?width=512&height=512&seed=202&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+elderly+european+man+gray+hair+kind+eyes+studio+lighting+dark+background+4k?width=512&height=512&seed=303&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+young+latina+woman+warm+smile+studio+lighting+dark+background+4k?width=512&height=512&seed=404&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+middle+eastern+man+beard+serious+expression+studio+lighting+dark+background+4k?width=512&height=512&seed=505&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+indian+woman+traditional+earrings+gentle+smile+studio+lighting+dark+background+4k?width=512&height=512&seed=606&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+african+woman+short+hair+confident+expression+studio+lighting+dark+background+4k?width=512&height=512&seed=707&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+caucasian+young+man+blonde+hair+blue+eyes+studio+lighting+dark+background+4k?width=512&height=512&seed=808&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+korean+man+glasses+smart+look+studio+lighting+dark+background+4k?width=512&height=512&seed=909&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+japanese+woman+elegant+hairstyle+subtle+smile+studio+lighting+dark+background+4k?width=512&height=512&seed=110&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+brazilian+man+curly+hair+friendly+smile+studio+lighting+dark+background+4k?width=512&height=512&seed=211&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+elderly+white+woman+silver+hair+warm+eyes+studio+lighting+dark+background+4k?width=512&height=512&seed=312&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+young+black+woman+natural+hair+bright+smile+studio+lighting+dark+background+4k?width=512&height=512&seed=413&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+arab+man+trimmed+beard+thoughtful+expression+studio+lighting+dark+background+4k?width=512&height=512&seed=514&nologo=true', label: 'AI Avatar'},
+      {url: 'https://image.pollinations.ai/prompt/professional+headshot+portrait+mixed+race+woman+freckles+green+eyes+studio+lighting+dark+background+4k?width=512&height=512&seed=615&nologo=true', label: 'AI Avatar'}
+    ];
+    var container = document.querySelector('.face-morph-container');
+    if (!container) return;
+
+    var imgs = [];
+    faces.forEach(function(face, i) {
+      var img = document.createElement('img');
+      img.className = 'face-img';
+      img.src = face.url;
+      img.alt = 'AI Avatar';
+      img.loading = i < 2 ? 'eager' : 'lazy';
+      if (i === 0) img.classList.add('active');
+      container.appendChild(img);
+      imgs.push(img);
+    });
+
+    var current = 0;
+    setInterval(function() {
+      imgs[current].classList.remove('active');
+      current = (current + 1) % imgs.length;
+      imgs[current].classList.add('active');
+    }, 2500);
+  })();
 
   // ===== PARTICLES BG (Final CTA) =====
   const particlesBg = document.getElementById('particlesBg');

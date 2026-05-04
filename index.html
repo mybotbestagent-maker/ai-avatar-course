@@ -296,10 +296,17 @@
       opacity: 0;
     }
     .hero-title .gradient-text {
-      background: var(--gradient);
+      background: linear-gradient(90deg, #4F46E5, #7C3AED, #06b6d4, #4F46E5);
+      background-size: 300% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: gradientFlow 4s ease infinite;
+    }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .hero-subtitle {
       font-size: clamp(1rem, 2vw, 1.2rem);
@@ -1195,6 +1202,53 @@
       .sticky-cta { padding: 10px 16px; gap: 10px; }
       .sticky-cta-text { font-size: 0.75rem; }
       .sticky-cta-btn { padding: 10px 20px; font-size: 0.8rem; }
+    }
+
+    /* ===== SHIMMER on CTA buttons ===== */
+    .hero-cta,
+    .pricing-cta,
+    .nav-cta,
+    .sticky-cta-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-cta::after,
+    .pricing-cta::after,
+    .nav-cta::after,
+    .sticky-cta-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255,255,255,0.3) 50%,
+        transparent 100%
+      );
+      transform: rotate(30deg);
+      animation: shimmer 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes shimmer {
+      0% { transform: rotate(30deg) translateX(-100%); }
+      20% { transform: rotate(30deg) translateX(100%); }
+      100% { transform: rotate(30deg) translateX(100%); }
+    }
+
+    /* ===== SPOTLIGHT on Pricing Card ===== */
+    .pricing-card .spotlight-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(79,70,229,0.12), transparent 60%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .pricing-card:hover .spotlight-overlay {
+      opacity: 1;
     }
 
     /* ===== UTILITY ===== */
@@ -2157,6 +2211,20 @@
   }
 
 })();
+</script>
+
+<!-- Spotlight effect on pricing card -->
+<script>
+document.querySelectorAll('.pricing-card').forEach(function(card) {
+    var overlay = document.createElement('div');
+    overlay.className = 'spotlight-overlay';
+    card.appendChild(overlay);
+    card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        card.style.setProperty('--x', (e.clientX - rect.left) + 'px');
+        card.style.setProperty('--y', (e.clientY - rect.top) + 'px');
+    });
+});
 </script>
 </body>
 </html>

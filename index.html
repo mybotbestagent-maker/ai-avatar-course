@@ -1251,6 +1251,99 @@
       opacity: 1;
     }
 
+    /* ===== INFINITE MARQUEE ===== */
+    .marquee-container {
+      overflow: hidden;
+      width: 100%;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 12px;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-track img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* ===== SPARKLES on Stats ===== */
+    .stat-card {
+      position: relative;
+    }
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #7C3AED;
+      animation: sparkleAnim 1.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes sparkleAnim {
+      0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1) rotate(180deg); }
+    }
+
+    /* ===== TRACING BEAM ===== */
+    .steps-wrapper {
+      position: relative;
+    }
+    .tracing-beam-svg {
+      position: absolute;
+      left: 24px;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .tracing-beam-dot {
+      position: absolute;
+      left: 18px;
+      top: 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-indigo);
+      box-shadow: 0 0 12px rgba(79,70,229,0.6);
+      z-index: 6;
+      pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      .tracing-beam-svg,
+      .tracing-beam-dot {
+        display: none;
+      }
+    }
+
+    /* ===== ANIMATED GRID on Hero ===== */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(79,70,229,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,70,229,0.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridPulse 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+
     /* ===== UTILITY ===== */
     .reveal { opacity: 0; transform: translateY(40px); }
   </style>
@@ -1281,6 +1374,7 @@
 
 <!-- Hero Section -->
 <section class="hero hero-centered">
+  <div class="hero-grid"></div>
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
   <div class="hero-content hero-content-centered">
     <div class="hero-label"><span style="background:linear-gradient(90deg,#4F46E5,#7C3AED);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;color:#fff;">LIFETIME ACCESS</span></div>
@@ -1325,19 +1419,34 @@
 <div class="stats-bar" style="padding-top:0;">
   <div class="container" style="text-align:center;">
     <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;">Реальные результаты наших студентов</p>
-    <div style="display:flex;gap:12px;overflow-x:auto;padding:8px 0 16px;justify-content:center;flex-wrap:wrap;">
-      <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(99,102,241,0.5);flex-shrink:0;">
-      <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(34,211,238,0.5);flex-shrink:0;">
-      <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(139,92,246,0.5);flex-shrink:0;">
-      <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(245,158,11,0.5);flex-shrink:0;">
-      <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(16,185,129,0.5);flex-shrink:0;">
-      <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(236,72,153,0.5);flex-shrink:0;">
-      <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(99,102,241,0.5);flex-shrink:0;">
-      <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(249,115,22,0.5);flex-shrink:0;">
-      <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(20,184,166,0.5);flex-shrink:0;">
-      <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(139,92,246,0.5);flex-shrink:0;">
-      <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(34,211,238,0.5);flex-shrink:0;">
-      <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="72" height="72" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(239,68,68,0.5);flex-shrink:0;">
+    <div class="marquee-container">
+      <div class="marquee-track">
+        <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
+        <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
+        <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
+        <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
+        <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
+        <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
+        <!-- Duplicate set for seamless loop -->
+        <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
+        <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
+        <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
+        <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
+        <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
+        <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
+      </div>
     </div>
     <p style="font-size:0.7rem;color:var(--text-muted);margin-top:4px;">Любая национальность • Любой возраст • Любой стиль</p>
   </div>
@@ -1421,29 +1530,35 @@
     <div class="section-label reveal">Как это работает</div>
     <h2 class="section-title reveal">Три шага к AI-аватару</h2>
     <p class="section-desc reveal">Всё, что нужно — ноутбук и час свободного времени.</p>
-    <div class="steps-list">
-      <div class="step-row reveal">
-        <div class="step-number">01</div>
-        <div class="step-content">
-          <h3>Создай аватар</h3>
-          <p>Загрузи фото или 2-минутное видео. HeyGen превратит его в цифрового двойника, который говорит и жестикулирует как ты.</p>
-          <span class="step-badge heygen"><span class="badge-dot" style="background:#0066FF"></span> HeyGen</span>
+    <div class="steps-wrapper">
+      <svg class="tracing-beam-svg" id="tracingBeamSvg" preserveAspectRatio="none">
+        <line id="tracingBeamLine" x1="1" y1="0" x2="1" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="tracing-beam-dot" id="tracingBeamDot"></div>
+      <div class="steps-list">
+        <div class="step-row reveal">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>Создай аватар</h3>
+            <p>Загрузи фото или 2-минутное видео. HeyGen превратит его в цифрового двойника, который говорит и жестикулирует как ты.</p>
+            <span class="step-badge heygen"><span class="badge-dot" style="background:#0066FF"></span> HeyGen</span>
+          </div>
         </div>
-      </div>
-      <div class="step-row reveal">
-        <div class="step-number">02</div>
-        <div class="step-content">
-          <h3>Клонируй голос</h3>
-          <p>Запиши 30 секунд речи. ElevenLabs создаст точную копию твоего голоса — с интонациями и эмоциями.</p>
-          <span class="step-badge elevenlabs"><span class="badge-dot" style="background:#fff"></span> ElevenLabs</span>
+        <div class="step-row reveal">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>Клонируй голос</h3>
+            <p>Запиши 30 секунд речи. ElevenLabs создаст точную копию твоего голоса — с интонациями и эмоциями.</p>
+            <span class="step-badge elevenlabs"><span class="badge-dot" style="background:#fff"></span> ElevenLabs</span>
+          </div>
         </div>
-      </div>
-      <div class="step-row reveal">
-        <div class="step-number">03</div>
-        <div class="step-content">
-          <h3>Улучши звук до студийного</h3>
-          <p>Adobe Podcast уберёт шум, эхо и сделает звук как из профессиональной студии — бесплатно.</p>
-          <span class="step-badge adobe"><span class="badge-dot" style="background:#7C3AED"></span> Adobe Podcast</span>
+        <div class="step-row reveal">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>Улучши звук до студийного</h3>
+            <p>Adobe Podcast уберёт шум, эхо и сделает звук как из профессиональной студии — бесплатно.</p>
+            <span class="step-badge adobe"><span class="badge-dot" style="background:#7C3AED"></span> Adobe Podcast</span>
+          </div>
         </div>
       </div>
     </div>
@@ -2226,5 +2341,68 @@ document.querySelectorAll('.pricing-card').forEach(function(card) {
     });
 });
 </script>
+
+<!-- Sparkles on stat numbers -->
+<script>
+(function() {
+  var statCards = document.querySelectorAll('.stat-card');
+  statCards.forEach(function(card) {
+    for (var i = 0; i < 6; i++) {
+      var sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.top = (Math.random() * 60 + 10) + '%';
+      sparkle.style.left = (Math.random() * 80 + 10) + '%';
+      sparkle.style.animationDelay = (Math.random() * 2) + 's';
+      sparkle.style.animationDuration = (1 + Math.random() * 1.5) + 's';
+      var size = 4 + Math.random() * 5;
+      sparkle.style.width = size + 'px';
+      sparkle.style.height = size + 'px';
+      card.appendChild(sparkle);
+    }
+  });
+})();
+</script>
+
+<!-- Tracing beam on "How it works" -->
+<script>
+(function() {
+  var wrapper = document.querySelector('.steps-wrapper');
+  var svg = document.getElementById('tracingBeamSvg');
+  var line = document.getElementById('tracingBeamLine');
+  var dot = document.getElementById('tracingBeamDot');
+
+  if (!wrapper || !svg || !line || !dot) return;
+
+  function setupBeam() {
+    var h = wrapper.offsetHeight;
+    svg.setAttribute('viewBox', '0 0 2 ' + h);
+    line.setAttribute('y2', h);
+    var totalLen = h;
+    line.style.strokeDasharray = totalLen;
+    line.style.strokeDashoffset = totalLen;
+
+    gsap.to(line, {
+      strokeDashoffset: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: wrapper,
+        start: 'top 80%',
+        end: 'bottom 60%',
+        scrub: 0.5,
+        onUpdate: function(self) {
+          var drawn = totalLen * self.progress;
+          dot.style.top = drawn + 'px';
+        }
+      }
+    });
+  }
+
+  // Run after GSAP is ready
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    setupBeam();
+  }
+})();
+</script>
+
 </body>
 </html>

@@ -66,6 +66,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -1364,6 +1365,182 @@
       }
     }
 
+    /* ===== SHIMMER on CTA buttons ===== */
+    .hero-cta, .nav-cta, .sticky-cta-btn, .exit-popup-cta {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-cta::after, .nav-cta::after, .sticky-cta-btn::after, .exit-popup-cta::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmerCTA 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes shimmerCTA {
+      0% { left: -100%; }
+      60% { left: 150%; }
+      100% { left: 150%; }
+    }
+
+    /* ===== SOCIAL PROOF TOAST ===== */
+    .social-toast {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      font-size: 0.85rem;
+      color: var(--text);
+      transform: translateX(-120%);
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+      max-width: 320px;
+    }
+    .social-toast.visible {
+      transform: translateX(0);
+    }
+    .social-toast-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .social-toast-text strong {
+      color: var(--accent-indigo);
+    }
+    .social-toast-time {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    @media (max-width: 768px) {
+      .social-toast {
+        left: 10px;
+        right: 10px;
+        bottom: 70px;
+        max-width: none;
+      }
+    }
+
+    /* ===== SCROLL PROGRESS BAR ===== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient);
+      z-index: 1100;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ===== HAMBURGER MENU ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 1010;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1005;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open {
+      display: flex;
+    }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .mobile-menu a:hover {
+      color: var(--accent-indigo);
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-cta { display: none; }
+    }
+
+    /* ===== MOBILE FIXES ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 90px 20px 40px;
+        min-height: auto;
+      }
+      .hero-title {
+        font-size: clamp(2.2rem, 8vw, 3.5rem);
+      }
+      .hero-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+      }
+      .hero-cta {
+        padding: 16px 28px;
+        font-size: 1rem;
+        min-height: 52px;
+        width: 100%;
+        justify-content: center;
+      }
+      .sticky-cta {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      }
+      .sticky-cta-btn {
+        min-height: 48px;
+        padding: 14px 24px;
+        font-size: 0.95rem;
+      }
+      .pricing-timer {
+        font-size: 0.95rem;
+        padding: 10px 20px;
+      }
+      .marquee-track img {
+        width: 72px;
+        height: 72px;
+        border-radius: 12px;
+      }
+      .pricing-card {
+        padding: 36px 24px;
+      }
+      .pricing-current {
+        font-size: 3rem;
+      }
+    }
+
     /* ===== ANIMATED GRID on Hero ===== */
     .hero-grid {
       position: absolute;
@@ -1393,6 +1570,9 @@
 <div class="ambient-blob ambient-blob-3"></div>
 
 
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <!-- Custom cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
@@ -1407,7 +1587,26 @@
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="nav-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">Начать сейчас</a>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
 </nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how" onclick="closeMobileMenu()">Как это работает</a>
+  <a href="#results" onclick="closeMobileMenu()">Результаты</a>
+  <a href="#pricing" onclick="closeMobileMenu()">Цена</a>
+  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" target="_blank" rel="noopener" style="padding:16px 36px;background:var(--gradient);border-radius:50px;color:#fff;font-size:1.1rem;" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">Получить доступ — $49</a>
+</div>
+
+<!-- Social proof toast -->
+<div class="social-toast" id="socialToast">
+  <img class="social-toast-avatar" id="toastAvatar" src="avatars/women_44.jpg" alt="">
+  <div>
+    <div class="social-toast-text" id="toastText"><strong>Ekaterina</strong> купила курс</div>
+    <div class="social-toast-time" id="toastTime">2 минуты назад</div>
+  </div>
+</div>
 
 <!-- Hero Section -->
 <section class="hero hero-centered">
@@ -1428,10 +1627,7 @@
     </a>
     <p style="margin-top:12px;font-size:0.75rem;color:var(--text-muted);text-align:center;">30-дневная гарантия возврата. Без вопросов.</p>
   </div>
-  <div class="scroll-indicator">
-    <span>Листай вниз</span>
-    <div class="scroll-line"></div>
-  </div>
+  <!-- scroll indicator removed -->
 </section>
 
 <!-- Stats Bar -->
@@ -2391,6 +2587,58 @@
     pricingObserver.observe(pricingSection);
   }
 
+})();
+</script>
+
+<!-- Scroll progress bar -->
+<script>
+window.addEventListener('scroll', function() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+  document.getElementById('scrollProgress').style.width = pct + '%';
+}, {passive: true});
+</script>
+
+<!-- Hamburger menu -->
+<script>
+var hamburger = document.getElementById('hamburger');
+var mobileMenu = document.getElementById('mobileMenu');
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  hamburger.classList.remove('active');
+}
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('active');
+  mobileMenu.classList.toggle('open');
+});
+</script>
+
+<!-- Social proof toast -->
+<script>
+(function() {
+  var buyers = [
+    {name:'Ekaterina', avatar:'avatars/women_44.jpg', time:'2 минуты назад'},
+    {name:'Aliksan', avatar:'avatars/men_32.jpg', time:'5 минут назад'},
+    {name:'Oleksandr', avatar:'avatars/men_75.jpg', time:'12 минут назад'},
+    {name:'Iuliia', avatar:'avatars/women_68.jpg', time:'18 минут назад'},
+    {name:'Assel', avatar:'avatars/women_55.jpg', time:'25 минут назад'}
+  ];
+  var toast = document.getElementById('socialToast');
+  var toastAvatar = document.getElementById('toastAvatar');
+  var toastText = document.getElementById('toastText');
+  var toastTime = document.getElementById('toastTime');
+  var idx = 0;
+  function showToast() {
+    var b = buyers[idx % buyers.length];
+    toastAvatar.src = b.avatar;
+    toastText.innerHTML = '<strong>' + b.name + '</strong> купил(а) курс';
+    toastTime.textContent = b.time;
+    toast.classList.add('visible');
+    setTimeout(function() { toast.classList.remove('visible'); }, 4000);
+    idx++;
+  }
+  setTimeout(showToast, 8000);
+  setInterval(showToast, 25000);
 })();
 </script>
 

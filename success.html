@@ -20,7 +20,7 @@
     fbq('track', 'PageView');
     (function(){
       var params = new URLSearchParams(window.location.search);
-      var plan = parseInt(params.get('plan')) || 19;
+      var plan = parseInt(params.get('plan')) || 49;
       fbq('track', 'Purchase', {
           value: plan,
           currency: 'USD',

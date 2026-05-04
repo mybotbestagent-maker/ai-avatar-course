@@ -296,17 +296,33 @@
       opacity: 0;
     }
     .hero-title .gradient-text {
-      background: linear-gradient(90deg, #4F46E5, #7C3AED, #06b6d4, #4F46E5);
-      background-size: 300% 100%;
+      background: linear-gradient(90deg, #4F46E5, #7C3AED, #06b6d4, #ec4899, #f59e0b, #4F46E5);
+      background-size: 400% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: gradientFlow 4s ease infinite;
+      animation: gradientFlow 6s ease infinite;
+      filter: brightness(1.1);
     }
     @keyframes gradientFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+    .hero-title .gradient-text::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: hologramSheen 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes hologramSheen {
+      0% { left: -100%; }
+      50% { left: 150%; }
+      100% { left: 150%; }
     }
     .hero-subtitle {
       font-size: clamp(1rem, 2vw, 1.2rem);
@@ -1242,39 +1258,60 @@
     .pricing-card .spotlight-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(79,70,229,0.12), transparent 60%);
+      border-radius: var(--radius);
+      background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(79,70,229,0.15), rgba(124,58,237,0.08) 40%, transparent 70%);
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.4s ease;
+      z-index: 1;
     }
     .pricing-card:hover .spotlight-overlay {
       opacity: 1;
+    }
+    .pricing-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(79,70,229,0.2);
     }
 
     /* ===== INFINITE MARQUEE ===== */
     .marquee-container {
       overflow: hidden;
       width: 100%;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
     }
     .marquee-track {
       display: flex;
-      gap: 12px;
-      animation: marquee 30s linear infinite;
+      gap: 16px;
+      animation: marquee 25s linear infinite;
       width: max-content;
     }
     .marquee-track:hover {
       animation-play-state: paused;
+    }
+    .marquee-track-reverse {
+      animation-direction: reverse;
+      margin-top: 16px;
     }
     @keyframes marquee {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
     .marquee-track img {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
+      width: 96px;
+      height: 96px;
+      border-radius: 16px;
       object-fit: cover;
       flex-shrink: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .marquee-track img:hover {
+      transform: scale(1.15);
+      box-shadow: 0 8px 25px rgba(79,70,229,0.3);
+      z-index: 2;
     }
 
     /* ===== SPARKLES on Stats ===== */
@@ -1378,7 +1415,7 @@
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
   <div class="hero-content hero-content-centered">
     <div class="hero-label"><span style="background:linear-gradient(90deg,#4F46E5,#7C3AED);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;color:#fff;">LIFETIME ACCESS</span></div>
-    <h1 class="hero-title">Создай <span class="gradient-text">100+ AI-аватаров</span> за 60 секунд</h1>
+    <h1 class="hero-title">Создай <span class="gradient-text" style="position:relative;overflow:hidden;display:inline-block;">100+ AI-аватаров</span> за 60 секунд</h1>
     <p class="hero-subtitle">Без дизайнеров, без фотографов, без навыков. Любая национальность, возраст, стиль. Первый аватар — через 5 минут после покупки.</p>
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;">
       <span style="font-size:1.1rem;color:var(--text-muted);text-decoration:line-through;">$997</span>
@@ -1421,34 +1458,63 @@
     <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;">Реальные результаты наших студентов</p>
     <div class="marquee-container">
       <div class="marquee-track">
-        <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
-        <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
-        <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
-        <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
-        <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
-        <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
-        <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
-        <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
+        <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
+        <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
+        <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
+        <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
+        <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
+        <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
         <!-- Duplicate set for seamless loop -->
-        <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
-        <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
-        <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
-        <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
-        <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
-        <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
-        <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
-        <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="72" height="72" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
+        <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
+        <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
+        <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
+        <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
+        <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
+        <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
       </div>
     </div>
-    <p style="font-size:0.7rem;color:var(--text-muted);margin-top:4px;">Любая национальность • Любой возраст • Любой стиль</p>
+    <div class="marquee-container" style="margin-top:16px;">
+      <div class="marquee-track marquee-track-reverse">
+        <img src="avatars/men_86.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
+        <img src="avatars/women_17.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_3.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
+        <img src="avatars/women_55.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
+        <img src="avatars/men_52.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/women_90.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/men_75.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
+        <img src="avatars/women_68.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
+        <img src="avatars/men_32.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
+        <img src="avatars/women_44.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(79,70,229,0.5);">
+        <img src="avatars/men_11.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(124,58,237,0.5);">
+        <img src="avatars/women_33.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(6,182,212,0.5);">
+        <!-- Duplicate for seamless loop -->
+        <img src="avatars/men_86.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
+        <img src="avatars/women_17.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(99,102,241,0.5);">
+        <img src="avatars/men_3.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
+        <img src="avatars/women_55.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
+        <img src="avatars/men_52.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
+        <img src="avatars/women_90.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
+        <img src="avatars/men_75.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
+        <img src="avatars/women_68.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
+        <img src="avatars/men_32.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
+        <img src="avatars/women_44.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(79,70,229,0.5);">
+        <img src="avatars/men_11.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(124,58,237,0.5);">
+        <img src="avatars/women_33.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(6,182,212,0.5);">
+      </div>
+    </div>
+    <p style="font-size:0.7rem;color:var(--text-muted);margin-top:12px;">Любая национальность • Любой возраст • Любой стиль</p>
   </div>
 </div>
 

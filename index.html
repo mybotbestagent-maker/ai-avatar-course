@@ -2717,6 +2717,32 @@ document.querySelectorAll('.pricing-card').forEach(function(card) {
   }
 })();
 </script>
+<script>
+(function(){
+  function getCookie(name){
+    var m = document.cookie.match('(?:^|;)\\s*' + name + '=([^;]*)');
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+  function getParam(name){
+    var m = location.search.match('[?&]' + name + '=([^&#]*)');
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+  var fbc = getCookie('_fbc');
+  var fbp = getCookie('_fbp');
+  var fbclid = getParam('fbclid');
+  if (!fbc && fbclid) {
+    fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+  }
+  if (fbc || fbp) {
+    var ref = [fbc || '', fbp || ''].join('|');
+    document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){
+      var url = new URL(a.href);
+      url.searchParams.set('client_reference_id', ref);
+      a.href = url.toString();
+    });
+  }
+})();
+</script>
 
 </body>
 </html>

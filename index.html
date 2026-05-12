@@ -372,36 +372,63 @@
     .aurora-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
+      filter: blur(110px);
       opacity: 0.5;
-      animation: auroraFloat 12s ease-in-out infinite;
+      mix-blend-mode: screen;
+      animation: auroraFloat1 12s ease-in-out infinite;
     }
     .aurora-orb-1 {
-      width: 500px; height: 500px;
+      width: 700px; height: 700px;
       background: radial-gradient(circle, #2997FF, transparent 70%);
-      top: 10%; right: 5%;
-      animation-duration: 10s;
+      top: 5%; right: 0%;
+      animation: auroraFloat1 11s ease-in-out infinite;
     }
     .aurora-orb-2 {
-      width: 400px; height: 400px;
+      width: 600px; height: 600px;
       background: radial-gradient(circle, #BF5AF2, transparent 70%);
-      top: 30%; right: 20%;
-      animation-duration: 14s;
-      animation-delay: -4s;
+      top: 25%; right: 15%;
+      animation: auroraFloat2 15s ease-in-out infinite;
+      animation-delay: -3s;
     }
     .aurora-orb-3 {
-      width: 300px; height: 300px;
+      width: 500px; height: 500px;
       background: radial-gradient(circle, #30D158, transparent 70%);
-      top: 50%; right: 10%;
-      animation-duration: 16s;
-      animation-delay: -8s;
+      top: 45%; right: 5%;
+      animation: auroraFloat3 18s ease-in-out infinite;
+      animation-delay: -7s;
       opacity: 0.3;
     }
-    @keyframes auroraFloat {
+    .aurora-orb-4 {
+      width: 550px; height: 550px;
+      background: radial-gradient(circle, rgba(255,100,130,0.7), transparent 70%);
+      top: 15%; right: 25%;
+      animation: auroraFloat4 20s ease-in-out infinite;
+      animation-delay: -10s;
+      opacity: 0.2;
+    }
+    @keyframes auroraFloat1 {
       0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-      25% { transform: translate(-40px, 30px) scale(1.1); opacity: 0.6; }
-      50% { transform: translate(30px, -40px) scale(0.9); opacity: 0.4; }
-      75% { transform: translate(-20px, -30px) scale(1.05); opacity: 0.55; }
+      25% { transform: translate(-50px, 35px) scale(1.12); opacity: 0.6; }
+      50% { transform: translate(35px, -50px) scale(0.88); opacity: 0.4; }
+      75% { transform: translate(-25px, -35px) scale(1.06); opacity: 0.55; }
+    }
+    @keyframes auroraFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.45; }
+      30% { transform: translate(45px, -25px) scale(1.08); opacity: 0.55; }
+      60% { transform: translate(-35px, 45px) scale(0.92); opacity: 0.35; }
+      80% { transform: translate(20px, 15px) scale(1.04); opacity: 0.5; }
+    }
+    @keyframes auroraFloat3 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      20% { transform: translate(-30px, -40px) scale(1.1); opacity: 0.4; }
+      50% { transform: translate(40px, 20px) scale(0.9); opacity: 0.25; }
+      70% { transform: translate(-15px, 35px) scale(1.05); opacity: 0.35; }
+    }
+    @keyframes auroraFloat4 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+      25% { transform: translate(35px, 30px) scale(1.15); opacity: 0.3; }
+      50% { transform: translate(-25px, -35px) scale(0.85); opacity: 0.15; }
+      75% { transform: translate(15px, -20px) scale(1.08); opacity: 0.25; }
     }
     .scroll-indicator {
       position: absolute;
@@ -1593,6 +1620,132 @@
       50% { opacity: 0.7; }
     }
 
+    /* ===== SPOTLIGHT CARD EFFECT (Aceternity-inspired) ===== */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .spotlight-card .spotlight-card-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      background: radial-gradient(
+        350px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+        rgba(41,151,255,0.15),
+        rgba(191,90,242,0.06) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 2;
+    }
+    .spotlight-card:hover .spotlight-card-overlay {
+      opacity: 1;
+    }
+    .spotlight-card:hover {
+      border-color: rgba(41,151,255,0.25) !important;
+    }
+
+    /* ===== LAMP EFFECT on section headers ===== */
+    .lamp-effect {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .lamp-effect::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 180px;
+      background: conic-gradient(
+        from 90deg at 50% 100%,
+        rgba(41,151,255,0.12),
+        rgba(191,90,242,0.07) 25%,
+        transparent 50%
+      );
+      filter: blur(40px);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .lamp-effect.lamp-visible::before {
+      opacity: 1;
+    }
+    .lamp-effect::after {
+      content: '';
+      position: absolute;
+      bottom: calc(100% - 1px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(41,151,255,0.5), rgba(191,90,242,0.5), transparent);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .lamp-effect.lamp-visible::after {
+      opacity: 1;
+    }
+
+    /* ===== TEXT SHIMMER on gradient-text ===== */
+    .gradient-text-shimmer {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .gradient-text-shimmer .shimmer-sweep {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(255,255,255,0.12) 45%,
+        rgba(255,255,255,0.25) 50%,
+        rgba(255,255,255,0.12) 55%,
+        transparent 80%
+      );
+      animation: textShimmerSweep 5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 3;
+    }
+    @keyframes textShimmerSweep {
+      0% { left: -100%; }
+      30% { left: 150%; }
+      100% { left: 150%; }
+    }
+
+    /* ===== ENHANCED PRICING BORDER (comet trail) ===== */
+    .pricing-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      padding: 2px;
+      background: conic-gradient(
+        from var(--angle, 0deg),
+        transparent 60%,
+        rgba(41,151,255,0.8) 75%,
+        rgba(191,90,242,0.9) 80%,
+        rgba(48,209,88,0.6) 85%,
+        transparent 95%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: rotateBorder 4s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
     /* ===== UTILITY ===== */
     .reveal { opacity: 0; transform: translateY(40px); }
   </style>
@@ -1650,10 +1803,11 @@
     <div class="aurora-orb aurora-orb-1"></div>
     <div class="aurora-orb aurora-orb-2"></div>
     <div class="aurora-orb aurora-orb-3"></div>
+    <div class="aurora-orb aurora-orb-4"></div>
   </div>
   <div class="hero-content hero-content-centered">
     <div class="hero-label"><span style="background:linear-gradient(90deg,#2997FF,#BF5AF2);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;color:#fff;">3 КУРСА В 1 — LIFETIME ACCESS</span></div>
-    <h1 class="hero-title">Создай <span class="gradient-text" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар</span> который говорит твоим голосом</h1>
+    <h1 class="hero-title">Создай <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span> который говорит твоим голосом</h1>
     <p class="hero-subtitle">HeyGen + ElevenLabs + Adobe Podcast — три инструмента, один курс. Конкуренты продают каждый отдельно за $49. У нас — всё вместе.</p>
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;">
       <span style="font-size:1.1rem;color:var(--text-muted);text-decoration:line-through;">$997</span>
@@ -1785,23 +1939,26 @@
       <span style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-indigo);">3 курса в 1 за $49 — конкуренты продают каждый отдельно</span>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto;">
-      <div style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
-        <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;"><rect width="32" height="32" rx="8" fill="#0066FF"/><polygon points="12,8 12,24 26,16" fill="#fff"/></svg>
-        <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;">HeyGen</div>
-        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">Создание AI-аватаров</div>
-        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;">отдельно $49</div>
+      <div class="spotlight-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
+        <div class="spotlight-card-overlay"></div>
+        <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#0066FF"/><polygon points="12,8 12,24 26,16" fill="#fff"/></svg>
+        <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">HeyGen</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Создание AI-аватаров</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $49</div>
       </div>
-      <div style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
-        <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;"><rect width="32" height="32" rx="8" fill="#000"/><rect x="10" y="6" width="4" height="20" rx="2" fill="#fff"/><rect x="18" y="6" width="4" height="20" rx="2" fill="#fff"/></svg>
-        <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;">ElevenLabs</div>
-        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">Клонирование голоса</div>
-        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;">отдельно $49</div>
+      <div class="spotlight-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
+        <div class="spotlight-card-overlay"></div>
+        <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#000"/><rect x="10" y="6" width="4" height="20" rx="2" fill="#fff"/><rect x="18" y="6" width="4" height="20" rx="2" fill="#fff"/></svg>
+        <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">ElevenLabs</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Клонирование голоса</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $49</div>
       </div>
-      <div style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
-        <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;"><rect width="32" height="32" rx="8" fill="#1B0028"/><text x="16" y="22" text-anchor="middle" font-size="16" font-weight="bold" fill="#E8D0FF" font-family="Arial">Ai</text></svg>
-        <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;">Adobe Podcast</div>
-        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">Студийный звук</div>
-        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;">отдельно $29</div>
+      <div class="spotlight-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
+        <div class="spotlight-card-overlay"></div>
+        <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#1B0028"/><text x="16" y="22" text-anchor="middle" font-size="16" font-weight="bold" fill="#E8D0FF" font-family="Arial">Ai</text></svg>
+        <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">Adobe Podcast</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Студийный звук</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $29</div>
       </div>
     </div>
     <p style="margin-top:16px;font-size:0.85rem;color:var(--text-secondary);">Итого <span style="text-decoration:line-through;color:var(--text-muted);">$127</span> &rarr; <span style="font-weight:700;font-size:1.1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span> <span style="color:var(--text-muted);">— экономия 61%</span></p>
@@ -1811,7 +1968,7 @@
 <!-- Problem / Transformation -->
 <section id="transform">
   <div class="container">
-    <div class="section-label reveal">Трансформация</div>
+    <div class="section-label reveal lamp-effect">Трансформация</div>
     <h2 class="section-title reveal">Три навыка за цену одного. Результат — за один вечер.</h2>
     <p class="section-desc reveal">AI-аватары + клон голоса + студийный звук. Другие продают это тремя курсами за $127+. У нас — всё в одном за $49.</p>
     <div class="problem-grid">
@@ -1837,7 +1994,7 @@
 <!-- How It Works -->
 <section id="how">
   <div class="container">
-    <div class="section-label reveal">Как это работает</div>
+    <div class="section-label reveal lamp-effect">Как это работает</div>
     <h2 class="section-title reveal">Три шага к AI-аватару</h2>
     <p class="section-desc reveal">Всё, что нужно — ноутбук и час свободного времени.</p>
     <div class="steps-wrapper">
@@ -1878,7 +2035,7 @@
 <!-- What You Get (Use Cases) -->
 <section id="results">
   <div class="container">
-    <div class="section-label reveal">Что ты получишь</div>
+    <div class="section-label reveal lamp-effect">Что ты получишь</div>
     <h2 class="section-title reveal">Один аватар — бесконечные возможности</h2>
     <p class="section-desc reveal">Вот как студенты используют свои AI-аватары прямо сейчас.</p>
     <div class="usecase-grid">
@@ -1904,7 +2061,7 @@
 <!-- For Whom -->
 <section>
   <div class="container">
-    <div class="section-label reveal">Для кого</div>
+    <div class="section-label reveal lamp-effect">Для кого</div>
     <h2 class="section-title reveal">Этот курс для тебя, если:</h2>
     <div class="problem-grid">
       <div class="problem-card reveal">
@@ -1929,7 +2086,7 @@
 <!-- Author -->
 <section>
   <div class="container" style="text-align:center;">
-    <div class="section-label reveal">Автор курса</div>
+    <div class="section-label reveal lamp-effect">Автор курса</div>
     <div style="max-width:560px;margin:0 auto;">
       <picture>
         <source srcset="farrukh.webp" type="image/webp">
@@ -1959,7 +2116,7 @@
 <!-- Bonuses -->
 <section id="bonuses">
   <div class="container">
-    <div class="section-label reveal">Что внутри</div>
+    <div class="section-label reveal lamp-effect">Что внутри</div>
     <h2 class="section-title reveal">Всё, что нужно для AI-видео — в одном пакете</h2>
     <p class="section-desc reveal">Конкуренты берут $97 за то, что ты получишь навсегда за $49.</p>
     <div class="bonuses-list">
@@ -2019,7 +2176,7 @@
 <!-- Testimonials -->
 <section>
   <div class="container">
-    <div class="section-label reveal">Отзывы</div>
+    <div class="section-label reveal lamp-effect">Отзывы</div>
     <h2 class="section-title reveal">247 креаторов уже генерируют аватары</h2>
     <p class="section-desc reveal">Вот что они говорят.</p>
     <div class="testimonials-grid">
@@ -2095,7 +2252,7 @@
 <!-- Pricing -->
 <section id="pricing" class="pricing-section">
   <div class="container">
-    <div class="section-label reveal">Сравни сам</div>
+    <div class="section-label reveal lamp-effect">Сравни сам</div>
     <h2 class="section-title reveal">Один раз заплати — используй навсегда</h2>
     <p class="section-desc reveal" style="margin-left:auto;margin-right:auto;">Видеограф = $500/ролик. Продакшн-студия = $5000/проект. Этот курс = $49 за навык на всю жизнь.</p>
     <div class="pricing-card reveal">
@@ -2131,7 +2288,7 @@
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <div class="section-label reveal">Вопросы</div>
+    <div class="section-label reveal lamp-effect">Вопросы</div>
     <h2 class="section-title reveal">Частые вопросы</h2>
     <div class="faq-list">
       <div class="faq-item">
@@ -2187,7 +2344,7 @@
 <section class="final-cta-section">
   <canvas class="particles-bg" id="particlesBg"></canvas>
   <div class="final-cta-content container">
-    <h2 class="final-cta-title reveal">Через 60 секунд у тебя будет <span class="gradient-text">первый аватар</span></h2>
+    <h2 class="final-cta-title reveal">Через 60 секунд у тебя будет <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">первый аватар<span class="shimmer-sweep"></span></span></h2>
     <p class="final-cta-subtitle reveal">247 креаторов уже используют. Следующий — ты. 30-дневная гарантия возврата.</p>
     <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta reveal" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
       Забрать курс + бонусы — $49
@@ -2650,6 +2807,43 @@ document.querySelectorAll('.pricing-card').forEach(function(card) {
       var url = new URL(a.href);
       url.searchParams.set('client_reference_id', ref);
       a.href = url.toString();
+    });
+  }
+})();
+</script>
+
+<!-- Aceternity-inspired effects: Spotlight cards + Lamp reveal -->
+<script>
+(function() {
+  'use strict';
+
+  // ===== SPOTLIGHT CARD EFFECT =====
+  // Only on non-touch devices
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.spotlight-card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        card.style.setProperty('--spotlight-x', x + 'px');
+        card.style.setProperty('--spotlight-y', y + 'px');
+      });
+    });
+  }
+
+  // ===== LAMP EFFECT — reveal on scroll =====
+  var lampEls = document.querySelectorAll('.lamp-effect');
+  if (lampEls.length > 0) {
+    var lampObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('lamp-visible');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    lampEls.forEach(function(el) {
+      lampObserver.observe(el);
     });
   }
 })();

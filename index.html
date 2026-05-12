@@ -1758,6 +1758,15 @@
       z-index: 0;
     }
 
+    /* ===== EXPANDABLE PRODUCT CARDS ===== */
+    .product-expand-card.expanded {
+      border-color: rgba(41,151,255,0.3) !important;
+      box-shadow: 0 4px 20px rgba(41,151,255,0.12);
+    }
+    .product-expand-card.expanded .product-expand-arrow {
+      transform: rotate(180deg);
+    }
+
     /* ===== 3-IN-1 PRODUCTS GRID RESPONSIVE ===== */
     @media (max-width: 768px) {
       .products-3in1-grid { grid-template-columns: 1fr !important; gap: 12px !important; max-width: 400px !important; }
@@ -2030,26 +2039,62 @@
       <span class="products-badge-text" style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-indigo);">3 курса в 1 за $49 — конкуренты продают каждый отдельно</span>
     </div>
     <div class="products-3in1-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto;">
-      <div class="spotlight-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
+      <div class="spotlight-card product-expand-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s,box-shadow 0.3s;cursor:pointer;">
         <div class="spotlight-card-overlay"></div>
         <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#0066FF"/><polygon points="12,8 12,24 26,16" fill="#fff"/></svg>
         <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">HeyGen</div>
         <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Создание AI-аватаров</div>
         <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $49</div>
+        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;">&#9660; подробнее</div>
+        <div class="product-expand-details" style="position:relative;z-index:3;max-height:0;overflow:hidden;transition:max-height 0.4s ease,margin 0.3s ease;text-align:left;">
+          <div style="padding-top:16px;border-top:1px solid var(--border);margin-top:12px;">
+            <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.7;">
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Создание фотореалистичного аватара из одной фотографии</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Настройка мимики, жестов и эмоций</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Генерация видео по тексту за 60 секунд</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Перевод видео на 40+ языков с lip-sync</div>
+              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Шаблоны для Reels, TikTok, YouTube</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="spotlight-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
+      <div class="spotlight-card product-expand-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s,box-shadow 0.3s;cursor:pointer;">
         <div class="spotlight-card-overlay"></div>
         <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#000"/><rect x="10" y="6" width="4" height="20" rx="2" fill="#fff"/><rect x="18" y="6" width="4" height="20" rx="2" fill="#fff"/></svg>
         <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">ElevenLabs</div>
         <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Клонирование голоса</div>
         <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $49</div>
+        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;">&#9660; подробнее</div>
+        <div class="product-expand-details" style="position:relative;z-index:3;max-height:0;overflow:hidden;transition:max-height 0.4s ease,margin 0.3s ease;text-align:left;">
+          <div style="padding-top:16px;border-top:1px solid var(--border);margin-top:12px;">
+            <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.7;">
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Клонирование голоса за 30 секунд записи</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Озвучка текста твоим голосом на любом языке</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Настройка интонации, скорости, эмоций</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Интеграция с HeyGen для полного видео</div>
+              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Бесплатный план — достаточно для старта</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="spotlight-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
+      <div class="spotlight-card product-expand-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s,box-shadow 0.3s;cursor:pointer;">
         <div class="spotlight-card-overlay"></div>
         <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#1B0028"/><text x="16" y="22" text-anchor="middle" font-size="16" font-weight="bold" fill="#E8D0FF" font-family="Arial">Ai</text></svg>
         <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">Adobe Podcast</div>
         <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Студийный звук</div>
         <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $29</div>
+        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;">&#9660; подробнее</div>
+        <div class="product-expand-details" style="position:relative;z-index:3;max-height:0;overflow:hidden;transition:max-height 0.4s ease,margin 0.3s ease;text-align:left;">
+          <div style="padding-top:16px;border-top:1px solid var(--border);margin-top:12px;">
+            <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.7;">
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Удаление фонового шума одним кликом</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Студийное качество звука из любой записи</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Убирает эхо, гул кондиционера, улицу</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Полностью бесплатный инструмент</div>
+              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Работает в браузере — ничего устанавливать</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <p style="margin-top:16px;font-size:0.85rem;color:var(--text-secondary);">Итого <span style="text-decoration:line-through;color:var(--text-muted);">$127</span> &rarr; <span style="font-weight:700;font-size:1.1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span> <span style="color:var(--text-muted);">— экономия 61%</span></p>
@@ -2901,6 +2946,24 @@ document.querySelectorAll('.pricing-card').forEach(function(card) {
     });
   }
 })();
+</script>
+
+<!-- Expandable product cards -->
+<script>
+document.querySelectorAll('.product-expand-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    var details = card.querySelector('.product-expand-details');
+    var isOpen = card.classList.contains('expanded');
+    document.querySelectorAll('.product-expand-card').forEach(function(c) {
+      c.classList.remove('expanded');
+      c.querySelector('.product-expand-details').style.maxHeight = '0';
+    });
+    if (!isOpen) {
+      card.classList.add('expanded');
+      details.style.maxHeight = details.scrollHeight + 'px';
+    }
+  });
+});
 </script>
 
 <!-- Aceternity-inspired effects: Spotlight cards + Lamp reveal -->

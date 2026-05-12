@@ -50,13 +50,54 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "AI Avatar Studio — 3 курса в 1",
+    "description": "Видеокурс: создание AI-аватаров в HeyGen, клонирование голоса в ElevenLabs, студийный звук в Adobe Podcast.",
+    "image": "https://mybotbestagent-maker.github.io/ai-avatar-course/og.jpg",
+    "brand": {"@type": "Brand", "name": "AI Avatar Studio"},
+    "offers": {
+      "@type": "Offer",
+      "price": "49",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://mybotbestagent-maker.github.io/ai-avatar-course/",
+      "priceValidUntil": "2027-12-31"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "247",
+      "bestRating": "5"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Viktoriia"},
+        "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+        "reviewBody": "Создала аватар за 40 минут. На следующий день выложила продающее видео — получила 3 заказа."
+      },
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Dmitry K."},
+        "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+        "reviewBody": "Раньше платил видеографу $500 за ролик. Теперь делаю 5 видео в день сам."
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {"@type":"Question","name":"Нужен ли опыт в видеомонтаже?","acceptedAnswer":{"@type":"Answer","text":"Нет. Курс рассчитан на полных новичков. Всё показано пошагово — от регистрации в сервисах до первого видео."}},
       {"@type":"Question","name":"Какое оборудование нужно?","acceptedAnswer":{"@type":"Answer","text":"Только ноутбук или телефон с интернетом. Все инструменты работают в браузере."}},
       {"@type":"Question","name":"Сервисы платные?","acceptedAnswer":{"@type":"Answer","text":"HeyGen и ElevenLabs имеют бесплатные планы для старта. Adobe Podcast полностью бесплатный."}},
       {"@type":"Question","name":"Как долго доступен курс?","acceptedAnswer":{"@type":"Answer","text":"Навсегда. Одна покупка — пожизненный доступ ко всем урокам и обновлениям."}},
-      {"@type":"Question","name":"А если не получится?","acceptedAnswer":{"@type":"Answer","text":"30 дней гарантия возврата. Напиши @handy_dad в Telegram и получи полный возврат без вопросов."}}
+      {"@type":"Question","name":"А если не получится?","acceptedAnswer":{"@type":"Answer","text":"30 дней гарантия возврата. Напиши @handy_dad в Telegram и получи полный возврат без вопросов."}},
+      {"@type":"Question","name":"В каком формате курс и как получу доступ?","acceptedAnswer":{"@type":"Answer","text":"3 видеоурока + бонусные материалы. После оплаты моментально получаешь ссылку на закрытый Telegram-канал с уроками."}},
+      {"@type":"Question","name":"Сколько длятся уроки?","acceptedAnswer":{"@type":"Answer","text":"Каждый урок 15-25 минут. Первый аватар можно создать уже во время просмотра первого урока."}}
     ]
   }
   </script>
@@ -69,7 +110,7 @@
   </script>
 
   <!-- Preload hero background -->
-  <link rel="preload" as="image" href="hero-bg.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="hero.webp" type="image/webp">
 
   <!-- Meta Pixel -->
   <script>
@@ -90,8 +131,8 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ===== RESET & BASE ===== */
@@ -186,36 +227,6 @@
 
     /* ===== LOADING SCREEN ===== */
     /* loader removed for speed */
-
-    /* ===== CUSTOM CURSOR ===== */
-    .cursor-dot {
-      position: fixed;
-      width: 6px; height: 6px;
-      background: #f5f5f7;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      mix-blend-mode: difference;
-      transition: transform 0.1s ease;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1.5px solid rgba(41,151,255,0.4);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      mix-blend-mode: normal;
-      transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
-    }
-    .cursor-ring.expanded {
-      width: 56px; height: 56px;
-      border-color: var(--accent-indigo);
-    }
-
-    @media (pointer: coarse) {
-      .cursor-dot, .cursor-ring { display: none !important; }
-    }
 
     /* ===== NAVIGATION ===== */
     .nav {
@@ -905,17 +916,6 @@
     }
     @keyframes rotateBorder {
       to { --angle: 360deg; }
-    }
-    .pricing-timer {
-      display: inline-block;
-      padding: 8px 20px;
-      background: rgba(41,151,255,0.1);
-      border: 1px solid rgba(41,151,255,0.2);
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent-indigo);
-      margin-bottom: 32px;
     }
     .pricing-old {
       font-size: 1.2rem;
@@ -1622,10 +1622,6 @@
         padding: 14px 24px;
         font-size: 0.95rem;
       }
-      .pricing-timer {
-        font-size: 0.95rem;
-        padding: 10px 20px;
-      }
       .marquee-track img {
         width: 72px;
         height: 72px;
@@ -1852,7 +1848,6 @@
       .usecase-card h3 { font-size: 1.05rem; }
       .pricing-card { padding: 28px 16px; margin: 0 -4px; }
       .pricing-current { font-size: 2.5rem; }
-      .pricing-timer { font-size: 0.8rem; padding: 8px 14px; }
       .pricing-features li { font-size: 0.85rem; padding: 8px 0; }
       .bonus-text { font-size: 0.9rem; }
       .bonus-value { font-size: 0.8rem; }
@@ -1885,8 +1880,6 @@
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- Custom cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- Navigation -->
 <nav class="nav">
@@ -2506,6 +2499,24 @@
           <div class="faq-answer-inner">У тебя есть 30 дней, чтобы попробовать. Если курс не подойдёт — напиши @handy_dad в Telegram и получи полный возврат без вопросов.</div>
         </div>
       </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          В каком формате курс и как получу доступ?
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">3 видеоурока + бонусные материалы. После оплаты ты моментально получаешь ссылку на закрытый Telegram-канал с уроками. Смотри с любого устройства, в любое время.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Сколько длятся уроки?
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Каждый урок 15-25 минут. Всё по делу, без воды. Первый аватар можно создать уже во время просмотра первого урока.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2548,49 +2559,20 @@
   <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="sticky-cta-btn" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">Получить навсегда за $49 &rarr;</a>
 </div>
 
+<!-- Floating Telegram button -->
+<a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="position:fixed;bottom:90px;right:20px;width:56px;height:56px;background:#2AABEE;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(42,171,238,0.4);z-index:999;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M21.2 4.4L2.4 11.1c-.6.2-.6.7 0 .9l4.8 1.5 1.8 5.8c.2.5.7.5.9.2l2.7-2.2 4.7 3.5c.5.4 1 .2 1.1-.4L22 5.3c.2-.7-.3-1.1-.8-.9z"/></svg>
+</a>
+
 <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
 <script>
 (function() {
   'use strict';
 
   window.addEventListener('load', function() { initHeroAnimations(); });
-
-  // ===== CUSTOM CURSOR =====
-  const cursorDot = document.getElementById('cursorDot');
-  const cursorRing = document.getElementById('cursorRing');
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
-
-  if (window.matchMedia('(pointer: fine)').matches) {
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.left = mouseX - 3 + 'px';
-      cursorDot.style.top = mouseY - 3 + 'px';
-    });
-
-    function animateCursorRing() {
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
-      cursorRing.style.left = ringX - 18 + 'px';
-      cursorRing.style.top = ringY - 18 + 'px';
-      requestAnimationFrame(animateCursorRing);
-    }
-    animateCursorRing();
-
-    // Expand on interactive elements
-    const interactiveEls = document.querySelectorAll('a, button, .problem-card, .usecase-card, .testimonial-card');
-    interactiveEls.forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('expanded'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('expanded'));
-    });
-  } else {
-    cursorDot.style.display = 'none';
-    cursorRing.style.display = 'none';
-  }
 
   // ===== AURORA MOUSE PARALLAX =====
   const heroCanvas = document.getElementById('heroCanvas');

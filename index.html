@@ -369,6 +369,17 @@
       z-index: 5;
       overflow: hidden;
     }
+    .hero-bg-img {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110%;
+      height: 110%;
+      object-fit: cover;
+      filter: blur(6px) brightness(0.4);
+      z-index: 0;
+      pointer-events: none;
+    }
     .aurora-orb {
       position: absolute;
       border-radius: 50%;
@@ -466,6 +477,7 @@
         left: 0;
       }
       .hero-content { max-width: 100%; }
+      .hero-bg-img { filter: blur(8px) brightness(0.35); }
     }
 
     /* ===== SECTIONS COMMON ===== */
@@ -1876,6 +1888,7 @@
 
 <!-- Hero Section -->
 <section class="hero hero-centered">
+  <img src="hero-bg.jpg" alt="" class="hero-bg-img" loading="eager" decoding="async">
   <div class="hero-grid"></div>
   <div class="hero-canvas" id="heroCanvas" aria-hidden="true">
     <div class="aurora-orb aurora-orb-1"></div>

@@ -367,6 +367,41 @@
       width: 100%;
       height: 100%;
       z-index: 5;
+      overflow: hidden;
+    }
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: auroraFloat 12s ease-in-out infinite;
+    }
+    .aurora-orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #2997FF, transparent 70%);
+      top: 10%; right: 5%;
+      animation-duration: 10s;
+    }
+    .aurora-orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #BF5AF2, transparent 70%);
+      top: 30%; right: 20%;
+      animation-duration: 14s;
+      animation-delay: -4s;
+    }
+    .aurora-orb-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #30D158, transparent 70%);
+      top: 50%; right: 10%;
+      animation-duration: 16s;
+      animation-delay: -8s;
+      opacity: 0.3;
+    }
+    @keyframes auroraFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+      25% { transform: translate(-40px, 30px) scale(1.1); opacity: 0.6; }
+      50% { transform: translate(30px, -40px) scale(0.9); opacity: 0.4; }
+      75% { transform: translate(-20px, -30px) scale(1.05); opacity: 0.55; }
     }
     .scroll-indicator {
       position: absolute;
@@ -1611,7 +1646,11 @@
 <!-- Hero Section -->
 <section class="hero hero-centered">
   <div class="hero-grid"></div>
-  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-canvas" id="heroCanvas" aria-hidden="true">
+    <div class="aurora-orb aurora-orb-1"></div>
+    <div class="aurora-orb aurora-orb-2"></div>
+    <div class="aurora-orb aurora-orb-3"></div>
+  </div>
   <div class="hero-content hero-content-centered">
     <div class="hero-label"><span style="background:linear-gradient(90deg,#2997FF,#BF5AF2);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;color:#fff;">LIFETIME ACCESS</span></div>
     <h1 class="hero-title">Создай <span class="gradient-text" style="position:relative;overflow:hidden;display:inline-block;">100+ AI-аватаров</span> за 60 секунд</h1>
@@ -2174,8 +2213,6 @@
 </div>
 
 <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
@@ -2219,150 +2256,15 @@
     cursorRing.style.display = 'none';
   }
 
-  // ===== THREE.JS — 3D HEAD (Meshy GLB + holographic shader) =====
-  const canvas = document.getElementById('heroCanvas');
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(35, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  camera.position.set(0, 0.3, 4.5);
-
-  const holoMat = new THREE.ShaderMaterial({
-    uniforms: {
-      uTime: {value: 0},
-      uColor1: {value: new THREE.Color(0x6366f1)},
-      uColor2: {value: new THREE.Color(0x22d3ee)},
-      uGlow: {value: new THREE.Color(0x8b5cf6)}
-    },
-    vertexShader: `
-      varying vec3 vNormal;
-      varying vec3 vWorldPos;
-      varying vec2 vUv;
-      void main(){
-        vNormal = normalize(normalMatrix * normal);
-        vWorldPos = (modelMatrix * vec4(position,1.0)).xyz;
-        vUv = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-      }
-    `,
-    fragmentShader: `
-      uniform float uTime;
-      uniform vec3 uColor1, uColor2, uGlow;
-      varying vec3 vNormal, vWorldPos;
-      varying vec2 vUv;
-      void main(){
-        float fresnel = pow(1.0 - max(dot(vNormal, vec3(0.0,0.0,1.0)), 0.0), 2.5);
-        float scan = sin(vWorldPos.y * 30.0 + uTime * 3.0) * 0.5 + 0.5;
-        scan = smoothstep(0.35, 0.65, scan) * 0.2;
-        float grid = step(0.97, fract(vWorldPos.y * 15.0)) * 0.15;
-        vec3 base = mix(uColor1, uColor2, vWorldPos.y * 0.3 + 0.5);
-        vec3 col = base * (0.35 + scan) + uGlow * fresnel * 1.5 + vec3(grid);
-        float alpha = 0.3 + fresnel * 0.65 + scan * 0.5;
-        gl_FragColor = vec4(col, alpha);
-      }
-    `,
-    transparent: true,
-    side: THREE.DoubleSide,
-    depthWrite: false
-  });
-
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.08
-  });
-
-  const headGroup = new THREE.Group();
-  scene.add(headGroup);
-
-  // Load 3D head model
-  const loader = new THREE.GLTFLoader();
-  loader.load('head.glb', function(gltf) {
-    const model = gltf.scene;
-    model.traverse(function(child) {
-      if (child.isMesh) {
-        child.material = holoMat;
-        const wireClone = child.clone();
-        wireClone.material = wireMat;
-        headGroup.add(wireClone);
-      }
+  // ===== AURORA MOUSE PARALLAX =====
+  const heroCanvas = document.getElementById('heroCanvas');
+  if (heroCanvas && window.matchMedia('(pointer: fine)').matches) {
+    document.addEventListener('mousemove', function(e) {
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      heroCanvas.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
     });
-    headGroup.add(model);
-
-    // Center and scale
-    const box = new THREE.Box3().setFromObject(model);
-    const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
-    const maxDim = Math.max(size.x, size.y, size.z);
-    const scale = 2.2 / maxDim;
-    model.scale.setScalar(scale);
-    model.position.sub(center.multiplyScalar(scale));
-    headGroup.children.forEach(function(c) {
-      if (c !== model) { c.scale.setScalar(scale); c.position.copy(model.position); }
-    });
-  });
-
-  // Outer glow
-  const glowGeo = new THREE.SphereGeometry(1.6, 32, 24);
-  const glowMat = new THREE.ShaderMaterial({
-    uniforms: { uTime: {value:0} },
-    vertexShader: 'varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
-    fragmentShader: 'uniform float uTime; varying vec3 vN; void main(){ float f=pow(1.0-max(dot(vN,vec3(0,0,1)),0.0),4.0); vec3 c=mix(vec3(0.39,0.4,0.95),vec3(0.13,0.83,0.93),sin(uTime*0.5)*0.5+0.5); gl_FragColor=vec4(c,f*0.2); }',
-    transparent: true, side: THREE.BackSide, depthWrite: false
-  });
-  scene.add(new THREE.Mesh(glowGeo, glowMat));
-
-  // Particles
-  const pCount = 500;
-  const pGeo = new THREE.BufferGeometry();
-  const pPos = new Float32Array(pCount*3);
-  const pVel = new Float32Array(pCount*3);
-  for(let i=0;i<pCount;i++){
-    const r=1.8+Math.random()*2.5, th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1);
-    pPos[i*3]=r*Math.sin(ph)*Math.cos(th); pPos[i*3+1]=r*Math.sin(ph)*Math.sin(th); pPos[i*3+2]=r*Math.cos(ph);
-    pVel[i*3]=(Math.random()-0.5)*0.002; pVel[i*3+1]=(Math.random()-0.5)*0.002; pVel[i*3+2]=(Math.random()-0.5)*0.002;
   }
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos,3));
-  const pts = new THREE.Points(pGeo, new THREE.PointsMaterial({color:0x8b5cf6,size:0.012,transparent:true,opacity:0.45,sizeAttenuation:true}));
-  scene.add(pts);
-
-  // Mouse
-  let tMX=0, tMY=0;
-  document.addEventListener('mousemove', function(e){
-    tMX=(e.clientX/window.innerWidth-0.5)*0.4;
-    tMY=(e.clientY/window.innerHeight-0.5)*0.3;
-  });
-
-  // Animate
-  let uTime = 0;
-  function animate(){
-    requestAnimationFrame(animate);
-    uTime += 0.016;
-
-    headGroup.rotation.y = uTime * 0.15 + Math.sin(uTime*0.4)*0.2 + tMX*0.5;
-    headGroup.rotation.x = Math.sin(uTime*0.25)*0.08 + tMY*0.3;
-    headGroup.position.y = Math.sin(uTime*0.6)*0.06;
-
-    holoMat.uniforms.uTime.value = uTime;
-    glowMat.uniforms.uTime.value = uTime;
-
-    const pp = pGeo.attributes.position.array;
-    for(let i=0;i<pCount;i++){
-      pp[i*3]+=pVel[i*3]; pp[i*3+1]+=pVel[i*3+1]; pp[i*3+2]+=pVel[i*3+2];
-      const d=Math.sqrt(pp[i*3]**2+pp[i*3+1]**2+pp[i*3+2]**2);
-      if(d>4.2||d<1.5){pVel[i*3]*=-1;pVel[i*3+1]*=-1;pVel[i*3+2]*=-1;}
-    }
-    pGeo.attributes.position.needsUpdate=true;
-    pts.rotation.y+=0.0004;
-
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  window.addEventListener('resize', function(){
-    camera.aspect=canvas.clientWidth/canvas.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-  });
 
 
   // ===== PARTICLES BG (Final CTA) =====

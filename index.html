@@ -1746,6 +1746,84 @@
       z-index: 0;
     }
 
+    /* ===== 3-IN-1 PRODUCTS GRID RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .products-3in1-grid { grid-template-columns: 1fr !important; gap: 12px !important; max-width: 400px !important; }
+      .products-badge-text { font-size: 0.65rem !important; letter-spacing: 0.08em !important; }
+      .verified-reviews-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .products-3in1-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 16px !important; }
+    }
+
+    /* ===== TABLET BREAKPOINT (768–1024px) ===== */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      section { padding: 100px 30px; }
+      .hero { padding: 110px 30px 70px; }
+      .hero-title { font-size: clamp(2.8rem, 5.5vw, 4rem); }
+      .problem-grid,
+      .usecase-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { gap: 16px; }
+      .stat-card { padding: 24px 16px; }
+      .step-row { grid-template-columns: 60px 1fr; gap: 24px; }
+      .aurora-orb-1 { width: 500px; height: 500px; }
+      .aurora-orb-2 { width: 420px; height: 420px; }
+      .aurora-orb-3 { width: 350px; height: 350px; }
+      .aurora-orb-4 { width: 380px; height: 380px; }
+    }
+
+    /* ===== MOBILE REFINEMENTS (≤768px) ===== */
+    @media (max-width: 768px) {
+      .hero-content-centered { max-width: 100%; padding: 0 4px; }
+      .hero-subtitle { max-width: 100%; }
+      .aurora-orb-1 { width: 300px; height: 300px; }
+      .aurora-orb-2 { width: 260px; height: 260px; }
+      .aurora-orb-3 { width: 220px; height: 220px; }
+      .aurora-orb-4 { width: 240px; height: 240px; }
+      .section-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+      .section-desc { font-size: 0.95rem; margin-bottom: 40px; }
+      .final-cta-title { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+      .final-cta-subtitle { font-size: 0.95rem; }
+      .footer { padding: 30px 20px; }
+      .footer p { font-size: 0.75rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .lamp-effect::before { width: 200px; height: 120px; }
+      .lamp-effect::after { width: 80px; }
+    }
+
+    /* ===== SMALL MOBILE (≤480px) ===== */
+    @media (max-width: 480px) {
+      .hero { padding: 80px 16px 30px; min-height: auto; }
+      .hero-title { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+      .hero-subtitle { font-size: 0.9rem; line-height: 1.6; }
+      .hero-cta { padding: 14px 24px; font-size: 0.95rem; }
+      section { padding: 60px 16px; }
+      .stats-bar { padding: 30px 16px; }
+      .stat-number { font-size: clamp(2rem, 8vw, 2.5rem); }
+      .problem-card,
+      .usecase-card { padding: 28px 20px; }
+      .problem-card h3,
+      .usecase-card h3 { font-size: 1.05rem; }
+      .pricing-card { padding: 28px 16px; margin: 0 -4px; }
+      .pricing-current { font-size: 2.5rem; }
+      .pricing-timer { font-size: 0.8rem; padding: 8px 14px; }
+      .pricing-features li { font-size: 0.85rem; padding: 8px 0; }
+      .bonus-text { font-size: 0.9rem; }
+      .bonus-value { font-size: 0.8rem; }
+      .faq-question { font-size: 0.9rem; padding: 20px 0; }
+      .faq-answer-inner { font-size: 0.85rem; }
+      .nav { padding: 12px 16px; }
+      .nav-logo { font-size: 1rem; }
+      .exit-popup { padding: 36px 24px; }
+      .exit-popup h3 { font-size: 1.3rem; }
+      .exit-popup-price { font-size: 2rem; }
+      .products-3in1-grid { max-width: 100% !important; }
+      .products-badge-text { font-size: 0.6rem !important; letter-spacing: 0.05em !important; line-height: 1.4 !important; }
+      .verified-reviews-grid { gap: 12px !important; }
+      .marquee-track img { width: 64px !important; height: 64px !important; border-radius: 10px !important; }
+    }
+
     /* ===== UTILITY ===== */
     .reveal { opacity: 0; transform: translateY(40px); }
   </style>
@@ -1936,9 +2014,9 @@
 <div class="stats-bar" style="padding-top:20px;padding-bottom:20px;">
   <div class="container" style="text-align:center;">
     <div style="display:inline-block;background:rgba(41,151,255,0.1);border:1px solid rgba(41,151,255,0.2);border-radius:20px;padding:6px 16px;margin-bottom:20px;">
-      <span style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-indigo);">3 курса в 1 за $49 — конкуренты продают каждый отдельно</span>
+      <span class="products-badge-text" style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-indigo);">3 курса в 1 за $49 — конкуренты продают каждый отдельно</span>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto;">
+    <div class="products-3in1-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto;">
       <div class="spotlight-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s;">
         <div class="spotlight-card-overlay"></div>
         <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#0066FF"/><polygon points="12,8 12,24 26,16" fill="#fff"/></svg>
@@ -2238,7 +2316,7 @@
     </div>
     <div style="margin-top:48px;">
       <p class="reveal" style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;text-align:center;">Верифицированные отзывы</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+      <div class="verified-reviews-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
         <div class="reveal" style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);"><picture><source srcset="av2.webp" type="image/webp"><img src="av2.jpg" alt="Верифицированный отзыв студента AI Avatar Studio 1" loading="lazy" decoding="async" style="width:100%;display:block;"></picture></div>
         <div class="reveal" style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);"><picture><source srcset="av3.webp" type="image/webp"><img src="av3.jpg" alt="Верифицированный отзыв студента AI Avatar Studio 2" loading="lazy" decoding="async" style="width:100%;display:block;"></picture></div>
         <div class="reveal" style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);"><picture><source srcset="av4.webp" type="image/webp"><img src="av4.jpg" alt="Верифицированный отзыв студента AI Avatar Studio 3" loading="lazy" decoding="async" style="width:100%;display:block;"></picture></div>

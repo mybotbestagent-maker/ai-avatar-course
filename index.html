@@ -1868,7 +1868,7 @@
     }
 
     /* ===== UTILITY ===== */
-    .reveal { opacity: 0; transform: translateY(40px); }
+    .reveal { opacity: 0; transform: translateY(20px); }
 
     /* ===== LANGUAGE SWITCHER ===== */
     .lang-switcher {
@@ -2109,7 +2109,7 @@
     <div style="border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);">
       <picture>
         <source srcset="av1.webp" type="image/webp">
-        <img src="av1.jpg" alt="До и после: традиционный видеопродакшн vs AI-аватар" loading="lazy" decoding="async" style="width:100%;display:block;">
+        <img id="av1Image" src="av1.jpg" data-ru="av1.jpg" data-ua="av1-ua.jpg" alt="До и после: традиционный видеопродакшн vs AI-аватар" loading="lazy" decoding="async" style="width:100%;display:block;">
       </picture>
     </div>
   </div>
@@ -2336,11 +2336,11 @@
         <img src="farrukh.jpg" alt="Фаррух Рахимов — автор курса AI Avatar Studio" width="140" height="140" loading="lazy" decoding="async" class="reveal" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid rgba(41,151,255,0.5);margin-bottom:24px;">
       </picture>
       <h2 class="section-title reveal" style="font-size:1.8rem;" data-i18n="author_title">Привет! Я — Фаррух Рахимов</h2>
-      <p class="reveal" style="color:var(--text-secondary);line-height:1.7;margin-top:16px;" data-i18n="author_p1">33 года, живу в Майами. Основал Handyman Gold Hands — сервисную компанию в 8 городах США. Когда нужно было масштабировать маркетинг без бюджета на видеографа, я открыл для себя AI-аватары.</p>
-      <p class="reveal" style="color:var(--text-secondary);line-height:1.7;margin-top:12px;" data-i18n="author_p2">Месяцы проб и ошибок с HeyGen, ElevenLabs, Adobe Podcast — я сжал всё в 3 урока. Без воды, только то, что реально работает. Каждый день использую аватары в своём бизнесе — для рекламы, обучения команды и контента в Instagram.</p>
+      <p class="reveal" style="color:var(--text-secondary);line-height:1.7;margin-top:16px;" data-i18n="author_p1">33 года, живу в Майами. Я строю AI-системы для бизнеса: автоматизация маркетинга, AI-аватары для контента, голосовые клоны для видео. Мой бизнес в 8 городах США работает с AI-агентами — от рекламы до обучения команды.</p>
+      <p class="reveal" style="color:var(--text-secondary);line-height:1.7;margin-top:12px;" data-i18n="author_p2">Месяцы экспериментов с HeyGen, ElevenLabs, Adobe Podcast — я сжал всё в 3 урока. Без воды, только рабочие сценарии. Каждый день создаю десятки AI-видео для рекламы, соцсетей и обучения.</p>
       <div class="reveal" style="display:flex;justify-content:center;gap:24px;margin-top:20px;flex-wrap:wrap;">
-        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> <span data-i18n="author_tag1">Бизнес в 8 городах США</span></span>
-        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> <span data-i18n="author_tag2">Использую AI-аватары каждый день</span></span>
+        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> <span data-i18n="author_tag1">AI-автоматизация бизнеса</span></span>
+        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> <span data-i18n="author_tag2">Создаю AI-видео каждый день</span></span>
         <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> <span data-i18n="author_tag3">Отвечаю лично в Telegram</span></span>
       </div>
       <div class="reveal" style="display:flex;justify-content:center;gap:20px;margin-top:20px;">
@@ -2774,9 +2774,9 @@
       },
       opacity: 1,
       y: 0,
-      duration: 0.8,
+      duration: 0.45,
       ease: 'power3.out',
-      delay: (el.closest('.stats-grid, .problem-grid, .usecase-grid, .testimonials-grid, .bonuses-list, .steps-list')) ? (Array.from(el.parentElement.children).indexOf(el) * 0.1) : 0
+      delay: (el.closest('.stats-grid, .problem-grid, .usecase-grid, .testimonials-grid, .bonuses-list, .steps-list')) ? (Array.from(el.parentElement.children).indexOf(el) * 0.06) : 0
     });
   });
 
@@ -3193,10 +3193,10 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       // Author
       author_label: 'Автор курса',
       author_title: 'Привет! Я — Фаррух Рахимов',
-      author_p1: '33 года, живу в Майами. Основал Handyman Gold Hands — сервисную компанию в 8 городах США. Когда нужно было масштабировать маркетинг без бюджета на видеографа, я открыл для себя AI-аватары.',
-      author_p2: 'Месяцы проб и ошибок с HeyGen, ElevenLabs, Adobe Podcast — я сжал всё в 3 урока. Без воды, только то, что реально работает. Каждый день использую аватары в своём бизнесе — для рекламы, обучения команды и контента в Instagram.',
-      author_tag1: 'Бизнес в 8 городах США',
-      author_tag2: 'Использую AI-аватары каждый день',
+      author_p1: '33 года, живу в Майами. Я строю AI-системы для бизнеса: автоматизация маркетинга, AI-аватары для контента, голосовые клоны для видео. Мой бизнес в 8 городах США работает с AI-агентами — от рекламы до обучения команды.',
+      author_p2: 'Месяцы экспериментов с HeyGen, ElevenLabs, Adobe Podcast — я сжал всё в 3 урока. Без воды, только рабочие сценарии. Каждый день создаю десятки AI-видео для рекламы, соцсетей и обучения.',
+      author_tag1: 'AI-автоматизация бизнеса',
+      author_tag2: 'Создаю AI-видео каждый день',
       author_tag3: 'Отвечаю лично в Telegram',
 
       // Bonuses
@@ -3415,10 +3415,10 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       // Author
       author_label: 'Автор курсу',
       author_title: 'Привіт! Я — Фаррух Рахімов',
-      author_p1: '33 роки, живу в Маямі. Заснував Handyman Gold Hands — сервісну компанію у 8 містах США. Коли потрібно було масштабувати маркетинг без бюджету на відеографа, я відкрив для себе AI-аватари.',
-      author_p2: 'Місяці спроб і помилок з HeyGen, ElevenLabs, Adobe Podcast — я стиснув все у 3 уроки. Без води, тільки те, що реально працює. Щодня використовую аватари у своєму бізнесі — для реклами, навчання команди та контенту в Instagram.',
-      author_tag1: 'Бізнес у 8 містах США',
-      author_tag2: 'Використовую AI-аватари щодня',
+      author_p1: '33 роки, живу в Маямі. Я будую AI-системи для бізнесу: автоматизація маркетингу, AI-аватари для контенту, голосові клони для відео. Мій бізнес у 8 містах США працює з AI-агентами — від реклами до навчання команди.',
+      author_p2: 'Місяці експериментів з HeyGen, ElevenLabs, Adobe Podcast — я стиснув все у 3 уроки. Без води, тільки робочі сценарії. Щодня створюю десятки AI-відео для реклами, соцмереж та навчання.',
+      author_tag1: 'AI-автоматизація бізнесу',
+      author_tag2: 'Створюю AI-відео щодня',
       author_tag3: 'Відповідаю особисто у Telegram',
 
       // Bonuses
@@ -3586,6 +3586,15 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       if (ogDescEl && t.og_desc) ogDescEl.setAttribute('content', t.og_desc);
       if (twTitleEl && t.og_title) twTitleEl.setAttribute('content', t.og_title);
       if (twDescEl && t.og_desc) twDescEl.setAttribute('content', t.og_desc);
+
+      // Swap language-specific images
+      var av1Img = document.getElementById('av1Image');
+      if (av1Img) {
+        av1Img.src = av1Img.getAttribute('data-' + lang) || av1Img.src;
+        var source = av1Img.parentElement.querySelector('source');
+        if (source && lang === 'ua') source.srcset = 'av1-ua.jpg';
+        else if (source) source.srcset = 'av1.webp';
+      }
 
       // Update switcher buttons
       document.querySelectorAll('.lang-switcher button').forEach(function(btn) {

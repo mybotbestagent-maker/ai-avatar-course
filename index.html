@@ -19,6 +19,7 @@
   <meta name="twitter:image" content="https://mybotbestagent-maker.github.io/ai-avatar-course/og.jpg"/>
   <meta name="keywords" content="AI аватар, курс AI, HeyGen, ElevenLabs, создать видео, AI видео, digital avatar, курс аватар, AI видео курс">
   <link rel="alternate" hreflang="ru" href="https://mybotbestagent-maker.github.io/ai-avatar-course/" />
+  <link rel="alternate" hreflang="uk" href="https://mybotbestagent-maker.github.io/ai-avatar-course/?lang=ua" />
   <link rel="alternate" hreflang="x-default" href="https://mybotbestagent-maker.github.io/ai-avatar-course/" />
   <script type="application/ld+json">
   {
@@ -1592,6 +1593,8 @@
     @media (max-width: 768px) {
       .hamburger { display: flex; }
       .nav-cta { display: none; }
+      .lang-switcher-mobile { display: flex !important; }
+      #langSwitcher { display: none; }
     }
 
     /* ===== MOBILE FIXES ===== */
@@ -1866,6 +1869,57 @@
 
     /* ===== UTILITY ===== */
     .reveal { opacity: 0; transform: translateY(40px); }
+
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 3px;
+      margin-left: 16px;
+      flex-shrink: 0;
+    }
+    .lang-switcher button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+    .lang-switcher button.active {
+      background: var(--gradient);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(41,151,255,0.3);
+    }
+    .lang-switcher button:not(.active):hover {
+      color: var(--text);
+    }
+    @media (max-width: 768px) {
+      .lang-switcher {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      .lang-switcher button {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+      }
+    }
+    /* i18n transition */
+    [data-i18n] {
+      transition: opacity 0.2s ease;
+    }
+    .i18n-fade {
+      opacity: 0 !important;
+    }
   </style>
 </head>
 <body>
@@ -1885,30 +1939,42 @@
 <nav class="nav">
   <div class="nav-logo">AI Avatar Studio</div>
   <ul class="nav-links">
-    <li><a href="#how">Как это работает</a></li>
-    <li><a href="#results">Результаты</a></li>
-    <li><a href="#pricing">Цена</a></li>
+    <li><a href="#how" data-i18n="nav_how">Как это работает</a></li>
+    <li><a href="#results" data-i18n="nav_results">Результаты</a></li>
+    <li><a href="#pricing" data-i18n="nav_price">Цена</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
-  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="nav-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">Получить за $49</a>
-  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="nav-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="nav_cta">Получить за $49</a>
+    <div class="lang-switcher" id="langSwitcher">
+      <button data-lang="ru" class="active">RU</button>
+      <button data-lang="ua">UA</button>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px;">
+    <div class="lang-switcher lang-switcher-mobile" id="langSwitcherMobile" style="display:none;">
+      <button data-lang="ru" class="active">RU</button>
+      <button data-lang="ua">UA</button>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
 </nav>
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#how" onclick="closeMobileMenu()">Как это работает</a>
-  <a href="#results" onclick="closeMobileMenu()">Результаты</a>
-  <a href="#pricing" onclick="closeMobileMenu()">Цена</a>
+  <a href="#how" onclick="closeMobileMenu()" data-i18n="nav_how">Как это работает</a>
+  <a href="#results" onclick="closeMobileMenu()" data-i18n="nav_results">Результаты</a>
+  <a href="#pricing" onclick="closeMobileMenu()" data-i18n="nav_price">Цена</a>
   <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
-  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" target="_blank" rel="noopener" style="padding:16px 36px;background:var(--gradient);border-radius:50px;color:#fff;font-size:1.1rem;" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">Получить доступ — $49</a>
+  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" target="_blank" rel="noopener" style="padding:16px 36px;background:var(--gradient);border-radius:50px;color:#fff;font-size:1.1rem;" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="mob_cta">Получить доступ — $49</a>
 </div>
 
 <!-- Social proof toast -->
 <div class="social-toast" id="socialToast">
   <img class="social-toast-avatar" id="toastAvatar" src="avatars/women_44.jpg" alt="">
   <div>
-    <div class="social-toast-text" id="toastText"><strong>Ekaterina</strong> купила курс</div>
-    <div class="social-toast-time" id="toastTime">2 минуты назад</div>
+    <div class="social-toast-text" id="toastText"><strong>Ekaterina</strong> <span data-i18n="toast_bought">купила курс</span></div>
+    <div class="social-toast-time" id="toastTime" data-i18n="toast_time_2m">2 минуты назад</div>
   </div>
 </div>
 
@@ -1923,19 +1989,19 @@
     <div class="aurora-orb aurora-orb-4"></div>
   </div>
   <div class="hero-content hero-content-centered">
-    <div class="hero-label"><span style="background:linear-gradient(90deg,#2997FF,#BF5AF2);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;color:#fff;">3 КУРСА В 1 — ДОСТУП НАВСЕГДА</span></div>
-    <h1 class="hero-title">Создай <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span> который говорит твоим голосом</h1>
-    <p class="hero-subtitle">HeyGen + ElevenLabs + Adobe Podcast — три курса + бонусы. Отдельно стоит $235. У нас — всё вместе за $49.</p>
+    <div class="hero-label"><span style="background:linear-gradient(90deg,#2997FF,#BF5AF2);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;color:#fff;" data-i18n="hero_label">3 КУРСА В 1 — ДОСТУП НАВСЕГДА</span></div>
+    <h1 class="hero-title" data-i18n="hero_title" data-i18n-html="1">Создай <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span> который говорит твоим голосом</h1>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">HeyGen + ElevenLabs + Adobe Podcast — три курса + бонусы. Отдельно стоит $235. У нас — всё вместе за $49.</p>
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;">
       <span style="font-size:1.1rem;color:var(--text-muted);text-decoration:line-through;">$235</span>
       <span style="font-size:2.2rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span>
-      <span style="background:rgba(41,151,255,0.1);color:var(--accent-indigo);padding:4px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;border:1px solid rgba(41,151,255,0.2);">НАВСЕГДА</span>
+      <span style="background:rgba(41,151,255,0.1);color:var(--accent-indigo);padding:4px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;border:1px solid rgba(41,151,255,0.2);" data-i18n="hero_forever">НАВСЕГДА</span>
     </div>
-    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta hero-cta-glow" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
+    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta hero-cta-glow" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="hero_cta">
       Получить доступ — $49
       <span class="arrow">&rarr;</span>
     </a>
-    <p style="margin-top:12px;font-size:0.75rem;color:var(--text-muted);text-align:center;">30-дневная гарантия возврата. Без вопросов.</p>
+    <p style="margin-top:12px;font-size:0.75rem;color:var(--text-muted);text-align:center;" data-i18n="hero_guarantee">30-дневная гарантия возврата. Без вопросов.</p>
   </div>
   <!-- scroll indicator removed -->
 </section>
@@ -1945,15 +2011,15 @@
   <div class="stats-grid">
     <div class="stat-card reveal">
       <div class="stat-number" data-target="247">247</div>
-      <div class="stat-label">креаторов уже используют</div>
+      <div class="stat-label" data-i18n="stat_creators">креаторов уже используют</div>
     </div>
     <div class="stat-card reveal">
       <div class="stat-number" data-target="60" data-suffix=" сек">60</div>
-      <div class="stat-label">до первого аватара</div>
+      <div class="stat-label" data-i18n="stat_first_avatar">до первого аватара</div>
     </div>
     <div class="stat-card reveal">
       <div class="stat-number" data-prefix="$" data-target="5000">5000</div>
-      <div class="stat-label">экономии на дизайнерах</div>
+      <div class="stat-label" data-i18n="stat_savings">экономии на дизайнерах</div>
     </div>
   </div>
 </div>
@@ -1961,7 +2027,7 @@
 <!-- Avatar Carousel -->
 <div class="stats-bar" style="padding-top:0;">
   <div class="container" style="text-align:center;">
-    <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;">Реальные результаты наших студентов</p>
+    <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;" data-i18n="carousel_title">Реальные результаты наших студентов</p>
     <div class="marquee-container">
       <div class="marquee-track">
         <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
@@ -2020,19 +2086,19 @@
         <img src="avatars/women_33.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(6,182,212,0.5);">
       </div>
     </div>
-    <p style="font-size:0.7rem;color:var(--text-muted);margin-top:12px;">Любая национальность • Любой возраст • Любой стиль</p>
+    <p style="font-size:0.7rem;color:var(--text-muted);margin-top:12px;" data-i18n="carousel_subtitle">Любая национальность • Любой возраст • Любой стиль</p>
   </div>
 </div>
 
 <!-- Demo Video -->
 <div class="stats-bar" style="padding-top:0;">
   <div class="container" style="text-align:center;max-width:640px;">
-    <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:16px;">Смотри как это работает</p>
+    <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:16px;" data-i18n="demo_title">Смотри как это работает</p>
     <div style="border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--glow-indigo);position:relative;">
       <video id="demoVideo" autoplay muted loop playsinline style="width:100%;display:block;" poster="hero.jpg">
         <source src="demo.mp4" type="video/mp4">
       </video>
-      <button id="unmuteBtn" onclick="var v=document.getElementById('demoVideo');v.muted=!v.muted;this.textContent=v.muted?'🔇 Включить звук':'🔊 Звук включён';if(!v.muted)this.style.opacity='0.5'" style="position:absolute;bottom:16px;left:16px;background:rgba(0,0,0,0.7);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:24px;padding:8px 16px;font-size:0.85rem;cursor:pointer;backdrop-filter:blur(8px);z-index:2;transition:opacity 0.3s;">🔇 Включить звук</button>
+      <button id="unmuteBtn" data-i18n="unmute_btn" onclick="var v=document.getElementById('demoVideo');v.muted=!v.muted;var t=window.__i18n_translations,l=window.__i18n_lang||'ru';this.textContent=v.muted?(t&&t[l]&&t[l].unmute_btn||'Включити звук'):(t&&t[l]&&t[l].unmute_on||'Звук увімкнено');if(!v.muted)this.style.opacity='0.5';else this.style.opacity='1'" style="position:absolute;bottom:16px;left:16px;background:rgba(0,0,0,0.7);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:24px;padding:8px 16px;font-size:0.85rem;cursor:pointer;backdrop-filter:blur(8px);z-index:2;transition:opacity 0.3s;">Включить звук</button>
     </div>
   </div>
 </div>
@@ -2053,24 +2119,24 @@
 <div class="stats-bar" style="padding-top:20px;padding-bottom:20px;">
   <div class="container" style="text-align:center;">
     <div style="display:inline-block;background:rgba(41,151,255,0.1);border:1px solid rgba(41,151,255,0.2);border-radius:20px;padding:6px 16px;margin-bottom:20px;">
-      <span class="products-badge-text" style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-indigo);">3 курса в 1 — отдельно $127, вместе $49</span>
+      <span class="products-badge-text" style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-indigo);" data-i18n="products_badge">3 курса в 1 — отдельно $127, вместе $49</span>
     </div>
     <div class="products-3in1-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto;">
       <div class="spotlight-card product-expand-card" style="padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;transition:border-color 0.3s,box-shadow 0.3s;cursor:pointer;">
         <div class="spotlight-card-overlay"></div>
         <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#0066FF"/><polygon points="12,8 12,24 26,16" fill="#fff"/></svg>
         <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">HeyGen</div>
-        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Создание AI-аватаров</div>
-        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $49</div>
-        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;">&#9660; подробнее</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;" data-i18n="prod_heygen_desc">Создание AI-аватаров</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;" data-i18n="prod_heygen_price">отдельно $49</div>
+        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;" data-i18n="prod_more">&#9660; подробнее</div>
         <div class="product-expand-details" style="position:relative;z-index:3;max-height:0;overflow:hidden;transition:max-height 0.4s ease,margin 0.3s ease;text-align:left;">
           <div style="padding-top:16px;border-top:1px solid var(--border);margin-top:12px;">
             <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.7;">
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Создание фотореалистичного аватара из одной фотографии</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Настройка мимики, жестов и эмоций</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Генерация видео по тексту за 60 секунд</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Перевод видео на 40+ языков с lip-sync</div>
-              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Шаблоны для Reels, TikTok, YouTube</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_h1">Создание фотореалистичного аватара из одной фотографии</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_h2">Настройка мимики, жестов и эмоций</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_h3">Генерация видео по тексту за 60 секунд</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_h4">Перевод видео на 40+ языков с lip-sync</span></div>
+              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_h5">Шаблоны для Reels, TikTok, YouTube</span></div>
             </div>
           </div>
         </div>
@@ -2079,17 +2145,17 @@
         <div class="spotlight-card-overlay"></div>
         <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#000"/><rect x="10" y="6" width="4" height="20" rx="2" fill="#fff"/><rect x="18" y="6" width="4" height="20" rx="2" fill="#fff"/></svg>
         <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">ElevenLabs</div>
-        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Клонирование голоса</div>
-        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $49</div>
-        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;">&#9660; подробнее</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;" data-i18n="prod_eleven_desc">Клонирование голоса</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;" data-i18n="prod_eleven_price">отдельно $49</div>
+        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;" data-i18n="prod_more">&#9660; подробнее</div>
         <div class="product-expand-details" style="position:relative;z-index:3;max-height:0;overflow:hidden;transition:max-height 0.4s ease,margin 0.3s ease;text-align:left;">
           <div style="padding-top:16px;border-top:1px solid var(--border);margin-top:12px;">
             <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.7;">
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Клонирование голоса за 30 секунд записи</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Озвучка текста твоим голосом на любом языке</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Настройка интонации, скорости, эмоций</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Интеграция с HeyGen для полного видео</div>
-              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Бесплатный план — достаточно для старта</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_e1">Клонирование голоса за 30 секунд записи</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_e2">Озвучка текста твоим голосом на любом языке</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_e3">Настройка интонации, скорости, эмоций</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_e4">Интеграция с HeyGen для полного видео</span></div>
+              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_e5">Бесплатный план — достаточно для старта</span></div>
             </div>
           </div>
         </div>
@@ -2098,47 +2164,47 @@
         <div class="spotlight-card-overlay"></div>
         <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="margin-bottom:12px;position:relative;z-index:3;"><rect width="32" height="32" rx="8" fill="#1B0028"/><text x="16" y="22" text-anchor="middle" font-size="16" font-weight="bold" fill="#E8D0FF" font-family="Arial">Ai</text></svg>
         <div style="font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px;position:relative;z-index:3;">Adobe Podcast</div>
-        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;">Студийный звук</div>
-        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;">отдельно $29</div>
-        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;">&#9660; подробнее</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;position:relative;z-index:3;" data-i18n="prod_adobe_desc">Студийный звук</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);text-decoration:line-through;position:relative;z-index:3;" data-i18n="prod_adobe_price">отдельно $29</div>
+        <div class="product-expand-arrow" style="position:relative;z-index:3;margin-top:8px;font-size:0.7rem;color:var(--accent-indigo);transition:transform 0.3s;" data-i18n="prod_more">&#9660; подробнее</div>
         <div class="product-expand-details" style="position:relative;z-index:3;max-height:0;overflow:hidden;transition:max-height 0.4s ease,margin 0.3s ease;text-align:left;">
           <div style="padding-top:16px;border-top:1px solid var(--border);margin-top:12px;">
             <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.7;">
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Удаление фонового шума одним кликом</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Студийное качество звука из любой записи</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Убирает эхо, гул кондиционера, улицу</div>
-              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Полностью бесплатный инструмент</div>
-              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> Работает в браузере — ничего устанавливать</div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_a1">Удаление фонового шума одним кликом</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_a2">Студийное качество звука из любой записи</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_a3">Убирает эхо, гул кондиционера, улицу</span></div>
+              <div style="margin-bottom:6px;display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_a4">Полностью бесплатный инструмент</span></div>
+              <div style="display:flex;align-items:start;gap:6px;"><span style="color:var(--accent-indigo);flex-shrink:0;">&#10003;</span> <span data-i18n="prod_a5">Работает в браузере — ничего устанавливать</span></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <p style="margin-top:16px;font-size:0.85rem;color:var(--text-secondary);">Итого <span style="text-decoration:line-through;color:var(--text-muted);">$127</span> &rarr; <span style="font-weight:700;font-size:1.1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span> <span style="color:var(--text-muted);">— экономия 61%</span></p>
+    <p style="margin-top:16px;font-size:0.85rem;color:var(--text-secondary);" data-i18n="prod_total" data-i18n-html="1">Итого <span style="text-decoration:line-through;color:var(--text-muted);">$127</span> &rarr; <span style="font-weight:700;font-size:1.1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span> <span style="color:var(--text-muted);">— экономия 61%</span></p>
   </div>
 </div>
 
 <!-- Problem / Transformation -->
 <section id="transform">
   <div class="container">
-    <div class="section-label reveal lamp-effect">Трансформация</div>
-    <h2 class="section-title reveal">Три навыка за цену одного. Результат — за один вечер.</h2>
-    <p class="section-desc reveal">AI-аватары + клон голоса + студийный звук. Три курса + бонусы отдельно стоят $235. У нас — всё в одном за $49.</p>
+    <div class="section-label reveal lamp-effect" data-i18n="transform_label">Трансформация</div>
+    <h2 class="section-title reveal" data-i18n="transform_title">Три навыка за цену одного. Результат — за один вечер.</h2>
+    <p class="section-desc reveal" data-i18n="transform_desc">AI-аватары + клон голоса + студийный звук. Три курса + бонусы отдельно стоят $235. У нас — всё в одном за $49.</p>
     <div class="problem-grid">
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F3A4;</div>
-        <h3>Нет камеры — не проблема</h3>
-        <p>Одна фотография лица — и AI создаёт видео, где ты говоришь, жестикулируешь и смотришь в камеру.</p>
+        <h3 data-i18n="transform_c1_title">Нет камеры — не проблема</h3>
+        <p data-i18n="transform_c1_text">Одна фотография лица — и AI создаёт видео, где ты говоришь, жестикулируешь и смотришь в камеру.</p>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F30D;</div>
-        <h3>Говори на любом языке</h3>
-        <p>Твой голос клонируется за 30 секунд. Аватар может говорить на английском, испанском, немецком — твоим голосом.</p>
+        <h3 data-i18n="transform_c2_title">Говори на любом языке</h3>
+        <p data-i18n="transform_c2_text">Твой голос клонируется за 30 секунд. Аватар может говорить на английском, испанском, немецком — твоим голосом.</p>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x26A1;</div>
-        <h3>Контент за минуты</h3>
-        <p>Один текст — одно видео. Без пересъёмок, без монтажа. Публикуй хоть 10 видео в день.</p>
+        <h3 data-i18n="transform_c3_title">Контент за минуты</h3>
+        <p data-i18n="transform_c3_text">Один текст — одно видео. Без пересъёмок, без монтажа. Публикуй хоть 10 видео в день.</p>
       </div>
     </div>
   </div>
@@ -2147,9 +2213,9 @@
 <!-- How It Works -->
 <section id="how">
   <div class="container">
-    <div class="section-label reveal lamp-effect">Как это работает</div>
-    <h2 class="section-title reveal">Три шага к AI-аватару</h2>
-    <p class="section-desc reveal">Всё, что нужно — ноутбук и час свободного времени.</p>
+    <div class="section-label reveal lamp-effect" data-i18n="how_label">Как это работает</div>
+    <h2 class="section-title reveal" data-i18n="how_title">Три шага к AI-аватару</h2>
+    <p class="section-desc reveal" data-i18n="how_desc">Всё, что нужно — ноутбук и час свободного времени.</p>
     <div class="steps-wrapper">
       <svg class="tracing-beam-svg" id="tracingBeamSvg" preserveAspectRatio="none">
         <line id="tracingBeamLine" x1="1" y1="0" x2="1" stroke="#2997FF" stroke-width="2" stroke-linecap="round"/>
@@ -2159,32 +2225,32 @@
         <div class="step-row reveal">
           <div class="step-number">01</div>
           <div class="step-content">
-            <h3>Создай аватар</h3>
-            <p>Загрузи фото или 2-минутное видео. HeyGen превратит его в цифрового двойника, который говорит и жестикулирует как ты.</p>
+            <h3 data-i18n="step1_title">Создай аватар</h3>
+            <p data-i18n="step1_text">Загрузи фото или 2-минутное видео. HeyGen превратит его в цифрового двойника, который говорит и жестикулирует как ты.</p>
             <span class="step-badge heygen"><span class="badge-dot" style="background:#0066FF"></span> HeyGen</span>
           </div>
         </div>
         <div class="step-row reveal">
           <div class="step-number">02</div>
           <div class="step-content">
-            <h3>Клонируй голос</h3>
-            <p>Запиши 30 секунд речи. ElevenLabs создаст точную копию твоего голоса — с интонациями и эмоциями.</p>
+            <h3 data-i18n="step2_title">Клонируй голос</h3>
+            <p data-i18n="step2_text">Запиши 30 секунд речи. ElevenLabs создаст точную копию твоего голоса — с интонациями и эмоциями.</p>
             <span class="step-badge elevenlabs"><span class="badge-dot" style="background:#a1a1a6"></span> ElevenLabs</span>
           </div>
         </div>
         <div class="step-row reveal">
           <div class="step-number">03</div>
           <div class="step-content">
-            <h3>Улучши звук до студийного</h3>
-            <p>Adobe Podcast уберёт шум, эхо и сделает звук как из профессиональной студии — бесплатно.</p>
+            <h3 data-i18n="step3_title">Улучши звук до студийного</h3>
+            <p data-i18n="step3_text">Adobe Podcast уберёт шум, эхо и сделает звук как из профессиональной студии — бесплатно.</p>
             <span class="step-badge adobe"><span class="badge-dot" style="background:#BF5AF2"></span> Adobe Podcast</span>
           </div>
         </div>
       </div>
     </div>
     <div class="reveal" style="text-align:center;margin-top:40px;">
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;">Получить доступ — $49 &rarr;</a>
-      <p style="margin-top:10px;font-size:0.7rem;color:var(--text-muted);">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_get_access">Получить доступ — $49 &rarr;</a>
+      <p style="margin-top:10px;font-size:0.7rem;color:var(--text-muted);" data-i18n="cta_payment_help" data-i18n-html="1">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
     </div>
   </div>
 </section>
@@ -2192,24 +2258,24 @@
 <!-- What You Get (Use Cases) -->
 <section id="results">
   <div class="container">
-    <div class="section-label reveal lamp-effect">Что ты получишь</div>
-    <h2 class="section-title reveal">Один аватар — бесконечные возможности</h2>
-    <p class="section-desc reveal">Вот как студенты используют свои AI-аватары прямо сейчас.</p>
+    <div class="section-label reveal lamp-effect" data-i18n="usecase_label">Что ты получишь</div>
+    <h2 class="section-title reveal" data-i18n="usecase_title">Один аватар — бесконечные возможности</h2>
+    <p class="section-desc reveal" data-i18n="usecase_desc">Вот как студенты используют свои AI-аватары прямо сейчас.</p>
     <div class="usecase-grid">
       <div class="usecase-card card-phone reveal">
         <div class="usecase-icon">&#x1F4F2;</div>
-        <h3>Продающие Reels</h3>
-        <p>Записывай видео для Instagram и TikTok каждый день — без съёмок и монтажа. Экономь 5+ часов в неделю.</p>
+        <h3 data-i18n="usecase_c1_title">Продающие Reels</h3>
+        <p data-i18n="usecase_c1_text">Записывай видео для Instagram и TikTok каждый день — без съёмок и монтажа. Экономь 5+ часов в неделю.</p>
       </div>
       <div class="usecase-card card-laptop reveal">
         <div class="usecase-icon">&#x1F4BB;<span class="device-base"></span></div>
-        <h3>Видео-презентации</h3>
-        <p>Питчи инвесторам, обучение сотрудников, welcome-видео для клиентов — всё персонализировано.</p>
+        <h3 data-i18n="usecase_c2_title">Видео-презентации</h3>
+        <p data-i18n="usecase_c2_text">Питчи инвесторам, обучение сотрудников, welcome-видео для клиентов — всё персонализировано.</p>
       </div>
       <div class="usecase-card card-globe reveal">
         <div class="usecase-icon">&#x1F310;</div>
-        <h3>Масштаб контента</h3>
-        <p>Один текст = видео на 5 языках. Выходи на международный рынок без знания языков.</p>
+        <h3 data-i18n="usecase_c3_title">Масштаб контента</h3>
+        <p data-i18n="usecase_c3_text">Один текст = видео на 5 языках. Выходи на международный рынок без знания языков.</p>
       </div>
     </div>
   </div>
@@ -2218,44 +2284,44 @@
 <!-- For Whom -->
 <section>
   <div class="container">
-    <div class="section-label reveal lamp-effect">Для кого этот курс</div>
-    <h2 class="section-title reveal">Узнаёшь себя?</h2>
+    <div class="section-label reveal lamp-effect" data-i18n="whom_label">Для кого этот курс</div>
+    <h2 class="section-title reveal" data-i18n="whom_title">Узнаёшь себя?</h2>
     <div class="problem-grid">
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F4F1;</div>
-        <h3>Хочешь снимать видео, но стесняешься камеры</h3>
-        <p>Знаешь, что видео продаёт лучше текста. Но каждый раз откладываешь съёмку. AI-аватар говорит за тебя — с твоим лицом и голосом.</p>
+        <h3 data-i18n="whom_c1_title">Хочешь снимать видео, но стесняешься камеры</h3>
+        <p data-i18n="whom_c1_text">Знаешь, что видео продаёт лучше текста. Но каждый раз откладываешь съёмку. AI-аватар говорит за тебя — с твоим лицом и голосом.</p>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x23F0;</div>
-        <h3>Нет времени на видеопродакшн</h3>
-        <p>Сценарий, съёмка, монтаж — это часы работы. С AI-аватаром один ролик = 60 секунд. Пишешь текст, нажимаешь кнопку, получаешь видео.</p>
+        <h3 data-i18n="whom_c2_title">Нет времени на видеопродакшн</h3>
+        <p data-i18n="whom_c2_text">Сценарий, съёмка, монтаж — это часы работы. С AI-аватаром один ролик = 60 секунд. Пишешь текст, нажимаешь кнопку, получаешь видео.</p>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F4B8;</div>
-        <h3>Видеограф стоит дорого</h3>
-        <p>$300-500 за ролик, и каждый раз заново. После этого курса ты делаешь неограниченное количество видео сам — бесплатно, навсегда.</p>
+        <h3 data-i18n="whom_c3_title">Видеограф стоит дорого</h3>
+        <p data-i18n="whom_c3_text">$300-500 за ролик, и каждый раз заново. После этого курса ты делаешь неограниченное количество видео сам — бесплатно, навсегда.</p>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F30D;</div>
-        <h3>Хочешь выйти на международный рынок</h3>
-        <p>Твой аватар говорит на любом языке. Один текст = видео на русском, английском, испанском. Без переводчика и озвучки.</p>
+        <h3 data-i18n="whom_c4_title">Хочешь выйти на международный рынок</h3>
+        <p data-i18n="whom_c4_text">Твой аватар говорит на любом языке. Один текст = видео на русском, английском, испанском. Без переводчика и озвучки.</p>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F4C8;</div>
-        <h3>Конкуренты уже используют AI-видео</h3>
-        <p>Пока ты думаешь — они публикуют по 5 роликов в день. Этот курс за один вечер даёт тебе тот же инструмент.</p>
+        <h3 data-i18n="whom_c5_title">Конкуренты уже используют AI-видео</h3>
+        <p data-i18n="whom_c5_text">Пока ты думаешь — они публикуют по 5 роликов в день. Этот курс за один вечер даёт тебе тот же инструмент.</p>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F916;</div>
-        <h3>Пробовал сам, но не разобрался</h3>
-        <p>HeyGen, ElevenLabs, Adobe Podcast — куча настроек и нюансов. Курс показывает ровно те кнопки, которые нужно нажать. Без воды.</p>
+        <h3 data-i18n="whom_c6_title">Пробовал сам, но не разобрался</h3>
+        <p data-i18n="whom_c6_text">HeyGen, ElevenLabs, Adobe Podcast — куча настроек и нюансов. Курс показывает ровно те кнопки, которые нужно нажать. Без воды.</p>
       </div>
     </div>
     <div class="reveal" style="text-align:center;margin-top:40px;">
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;">Забрать курс за $49 &rarr;</a>
-      <p style="margin-top:12px;font-size:0.75rem;color:var(--text-muted);">30-дневная гарантия возврата</p>
-      <p style="margin-top:4px;font-size:0.7rem;color:var(--text-muted);">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_grab">Забрать курс за $49 &rarr;</a>
+      <p style="margin-top:12px;font-size:0.75rem;color:var(--text-muted);" data-i18n="cta_30day">30-дневная гарантия возврата</p>
+      <p style="margin-top:4px;font-size:0.7rem;color:var(--text-muted);" data-i18n="cta_payment_help" data-i18n-html="1">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
     </div>
   </div>
 </section>
@@ -2263,19 +2329,19 @@
 <!-- Author -->
 <section>
   <div class="container" style="text-align:center;">
-    <div class="section-label reveal lamp-effect">Автор курса</div>
+    <div class="section-label reveal lamp-effect" data-i18n="author_label">Автор курса</div>
     <div style="max-width:560px;margin:0 auto;">
       <picture>
         <source srcset="farrukh.webp" type="image/webp">
         <img src="farrukh.jpg" alt="Фаррух Рахимов — автор курса AI Avatar Studio" width="140" height="140" loading="lazy" decoding="async" class="reveal" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid rgba(41,151,255,0.5);margin-bottom:24px;">
       </picture>
-      <h2 class="section-title reveal" style="font-size:1.8rem;">Привет! Я — Фаррух Рахимов</h2>
-      <p class="reveal" style="color:var(--text-secondary);line-height:1.7;margin-top:16px;">33 года, живу в Майами. Основал Handyman Gold Hands — сервисную компанию в 8 городах США. Когда нужно было масштабировать маркетинг без бюджета на видеографа, я открыл для себя AI-аватары.</p>
-      <p class="reveal" style="color:var(--text-secondary);line-height:1.7;margin-top:12px;">Месяцы проб и ошибок с HeyGen, ElevenLabs, Adobe Podcast — я сжал всё в 3 урока. Без воды, только то, что реально работает. Каждый день использую аватары в своём бизнесе — для рекламы, обучения команды и контента в Instagram.</p>
+      <h2 class="section-title reveal" style="font-size:1.8rem;" data-i18n="author_title">Привет! Я — Фаррух Рахимов</h2>
+      <p class="reveal" style="color:var(--text-secondary);line-height:1.7;margin-top:16px;" data-i18n="author_p1">33 года, живу в Майами. Основал Handyman Gold Hands — сервисную компанию в 8 городах США. Когда нужно было масштабировать маркетинг без бюджета на видеографа, я открыл для себя AI-аватары.</p>
+      <p class="reveal" style="color:var(--text-secondary);line-height:1.7;margin-top:12px;" data-i18n="author_p2">Месяцы проб и ошибок с HeyGen, ElevenLabs, Adobe Podcast — я сжал всё в 3 урока. Без воды, только то, что реально работает. Каждый день использую аватары в своём бизнесе — для рекламы, обучения команды и контента в Instagram.</p>
       <div class="reveal" style="display:flex;justify-content:center;gap:24px;margin-top:20px;flex-wrap:wrap;">
-        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> Бизнес в 8 городах США</span>
-        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> Использую AI-аватары каждый день</span>
-        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> Отвечаю лично в Telegram</span>
+        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> <span data-i18n="author_tag1">Бизнес в 8 городах США</span></span>
+        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> <span data-i18n="author_tag2">Использую AI-аватары каждый день</span></span>
+        <span style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);">&#10003;</span> <span data-i18n="author_tag3">Отвечаю лично в Telegram</span></span>
       </div>
       <div class="reveal" style="display:flex;justify-content:center;gap:20px;margin-top:20px;">
         <a href="https://instagram.com/handydad_" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:var(--text-secondary);text-decoration:none;font-size:0.85rem;padding:8px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);transition:border-color 0.3s;">
@@ -2294,70 +2360,70 @@
 <!-- Bonuses -->
 <section id="bonuses">
   <div class="container">
-    <div class="section-label reveal lamp-effect">Что внутри</div>
-    <h2 class="section-title reveal">Всё, что нужно для AI-видео — в одном пакете</h2>
-    <p class="section-desc reveal">Отдельно всё стоит $235. Ты получаешь навсегда за $49.</p>
+    <div class="section-label reveal lamp-effect" data-i18n="bonus_label">Что внутри</div>
+    <h2 class="section-title reveal" data-i18n="bonus_title">Всё, что нужно для AI-видео — в одном пакете</h2>
+    <p class="section-desc reveal" data-i18n="bonus_desc">Отдельно всё стоит $235. Ты получаешь навсегда за $49.</p>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 32px;max-width:100%;" class="reveal">
-      <span style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;">Что входит</span>
-      <span style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;">Ценность</span>
+      <span style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n="bonus_col_what">Что входит</span>
+      <span style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n="bonus_col_value">Ценность</span>
     </div>
     <div class="bonuses-list">
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">&#x1F3AC; Видеоурок 1: Создание аватара в HeyGen</span>
+          <span class="bonus-text" data-i18n="bonus_1">&#x1F3AC; Видеоурок 1: Создание аватара в HeyGen</span>
         </div>
         <span class="bonus-value">$49</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">&#x1F3AC; Видеоурок 2: Клонирование голоса в ElevenLabs</span>
+          <span class="bonus-text" data-i18n="bonus_2">&#x1F3AC; Видеоурок 2: Клонирование голоса в ElevenLabs</span>
         </div>
         <span class="bonus-value">$49</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">&#x1F3AC; Видеоурок 3: Студийный звук в Adobe Podcast</span>
+          <span class="bonus-text" data-i18n="bonus_3">&#x1F3AC; Видеоурок 3: Студийный звук в Adobe Podcast</span>
         </div>
         <span class="bonus-value">$29</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">&#x1F4DD; 50 промптов для генерации скриптов</span>
+          <span class="bonus-text" data-i18n="bonus_4">&#x1F4DD; 50 промптов для генерации скриптов</span>
         </div>
         <span class="bonus-value">$49</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">&#x1F4F1; Шаблоны видео для Instagram и TikTok</span>
+          <span class="bonus-text" data-i18n="bonus_5">&#x1F4F1; Шаблоны видео для Instagram и TikTok</span>
         </div>
         <span class="bonus-value">$39</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">&#x2705; Чек-лист запуска + Telegram-сообщество</span>
+          <span class="bonus-text" data-i18n="bonus_6">&#x2705; Чек-лист запуска + Telegram-сообщество</span>
         </div>
         <span class="bonus-value">$20</span>
       </div>
       <div class="bonus-row reveal">
         <div class="bonus-info">
           <div class="bonus-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-          <span class="bonus-text">&#x1F916; Личная поддержка автора в Telegram</span>
+          <span class="bonus-text" data-i18n="bonus_7">&#x1F916; Личная поддержка автора в Telegram</span>
         </div>
-        <span class="bonus-value">бесплатно</span>
+        <span class="bonus-value" data-i18n="bonus_free">бесплатно</span>
       </div>
     </div>
     <div class="reveal" style="display:flex;justify-content:space-between;align-items:center;padding:20px 32px;margin-top:12px;border-top:2px solid rgba(41,151,255,0.2);border-radius:var(--radius-sm);background:rgba(41,151,255,0.04);">
-      <span style="font-size:1rem;font-weight:700;color:var(--text);">Общая ценность</span>
+      <span style="font-size:1rem;font-weight:700;color:var(--text);" data-i18n="bonus_total">Общая ценность</span>
       <span style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;text-decoration:line-through;color:var(--text-muted);">$235</span>
     </div>
     <div class="reveal" style="text-align:center;margin-top:16px;">
-      <span style="font-size:1.1rem;color:var(--text-secondary);">Ты получаешь всё за </span>
+      <span style="font-size:1.1rem;color:var(--text-secondary);" data-i18n="bonus_you_get">Ты получаешь всё за </span>
       <span style="font-size:1.6rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span>
     </div>
   </div>
@@ -2366,68 +2432,68 @@
 <!-- Testimonials -->
 <section>
   <div class="container">
-    <div class="section-label reveal lamp-effect">Отзывы</div>
-    <h2 class="section-title reveal">247 креаторов уже генерируют аватары</h2>
-    <p class="section-desc reveal">Вот что они говорят.</p>
+    <div class="section-label reveal lamp-effect" data-i18n="testimonials_label">Отзывы</div>
+    <h2 class="section-title reveal" data-i18n="testimonials_title">247 креаторов уже генерируют аватары</h2>
+    <p class="section-desc reveal" data-i18n="testimonials_desc">Вот что они говорят.</p>
     <div class="testimonials-grid">
       <div class="testimonial-card reveal">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">"Создала аватар за 40 минут. На следующий день выложила продающее видео — получила 3 заказа на $1200. Курс окупился в 24 раза."</p>
+        <p class="testimonial-text" data-i18n="test_1">"Создала аватар за 40 минут. На следующий день выложила продающее видео — получила 3 заказа на $1200. Курс окупился в 24 раза."</p>
         <div class="testimonial-footer">
           <img src="avatars/women_44.jpg" class="testimonial-avatar" alt="Viktoriia — студент AI Avatar Studio" width="44" height="44" loading="lazy" decoding="async" style="border-color:rgba(41,151,255,0.5);">
           <div>
             <div class="testimonial-author">Viktoriia</div>
-            <div class="testimonial-role">Контент-маркетолог, Киев</div>
+            <div class="testimonial-role" data-i18n="test_1_role">Контент-маркетолог, Киев</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card reveal">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">"Раньше платил видеографу $500 за ролик. Теперь делаю 5 видео в день сам — бесплатно. За месяц сэкономил $3000."</p>
+        <p class="testimonial-text" data-i18n="test_2">"Раньше платил видеографу $500 за ролик. Теперь делаю 5 видео в день сам — бесплатно. За месяц сэкономил $3000."</p>
         <div class="testimonial-footer">
           <img src="avatars/men_32.jpg" class="testimonial-avatar" alt="Oleksandr — студент AI Avatar Studio" width="44" height="44" loading="lazy" decoding="async" style="border-color:rgba(34,211,238,0.5);">
           <div>
             <div class="testimonial-author">Oleksandr</div>
-            <div class="testimonial-role">Предприниматель, Варшава</div>
+            <div class="testimonial-role" data-i18n="test_2_role">Предприниматель, Варшава</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card reveal">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">"Магазин одежды — за 2 недели с AI-видео продажи выросли на 40%. Вложила $49 в курс, заработала $2800 дополнительно."</p>
+        <p class="testimonial-text" data-i18n="test_3">"Магазин одежды — за 2 недели с AI-видео продажи выросли на 40%. Вложила $49 в курс, заработала $2800 дополнительно."</p>
         <div class="testimonial-footer">
           <img src="avatars/women_68.jpg" class="testimonial-avatar" alt="Aselina B. — студент AI Avatar Studio" width="44" height="44" loading="lazy" decoding="async" style="border-color:rgba(139,92,246,0.5);">
           <div>
             <div class="testimonial-author">Aselina B.</div>
-            <div class="testimonial-role">Владелец бизнеса, Алматы</div>
+            <div class="testimonial-role" data-i18n="test_3_role">Владелец бизнеса, Алматы</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card reveal">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">"Веду 8 аккаунтов клиентов. С AI-аватарами делаю 30+ видео в неделю вместо 5. Клиенты думают у меня целая студия."</p>
+        <p class="testimonial-text" data-i18n="test_4">"Веду 8 аккаунтов клиентов. С AI-аватарами делаю 30+ видео в неделю вместо 5. Клиенты думают у меня целая студия."</p>
         <div class="testimonial-footer">
           <img src="avatars/women_17.jpg" class="testimonial-avatar" alt="Ekaterina — студент AI Avatar Studio" width="44" height="44" loading="lazy" decoding="async" style="border-color:rgba(16,185,129,0.5);">
           <div>
             <div class="testimonial-author">Ekaterina</div>
-            <div class="testimonial-role">SMM-менеджер, Москва</div>
+            <div class="testimonial-role" data-i18n="test_4_role">SMM-менеджер, Москва</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card reveal">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">"Запустил YouTube канал на английском — хотя говорю с акцентом. AI-аватар говорит идеально. 10K подписчиков за 2 месяца."</p>
+        <p class="testimonial-text" data-i18n="test_5">"Запустил YouTube канал на английском — хотя говорю с акцентом. AI-аватар говорит идеально. 10K подписчиков за 2 месяца."</p>
         <div class="testimonial-footer">
           <img src="avatars/men_75.jpg" class="testimonial-avatar" alt="Dmitry K. — студент AI Avatar Studio" width="44" height="44" loading="lazy" decoding="async" style="border-color:rgba(245,158,11,0.5);">
           <div>
             <div class="testimonial-author">Dmitry K.</div>
-            <div class="testimonial-role">YouTube креатор, Тбилиси</div>
+            <div class="testimonial-role" data-i18n="test_5_role">YouTube креатор, Тбилиси</div>
           </div>
         </div>
       </div>
     </div>
     <div style="margin-top:48px;">
-      <p class="reveal" style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;text-align:center;">Верифицированные отзывы</p>
+      <p class="reveal" style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;text-align:center;" data-i18n="verified_reviews">Верифицированные отзывы</p>
       <div class="verified-reviews-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
         <div class="reveal" style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);"><picture><source srcset="av2.webp" type="image/webp"><img src="av2.jpg" alt="Верифицированный отзыв студента AI Avatar Studio 1" loading="lazy" decoding="async" style="width:100%;display:block;"></picture></div>
         <div class="reveal" style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);"><picture><source srcset="av3.webp" type="image/webp"><img src="av3.jpg" alt="Верифицированный отзыв студента AI Avatar Studio 2" loading="lazy" decoding="async" style="width:100%;display:block;"></picture></div>
@@ -2437,7 +2503,7 @@
       </div>
     </div>
     <div class="reveal" style="text-align:center;margin-top:40px;">
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;">Получить доступ — $49 &rarr;</a>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_get_access">Получить доступ — $49 &rarr;</a>
     </div>
   </div>
 </section>
@@ -2445,28 +2511,28 @@
 <!-- How You Get Access -->
 <section>
   <div class="container" style="text-align:center;">
-    <div class="section-label reveal lamp-effect">Процесс</div>
-    <h2 class="section-title reveal">Как это работает после оплаты</h2>
+    <div class="section-label reveal lamp-effect" data-i18n="process_label">Процесс</div>
+    <h2 class="section-title reveal" data-i18n="process_title">Как это работает после оплаты</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:900px;margin:40px auto 0;">
       <div class="reveal" style="padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;">
         <div style="font-size:2rem;margin-bottom:12px;">1</div>
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Оплачиваешь</h3>
-        <p style="font-size:0.85rem;color:var(--text-secondary);">Безопасная оплата через Stripe. Visa, Mastercard, Apple Pay.</p>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;" data-i18n="proc_1_title">Оплачиваешь</h3>
+        <p style="font-size:0.85rem;color:var(--text-secondary);" data-i18n="proc_1_text">Безопасная оплата через Stripe. Visa, Mastercard, Apple Pay.</p>
       </div>
       <div class="reveal" style="padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;">
         <div style="font-size:2rem;margin-bottom:12px;">2</div>
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Получаешь доступ</h3>
-        <p style="font-size:0.85rem;color:var(--text-secondary);">Моментально приходит ссылка на закрытый Telegram-канал с уроками.</p>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;" data-i18n="proc_2_title">Получаешь доступ</h3>
+        <p style="font-size:0.85rem;color:var(--text-secondary);" data-i18n="proc_2_text">Моментально приходит ссылка на закрытый Telegram-канал с уроками.</p>
       </div>
       <div class="reveal" style="padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;">
         <div style="font-size:2rem;margin-bottom:12px;">3</div>
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Смотришь и делаешь</h3>
-        <p style="font-size:0.85rem;color:var(--text-secondary);">3 видеоурока по 15-25 минут. Первый аватар — уже во время просмотра.</p>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;" data-i18n="proc_3_title">Смотришь и делаешь</h3>
+        <p style="font-size:0.85rem;color:var(--text-secondary);" data-i18n="proc_3_text">3 видеоурока по 15-25 минут. Первый аватар — уже во время просмотра.</p>
       </div>
       <div class="reveal" style="padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;">
         <div style="font-size:2rem;margin-bottom:12px;">4</div>
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Задаёшь вопросы</h3>
-        <p style="font-size:0.85rem;color:var(--text-secondary);">Пиши мне лично в Telegram @handy_dad — помогу разобраться.</p>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;" data-i18n="proc_4_title">Задаёшь вопросы</h3>
+        <p style="font-size:0.85rem;color:var(--text-secondary);" data-i18n="proc_4_text">Пиши мне лично в Telegram @handy_dad — помогу разобраться.</p>
       </div>
     </div>
   </div>
@@ -2475,24 +2541,24 @@
 <!-- Pricing -->
 <section id="pricing" class="pricing-section">
   <div class="container">
-    <div class="section-label reveal lamp-effect">Сравни сам</div>
-    <h2 class="section-title reveal">Один раз заплати — используй навсегда</h2>
-    <p class="section-desc reveal" style="margin-left:auto;margin-right:auto;">3 курса + 3 бонуса + личная поддержка. Отдельно $235. Вместе — $49 навсегда.</p>
+    <div class="section-label reveal lamp-effect" data-i18n="pricing_label">Сравни сам</div>
+    <h2 class="section-title reveal" data-i18n="pricing_title">Один раз заплати — используй навсегда</h2>
+    <p class="section-desc reveal" style="margin-left:auto;margin-right:auto;" data-i18n="pricing_desc">3 курса + 3 бонуса + личная поддержка. Отдельно $235. Вместе — $49 навсегда.</p>
     <div class="pricing-card reveal">
       <div class="pricing-old">$235</div>
       <div class="pricing-current">$49</div>
       <ul class="pricing-features">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>3 видеоурока — от фото до видео</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Клонирование голоса за 30 секунд</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>3 бонуса стоимостью $108</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Личная поддержка автора в Telegram</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Доступ навсегда + обновления</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f1">3 видеоурока — от фото до видео</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f2">Клонирование голоса за 30 секунд</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f3">3 бонуса стоимостью $108</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f4">Личная поддержка автора в Telegram</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f5">Доступ навсегда + обновления</span></li>
       </ul>
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="pricing-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="pricing-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="pricing_cta">
         Получить доступ — $49
         <span class="arrow">&rarr;</span>
       </a>
-      <div class="pricing-guarantee">
+      <div class="pricing-guarantee" data-i18n="pricing_guarantee" data-i18n-html="1">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         30 дней — попробуй без риска. Не понравится — верну 100% без единого вопроса.
       </div>
@@ -2502,7 +2568,7 @@
         <span>Mastercard</span>
         <span>Apple Pay</span>
       </div>
-      <p style="margin-top:12px;font-size:0.7rem;color:var(--text-muted);text-align:center;">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
+      <p style="margin-top:12px;font-size:0.7rem;color:var(--text-muted);text-align:center;" data-i18n="cta_payment_help" data-i18n-html="1">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
     </div>
   </div>
 </section>
@@ -2510,70 +2576,70 @@
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <div class="section-label reveal lamp-effect">Вопросы</div>
-    <h2 class="section-title reveal">Частые вопросы</h2>
+    <div class="section-label reveal lamp-effect" data-i18n="faq_label">Вопросы</div>
+    <h2 class="section-title reveal" data-i18n="faq_title">Частые вопросы</h2>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-question">
-          Нужен ли опыт в видеомонтаже?
+          <span data-i18n="faq_q1">Нужен ли опыт в видеомонтаже?</span>
           <span class="faq-icon"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">Нет. Курс рассчитан на полных новичков. Всё показано пошагово — от регистрации в сервисах до первого видео. Если умеешь пользоваться браузером — справишься.</div>
+          <div class="faq-answer-inner" data-i18n="faq_a1">Нет. Курс рассчитан на полных новичков. Всё показано пошагово — от регистрации в сервисах до первого видео. Если умеешь пользоваться браузером — справишься.</div>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          Какое оборудование нужно?
+          <span data-i18n="faq_q2">Какое оборудование нужно?</span>
           <span class="faq-icon"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">Только ноутбук или телефон с интернетом. Все инструменты работают в браузере — ничего устанавливать не нужно.</div>
+          <div class="faq-answer-inner" data-i18n="faq_a2">Только ноутбук или телефон с интернетом. Все инструменты работают в браузере — ничего устанавливать не нужно.</div>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          Сервисы платные?
+          <span data-i18n="faq_q3">Сервисы платные?</span>
           <span class="faq-icon"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">HeyGen и ElevenLabs имеют бесплатные планы, которых достаточно для старта. Adobe Podcast — полностью бесплатный. Ты можешь создать первые видео без дополнительных вложений.</div>
+          <div class="faq-answer-inner" data-i18n="faq_a3">HeyGen и ElevenLabs имеют бесплатные планы, которых достаточно для старта. Adobe Podcast — полностью бесплатный. Ты можешь создать первые видео без дополнительных вложений.</div>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          Как долго доступен курс?
+          <span data-i18n="faq_q4">Как долго доступен курс?</span>
           <span class="faq-icon"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">Навсегда. Одна покупка — пожизненный доступ ко всем урокам и будущим обновлениям.</div>
+          <div class="faq-answer-inner" data-i18n="faq_a4">Навсегда. Одна покупка — пожизненный доступ ко всем урокам и будущим обновлениям.</div>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          А если не получится?
+          <span data-i18n="faq_q5">А если не получится?</span>
           <span class="faq-icon"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">У тебя есть 30 дней, чтобы попробовать. Если курс не подойдёт — напиши @handy_dad в Telegram и получи полный возврат без вопросов.</div>
+          <div class="faq-answer-inner" data-i18n="faq_a5">У тебя есть 30 дней, чтобы попробовать. Если курс не подойдёт — напиши @handy_dad в Telegram и получи полный возврат без вопросов.</div>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          В каком формате курс и как получу доступ?
+          <span data-i18n="faq_q6">В каком формате курс и как получу доступ?</span>
           <span class="faq-icon"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">3 видеоурока + бонусные материалы. После оплаты ты моментально получаешь ссылку на закрытый Telegram-канал с уроками. Смотри с любого устройства, в любое время.</div>
+          <div class="faq-answer-inner" data-i18n="faq_a6">3 видеоурока + бонусные материалы. После оплаты ты моментально получаешь ссылку на закрытый Telegram-канал с уроками. Смотри с любого устройства, в любое время.</div>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          Сколько длятся уроки?
+          <span data-i18n="faq_q7">Сколько длятся уроки?</span>
           <span class="faq-icon"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">Каждый урок 15-25 минут. Всё по делу, без воды. Первый аватар можно создать уже во время просмотра первого урока.</div>
+          <div class="faq-answer-inner" data-i18n="faq_a7">Каждый урок 15-25 минут. Всё по делу, без воды. Первый аватар можно создать уже во время просмотра первого урока.</div>
         </div>
       </div>
     </div>
@@ -2584,9 +2650,9 @@
 <section class="final-cta-section">
   <canvas class="particles-bg" id="particlesBg"></canvas>
   <div class="final-cta-content container">
-    <h2 class="final-cta-title reveal">Через 60 секунд у тебя будет <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">первый аватар<span class="shimmer-sweep"></span></span></h2>
-    <p class="final-cta-subtitle reveal">247 креаторов уже используют. Следующий — ты. 30-дневная гарантия возврата.</p>
-    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta reveal" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
+    <h2 class="final-cta-title reveal" data-i18n="final_title" data-i18n-html="1">Через 60 секунд у тебя будет <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">первый аватар<span class="shimmer-sweep"></span></span></h2>
+    <p class="final-cta-subtitle reveal" data-i18n="final_subtitle">247 креаторов уже используют. Следующий — ты. 30-дневная гарантия возврата.</p>
+    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta reveal" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="final_cta">
       Забрать курс + бонусы — $49
       <span class="arrow">&rarr;</span>
     </a>
@@ -2595,7 +2661,7 @@
 
 <!-- Footer -->
 <footer class="footer">
-  <p>AI Avatar Studio &copy; 2026. Поддержка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a></p>
+  <p data-i18n="footer_text" data-i18n-html="1">AI Avatar Studio &copy; 2026. Поддержка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a></p>
   <p style="margin-top:8px;font-size:0.75rem;"><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
 </footer>
 
@@ -2603,10 +2669,10 @@
 <div class="exit-popup-overlay" id="exitPopup">
   <div class="exit-popup">
     <button class="exit-popup-close" id="exitClose">&times;</button>
-    <h3>Уже уходишь?</h3>
-    <p>3 курса + 3 бонуса + поддержка за $49 вместо $235. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.</p>
+    <h3 data-i18n="exit_title">Уже уходишь?</h3>
+    <p data-i18n="exit_text">3 курса + 3 бонуса + поддержка за $49 вместо $235. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.</p>
     <div class="exit-popup-price">$49</div>
-    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="exit-popup-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">
+    <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="exit-popup-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="exit_cta">
       Забрать курс — $49 &rarr;
     </a>
   </div>
@@ -2614,8 +2680,8 @@
 
 <!-- Sticky Bottom CTA -->
 <div class="sticky-cta" id="stickyCta">
-  <span class="sticky-cta-text"><strong>$49</strong> — навсегда</span>
-  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="sticky-cta-btn" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})">Получить навсегда за $49 &rarr;</a>
+  <span class="sticky-cta-text" data-i18n="sticky_text" data-i18n-html="1"><strong>$49</strong> — навсегда</span>
+  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="sticky-cta-btn" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="sticky_btn">Получить навсегда за $49 &rarr;</a>
 </div>
 
 <!-- Floating Telegram button -->
@@ -2863,22 +2929,20 @@ hamburger.addEventListener('click', function() {
 <!-- Social proof toast -->
 <script>
 (function() {
-  var buyers = [
-    {name:'Ekaterina', avatar:'avatars/women_44.jpg', time:'2 минуты назад'},
-    {name:'Aliksan', avatar:'avatars/men_32.jpg', time:'5 минут назад'},
-    {name:'Oleksandr', avatar:'avatars/men_75.jpg', time:'12 минут назад'},
-    {name:'Iuliia', avatar:'avatars/women_68.jpg', time:'18 минут назад'},
-    {name:'Assel', avatar:'avatars/women_55.jpg', time:'25 минут назад'}
-  ];
   var toast = document.getElementById('socialToast');
   var toastAvatar = document.getElementById('toastAvatar');
   var toastText = document.getElementById('toastText');
   var toastTime = document.getElementById('toastTime');
   var idx = 0;
   function showToast() {
+    var lang = window.__i18n_lang || 'ru';
+    var allBuyers = window.__i18n_toastBuyers || {};
+    var buyers = allBuyers[lang] || allBuyers['ru'] || [];
+    if (!buyers.length) return;
     var b = buyers[idx % buyers.length];
+    var boughtText = (lang === 'ua') ? 'придбав(ла) курс' : 'купил(а) курс';
     toastAvatar.src = b.avatar;
-    toastText.innerHTML = '<strong>' + b.name + '</strong> купил(а) курс';
+    toastText.innerHTML = '<strong>' + b.name + '</strong> ' + boughtText;
     toastTime.textContent = b.time;
     toast.classList.add('visible');
     setTimeout(function() { toast.classList.remove('visible'); }, 4000);
@@ -3007,6 +3071,574 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
     }
   });
 });
+</script>
+
+<!-- i18n Language Switcher -->
+<script>
+(function() {
+  'use strict';
+
+  var translations = {
+    ru: {
+      // Nav
+      nav_how: 'Как это работает',
+      nav_results: 'Результаты',
+      nav_price: 'Цена',
+      nav_cta: 'Получить за $49',
+      mob_cta: 'Получить доступ — $49',
+
+      // Hero
+      hero_label: '3 КУРСА В 1 — ДОСТУП НАВСЕГДА',
+      hero_title: 'Создай <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span> который говорит твоим голосом',
+      hero_subtitle: 'HeyGen + ElevenLabs + Adobe Podcast — три курса + бонусы. Отдельно стоит $235. У нас — всё вместе за $49.',
+      hero_forever: 'НАВСЕГДА',
+      hero_cta: 'Получить доступ — $49 <span class="arrow">&rarr;</span>',
+      hero_guarantee: '30-дневная гарантия возврата. Без вопросов.',
+
+      // Stats
+      stat_creators: 'креаторов уже используют',
+      stat_first_avatar: 'до первого аватара',
+      stat_savings: 'экономии на дизайнерах',
+
+      // Carousel
+      carousel_title: 'Реальные результаты наших студентов',
+      carousel_subtitle: 'Любая национальность • Любой возраст • Любой стиль',
+
+      // Demo
+      demo_title: 'Смотри как это работает',
+      unmute_btn: 'Включить звук',
+      unmute_on: 'Звук включён',
+
+      // Products
+      products_badge: '3 курса в 1 — отдельно $127, вместе $49',
+      prod_heygen_desc: 'Создание AI-аватаров',
+      prod_heygen_price: 'отдельно $49',
+      prod_eleven_desc: 'Клонирование голоса',
+      prod_eleven_price: 'отдельно $49',
+      prod_adobe_desc: 'Студийный звук',
+      prod_adobe_price: 'отдельно $29',
+      prod_more: '&#9660; подробнее',
+      prod_h1: 'Создание фотореалистичного аватара из одной фотографии',
+      prod_h2: 'Настройка мимики, жестов и эмоций',
+      prod_h3: 'Генерация видео по тексту за 60 секунд',
+      prod_h4: 'Перевод видео на 40+ языков с lip-sync',
+      prod_h5: 'Шаблоны для Reels, TikTok, YouTube',
+      prod_e1: 'Клонирование голоса за 30 секунд записи',
+      prod_e2: 'Озвучка текста твоим голосом на любом языке',
+      prod_e3: 'Настройка интонации, скорости, эмоций',
+      prod_e4: 'Интеграция с HeyGen для полного видео',
+      prod_e5: 'Бесплатный план — достаточно для старта',
+      prod_a1: 'Удаление фонового шума одним кликом',
+      prod_a2: 'Студийное качество звука из любой записи',
+      prod_a3: 'Убирает эхо, гул кондиционера, улицу',
+      prod_a4: 'Полностью бесплатный инструмент',
+      prod_a5: 'Работает в браузере — ничего устанавливать',
+      prod_total: 'Итого <span style="text-decoration:line-through;color:var(--text-muted);">$127</span> &rarr; <span style="font-weight:700;font-size:1.1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span> <span style="color:var(--text-muted);">— экономия 61%</span>',
+
+      // Transform
+      transform_label: 'Трансформация',
+      transform_title: 'Три навыка за цену одного. Результат — за один вечер.',
+      transform_desc: 'AI-аватары + клон голоса + студийный звук. Три курса + бонусы отдельно стоят $235. У нас — всё в одном за $49.',
+      transform_c1_title: 'Нет камеры — не проблема',
+      transform_c1_text: 'Одна фотография лица — и AI создаёт видео, где ты говоришь, жестикулируешь и смотришь в камеру.',
+      transform_c2_title: 'Говори на любом языке',
+      transform_c2_text: 'Твой голос клонируется за 30 секунд. Аватар может говорить на английском, испанском, немецком — твоим голосом.',
+      transform_c3_title: 'Контент за минуты',
+      transform_c3_text: 'Один текст — одно видео. Без пересъёмок, без монтажа. Публикуй хоть 10 видео в день.',
+
+      // How
+      how_label: 'Как это работает',
+      how_title: 'Три шага к AI-аватару',
+      how_desc: 'Всё, что нужно — ноутбук и час свободного времени.',
+      step1_title: 'Создай аватар',
+      step1_text: 'Загрузи фото или 2-минутное видео. HeyGen превратит его в цифрового двойника, который говорит и жестикулирует как ты.',
+      step2_title: 'Клонируй голос',
+      step2_text: 'Запиши 30 секунд речи. ElevenLabs создаст точную копию твоего голоса — с интонациями и эмоциями.',
+      step3_title: 'Улучши звук до студийного',
+      step3_text: 'Adobe Podcast уберёт шум, эхо и сделает звук как из профессиональной студии — бесплатно.',
+
+      // CTAs
+      cta_get_access: 'Получить доступ — $49 &rarr;',
+      cta_payment_help: 'Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем',
+      cta_grab: 'Забрать курс за $49 &rarr;',
+      cta_30day: '30-дневная гарантия возврата',
+
+      // Use cases
+      usecase_label: 'Что ты получишь',
+      usecase_title: 'Один аватар — бесконечные возможности',
+      usecase_desc: 'Вот как студенты используют свои AI-аватары прямо сейчас.',
+      usecase_c1_title: 'Продающие Reels',
+      usecase_c1_text: 'Записывай видео для Instagram и TikTok каждый день — без съёмок и монтажа. Экономь 5+ часов в неделю.',
+      usecase_c2_title: 'Видео-презентации',
+      usecase_c2_text: 'Питчи инвесторам, обучение сотрудников, welcome-видео для клиентов — всё персонализировано.',
+      usecase_c3_title: 'Масштаб контента',
+      usecase_c3_text: 'Один текст = видео на 5 языках. Выходи на международный рынок без знания языков.',
+
+      // For whom
+      whom_label: 'Для кого этот курс',
+      whom_title: 'Узнаёшь себя?',
+      whom_c1_title: 'Хочешь снимать видео, но стесняешься камеры',
+      whom_c1_text: 'Знаешь, что видео продаёт лучше текста. Но каждый раз откладываешь съёмку. AI-аватар говорит за тебя — с твоим лицом и голосом.',
+      whom_c2_title: 'Нет времени на видеопродакшн',
+      whom_c2_text: 'Сценарий, съёмка, монтаж — это часы работы. С AI-аватаром один ролик = 60 секунд. Пишешь текст, нажимаешь кнопку, получаешь видео.',
+      whom_c3_title: 'Видеограф стоит дорого',
+      whom_c3_text: '$300-500 за ролик, и каждый раз заново. После этого курса ты делаешь неограниченное количество видео сам — бесплатно, навсегда.',
+      whom_c4_title: 'Хочешь выйти на международный рынок',
+      whom_c4_text: 'Твой аватар говорит на любом языке. Один текст = видео на русском, английском, испанском. Без переводчика и озвучки.',
+      whom_c5_title: 'Конкуренты уже используют AI-видео',
+      whom_c5_text: 'Пока ты думаешь — они публикуют по 5 роликов в день. Этот курс за один вечер даёт тебе тот же инструмент.',
+      whom_c6_title: 'Пробовал сам, но не разобрался',
+      whom_c6_text: 'HeyGen, ElevenLabs, Adobe Podcast — куча настроек и нюансов. Курс показывает ровно те кнопки, которые нужно нажать. Без воды.',
+
+      // Author
+      author_label: 'Автор курса',
+      author_title: 'Привет! Я — Фаррух Рахимов',
+      author_p1: '33 года, живу в Майами. Основал Handyman Gold Hands — сервисную компанию в 8 городах США. Когда нужно было масштабировать маркетинг без бюджета на видеографа, я открыл для себя AI-аватары.',
+      author_p2: 'Месяцы проб и ошибок с HeyGen, ElevenLabs, Adobe Podcast — я сжал всё в 3 урока. Без воды, только то, что реально работает. Каждый день использую аватары в своём бизнесе — для рекламы, обучения команды и контента в Instagram.',
+      author_tag1: 'Бизнес в 8 городах США',
+      author_tag2: 'Использую AI-аватары каждый день',
+      author_tag3: 'Отвечаю лично в Telegram',
+
+      // Bonuses
+      bonus_label: 'Что внутри',
+      bonus_title: 'Всё, что нужно для AI-видео — в одном пакете',
+      bonus_desc: 'Отдельно всё стоит $235. Ты получаешь навсегда за $49.',
+      bonus_col_what: 'Что входит',
+      bonus_col_value: 'Ценность',
+      bonus_1: '&#x1F3AC; Видеоурок 1: Создание аватара в HeyGen',
+      bonus_2: '&#x1F3AC; Видеоурок 2: Клонирование голоса в ElevenLabs',
+      bonus_3: '&#x1F3AC; Видеоурок 3: Студийный звук в Adobe Podcast',
+      bonus_4: '&#x1F4DD; 50 промптов для генерации скриптов',
+      bonus_5: '&#x1F4F1; Шаблоны видео для Instagram и TikTok',
+      bonus_6: '&#x2705; Чек-лист запуска + Telegram-сообщество',
+      bonus_7: '&#x1F916; Личная поддержка автора в Telegram',
+      bonus_free: 'бесплатно',
+      bonus_total: 'Общая ценность',
+      bonus_you_get: 'Ты получаешь всё за ',
+
+      // Testimonials
+      testimonials_label: 'Отзывы',
+      testimonials_title: '247 креаторов уже генерируют аватары',
+      testimonials_desc: 'Вот что они говорят.',
+      test_1: '"Создала аватар за 40 минут. На следующий день выложила продающее видео — получила 3 заказа на $1200. Курс окупился в 24 раза."',
+      test_1_role: 'Контент-маркетолог, Киев',
+      test_2: '"Раньше платил видеографу $500 за ролик. Теперь делаю 5 видео в день сам — бесплатно. За месяц сэкономил $3000."',
+      test_2_role: 'Предприниматель, Варшава',
+      test_3: '"Магазин одежды — за 2 недели с AI-видео продажи выросли на 40%. Вложила $49 в курс, заработала $2800 дополнительно."',
+      test_3_role: 'Владелец бизнеса, Алматы',
+      test_4: '"Веду 8 аккаунтов клиентов. С AI-аватарами делаю 30+ видео в неделю вместо 5. Клиенты думают у меня целая студия."',
+      test_4_role: 'SMM-менеджер, Москва',
+      test_5: '"Запустил YouTube канал на английском — хотя говорю с акцентом. AI-аватар говорит идеально. 10K подписчиков за 2 месяца."',
+      test_5_role: 'YouTube креатор, Тбилиси',
+      verified_reviews: 'Верифицированные отзывы',
+
+      // Process
+      process_label: 'Процесс',
+      process_title: 'Как это работает после оплаты',
+      proc_1_title: 'Оплачиваешь',
+      proc_1_text: 'Безопасная оплата через Stripe. Visa, Mastercard, Apple Pay.',
+      proc_2_title: 'Получаешь доступ',
+      proc_2_text: 'Моментально приходит ссылка на закрытый Telegram-канал с уроками.',
+      proc_3_title: 'Смотришь и делаешь',
+      proc_3_text: '3 видеоурока по 15-25 минут. Первый аватар — уже во время просмотра.',
+      proc_4_title: 'Задаёшь вопросы',
+      proc_4_text: 'Пиши мне лично в Telegram @handy_dad — помогу разобраться.',
+
+      // Pricing
+      pricing_label: 'Сравни сам',
+      pricing_title: 'Один раз заплати — используй навсегда',
+      pricing_desc: '3 курса + 3 бонуса + личная поддержка. Отдельно $235. Вместе — $49 навсегда.',
+      price_f1: '3 видеоурока — от фото до видео',
+      price_f2: 'Клонирование голоса за 30 секунд',
+      price_f3: '3 бонуса стоимостью $108',
+      price_f4: 'Личная поддержка автора в Telegram',
+      price_f5: 'Доступ навсегда + обновления',
+      pricing_cta: 'Получить доступ — $49 <span class="arrow">&rarr;</span>',
+      pricing_guarantee: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 30 дней — попробуй без риска. Не понравится — верну 100% без единого вопроса.',
+
+      // FAQ
+      faq_label: 'Вопросы',
+      faq_title: 'Частые вопросы',
+      faq_q1: 'Нужен ли опыт в видеомонтаже?',
+      faq_a1: 'Нет. Курс рассчитан на полных новичков. Всё показано пошагово — от регистрации в сервисах до первого видео. Если умеешь пользоваться браузером — справишься.',
+      faq_q2: 'Какое оборудование нужно?',
+      faq_a2: 'Только ноутбук или телефон с интернетом. Все инструменты работают в браузере — ничего устанавливать не нужно.',
+      faq_q3: 'Сервисы платные?',
+      faq_a3: 'HeyGen и ElevenLabs имеют бесплатные планы, которых достаточно для старта. Adobe Podcast — полностью бесплатный. Ты можешь создать первые видео без дополнительных вложений.',
+      faq_q4: 'Как долго доступен курс?',
+      faq_a4: 'Навсегда. Одна покупка — пожизненный доступ ко всем урокам и будущим обновлениям.',
+      faq_q5: 'А если не получится?',
+      faq_a5: 'У тебя есть 30 дней, чтобы попробовать. Если курс не подойдёт — напиши @handy_dad в Telegram и получи полный возврат без вопросов.',
+      faq_q6: 'В каком формате курс и как получу доступ?',
+      faq_a6: '3 видеоурока + бонусные материалы. После оплаты ты моментально получаешь ссылку на закрытый Telegram-канал с уроками. Смотри с любого устройства, в любое время.',
+      faq_q7: 'Сколько длятся уроки?',
+      faq_a7: 'Каждый урок 15-25 минут. Всё по делу, без воды. Первый аватар можно создать уже во время просмотра первого урока.',
+
+      // Final
+      final_title: 'Через 60 секунд у тебя будет <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">первый аватар<span class="shimmer-sweep"></span></span>',
+      final_subtitle: '247 креаторов уже используют. Следующий — ты. 30-дневная гарантия возврата.',
+      final_cta: 'Забрать курс + бонусы — $49 <span class="arrow">&rarr;</span>',
+
+      // Footer
+      footer_text: 'AI Avatar Studio &copy; 2026. Поддержка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>',
+
+      // Exit popup
+      exit_title: 'Уже уходишь?',
+      exit_text: '3 курса + 3 бонуса + поддержка за $49 вместо $235. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.',
+      exit_cta: 'Забрать курс — $49 &rarr;',
+
+      // Sticky
+      sticky_text: '<strong>$49</strong> — навсегда',
+      sticky_btn: 'Получить навсегда за $49 &rarr;',
+
+      // Toast
+      toast_bought: 'купила курс',
+      toast_time_2m: '2 минуты назад',
+
+      // Meta
+      meta_title: 'AI Avatar Course — создай говорящий аватар за 1 вечер',
+      meta_desc: '3 курса в 1: HeyGen + ElevenLabs + Adobe Podcast. Создай AI-аватар, клонируй голос, студийный звук — за $49 вместо $235. Гарантия 30 дней.',
+      og_title: '3 курса в 1 за $49 — AI-аватар + голос + звук',
+      og_desc: 'HeyGen + ElevenLabs + Adobe Podcast. Отдельно $235. У нас всё вместе за $49. 30-дневная гарантия.'
+    },
+    ua: {
+      // Nav
+      nav_how: 'Як це працює',
+      nav_results: 'Результати',
+      nav_price: 'Ціна',
+      nav_cta: 'Отримати за $49',
+      mob_cta: 'Отримати доступ — $49',
+
+      // Hero
+      hero_label: '3 КУРСИ В 1 — ДОСТУП НАЗАВЖДИ',
+      hero_title: 'Створи <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span> який говорить твоїм голосом',
+      hero_subtitle: 'HeyGen + ElevenLabs + Adobe Podcast — три курси + бонуси. Окремо коштує $235. У нас — все разом за $49.',
+      hero_forever: 'НАЗАВЖДИ',
+      hero_cta: 'Отримати доступ — $49 <span class="arrow">&rarr;</span>',
+      hero_guarantee: '30-денна гарантія повернення. Без запитань.',
+
+      // Stats
+      stat_creators: 'креаторів вже використовують',
+      stat_first_avatar: 'до першого аватара',
+      stat_savings: 'економії на дизайнерах',
+
+      // Carousel
+      carousel_title: 'Реальні результати наших студентів',
+      carousel_subtitle: 'Будь-яка національність • Будь-який вік • Будь-який стиль',
+
+      // Demo
+      demo_title: 'Дивись як це працює',
+      unmute_btn: 'Увімкнути звук',
+      unmute_on: 'Звук увімкнено',
+
+      // Products
+      products_badge: '3 курси в 1 — окремо $127, разом $49',
+      prod_heygen_desc: 'Створення AI-аватарів',
+      prod_heygen_price: 'окремо $49',
+      prod_eleven_desc: 'Клонування голосу',
+      prod_eleven_price: 'окремо $49',
+      prod_adobe_desc: 'Студійний звук',
+      prod_adobe_price: 'окремо $29',
+      prod_more: '&#9660; детальніше',
+      prod_h1: 'Створення фотореалістичного аватара з одного фото',
+      prod_h2: 'Налаштування міміки, жестів та емоцій',
+      prod_h3: 'Генерація відео за текстом за 60 секунд',
+      prod_h4: 'Переклад відео на 40+ мов з lip-sync',
+      prod_h5: 'Шаблони для Reels, TikTok, YouTube',
+      prod_e1: 'Клонування голосу за 30 секунд запису',
+      prod_e2: 'Озвучення тексту твоїм голосом будь-якою мовою',
+      prod_e3: 'Налаштування інтонації, швидкості, емоцій',
+      prod_e4: 'Інтеграція з HeyGen для повного відео',
+      prod_e5: 'Безкоштовний план — достатньо для старту',
+      prod_a1: 'Видалення фонового шуму одним кліком',
+      prod_a2: 'Студійна якість звуку з будь-якого запису',
+      prod_a3: 'Прибирає ехо, гул кондиціонера, вулицю',
+      prod_a4: 'Повністю безкоштовний інструмент',
+      prod_a5: 'Працює у браузері — нічого встановлювати',
+      prod_total: 'Разом <span style="text-decoration:line-through;color:var(--text-muted);">$127</span> &rarr; <span style="font-weight:700;font-size:1.1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span> <span style="color:var(--text-muted);">— економія 61%</span>',
+
+      // Transform
+      transform_label: 'Трансформація',
+      transform_title: 'Три навички за ціною однієї. Результат — за один вечір.',
+      transform_desc: 'AI-аватари + клон голосу + студійний звук. Три курси + бонуси окремо коштують $235. У нас — все в одному за $49.',
+      transform_c1_title: 'Немає камери — не проблема',
+      transform_c1_text: 'Одне фото обличчя — і AI створює відео, де ти говориш, жестикулюєш і дивишся в камеру.',
+      transform_c2_title: 'Говори будь-якою мовою',
+      transform_c2_text: 'Твій голос клонується за 30 секунд. Аватар може говорити англійською, іспанською, німецькою — твоїм голосом.',
+      transform_c3_title: 'Контент за хвилини',
+      transform_c3_text: 'Один текст — одне відео. Без перезйомок, без монтажу. Публікуй хоч 10 відео на день.',
+
+      // How
+      how_label: 'Як це працює',
+      how_title: 'Три кроки до AI-аватара',
+      how_desc: 'Все, що потрібно — ноутбук і година вільного часу.',
+      step1_title: 'Створи аватар',
+      step1_text: 'Завантаж фото або 2-хвилинне відео. HeyGen перетворить його на цифрового двійника, який говорить і жестикулює як ти.',
+      step2_title: 'Клонуй голос',
+      step2_text: 'Запиши 30 секунд мовлення. ElevenLabs створить точну копію твого голосу — з інтонаціями та емоціями.',
+      step3_title: 'Покращ звук до студійного',
+      step3_text: 'Adobe Podcast прибере шум, ехо і зробить звук як з професійної студії — безкоштовно.',
+
+      // CTAs
+      cta_get_access: 'Отримати доступ — $49 &rarr;',
+      cta_payment_help: 'Проблеми з оплатою? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — допоможемо',
+      cta_grab: 'Забрати курс за $49 &rarr;',
+      cta_30day: '30-денна гарантія повернення',
+
+      // Use cases
+      usecase_label: 'Що ти отримаєш',
+      usecase_title: 'Один аватар — безмежні можливості',
+      usecase_desc: 'Ось як студенти використовують свої AI-аватари просто зараз.',
+      usecase_c1_title: 'Продаючі Reels',
+      usecase_c1_text: 'Записуй відео для Instagram і TikTok щодня — без зйомок і монтажу. Економ 5+ годин на тиждень.',
+      usecase_c2_title: 'Відео-презентації',
+      usecase_c2_text: 'Пітчі інвесторам, навчання співробітників, welcome-відео для клієнтів — все персоналізовано.',
+      usecase_c3_title: 'Масштаб контенту',
+      usecase_c3_text: 'Один текст = відео 5 мовами. Виходь на міжнародний ринок без знання мов.',
+
+      // For whom
+      whom_label: 'Для кого цей курс',
+      whom_title: 'Впізнаєш себе?',
+      whom_c1_title: 'Хочеш знімати відео, але соромишся камери',
+      whom_c1_text: 'Знаєш, що відео продає краще за текст. Але щоразу відкладаєш зйомку. AI-аватар говорить за тебе — з твоїм обличчям і голосом.',
+      whom_c2_title: 'Немає часу на відеопродакшн',
+      whom_c2_text: 'Сценарій, зйомка, монтаж — це години роботи. З AI-аватаром один ролик = 60 секунд. Пишеш текст, натискаєш кнопку, отримуєш відео.',
+      whom_c3_title: 'Відеограф коштує дорого',
+      whom_c3_text: '$300-500 за ролик, і щоразу заново. Після цього курсу ти робиш необмежену кількість відео сам — безкоштовно, назавжди.',
+      whom_c4_title: 'Хочеш вийти на міжнародний ринок',
+      whom_c4_text: 'Твій аватар говорить будь-якою мовою. Один текст = відео російською, англійською, іспанською. Без перекладача й озвучки.',
+      whom_c5_title: 'Конкуренти вже використовують AI-відео',
+      whom_c5_text: 'Поки ти думаєш — вони публікують по 5 роликів на день. Цей курс за один вечір дає тобі той самий інструмент.',
+      whom_c6_title: 'Пробував сам, але не розібрався',
+      whom_c6_text: 'HeyGen, ElevenLabs, Adobe Podcast — купа налаштувань і нюансів. Курс показує саме ті кнопки, які потрібно натиснути. Без води.',
+
+      // Author
+      author_label: 'Автор курсу',
+      author_title: 'Привіт! Я — Фаррух Рахімов',
+      author_p1: '33 роки, живу в Маямі. Заснував Handyman Gold Hands — сервісну компанію у 8 містах США. Коли потрібно було масштабувати маркетинг без бюджету на відеографа, я відкрив для себе AI-аватари.',
+      author_p2: 'Місяці спроб і помилок з HeyGen, ElevenLabs, Adobe Podcast — я стиснув все у 3 уроки. Без води, тільки те, що реально працює. Щодня використовую аватари у своєму бізнесі — для реклами, навчання команди та контенту в Instagram.',
+      author_tag1: 'Бізнес у 8 містах США',
+      author_tag2: 'Використовую AI-аватари щодня',
+      author_tag3: 'Відповідаю особисто у Telegram',
+
+      // Bonuses
+      bonus_label: 'Що всередині',
+      bonus_title: 'Все, що потрібно для AI-відео — в одному пакеті',
+      bonus_desc: 'Окремо все коштує $235. Ти отримуєш назавжди за $49.',
+      bonus_col_what: 'Що входить',
+      bonus_col_value: 'Цінність',
+      bonus_1: '&#x1F3AC; Відеоурок 1: Створення аватара в HeyGen',
+      bonus_2: '&#x1F3AC; Відеоурок 2: Клонування голосу в ElevenLabs',
+      bonus_3: '&#x1F3AC; Відеоурок 3: Студійний звук в Adobe Podcast',
+      bonus_4: '&#x1F4DD; 50 промптів для генерації скриптів',
+      bonus_5: '&#x1F4F1; Шаблони відео для Instagram і TikTok',
+      bonus_6: '&#x2705; Чек-лист запуску + Telegram-спільнота',
+      bonus_7: '&#x1F916; Особиста підтримка автора у Telegram',
+      bonus_free: 'безкоштовно',
+      bonus_total: 'Загальна цінність',
+      bonus_you_get: 'Ти отримуєш все за ',
+
+      // Testimonials
+      testimonials_label: 'Відгуки',
+      testimonials_title: '247 креаторів вже генерують аватари',
+      testimonials_desc: 'Ось що вони кажуть.',
+      test_1: '"Створила аватар за 40 хвилин. Наступного дня виклала продаюче відео — отримала 3 замовлення на $1200. Курс окупився у 24 рази."',
+      test_1_role: 'Контент-маркетолог, Київ',
+      test_2: '"Раніше платив відеографу $500 за ролик. Тепер роблю 5 відео на день сам — безкоштовно. За місяць зекономив $3000."',
+      test_2_role: 'Підприємець, Варшава',
+      test_3: '"Магазин одягу — за 2 тижні з AI-відео продажі зросли на 40%. Вклала $49 в курс, заробила $2800 додатково."',
+      test_3_role: 'Власниця бізнесу, Алмати',
+      test_4: '"Веду 8 акаунтів клієнтів. З AI-аватарами роблю 30+ відео на тиждень замість 5. Клієнти думають, що в мене ціла студія."',
+      test_4_role: 'SMM-менеджер, Москва',
+      test_5: '"Запустив YouTube канал англійською — хоча говорю з акцентом. AI-аватар говорить ідеально. 10K підписників за 2 місяці."',
+      test_5_role: 'YouTube креатор, Тбілісі',
+      verified_reviews: 'Верифіковані відгуки',
+
+      // Process
+      process_label: 'Процес',
+      process_title: 'Як це працює після оплати',
+      proc_1_title: 'Оплачуєш',
+      proc_1_text: 'Безпечна оплата через Stripe. Visa, Mastercard, Apple Pay.',
+      proc_2_title: 'Отримуєш доступ',
+      proc_2_text: 'Миттєво приходить посилання на закритий Telegram-канал з уроками.',
+      proc_3_title: 'Дивишся і робиш',
+      proc_3_text: '3 відеоуроки по 15-25 хвилин. Перший аватар — вже під час перегляду.',
+      proc_4_title: 'Ставиш запитання',
+      proc_4_text: 'Пиши мені особисто у Telegram @handy_dad — допоможу розібратися.',
+
+      // Pricing
+      pricing_label: 'Порівняй сам',
+      pricing_title: 'Один раз заплати — використовуй назавжди',
+      pricing_desc: '3 курси + 3 бонуси + особиста підтримка. Окремо $235. Разом — $49 назавжди.',
+      price_f1: '3 відеоуроки — від фото до відео',
+      price_f2: 'Клонування голосу за 30 секунд',
+      price_f3: '3 бонуси вартістю $108',
+      price_f4: 'Особиста підтримка автора у Telegram',
+      price_f5: 'Доступ назавжди + оновлення',
+      pricing_cta: 'Отримати доступ — $49 <span class="arrow">&rarr;</span>',
+      pricing_guarantee: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 30 днів — спробуй без ризику. Не сподобається — поверну 100% без жодного запитання.',
+
+      // FAQ
+      faq_label: 'Запитання',
+      faq_title: 'Часті запитання',
+      faq_q1: 'Чи потрібен досвід у відеомонтажі?',
+      faq_a1: 'Ні. Курс розрахований на повних новачків. Все показано покроково — від реєстрації в сервісах до першого відео. Якщо вмієш користуватися браузером — впораєшся.',
+      faq_q2: 'Яке обладнання потрібно?',
+      faq_a2: 'Тільки ноутбук або телефон з інтернетом. Усі інструменти працюють у браузері — нічого встановлювати не потрібно.',
+      faq_q3: 'Сервіси платні?',
+      faq_a3: 'HeyGen і ElevenLabs мають безкоштовні плани, яких достатньо для старту. Adobe Podcast — повністю безкоштовний. Ти можеш створити перші відео без додаткових вкладень.',
+      faq_q4: 'Як довго доступний курс?',
+      faq_a4: 'Назавжди. Одна покупка — довічний доступ до всіх уроків і майбутніх оновлень.',
+      faq_q5: 'А якщо не вийде?',
+      faq_a5: 'У тебе є 30 днів, щоб спробувати. Якщо курс не підійде — напиши @handy_dad у Telegram і отримай повне повернення без запитань.',
+      faq_q6: 'У якому форматі курс і як отримаю доступ?',
+      faq_a6: '3 відеоуроки + бонусні матеріали. Після оплати ти миттєво отримуєш посилання на закритий Telegram-канал з уроками. Дивися з будь-якого пристрою, у будь-який час.',
+      faq_q7: 'Скільки тривають уроки?',
+      faq_a7: 'Кожен урок 15-25 хвилин. Все по справі, без води. Перший аватар можна створити вже під час перегляду першого уроку.',
+
+      // Final
+      final_title: 'Через 60 секунд у тебе буде <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">перший аватар<span class="shimmer-sweep"></span></span>',
+      final_subtitle: '247 креаторів вже використовують. Наступний — ти. 30-денна гарантія повернення.',
+      final_cta: 'Забрати курс + бонуси — $49 <span class="arrow">&rarr;</span>',
+
+      // Footer
+      footer_text: 'AI Avatar Studio &copy; 2026. Підтримка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>',
+
+      // Exit popup
+      exit_title: 'Вже йдеш?',
+      exit_text: '3 курси + 3 бонуси + підтримка за $49 замість $235. HeyGen + ElevenLabs + Adobe Podcast. Гарантія 30 днів.',
+      exit_cta: 'Забрати курс — $49 &rarr;',
+
+      // Sticky
+      sticky_text: '<strong>$49</strong> — назавжди',
+      sticky_btn: 'Отримати назавжди за $49 &rarr;',
+
+      // Toast
+      toast_bought: 'придбав(ла) курс',
+      toast_time_2m: '2 хвилини тому',
+
+      // Meta
+      meta_title: 'AI Avatar Course — створи аватар, що говорить, за 1 вечір',
+      meta_desc: '3 курси в 1: HeyGen + ElevenLabs + Adobe Podcast. Створи AI-аватар, клонуй голос, студійний звук — за $49 замість $235. Гарантія 30 днів.',
+      og_title: '3 курси в 1 за $49 — AI-аватар + голос + звук',
+      og_desc: 'HeyGen + ElevenLabs + Adobe Podcast. Окремо $235. У нас все разом за $49. 30-денна гарантія.'
+    }
+  };
+
+  // Expose for unmute button
+  window.__i18n_translations = translations;
+
+  function setLang(lang) {
+    var t = translations[lang];
+    if (!t) return;
+
+    window.__i18n_lang = lang;
+
+    // Add fade class
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      el.classList.add('i18n-fade');
+    });
+
+    setTimeout(function() {
+      // Update text
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          if (el.getAttribute('data-i18n-html') === '1') {
+            el.innerHTML = t[key];
+          } else {
+            // For elements that had arrows or HTML in CTA buttons
+            if (key.indexOf('cta') !== -1 || key === 'hero_cta' || key === 'pricing_cta' || key === 'final_cta' || key === 'exit_cta' || key === 'sticky_btn' || key === 'sticky_text') {
+              el.innerHTML = t[key];
+            } else {
+              el.innerHTML = t[key];
+            }
+          }
+        }
+      });
+
+      // Update stat suffixes
+      var secStat = document.querySelector('.stat-number[data-suffix]');
+      if (secStat) {
+        secStat.setAttribute('data-suffix', lang === 'ua' ? ' сек' : ' сек');
+        // Also update displayed text if already counted
+        var target = parseInt(secStat.getAttribute('data-target'));
+        var suffix = secStat.getAttribute('data-suffix');
+        if (secStat.textContent.indexOf('60') !== -1 || secStat.textContent.indexOf('сек') !== -1) {
+          secStat.textContent = target + suffix;
+        }
+      }
+
+      // Update html lang
+      document.documentElement.lang = lang === 'ua' ? 'uk' : 'ru';
+
+      // Update meta
+      var titleEl = document.querySelector('title');
+      var descEl = document.querySelector('meta[name="description"]');
+      var ogTitleEl = document.querySelector('meta[property="og:title"]');
+      var ogDescEl = document.querySelector('meta[property="og:description"]');
+      var twTitleEl = document.querySelector('meta[name="twitter:title"]');
+      var twDescEl = document.querySelector('meta[name="twitter:description"]');
+
+      if (titleEl && t.meta_title) titleEl.textContent = t.meta_title;
+      if (descEl && t.meta_desc) descEl.setAttribute('content', t.meta_desc);
+      if (ogTitleEl && t.og_title) ogTitleEl.setAttribute('content', t.og_title);
+      if (ogDescEl && t.og_desc) ogDescEl.setAttribute('content', t.og_desc);
+      if (twTitleEl && t.og_title) twTitleEl.setAttribute('content', t.og_title);
+      if (twDescEl && t.og_desc) twDescEl.setAttribute('content', t.og_desc);
+
+      // Update switcher buttons
+      document.querySelectorAll('.lang-switcher button').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Save to localStorage
+      localStorage.setItem('lang', lang);
+
+      // Remove fade class
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        el.classList.remove('i18n-fade');
+      });
+    }, 200);
+  }
+
+  // Bind click events
+  document.querySelectorAll('.lang-switcher button').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      setLang(btn.getAttribute('data-lang'));
+    });
+  });
+
+  // Check localStorage or URL param
+  var saved = localStorage.getItem('lang');
+  var urlLang = new URLSearchParams(window.location.search).get('lang');
+  var initLang = urlLang || saved || 'ru';
+  if (initLang !== 'ru') {
+    setLang(initLang);
+  }
+
+  // Update toast messages for language
+  var origShowToast = null;
+  var toastBuyers = {
+    ru: [
+      {name:'Ekaterina', avatar:'avatars/women_44.jpg', time:'2 минуты назад'},
+      {name:'Aliksan', avatar:'avatars/men_32.jpg', time:'5 минут назад'},
+      {name:'Oleksandr', avatar:'avatars/men_75.jpg', time:'12 минут назад'},
+      {name:'Iuliia', avatar:'avatars/women_68.jpg', time:'18 минут назад'},
+      {name:'Assel', avatar:'avatars/women_55.jpg', time:'25 минут назад'}
+    ],
+    ua: [
+      {name:'Kateryna', avatar:'avatars/women_44.jpg', time:'2 хвилини тому'},
+      {name:'Oleksiy', avatar:'avatars/men_32.jpg', time:'5 хвилин тому'},
+      {name:'Oleksandr', avatar:'avatars/men_75.jpg', time:'12 хвилин тому'},
+      {name:'Yuliia', avatar:'avatars/women_68.jpg', time:'18 хвилин тому'},
+      {name:'Assel', avatar:'avatars/women_55.jpg', time:'25 хвилин тому'}
+    ]
+  };
+  window.__i18n_toastBuyers = toastBuyers;
+})();
 </script>
 
 <!-- Aceternity-inspired effects: Spotlight cards + Lamp reveal -->

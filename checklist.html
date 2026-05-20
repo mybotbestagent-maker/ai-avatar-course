@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Полный чек-лист по созданию AI-аватара</title>
+<style>
+  /* ===== FONTS ===== */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  /* ===== VARIABLES ===== */
+  :root {
+    --bg: #0a0a0a;
+    --bg-alt: #111111;
+    --bg-card: #161618;
+    --bg-tip: #1a1a2e;
+    --border: rgba(255,255,255,0.08);
+    --border-accent: rgba(41,151,255,0.3);
+    --text: #f0f0f5;
+    --text-secondary: #a0a0b0;
+    --text-muted: #666680;
+    --accent-blue: #2997FF;
+    --accent-violet: #BF5AF2;
+    --accent-green: #30D158;
+    --gradient: linear-gradient(135deg, #2997FF, #BF5AF2);
+    --gradient-soft: linear-gradient(135deg, rgba(41,151,255,0.15), rgba(191,90,242,0.15));
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* ===== RESET ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ===== BASE ===== */
+  html { font-size: 11pt; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== PAGE SETUP ===== */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 20mm 22mm;
+    position: relative;
+    page-break-after: always;
+    background: var(--bg);
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ===== COVER PAGE ===== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 297mm;
+    padding: 30mm 25mm;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(41,151,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(191,90,242,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .cover-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--gradient-soft);
+    border: 1px solid var(--border-accent);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-blue);
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .cover-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .cover-title .gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .cover-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 420px;
+    margin-bottom: 50px;
+    line-height: 1.7;
+    position: relative;
+  }
+  .cover-author {
+    position: relative;
+    padding: 16px 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .cover-author-name {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .cover-author-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .cover-year {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    position: relative;
+  }
+  .cover-tools {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .cover-tool {
+    padding: 8px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  /* ===== TABLE OF CONTENTS ===== */
+  .toc-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .toc-list {
+    list-style: none;
+  }
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .toc-item:last-child { border-bottom: none; }
+  .toc-chapter {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .toc-num {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--accent-blue);
+    min-width: 28px;
+  }
+  .toc-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .toc-dots {
+    flex: 1;
+    border-bottom: 1px dotted rgba(255,255,255,0.1);
+    margin: 0 12px;
+    min-width: 40px;
+  }
+  .toc-page {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  /* ===== CHAPTER HEADER ===== */
+  .chapter-header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid transparent;
+    border-image: var(--gradient) 1;
+  }
+  .chapter-num {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent-blue);
+    background: rgba(41,151,255,0.1);
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(41,151,255,0.2);
+    margin-bottom: 14px;
+  }
+  .chapter-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .chapter-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ===== CHECKLIST ===== */
+  .checklist {
+    list-style: none;
+    margin: 20px 0;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checkbox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid rgba(41,151,255,0.4);
+    border-radius: 4px;
+    margin-top: 2px;
+    font-size: 0;
+    color: transparent;
+  }
+
+  /* ===== SUB-SECTION ===== */
+  .sub-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 28px 0 14px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sub-title .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--gradient-soft);
+    border-radius: 6px;
+    font-size: 0.85rem;
+  }
+
+  /* ===== TIP BOX ===== */
+  .tip-box {
+    margin: 24px 0;
+    padding: 18px 20px;
+    background: var(--bg-tip);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 0 10px 10px 0;
+  }
+  .tip-box.warning {
+    border-left-color: #FF9F0A;
+    background: rgba(255,159,10,0.06);
+  }
+  .tip-box.success {
+    border-left-color: var(--accent-green);
+    background: rgba(48,209,88,0.06);
+  }
+  .tip-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-blue);
+    margin-bottom: 6px;
+  }
+  .tip-box.warning .tip-label { color: #FF9F0A; }
+  .tip-box.success .tip-label { color: var(--accent-green); }
+  .tip-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ===== PROMPT BOX ===== */
+  .prompt-box {
+    margin: 20px 0;
+    padding: 18px 20px;
+    background: #0d1117;
+    border: 1px solid rgba(41,151,255,0.15);
+    border-radius: 10px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.82rem;
+    color: #c9d1d9;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .prompt-label {
+    display: inline-block;
+    font-family: var(--font);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-violet);
+    background: rgba(191,90,242,0.1);
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* ===== CTA BLOCK ===== */
+  .cta-block {
+    margin: 30px 0;
+    padding: 28px 24px;
+    background: linear-gradient(135deg, rgba(41,151,255,0.08), rgba(191,90,242,0.08));
+    border: 1px solid rgba(41,151,255,0.2);
+    border-radius: 14px;
+    text-align: center;
+  }
+  .cta-block h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .cta-block p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+  .cta-link {
+    display: inline-block;
+    padding: 10px 24px;
+    background: var(--gradient);
+    border-radius: 50px;
+    color: #fff;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* ===== TABLE ===== */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.88rem;
+  }
+  .info-table th {
+    text-align: left;
+    padding: 10px 14px;
+    background: rgba(41,151,255,0.08);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    color: var(--accent-blue);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .info-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text-secondary);
+  }
+  .info-table tr:last-child td { border-bottom: none; }
+
+  /* ===== NUMBERED LIST ===== */
+  .numbered-list {
+    list-style: none;
+    counter-reset: step;
+    margin: 20px 0;
+  }
+  .numbered-list li {
+    counter-increment: step;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .numbered-list li:last-child { border-bottom: none; }
+  .numbered-list li::before {
+    content: counter(step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px;
+    height: 26px;
+    background: var(--gradient);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 1px;
+  }
+
+  /* ===== PARAGRAPH ===== */
+  .text {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 12px 0;
+  }
+
+  /* ===== FINAL CTA PAGE ===== */
+  .final-cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 260mm;
+  }
+  .final-cta-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .final-cta-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+  .final-cta-price {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .final-cta-old {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    text-decoration: line-through;
+    margin-bottom: 30px;
+  }
+  .final-cta-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 36px;
+  }
+  .final-cta-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .final-cta-features .check-icon {
+    color: var(--accent-green);
+    font-weight: bold;
+  }
+  .final-cta-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--gradient);
+    border-radius: 50px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 16px;
+  }
+  .final-cta-guarantee {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .final-url {
+    margin-top: 40px;
+    padding: 14px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--accent-blue);
+    font-weight: 600;
+    word-break: break-all;
+  }
+
+  /* ===== FOOTER ===== */
+  .page-footer {
+    position: absolute;
+    bottom: 12mm;
+    left: 22mm;
+    right: 22mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 10px;
+  }
+  .page-footer a {
+    color: var(--accent-blue);
+    text-decoration: none;
+  }
+
+  /* ===== ERROR / MISTAKE CARDS ===== */
+  .mistake-card {
+    margin: 14px 0;
+    padding: 16px 18px;
+    background: rgba(255,59,48,0.05);
+    border: 1px solid rgba(255,59,48,0.15);
+    border-radius: 10px;
+  }
+  .mistake-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #FF3B30;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mistake-fix {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .fix-label {
+    color: var(--accent-green);
+    font-weight: 600;
+  }
+
+  /* ===== MONETIZATION CARD ===== */
+  .money-card {
+    margin: 14px 0;
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .money-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .money-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+  .money-potential {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-green);
+  }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    html { font-size: 10pt; }
+    body { background: #0a0a0a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page {
+      margin: 0;
+      padding: 18mm 20mm;
+      page-break-after: always;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page:last-child { page-break-after: auto; }
+    .cover { min-height: auto; padding: 25mm 20mm; }
+    @page { size: A4; margin: 0; }
+    .no-print { display: none !important; }
+  }
+
+  /* ===== SCREEN: SPACING BETWEEN PAGES ===== */
+  @media screen {
+    .page { margin: 20px auto; box-shadow: 0 4px 40px rgba(0,0,0,0.5); border-radius: 4px; }
+  }
+
+  /* ===== MOBILE RESPONSIVE ===== */
+  @media screen and (max-width: 800px) {
+    .page {
+      width: 100% !important;
+      min-height: auto !important;
+      padding: 24px 16px !important;
+      margin: 0 !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      page-break-after: unset !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .cover {
+      min-height: 100vh !important;
+      min-height: 100dvh !important;
+      padding: 40px 20px !important;
+    }
+    .cover-title { font-size: 1.8rem !important; }
+    .cover-subtitle { font-size: 1rem !important; }
+    .cover-tools { gap: 8px !important; }
+    .cover-tool { padding: 6px 14px !important; font-size: 0.75rem !important; }
+    h2 { font-size: 1.4rem !important; }
+    h3 { font-size: 1.1rem !important; }
+    .chapter-number { font-size: 0.7rem !important; }
+    .checklist-item { padding: 10px 12px !important; gap: 10px !important; }
+    .tip-box, .prompt-box, .cta-box { padding: 16px !important; }
+    table { font-size: 0.8rem !important; }
+    th, td { padding: 8px 6px !important; }
+    .page-footer { display: none !important; }
+    .toc-item { font-size: 0.9rem !important; }
+    .final-cta { padding: 40px 20px !important; }
+    .final-cta h2 { font-size: 1.6rem !important; }
+    .final-price { font-size: 2.5rem !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦА 1: ОБЛОЖКА -->
+<!-- ============================================================ -->
+<div class="page cover">
+  <div class="cover-badge">Практическое руководство 2026</div>
+  <h1 class="cover-title">
+    Полный чек-лист<br>по созданию<br><span class="gradient-text">AI-аватара</span>
+  </h1>
+  <p class="cover-subtitle">
+    От нуля до первого видео с вашим цифровым клоном. Пошаговые инструкции, промпты, чек-листы и лайфхаки.
+  </p>
+  <div class="cover-tools">
+    <span class="cover-tool">HeyGen</span>
+    <span class="cover-tool">ElevenLabs</span>
+    <span class="cover-tool">Adobe Podcast</span>
+    <span class="cover-tool">ChatGPT</span>
+    <span class="cover-tool">Midjourney</span>
+  </div>
+  <div class="cover-author">
+    <div class="cover-author-name">Фаррух Рахимов</div>
+    <div class="cover-author-desc">Автор курса AI Avatar Studio</div>
+  </div>
+  <div class="cover-year">mybotbestagent-maker.github.io/ai-avatar-course</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦА 2: ОГЛАВЛЕНИЕ -->
+<!-- ============================================================ -->
+<div class="page">
+  <h2 class="toc-title">Содержание</h2>
+  <ul class="toc-list">
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">01</span><span class="toc-name">Подготовка: аккаунты, оборудование, настройка</span></div>
+      <span class="toc-dots"></span><span class="toc-page">3</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">02</span><span class="toc-name">Создание голоса в ElevenLabs</span></div>
+      <span class="toc-dots"></span><span class="toc-page">7</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">03</span><span class="toc-name">Создание визуального аватара в HeyGen</span></div>
+      <span class="toc-dots"></span><span class="toc-page">11</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">04</span><span class="toc-name">Генерация скриптов с ChatGPT</span></div>
+      <span class="toc-dots"></span><span class="toc-page">15</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">05</span><span class="toc-name">Монтаж и пост-продакшн</span></div>
+      <span class="toc-dots"></span><span class="toc-page">19</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">06</span><span class="toc-name">Обработка аудио в Adobe Podcast</span></div>
+      <span class="toc-dots"></span><span class="toc-page">23</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">07</span><span class="toc-name">Публикация контента: Instagram, YouTube, TikTok</span></div>
+      <span class="toc-dots"></span><span class="toc-page">27</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">08</span><span class="toc-name">Монетизация AI-аватара</span></div>
+      <span class="toc-dots"></span><span class="toc-page">31</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">09</span><span class="toc-name">Частые ошибки и как их избежать</span></div>
+      <span class="toc-dots"></span><span class="toc-page">35</span>
+    </li>
+    <li class="toc-item">
+      <div class="toc-chapter"><span class="toc-num">--</span><span class="toc-name">Полный курс AI Avatar Studio</span></div>
+      <span class="toc-dots"></span><span class="toc-page">39</span>
+    </li>
+  </ul>
+
+  <div class="tip-box" style="margin-top: 50px;">
+    <div class="tip-label">Как пользоваться этим чек-листом</div>
+    <div class="tip-text">
+      Распечатайте или откройте на планшете. Проходите каждый пункт по порядку и отмечайте выполненные. Не перескакивайте через шаги -- каждый следующий строится на предыдущем. Если застрянете на каком-то пункте, в полном видеокурсе есть разбор каждого шага с экрана.
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>AI Avatar Course</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>2</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 3-4: ГЛАВА 1 — ПОДГОТОВКА -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 01</div>
+    <h2 class="chapter-title">Подготовка: аккаунты, оборудование, настройка</h2>
+    <p class="chapter-desc">Прежде чем создавать аватар, убедитесь, что все инструменты настроены. 15 минут подготовки сэкономят часы в процессе.</p>
+  </div>
+
+  <div class="sub-title"><span class="icon">1</span> Необходимые аккаунты</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Зарегистрироваться на <strong>HeyGen.com</strong> -- основной инструмент для создания аватара. Бесплатный план дает 1 минуту видео для теста</span></li>
+    <li><span class="checkbox"></span><span>Зарегистрироваться на <strong>ElevenLabs.io</strong> -- здесь будем клонировать голос. Бесплатный план: 10 000 символов/месяц</span></li>
+    <li><span class="checkbox"></span><span>Войти в <strong>Adobe Podcast</strong> (podcast.adobe.com) через Adobe ID -- полностью бесплатный инструмент для обработки звука</span></li>
+    <li><span class="checkbox"></span><span>Аккаунт <strong>ChatGPT</strong> (chat.openai.com) -- для генерации скриптов. Бесплатная версия подойдет для старта</span></li>
+    <li><span class="checkbox"></span><span>Аккаунт <strong>Midjourney</strong> (midjourney.com) -- для генерации фото и референсов аватара (опционально)</span></li>
+    <li><span class="checkbox"></span><span>Аккаунт <strong>Google Drive или Dropbox</strong> -- для хранения записей, скриптов, готовых видео</span></li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-label">Совет</div>
+    <div class="tip-text">
+      Используйте одну почту для всех сервисов. Так проще управлять подписками и восстанавливать доступ. Gmail -- оптимальный выбор, так как он нужен для Adobe Podcast.
+    </div>
+  </div>
+
+  <div class="sub-title"><span class="icon">2</span> Оборудование</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Компьютер или ноутбук</strong> с браузером Chrome/Safari -- все инструменты работают в браузере, мощная видеокарта не нужна</span></li>
+    <li><span class="checkbox"></span><span><strong>Микрофон</strong> -- встроенный микрофон ноутбука подойдет, но USB-микрофон за $30-50 заметно улучшит результат клонирования голоса</span></li>
+    <li><span class="checkbox"></span><span><strong>Наушники</strong> -- для точной оценки качества озвучки и обработки звука</span></li>
+    <li><span class="checkbox"></span><span><strong>Стабильный интернет</strong> -- минимум 10 Мбит/с для загрузки видео и работы с HeyGen</span></li>
+    <li><span class="checkbox"></span><span><strong>Тихое помещение</strong> -- для записи образцов голоса. Без эха, шума кондиционера, уличного шума</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 1</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>3</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">3</span> Подготовка фото/видео для аватара</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Подготовить <strong>фото лица</strong> -- фронтально, хорошее освещение, нейтральный фон, без очков, волосы не закрывают лицо</span></li>
+    <li><span class="checkbox"></span><span>Если планируете видео-аватар: записать <strong>2-минутный ролик</strong> -- смотрите в камеру, говорите ровно, естественная жестикуляция</span></li>
+    <li><span class="checkbox"></span><span>Сохранить исходные файлы в отдельной папке <strong>"Avatar_Source"</strong> -- они понадобятся неоднократно</span></li>
+    <li><span class="checkbox"></span><span>Проверить, что фото весит <strong>не более 10 МБ</strong>, а видео -- не более 500 МБ (ограничения HeyGen)</span></li>
+  </ul>
+
+  <div class="tip-box warning">
+    <div class="tip-label">Важно</div>
+    <div class="tip-text">
+      Качество исходного материала напрямую влияет на реалистичность аватара. Потратьте 10 минут на хороший свет и ракурс -- это даст 80% результата.
+    </div>
+  </div>
+
+  <div class="sub-title"><span class="icon">4</span> Подготовка голосовых образцов</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Записать <strong>минимум 1 минуту</strong> чистой речи для клонирования голоса (ElevenLabs рекомендует 1-3 минуты)</span></li>
+    <li><span class="checkbox"></span><span>Говорить <strong>разными интонациями</strong> -- утвердительно, вопросительно, с паузами, эмоционально</span></li>
+    <li><span class="checkbox"></span><span>Записать в формате <strong>WAV или MP3</strong>, частота дискретизации 44100 Hz</span></li>
+    <li><span class="checkbox"></span><span>Прослушать запись на наушниках -- убедиться в отсутствии шумов, щелчков, эха</span></li>
+    <li><span class="checkbox"></span><span>Сохранить в папку <strong>"Voice_Samples"</strong></span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">5</span> Организация рабочего пространства</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Создать на диске структуру папок: <strong>Avatar_Source / Voice_Samples / Scripts / Exports / Final</strong></span></li>
+    <li><span class="checkbox"></span><span>Открыть все сервисы в отдельных вкладках браузера и убедиться, что авторизация прошла</span></li>
+    <li><span class="checkbox"></span><span>Подготовить <strong>текстовый документ</strong> для заметок -- туда будете записывать настройки, которые сработали лучше всего</span></li>
+    <li><span class="checkbox"></span><span>Отключить уведомления на телефоне и компьютере -- фокус экономит время</span></li>
+  </ul>
+
+  <div class="tip-box success">
+    <div class="tip-label">Готово?</div>
+    <div class="tip-text">
+      Если все пункты выше отмечены -- вы полностью готовы к созданию AI-аватара. Переходите к Главе 2.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 1</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>4</span>
+  </div>
+</div>
+
+<!-- ДОПОЛНИТЕЛЬНЫЕ СТРАНИЦЫ ГЛАВЫ 1 -->
+<div class="page">
+  <div class="sub-title"><span class="icon">6</span> Выбор тарифного плана -- что нужно для старта</div>
+
+  <table class="info-table">
+    <tr>
+      <th>Сервис</th>
+      <th>Бесплатный план</th>
+      <th>Рекомендуемый платный</th>
+    </tr>
+    <tr>
+      <td><strong>HeyGen</strong></td>
+      <td>1 мин видео, водяной знак</td>
+      <td>Creator $24/мес -- 15 мин видео, без водяного знака</td>
+    </tr>
+    <tr>
+      <td><strong>ElevenLabs</strong></td>
+      <td>10 000 симв/мес, 3 голоса</td>
+      <td>Starter $5/мес -- 30 000 симв, 10 клон-голосов</td>
+    </tr>
+    <tr>
+      <td><strong>Adobe Podcast</strong></td>
+      <td>Полностью бесплатный</td>
+      <td>Не нужен</td>
+    </tr>
+    <tr>
+      <td><strong>ChatGPT</strong></td>
+      <td>GPT-3.5 бесплатно</td>
+      <td>Plus $20/мес -- GPT-4, лучше скрипты</td>
+    </tr>
+    <tr>
+      <td><strong>Midjourney</strong></td>
+      <td>Нет бесплатного</td>
+      <td>Basic $10/мес (опционально)</td>
+    </tr>
+  </table>
+
+  <div class="tip-box">
+    <div class="tip-label">Бюджет на старте</div>
+    <div class="tip-text">
+      Минимальный вход: $0 (бесплатные планы всех основных сервисов). Комфортный старт: $29/мес (HeyGen Creator + ElevenLabs Starter). Всё остальное опционально и нужно для масштабирования.
+    </div>
+  </div>
+
+  <div class="sub-title"><span class="icon">7</span> Определение цели аватара</div>
+  <p class="text">Прежде чем создавать, ответьте на 4 вопроса:</p>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Для чего аватар?</strong> -- продажи, обучение, контент в соцсетях, персональный бренд, презентации</span></li>
+    <li><span class="checkbox"></span><span><strong>Кто целевая аудитория?</strong> -- возраст, язык, платформа, уровень доверия к AI-контенту</span></li>
+    <li><span class="checkbox"></span><span><strong>Какой стиль общения?</strong> -- формальный (бизнес), дружеский (блогинг), экспертный (обучение)</span></li>
+    <li><span class="checkbox"></span><span><strong>Какая частота публикаций?</strong> -- 1 видео в неделю, 1 в день, 5 в день (это определяет тариф)</span></li>
+  </ul>
+
+  <div class="tip-box warning">
+    <div class="tip-label">Частая ошибка</div>
+    <div class="tip-text">
+      Начинать без понимания цели = потерять время на переделку. Потратьте 5 минут на эти вопросы сейчас, и вы избежите часов неэффективной работы позже.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 1</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>5</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">8</span> Финальный чек-лист перед стартом</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Все 4 основных аккаунта зарегистрированы и подтверждены</span></li>
+    <li><span class="checkbox"></span><span>Фото или видео для аватара подготовлены и сохранены</span></li>
+    <li><span class="checkbox"></span><span>Голосовые образцы записаны (1+ минута чистой речи)</span></li>
+    <li><span class="checkbox"></span><span>Папки на диске созданы и организованы</span></li>
+    <li><span class="checkbox"></span><span>Цель аватара сформулирована письменно</span></li>
+    <li><span class="checkbox"></span><span>Выделено 2-3 часа непрерывного времени на первую сессию</span></li>
+  </ul>
+
+  <div class="cta-block">
+    <h4>Хотите видео-разбор каждого шага?</h4>
+    <p>В полном курсе AI Avatar Studio -- пошаговые видеоуроки с экрана, где я показываю каждый клик. От регистрации до готового аватара за 1 вечер.</p>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/" class="cta-link">Узнать подробнее -- $49</a>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 1</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>6</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 7-10: ГЛАВА 2 — СОЗДАНИЕ ГОЛОСА (ELEVENLABS) -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 02</div>
+    <h2 class="chapter-title">Создание голоса в ElevenLabs</h2>
+    <p class="chapter-desc">Голос -- это 50% реалистичности вашего аватара. Качественно клонированный голос делает видео неотличимым от настоящего.</p>
+  </div>
+
+  <div class="sub-title"><span class="icon">1</span> Подготовка к клонированию голоса</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Войти в <strong>ElevenLabs</strong> и перейти в раздел <strong>"VoiceLab"</strong></span></li>
+    <li><span class="checkbox"></span><span>Нажать <strong>"Add Generative or Cloned Voice"</strong> > <strong>"Instant Voice Cloning"</strong></span></li>
+    <li><span class="checkbox"></span><span>Проверить, что голосовой образец длится <strong>минимум 60 секунд</strong> (чем больше -- тем лучше)</span></li>
+    <li><span class="checkbox"></span><span>Формат файла: <strong>MP3 или WAV</strong>, моно, без музыки на фоне</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">2</span> Запись идеального образца</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Записывать в <strong>тихом помещении</strong> -- закрыть окна, выключить кондиционер, убрать телефон подальше</span></li>
+    <li><span class="checkbox"></span><span>Расстояние до микрофона: <strong>15-25 см</strong> (кулак между лицом и микрофоном)</span></li>
+    <li><span class="checkbox"></span><span>Говорить <strong>естественно</strong>, как в обычном разговоре. Не "диктор телевидения"</span></li>
+    <li><span class="checkbox"></span><span>Включить <strong>разные эмоции</strong>: спокойный рассказ, вопрос, восклицание, пауза</span></li>
+    <li><span class="checkbox"></span><span>Прочитать <strong>2-3 разных текста</strong> -- новости, описание продукта, историю</span></li>
+    <li><span class="checkbox"></span><span>Избегать: кашля, "эээ", "ммм", щелчков языком, дыхания в микрофон</span></li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-label">Лайфхак</div>
+    <div class="tip-text">
+      Запишите 3-5 минут речи, а потом в Adobe Podcast удалите шумы и паузы. Чистый образец = чистый клон. Это одна из техник, которую мы детально разбираем в курсе.
+    </div>
+  </div>
+
+  <div class="sub-title"><span class="icon">3</span> Загрузка и настройка клона</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Загрузить файл в ElevenLabs -- дождаться обработки (30-60 секунд)</span></li>
+    <li><span class="checkbox"></span><span>Дать голосу <strong>понятное имя</strong>: "Мой голос -- основной", "Голос -- презентации"</span></li>
+    <li><span class="checkbox"></span><span>Принять соглашение о том, что это <strong>ваш собственный голос</strong> (обязательное условие ElevenLabs)</span></li>
+    <li><span class="checkbox"></span><span>Протестировать: ввести текст 2-3 предложения и нажать <strong>Generate</strong></span></li>
+    <li><span class="checkbox"></span><span>Прослушать результат на наушниках -- сравнить с оригиналом</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 2</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>7</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">4</span> Тонкая настройка голоса</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Параметр <strong>Stability</strong> (стабильность): 50-70% для естественной речи, 80%+ для роботизированного стиля</span></li>
+    <li><span class="checkbox"></span><span>Параметр <strong>Similarity</strong> (схожесть): 75-85% -- золотая середина между качеством и узнаваемостью</span></li>
+    <li><span class="checkbox"></span><span>Параметр <strong>Style Exaggeration</strong>: 0-20% для разговорного стиля, 30-50% для эмоциональных видео</span></li>
+    <li><span class="checkbox"></span><span>Протестировать <strong>3 комбинации настроек</strong> на одном и том же тексте</span></li>
+    <li><span class="checkbox"></span><span>Записать лучшую комбинацию в заметки</span></li>
+  </ul>
+
+  <div class="tip-box warning">
+    <div class="tip-label">Распространенная ошибка</div>
+    <div class="tip-text">
+      Выкручивать Similarity на 100% -- голос станет нестабильным, появятся артефакты. Оптимум: 75-85%.
+    </div>
+  </div>
+
+  <div class="sub-title"><span class="icon">5</span> Выбор модели генерации</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Multilingual v2</strong> -- лучший выбор для русского языка, поддерживает 29 языков</span></li>
+    <li><span class="checkbox"></span><span><strong>Turbo v2.5</strong> -- быстрее, но хуже для не-английских языков</span></li>
+    <li><span class="checkbox"></span><span>Для русскоязычного контента всегда выбирайте <strong>Multilingual v2</strong></span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">6</span> Генерация озвучки для видео</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Перейти в раздел <strong>"Speech Synthesis"</strong></span></li>
+    <li><span class="checkbox"></span><span>Выбрать созданный клон голоса</span></li>
+    <li><span class="checkbox"></span><span>Вставить текст скрипта (до 5000 символов за раз)</span></li>
+    <li><span class="checkbox"></span><span>Для длинных текстов: разбить на абзацы и генерировать по частям</span></li>
+    <li><span class="checkbox"></span><span>Скачать результат в формате <strong>MP3</strong></span></li>
+    <li><span class="checkbox"></span><span>Сохранить в папку <strong>"Exports"</strong> с понятным именем: "voice_01_intro.mp3"</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">7</span> Контроль качества озвучки</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Прослушать полностью -- нет ли <strong>"проглоченных" слов</strong></span></li>
+    <li><span class="checkbox"></span><span>Проверить <strong>ударения</strong> -- AI иногда ставит неправильные</span></li>
+    <li><span class="checkbox"></span><span>Убедиться, что <strong>темп речи комфортный</strong> -- не слишком быстро, не слишком медленно</span></li>
+    <li><span class="checkbox"></span><span>Если качество не устраивает -- <strong>перегенерировать</strong> (каждый раз результат немного отличается)</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 2</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>8</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">8</span> Продвинутые техники работы с голосом</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Добавить <strong>паузы</strong> в текст через "..." или "&lt;break time='0.5s'/&gt;" для естественности</span></li>
+    <li><span class="checkbox"></span><span>Использовать <strong>SSML-разметку</strong> для контроля интонации (доступно на платных планах)</span></li>
+    <li><span class="checkbox"></span><span>Для слов с неправильным ударением -- написать <strong>фонетически</strong>: "маркЕтинг" вместо "маркетинг"</span></li>
+    <li><span class="checkbox"></span><span>Создать <strong>2-3 варианта голоса</strong>: основной, энергичный, спокойный</span></li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-label">Профессиональный совет</div>
+    <div class="tip-text">
+      Запишите отдельный образец для каждого стиля. Один образец -- вы спокойно объясняете. Другой -- вы продаете с энергией. Третий -- вы задаете вопросы. Три разных клона = три разных стиля видео.
+    </div>
+  </div>
+
+  <div class="sub-title"><span class="icon">9</span> Чек-лист "Голос готов"</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Голос клонирован и сохранен в VoiceLab</span></li>
+    <li><span class="checkbox"></span><span>Тест на 3 разных текстах -- результат устраивает</span></li>
+    <li><span class="checkbox"></span><span>Оптимальные настройки Stability/Similarity записаны</span></li>
+    <li><span class="checkbox"></span><span>Выбрана модель Multilingual v2</span></li>
+    <li><span class="checkbox"></span><span>Сгенерирован тестовый аудиофайл и скачан</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 2</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>9</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">10</span> API доступ к ElevenLabs (для продвинутых)</div>
+  <p class="text">Если вы планируете генерировать много контента, API позволяет автоматизировать процесс:</p>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Получить <strong>API-ключ</strong> в настройках профиля ElevenLabs</span></li>
+    <li><span class="checkbox"></span><span>Понять структуру запроса: voice_id + text + model_id + settings</span></li>
+    <li><span class="checkbox"></span><span>Настроить автоматическую генерацию через скрипт или Zapier</span></li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-label">В полном курсе</div>
+    <div class="tip-text">
+      В видеокурсе AI Avatar Studio мы подробно разбираем каждый параметр ElevenLabs на реальных примерах: как добиться максимальной похожести голоса, как обойти ограничения бесплатного плана и как автоматизировать генерацию. Все с демонстрацией экрана.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 2</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>10</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 11-14: ГЛАВА 3 — HEYGEN -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 03</div>
+    <h2 class="chapter-title">Создание визуального аватара в HeyGen</h2>
+    <p class="chapter-desc">HeyGen превращает ваше фото или видео в говорящего AI-аватара. Это главный инструмент, вокруг которого строится весь процесс.</p>
+  </div>
+
+  <div class="sub-title"><span class="icon">1</span> Выбор типа аватара</div>
+  <table class="info-table">
+    <tr>
+      <th>Тип</th>
+      <th>Что нужно</th>
+      <th>Качество</th>
+      <th>Для кого</th>
+    </tr>
+    <tr>
+      <td><strong>Photo Avatar</strong></td>
+      <td>1 фото</td>
+      <td>Хорошее</td>
+      <td>Быстрый старт, тесты</td>
+    </tr>
+    <tr>
+      <td><strong>Studio Avatar</strong></td>
+      <td>2 мин видео</td>
+      <td>Отличное</td>
+      <td>Регулярный контент</td>
+    </tr>
+    <tr>
+      <td><strong>Готовый аватар</strong></td>
+      <td>Ничего</td>
+      <td>Среднее</td>
+      <td>Анонимные каналы</td>
+    </tr>
+  </table>
+
+  <div class="sub-title"><span class="icon">2</span> Создание Photo Avatar</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Перейти в HeyGen > <strong>"Avatars"</strong> > <strong>"Create Photo Avatar"</strong></span></li>
+    <li><span class="checkbox"></span><span>Загрузить фото: <strong>фронтальное</strong>, разрешение минимум 512x512px, формат JPG/PNG</span></li>
+    <li><span class="checkbox"></span><span>Убедиться: <strong>рот закрыт</strong>, глаза открыты, лицо занимает 50-70% кадра</span></li>
+    <li><span class="checkbox"></span><span>Дождаться обработки (1-3 минуты)</span></li>
+    <li><span class="checkbox"></span><span>Протестировать аватар на коротком тексте</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">3</span> Создание Studio Avatar (рекомендуется)</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Записать видео: <strong>2 минуты</strong>, смотреть прямо в камеру, ровный свет с трех сторон</span></li>
+    <li><span class="checkbox"></span><span>Фон: <strong>однотонный</strong> (белый, серый, зеленый экран -- идеально)</span></li>
+    <li><span class="checkbox"></span><span>Одежда: <strong>без мелких узоров</strong> и полосок (артефакты при обработке)</span></li>
+    <li><span class="checkbox"></span><span>Жесты: <strong>умеренные</strong>, руки не выходят за кадр</span></li>
+    <li><span class="checkbox"></span><span>Загрузить в HeyGen > <strong>"Create Studio Avatar"</strong></span></li>
+    <li><span class="checkbox"></span><span>Обработка: <strong>5-20 минут</strong> (зависит от длины видео и нагрузки серверов)</span></li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-label">Совет</div>
+    <div class="tip-text">
+      Studio Avatar выглядит в 3-5 раз реалистичнее Photo Avatar. Если планируете серьёзный контент -- потратьте 20 минут на запись видео. Оно того стоит.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 3</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>11</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">4</span> Создание первого видео с аватаром</div>
+  <ol class="numbered-list">
+    <li>Перейти в <strong>"Create Video"</strong> > выбрать шаблон или пустой холст</li>
+    <li>Добавить аватар на сцену: выбрать из вкладки <strong>"Avatar"</strong></li>
+    <li>Настроить <strong>фон</strong>: загрузить свой или выбрать из библиотеки HeyGen</li>
+    <li>Ввести текст скрипта или загрузить аудио из ElevenLabs</li>
+    <li>Выбрать <strong>язык озвучки</strong>: русский</li>
+    <li>Настроить <strong>позицию аватара</strong> на экране (левый край, центр, правый край)</li>
+    <li>Добавить <strong>субтитры</strong> если нужно (Settings > Captions)</li>
+    <li>Нажать <strong>"Submit"</strong> и дождаться рендеринга (2-10 минут)</li>
+  </ol>
+
+  <div class="sub-title"><span class="icon">5</span> Настройки видео</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Разрешение:</strong> 1080p (Full HD) -- стандарт для соцсетей</span></li>
+    <li><span class="checkbox"></span><span><strong>Соотношение сторон:</strong> 9:16 для Reels/TikTok/Shorts, 16:9 для YouTube, 1:1 для постов</span></li>
+    <li><span class="checkbox"></span><span><strong>Длительность:</strong> 15-60 секунд для Reels, до 10 минут для YouTube</span></li>
+    <li><span class="checkbox"></span><span><strong>Фон:</strong> корпоративный офис, студия, или размытый -- зависит от ниши</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">6</span> Работа со скриптом внутри HeyGen</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Вставлять текст <strong>абзацами по 2-3 предложения</strong> -- так аватар делает естественные паузы</span></li>
+    <li><span class="checkbox"></span><span>Ставить <strong>точки</strong> вместо запятых между мыслями -- дает более четкую артикуляцию</span></li>
+    <li><span class="checkbox"></span><span>Числа писать <strong>словами</strong>: "двадцать пять" вместо "25"</span></li>
+    <li><span class="checkbox"></span><span>Аббревиатуры <strong>расшифровывать</strong>: "AI" > "Эй Ай"</span></li>
+  </ul>
+
+  <div class="tip-box warning">
+    <div class="tip-label">Важно</div>
+    <div class="tip-text">
+      Каждый рендер расходует минуты из вашего тарифа. Сначала проверьте скрипт, фон и позицию аватара -- только потом жмите Submit. Предпросмотр бесплатный.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 3</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>12</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">7</span> Интеграция голоса из ElevenLabs в HeyGen</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>В HeyGen выбрать <strong>"Audio Upload"</strong> вместо текстового ввода</span></li>
+    <li><span class="checkbox"></span><span>Загрузить MP3-файл, сгенерированный в ElevenLabs</span></li>
+    <li><span class="checkbox"></span><span>HeyGen автоматически <strong>синхронизирует движение губ</strong> с аудио</span></li>
+    <li><span class="checkbox"></span><span>Проверить синхронизацию в предпросмотре</span></li>
+  </ul>
+
+  <div class="tip-box success">
+    <div class="tip-label">Лучшая комбинация</div>
+    <div class="tip-text">
+      ElevenLabs (ваш клонированный голос) + HeyGen (ваш визуальный аватар) = видео, которое неотличимо от реального. Встроенные голоса HeyGen заметно слабее клонированных в ElevenLabs.
+    </div>
+  </div>
+
+  <div class="sub-title"><span class="icon">8</span> Мультисценовые видео</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Добавить несколько сцен через <strong>"+" внизу таймлайна</strong></span></li>
+    <li><span class="checkbox"></span><span>Каждая сцена может иметь <strong>свой фон, текст, позицию аватара</strong></span></li>
+    <li><span class="checkbox"></span><span>Использовать переходы между сценами для профессионального вида</span></li>
+    <li><span class="checkbox"></span><span>Длина каждой сцены: <strong>5-15 секунд</strong> оптимально для удержания внимания</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">9</span> Чек-лист "Аватар создан"</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Аватар (Photo или Studio) создан и протестирован</span></li>
+    <li><span class="checkbox"></span><span>Первое тестовое видео отрендерено и скачано</span></li>
+    <li><span class="checkbox"></span><span>Голос из ElevenLabs синхронизирован с аватаром</span></li>
+    <li><span class="checkbox"></span><span>Определены оптимальные настройки (соотношение сторон, фон, позиция)</span></li>
+    <li><span class="checkbox"></span><span>Видео сохранено в папку "Exports"</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 3</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>13</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">10</span> Продвинутые возможности HeyGen</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Streaming Avatar</strong> -- аватар в реальном времени для вебинаров и стримов</span></li>
+    <li><span class="checkbox"></span><span><strong>Video Translate</strong> -- перевод существующего видео на другие языки с сохранением lip-sync</span></li>
+    <li><span class="checkbox"></span><span><strong>Brand Kit</strong> -- сохранение фирменных цветов, логотипа, шрифтов для быстрого применения</span></li>
+    <li><span class="checkbox"></span><span><strong>API</strong> -- автоматическая генерация видео через код (для масштабирования)</span></li>
+  </ul>
+
+  <div class="cta-block">
+    <h4>Видео-демонстрация всех функций HeyGen</h4>
+    <p>В полном курсе -- практический разбор каждой кнопки HeyGen. От создания аватара до первого опубликованного видео за 40 минут.</p>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/" class="cta-link">Получить доступ к курсу -- $49</a>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 3</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>14</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 15-18: ГЛАВА 4 — СКРИПТЫ (CHATGPT) -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 04</div>
+    <h2 class="chapter-title">Генерация скриптов с ChatGPT</h2>
+    <p class="chapter-desc">Хороший скрипт -- основа вовлекающего видео. ChatGPT помогает генерировать десятки скриптов за минуты, но нужно знать правильные промпты.</p>
+  </div>
+
+  <div class="sub-title"><span class="icon">1</span> Структура идеального видеоскрипта</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Хук (0-3 сек):</strong> вопрос или провокация, которая останавливает скролл</span></li>
+    <li><span class="checkbox"></span><span><strong>Проблема (3-8 сек):</strong> описание боли аудитории -- чтобы они узнали себя</span></li>
+    <li><span class="checkbox"></span><span><strong>Решение (8-20 сек):</strong> ваш метод / продукт / идея</span></li>
+    <li><span class="checkbox"></span><span><strong>Доказательство (20-30 сек):</strong> кейс, цифра, факт</span></li>
+    <li><span class="checkbox"></span><span><strong>CTA (последние 3-5 сек):</strong> одно четкое действие -- подписаться, перейти, купить</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">2</span> Промпт для продающего Reels-скрипта</div>
+  <div class="prompt-box">
+    <div class="prompt-label">Промпт ChatGPT</div>
+Ты -- копирайтер для коротких видео (Reels/TikTok).
+
+Напиши скрипт на 30 секунд для AI-аватара.
+
+Тема: [ТВОЯ ТЕМА]
+Целевая аудитория: [ТВ ОЯ ЦА]
+Цель видео: [продажа / подписка / вовлечение]
+
+Структура:
+- Хук (первые 3 секунды) -- вопрос или шокирующий факт
+- Проблема (5 секунд) -- боль аудитории
+- Решение (10 секунд) -- суть предложения
+- Социальное доказательство (5 секунд) -- кейс/результат
+- CTA (5 секунд) -- одно действие
+
+Требования:
+- Разговорный стиль, без канцелярита
+- Каждое предложение -- максимум 10 слов
+- Укажи таймкоды
+- Текст на русском языке</div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 4</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>15</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">3</span> Промпт для экспертного/обучающего видео</div>
+  <div class="prompt-box">
+    <div class="prompt-label">Промпт ChatGPT</div>
+Напиши скрипт обучающего видео на 2 минуты.
+
+Тема: [КОНКРЕТНАЯ ТЕМА]
+Формат: AI-аватар объясняет на камеру
+Аудитория: новички, которые не знакомы с темой
+
+Структура:
+1. Привлечь внимание -- неожиданный факт (10 сек)
+2. "Меня зовут [ИМЯ], и сегодня я покажу..." (5 сек)
+3. Шаг 1 объяснения (25 сек)
+4. Шаг 2 объяснения (25 сек)
+5. Шаг 3 объяснения (25 сек)
+6. Итог + CTA (20 сек)
+
+Стиль: дружелюбный эксперт, простые слова,
+аналогии из повседневной жизни.
+Язык: русский.</div>
+
+  <div class="sub-title"><span class="icon">4</span> Промпт для серии контента (батч-генерация)</div>
+  <div class="prompt-box">
+    <div class="prompt-label">Промпт ChatGPT</div>
+Ты -- контент-стратег. Создай 10 идей для коротких
+видео (15-30 секунд) на тему [НИША].
+
+Для каждой идеи:
+- Название видео
+- Хук (первая фраза)
+- Основная мысль в 1 предложении
+- CTA
+
+Формат: таблица.
+Целевая аудитория: [ЦА].
+Тон: [дружеский/экспертный/провокационный].</div>
+
+  <div class="tip-box">
+    <div class="tip-label">Лайфхак</div>
+    <div class="tip-text">
+      Сгенерируйте 10 идей, выберите 3 лучших, попросите ChatGPT написать полные скрипты для них. Затем озвучьте в ElevenLabs и снимите в HeyGen. Конвейер из 3 видео за 1 час.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 4</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>16</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">5</span> Правила работы со скриптами для AI-аватара</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Одно предложение -- одна мысль.</strong> AI-голос плохо справляется с длинными сложносочиненными конструкциями</span></li>
+    <li><span class="checkbox"></span><span><strong>Избегать аббревиатур.</strong> Писать "искусственный интеллект" вместо "ИИ"</span></li>
+    <li><span class="checkbox"></span><span><strong>Числа словами.</strong> "Пятьсот долларов" вместо "$500"</span></li>
+    <li><span class="checkbox"></span><span><strong>Пунктуация = паузы.</strong> Точка = длинная пауза. Запятая = короткая</span></li>
+    <li><span class="checkbox"></span><span><strong>Читать вслух перед генерацией.</strong> Если спотыкаетесь -- AI тоже споткнется</span></li>
+    <li><span class="checkbox"></span><span><strong>Максимум 150 слов на 1 минуту видео.</strong> Темп живой речи</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">6</span> Формулы хуков, которые работают</div>
+  <table class="info-table">
+    <tr><th>Формула</th><th>Пример</th></tr>
+    <tr><td>Вопрос-провокация</td><td>"Вы до сих пор записываете видео сами?"</td></tr>
+    <tr><td>Шокирующая цифра</td><td>"Восемьдесят процентов бизнесов теряют клиентов без видеоконтента."</td></tr>
+    <tr><td>Обещание</td><td>"Через пять минут у вас будет свой AI-аватар."</td></tr>
+    <tr><td>История</td><td>"Месяц назад я тратил пятьсот долларов на видеографа..."</td></tr>
+    <tr><td>Инструкция</td><td>"Три шага до первого AI-видео. Записывайте."</td></tr>
+    <tr><td>Контринтуитив</td><td>"Не нужны камера, свет и микрофон. Серьезно."</td></tr>
+  </table>
+
+  <div class="sub-title"><span class="icon">7</span> Адаптация скрипта под платформу</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Instagram Reels:</strong> 15-30 сек, вертикальный формат, хук в первые 1.5 сек</span></li>
+    <li><span class="checkbox"></span><span><strong>TikTok:</strong> 15-60 сек, более провокационный стиль, тренды важны</span></li>
+    <li><span class="checkbox"></span><span><strong>YouTube Shorts:</strong> до 60 сек, более информативный стиль</span></li>
+    <li><span class="checkbox"></span><span><strong>YouTube (длинное видео):</strong> 3-10 мин, глубина, обучение, storytelling</span></li>
+    <li><span class="checkbox"></span><span><strong>LinkedIn:</strong> экспертный тон, бизнес-кейсы, 30-90 сек</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 4</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>17</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">8</span> Чек-лист "Скрипт готов"</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Скрипт написан по структуре: хук > проблема > решение > CTA</span></li>
+    <li><span class="checkbox"></span><span>Длина соответствует платформе (150 слов/мин)</span></li>
+    <li><span class="checkbox"></span><span>Прочитан вслух -- звучит естественно</span></li>
+    <li><span class="checkbox"></span><span>Нет аббревиатур и цифр (всё написано словами)</span></li>
+    <li><span class="checkbox"></span><span>Хук проверен -- он останавливает скролл</span></li>
+    <li><span class="checkbox"></span><span>CTA -- одно конкретное действие</span></li>
+  </ul>
+
+  <div class="cta-block">
+    <h4>20+ готовых промптов и шаблонов скриптов</h4>
+    <p>В полном курсе AI Avatar Studio -- библиотека проверенных промптов для разных ниш: бизнес, обучение, e-commerce, личный бренд. Копируй и используй.</p>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/" class="cta-link">Получить все промпты -- $49</a>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 4</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>18</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 19-22: ГЛАВА 5 — МОНТАЖ -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 05</div>
+    <h2 class="chapter-title">Монтаж и пост-продакшн</h2>
+    <p class="chapter-desc">Сырое видео из HeyGen -- это 70% результата. Монтаж добавляет субтитры, музыку, переходы и превращает ролик в профессиональный контент.</p>
+  </div>
+
+  <div class="sub-title"><span class="icon">1</span> Инструменты для монтажа</div>
+  <table class="info-table">
+    <tr><th>Инструмент</th><th>Платформа</th><th>Цена</th><th>Для кого</th></tr>
+    <tr><td><strong>CapCut</strong></td><td>Телефон + ПК</td><td>Бесплатно</td><td>Новички, быстрый монтаж</td></tr>
+    <tr><td><strong>Adobe Premiere</strong></td><td>ПК/Mac</td><td>$23/мес</td><td>Профессиональный монтаж</td></tr>
+    <tr><td><strong>DaVinci Resolve</strong></td><td>ПК/Mac</td><td>Бесплатно</td><td>Продвинутые, цветокоррекция</td></tr>
+    <tr><td><strong>InShot</strong></td><td>Телефон</td><td>Бесплатно</td><td>Быстрый монтаж на ходу</td></tr>
+  </table>
+
+  <div class="sub-title"><span class="icon">2</span> Базовый монтаж видео (CapCut)</div>
+  <ol class="numbered-list">
+    <li>Импортировать видео из HeyGen и аудио из ElevenLabs</li>
+    <li>Обрезать начало и конец -- убрать паузы до начала речи</li>
+    <li>Добавить <strong>субтитры</strong>: CapCut > Auto Captions > Russian</li>
+    <li>Настроить стиль субтитров: белый текст, черный контур, шрифт без засечек, размер 5-7% от высоты</li>
+    <li>Добавить <strong>фоновую музыку</strong>: громкость 10-15% от голоса</li>
+    <li>Добавить <strong>переходы</strong> между сценами: простой fade или cut</li>
+    <li>Добавить <strong>нижний третий</strong> (имя, подпись) если нужно</li>
+    <li>Экспорт: 1080x1920 (вертикальное), 30fps, MP4</li>
+  </ol>
+
+  <div class="tip-box">
+    <div class="tip-label">Совет</div>
+    <div class="tip-text">
+      CapCut -- лучший выбор для начала. Бесплатный, автосубтитры работают отлично с русским языком, есть шаблоны для Reels. 80% профессиональных видео можно сделать здесь.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 5</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>19</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">3</span> Субтитры -- обязательный элемент</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>85% пользователей</strong> смотрят Reels без звука -- субтитры критичны</span></li>
+    <li><span class="checkbox"></span><span>Стиль: <strong>крупный шрифт</strong>, 2-3 слова на экране одновременно, контрастный цвет</span></li>
+    <li><span class="checkbox"></span><span>Позиция: <strong>нижняя треть экрана</strong>, не перекрывать лицо аватара</span></li>
+    <li><span class="checkbox"></span><span>Эффект "караоке" (подсветка текущего слова) -- повышает вовлеченность</span></li>
+    <li><span class="checkbox"></span><span>Проверить все субтитры на <strong>ошибки</strong> -- автогенерация не идеальна</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">4</span> Музыка и звуковые эффекты</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Бесплатные источники: <strong>CapCut библиотека</strong>, YouTube Audio Library, Pixabay Music</span></li>
+    <li><span class="checkbox"></span><span>Громкость фоновой музыки: <strong>10-15%</strong> от основного звука</span></li>
+    <li><span class="checkbox"></span><span>Жанр: электронная/лаунж для технологических тем, акустика для лайфстайла</span></li>
+    <li><span class="checkbox"></span><span>Звуковые эффекты (whoosh, pop) на переходах -- <strong>не переборщить</strong>, 1-2 на видео максимум</span></li>
+    <li><span class="checkbox"></span><span>Проверить <strong>лицензию</strong> -- не все треки можно использовать в коммерции</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">5</span> Продвинутый монтаж</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>B-roll:</strong> добавить дополнительные кадры (скринкасты, stock видео) между сценами с аватаром</span></li>
+    <li><span class="checkbox"></span><span><strong>Zoom-in:</strong> медленное приближение на лицо аватара для акцента на важной фразе</span></li>
+    <li><span class="checkbox"></span><span><strong>Split screen:</strong> аватар слева, демонстрация экрана справа</span></li>
+    <li><span class="checkbox"></span><span><strong>Цветокоррекция:</strong> слегка повысить контраст и насыщенность для "кинематографичного" вида</span></li>
+    <li><span class="checkbox"></span><span><strong>End screen:</strong> последние 5 секунд -- логотип/ссылка/QR-код</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 5</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>20</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">6</span> Настройки экспорта для разных платформ</div>
+  <table class="info-table">
+    <tr><th>Платформа</th><th>Разрешение</th><th>Соотношение</th><th>Макс. длина</th><th>Формат</th></tr>
+    <tr><td><strong>Instagram Reels</strong></td><td>1080x1920</td><td>9:16</td><td>90 сек</td><td>MP4, H.264</td></tr>
+    <tr><td><strong>TikTok</strong></td><td>1080x1920</td><td>9:16</td><td>10 мин</td><td>MP4</td></tr>
+    <tr><td><strong>YouTube Shorts</strong></td><td>1080x1920</td><td>9:16</td><td>60 сек</td><td>MP4</td></tr>
+    <tr><td><strong>YouTube</strong></td><td>1920x1080</td><td>16:9</td><td>12 часов</td><td>MP4, H.264</td></tr>
+    <tr><td><strong>LinkedIn</strong></td><td>1920x1080</td><td>16:9</td><td>10 мин</td><td>MP4</td></tr>
+  </table>
+
+  <div class="sub-title"><span class="icon">7</span> Чек-лист качества перед публикацией</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Видео начинается <strong>без задержки</strong> -- сразу хук</span></li>
+    <li><span class="checkbox"></span><span>Субтитры <strong>читаемы</strong> и без ошибок</span></li>
+    <li><span class="checkbox"></span><span>Музыка не <strong>перебивает</strong> голос</span></li>
+    <li><span class="checkbox"></span><span>Нет <strong>"тишины"</strong> в начале/конце</span></li>
+    <li><span class="checkbox"></span><span>CTA виден и <strong>понятен</strong></span></li>
+    <li><span class="checkbox"></span><span>Разрешение <strong>1080p+</strong></span></li>
+    <li><span class="checkbox"></span><span>Файл <strong>не превышает</strong> лимит платформы</span></li>
+    <li><span class="checkbox"></span><span>Просмотрено <strong>на телефоне</strong> -- выглядит хорошо на маленьком экране</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 5</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>21</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">8</span> Оптимальный workflow монтажа</div>
+  <ol class="numbered-list">
+    <li><strong>Скрипт</strong> в ChatGPT > скопировать в Google Doc</li>
+    <li><strong>Озвучка</strong> в ElevenLabs > скачать MP3</li>
+    <li><strong>Видео</strong> в HeyGen (загрузить аудио) > скачать MP4</li>
+    <li><strong>Монтаж</strong> в CapCut > субтитры + музыка + эффекты</li>
+    <li><strong>Экспорт</strong> > проверка качества на телефоне</li>
+    <li><strong>Публикация</strong> с описанием и хештегами</li>
+  </ol>
+
+  <p class="text">Весь цикл от идеи до готового видео: <strong>15-30 минут</strong> когда workflow отработан.</p>
+
+  <div class="tip-box success">
+    <div class="tip-label">Результат</div>
+    <div class="tip-text">
+      С отработанным процессом вы можете выпускать 3-5 качественных видео в день, тратя на это 1-2 часа. Это больше, чем у 90% создателей контента, которые снимают на камеру.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 5</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>22</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 23-26: ГЛАВА 6 — ADOBE PODCAST -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 06</div>
+    <h2 class="chapter-title">Обработка аудио в Adobe Podcast</h2>
+    <p class="chapter-desc">Adobe Podcast превращает любую запись в студийное качество. Бесплатно. За 30 секунд. Это секретное оружие для профессионального звука.</p>
+  </div>
+
+  <div class="sub-title"><span class="icon">1</span> Что такое Adobe Podcast и зачем он нужен</div>
+  <p class="text">Adobe Podcast -- это бесплатный онлайн-инструмент от Adobe с функцией "Enhance Speech". Он удаляет фоновые шумы, эхо, шипение и делает голос чистым и глубоким. Это критично для:</p>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Очистки голосовых образцов</strong> перед загрузкой в ElevenLabs -- чище образец = лучше клон</span></li>
+    <li><span class="checkbox"></span><span><strong>Обработки готовой озвучки</strong> -- даже AI-голос звучит лучше после Adobe Podcast</span></li>
+    <li><span class="checkbox"></span><span><strong>Записей на плохом микрофоне</strong> -- превращает звук ноутбука в студийный</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">2</span> Пошаговая обработка звука</div>
+  <ol class="numbered-list">
+    <li>Перейти на <strong>podcast.adobe.com/enhance</strong></li>
+    <li>Войти через Adobe ID (или Google аккаунт)</li>
+    <li>Нажать <strong>"Enhance Speech"</strong></li>
+    <li>Загрузить аудиофайл (MP3, WAV, M4A -- до 1 часа длительности)</li>
+    <li>Дождаться обработки (10-60 секунд)</li>
+    <li>Прослушать результат -- кнопка переключения "Before / After"</li>
+    <li>Скачать обработанный файл</li>
+  </ol>
+
+  <div class="tip-box success">
+    <div class="tip-label">Бесплатно и без ограничений</div>
+    <div class="tip-text">
+      Adobe Podcast не требует подписки Adobe Creative Cloud. Полностью бесплатный. Без водяных знаков. Без ограничений на количество файлов. Лучший бесплатный инструмент для обработки голоса в 2026 году.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 6</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>23</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">3</span> Когда обрабатывать аудио -- порядок в workflow</div>
+  <table class="info-table">
+    <tr><th>Сценарий</th><th>Когда использовать Adobe Podcast</th></tr>
+    <tr><td>Запись образца голоса</td><td><strong>До загрузки в ElevenLabs</strong> -- обязательно</td></tr>
+    <tr><td>AI-озвучка из ElevenLabs</td><td>После генерации -- <strong>опционально</strong>, улучшает глубину</td></tr>
+    <tr><td>Запись подкаста/интервью</td><td><strong>После записи</strong>, перед монтажом</td></tr>
+    <tr><td>Вебинар/стрим</td><td><strong>После записи</strong>, перед публикацией в архив</td></tr>
+  </table>
+
+  <div class="sub-title"><span class="icon">4</span> Оптимальный workflow обработки голоса</div>
+  <ol class="numbered-list">
+    <li>Записать голос (микрофон ноутбука или USB-микрофон)</li>
+    <li>Обработать в <strong>Adobe Podcast</strong> (удаление шумов)</li>
+    <li>Загрузить очищенный файл в <strong>ElevenLabs</strong> для клонирования</li>
+    <li>Сгенерировать озвучку в ElevenLabs</li>
+    <li>Опционально: прогнать сгенерированную озвучку через Adobe Podcast ещё раз</li>
+    <li>Загрузить финальное аудио в <strong>HeyGen</strong> или монтажную программу</li>
+  </ol>
+
+  <div class="sub-title"><span class="icon">5</span> Что Adobe Podcast делает и НЕ делает</div>
+  <table class="info-table">
+    <tr><th>Делает</th><th>Не делает</th></tr>
+    <tr><td>Удаляет фоновый шум</td><td>Не удаляет музыку с голоса</td></tr>
+    <tr><td>Убирает эхо и реверберацию</td><td>Не добавляет эффекты</td></tr>
+    <tr><td>Нормализует громкость</td><td>Не разделяет голоса 2+ людей</td></tr>
+    <tr><td>Повышает четкость речи</td><td>Не исправляет дикцию</td></tr>
+    <tr><td>Работает с любым языком</td><td>Не транскрибирует речь</td></tr>
+  </table>
+
+  <div class="sub-title"><span class="icon">6</span> Альтернативы Adobe Podcast</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Descript:</strong> платный ($24/мес), но более мощный -- транскрибация + редактирование текстом</span></li>
+    <li><span class="checkbox"></span><span><strong>Audacity:</strong> бесплатный, ручная обработка, нужно разбираться в настройках</span></li>
+    <li><span class="checkbox"></span><span><strong>Krisp:</strong> шумоподавление в реальном времени ($8/мес) -- для стримов и звонков</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 6</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>24</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">7</span> Типичные проблемы и решения</div>
+  <table class="info-table">
+    <tr><th>Проблема</th><th>Решение</th></tr>
+    <tr><td>Файл слишком большой</td><td>Конвертировать в MP3 128kbps перед загрузкой</td></tr>
+    <tr><td>Обработка удалила часть голоса</td><td>Записать заново в более тихом помещении</td></tr>
+    <tr><td>Звук стал "металлическим"</td><td>Исходный файл слишком шумный -- перезаписать ближе к микрофону</td></tr>
+    <tr><td>"Enhance Speech" недоступен</td><td>Использовать VPN (USA) или другой браузер</td></tr>
+  </table>
+
+  <div class="sub-title"><span class="icon">8</span> Чек-лист "Аудио обработано"</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Голосовой образец обработан в Adobe Podcast перед загрузкой в ElevenLabs</span></li>
+    <li><span class="checkbox"></span><span>Финальная озвучка прослушана на наушниках</span></li>
+    <li><span class="checkbox"></span><span>Нет фоновых шумов, эха, щелчков</span></li>
+    <li><span class="checkbox"></span><span>Громкость нормализована</span></li>
+    <li><span class="checkbox"></span><span>Файл сохранен в нужном формате (MP3/WAV)</span></li>
+  </ul>
+
+  <div class="cta-block">
+    <h4>Полный разбор Adobe Podcast + секретные настройки</h4>
+    <p>В видеокурсе -- живая демонстрация обработки звука, сравнение до/после, и лайфхаки которые превращают запись на телефон в студийное качество.</p>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/" class="cta-link">Смотреть курс -- $49</a>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 6</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>25</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">9</span> Продвинутые техники работы со звуком</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Двойная обработка:</strong> Adobe Podcast для шумоподавления > Audacity для нормализации громкости и компрессии</span></li>
+    <li><span class="checkbox"></span><span><strong>Запись нескольких дублей:</strong> записать 3 раза, выбрать лучший, обработать</span></li>
+    <li><span class="checkbox"></span><span><strong>Мониторинг через наушники:</strong> во время записи слушайте себя, чтобы контролировать расстояние до микрофона</span></li>
+    <li><span class="checkbox"></span><span><strong>Тестирование разных микрофонов:</strong> встроенный ноутбук vs наушники vs USB-микрофон -- каждый дает разный результат клонирования</span></li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-label">Рекомендация по оборудованию</div>
+    <div class="tip-text">
+      Для старта: встроенный микрофон + Adobe Podcast = 80% качества. Для профессионального уровня: USB-микрофон (Fifine K669B за $25 или Blue Yeti за $100) + Adobe Podcast = 95% студийного качества. Не тратьте тысячи на оборудование -- AI компенсирует.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 6</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>26</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 27-30: ГЛАВА 7 — ПУБЛИКАЦИЯ -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 07</div>
+    <h2 class="chapter-title">Публикация контента: Instagram, YouTube, TikTok</h2>
+    <p class="chapter-desc">Создание видео -- это половина дела. Правильная публикация, описания, хештеги и время постинга определяют, увидит ли ваш контент аудитория.</p>
+  </div>
+
+  <div class="sub-title"><span class="icon">1</span> Подготовка к публикации -- общие правила</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Обложка (thumbnail):</strong> яркая, контрастная, лицо крупным планом + 2-3 слова текста</span></li>
+    <li><span class="checkbox"></span><span><strong>Описание:</strong> первые 2 строки -- самое важное (они видны до "ещё")</span></li>
+    <li><span class="checkbox"></span><span><strong>Хештеги:</strong> 5-15 релевантных, микс из больших (#ai) и нишевых (#aiаватар)</span></li>
+    <li><span class="checkbox"></span><span><strong>Время публикации:</strong> когда аудитория активна (для CIS: 10:00-12:00 и 19:00-21:00 МСК)</span></li>
+    <li><span class="checkbox"></span><span><strong>Регулярность:</strong> минимум 1 видео в день, идеал -- 2-3</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">2</span> Instagram Reels</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Формат: <strong>9:16, до 90 секунд</strong></span></li>
+    <li><span class="checkbox"></span><span>Загрузить видео > выбрать обложку из кадра или загрузить свою</span></li>
+    <li><span class="checkbox"></span><span>Описание: <strong>2-3 предложения</strong> + CTA ("Сохрани!", "Отправь другу!")</span></li>
+    <li><span class="checkbox"></span><span>Хештеги: <strong>3-5 в описании</strong> + до 30 в комментарии (по желанию)</span></li>
+    <li><span class="checkbox"></span><span>Аудио: если есть трендовый звук -- добавить его тихо поверх основного</span></li>
+    <li><span class="checkbox"></span><span>Геолокация: добавить, если релевантно для аудитории</span></li>
+    <li><span class="checkbox"></span><span>Коллабы: отметить аккаунты в видео для расширения охвата</span></li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-label">Алгоритм Instagram 2026</div>
+    <div class="tip-text">
+      Instagram приоритизирует: 1) время просмотра (watch time), 2) повторные просмотры, 3) сохранения, 4) отправки в Direct. Создавайте контент, который хочется пересмотреть или сохранить. AI-аватар с полезным контентом -- идеальный формат.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 7</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>27</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">3</span> TikTok</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Формат: <strong>9:16, 15 сек -- 10 минут</strong></span></li>
+    <li><span class="checkbox"></span><span>Первая секунда -- <strong>критична</strong>. Если не зацепит -- пользователь свайпнет</span></li>
+    <li><span class="checkbox"></span><span>Описание: <strong>короткое</strong>, 1-2 строки + хештеги</span></li>
+    <li><span class="checkbox"></span><span>Звук: <strong>использовать трендовые звуки</strong> TikTok для буста алгоритмом</span></li>
+    <li><span class="checkbox"></span><span>Отвечать на <strong>каждый комментарий</strong> в первый час -- алгоритм любит вовлечение</span></li>
+    <li><span class="checkbox"></span><span><strong>Stitches и Duets:</strong> разрешить -- это дополнительный органический охват</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">4</span> YouTube Shorts</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Формат: <strong>9:16, до 60 секунд</strong>, обязательно #Shorts в заголовке или описании</span></li>
+    <li><span class="checkbox"></span><span>Заголовок: <strong>до 100 символов</strong>, ключевые слова для поиска</span></li>
+    <li><span class="checkbox"></span><span>Публиковать <strong>одновременно</strong> с Reels и TikTok -- один контент на 3 платформы</span></li>
+    <li><span class="checkbox"></span><span>YouTube индексирует видео -- <strong>SEO-описание</strong> помогает в долгосрочном трафике</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">5</span> Мультиплатформенная стратегия</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Одно видео -- <strong>3 платформы</strong> (Reels + TikTok + Shorts). Минимум усилий, максимум охвата</span></li>
+    <li><span class="checkbox"></span><span>Адаптация: <strong>обложки и описания разные</strong> для каждой платформы</span></li>
+    <li><span class="checkbox"></span><span>Не публиковать одновременно -- <strong>с разницей 1-2 часа</strong></span></li>
+    <li><span class="checkbox"></span><span>Анализировать статистику <strong>каждой платформы отдельно</strong> -- что работает на TikTok может не работать на Reels</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 7</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>28</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">6</span> Хештеги -- стратегия для AI-контента</div>
+  <table class="info-table">
+    <tr><th>Категория</th><th>Примеры хештегов</th><th>Объем</th></tr>
+    <tr><td>Большие (охват)</td><td>#ai #искусственныйинтеллект #технологии</td><td>1-5 млн постов</td></tr>
+    <tr><td>Средние (баланс)</td><td>#aiавтар #нейросети #aivideo</td><td>10-500 тыс</td></tr>
+    <tr><td>Нишевые (точность)</td><td>#heygen #elevenlabs #aicontentcreator</td><td>1-50 тыс</td></tr>
+    <tr><td>Брендовые</td><td>#aiavatarstudio #[ваше_имя]</td><td>вы создаете</td></tr>
+  </table>
+
+  <p class="text">Рецепт: <strong>3 больших + 5 средних + 5 нишевых + 2 брендовых</strong> = 15 хештегов. Не больше.</p>
+
+  <div class="sub-title"><span class="icon">7</span> Аналитика и оптимизация</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Отслеживать <strong>watch time</strong> -- главная метрика для коротких видео</span></li>
+    <li><span class="checkbox"></span><span><strong>Retention graph</strong> -- где зрители уходят? Улучшать эти моменты</span></li>
+    <li><span class="checkbox"></span><span><strong>Сохранения и отправки</strong> -- маркер ценности контента</span></li>
+    <li><span class="checkbox"></span><span>Тестировать <strong>разные хуки</strong> на одну тему -- A/B тестирование</span></li>
+    <li><span class="checkbox"></span><span>Выявить <strong>лучшее время публикации</strong> для вашей аудитории (Insights > Audience)</span></li>
+    <li><span class="checkbox"></span><span>Публиковать <strong>минимум 30 дней</strong> подряд перед выводами -- алгоритму нужно время</span></li>
+  </ul>
+
+  <div class="sub-title"><span class="icon">8</span> Чек-лист публикации</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Видео экспортировано в правильном формате</span></li>
+    <li><span class="checkbox"></span><span>Обложка подготовлена (яркая, с текстом)</span></li>
+    <li><span class="checkbox"></span><span>Описание написано (CTA + ключевые слова)</span></li>
+    <li><span class="checkbox"></span><span>Хештеги подобраны (15 штук, микс)</span></li>
+    <li><span class="checkbox"></span><span>Время публикации -- пик активности аудитории</span></li>
+    <li><span class="checkbox"></span><span>Опубликовано на всех 3 платформах</span></li>
+    <li><span class="checkbox"></span><span>В первый час -- ответить на все комментарии</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 7</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>29</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">9</span> Контент-план на первый месяц</div>
+  <table class="info-table">
+    <tr><th>Неделя</th><th>Фокус</th><th>Кол-во видео</th></tr>
+    <tr><td>1</td><td>Тестовые видео, отработка workflow, поиск стиля</td><td>5-7</td></tr>
+    <tr><td>2</td><td>Регулярные публикации, анализ первых метрик</td><td>7-10</td></tr>
+    <tr><td>3</td><td>Оптимизация: лучшие хуки, лучшее время, лучшие темы</td><td>10-14</td></tr>
+    <tr><td>4</td><td>Масштабирование того, что работает</td><td>14-21</td></tr>
+  </table>
+
+  <div class="tip-box">
+    <div class="tip-label">Главное правило</div>
+    <div class="tip-text">
+      Публикуйте каждый день. Даже если кажется, что "не идеально". Алгоритм вознаграждает регулярность. 1 "неидеальное" видео в день лучше, чем 1 "идеальное" в неделю.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 7</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>30</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 31-34: ГЛАВА 8 — МОНЕТИЗАЦИЯ -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 08</div>
+    <h2 class="chapter-title">Монетизация AI-аватара</h2>
+    <p class="chapter-desc">AI-аватар -- это не просто модная технология. Это инструмент заработка. Вот конкретные способы превратить аватар в деньги.</p>
+  </div>
+
+  <div class="money-card">
+    <div class="money-title"><span>1.</span> Услуги создания AI-аватаров для бизнеса</div>
+    <div class="money-desc">Создавайте AI-аватары для предпринимателей, блогеров, компаний. Один аватар = 1-3 часа работы.</div>
+    <div class="money-potential">Потенциал: $200 -- $1000 за аватар</div>
+  </div>
+
+  <div class="money-card">
+    <div class="money-title"><span>2.</span> AI-видеопродакшн</div>
+    <div class="money-desc">Создание видеоконтента для бизнесов: рекламные ролики, обучающие видео, приветственные сообщения. Без камеры и съемочной команды.</div>
+    <div class="money-potential">Потенциал: $100 -- $500 за видео</div>
+  </div>
+
+  <div class="money-card">
+    <div class="money-title"><span>3.</span> Контент-агентство на AI</div>
+    <div class="money-desc">Ведение соцсетей для клиентов с помощью AI-аватара. 30 видео в месяц за 10 часов работы вместо 100.</div>
+    <div class="money-potential">Потенциал: $500 -- $3000/мес за клиента</div>
+  </div>
+
+  <div class="money-card">
+    <div class="money-title"><span>4.</span> Онлайн-курсы и обучение</div>
+    <div class="money-desc">Создавайте обучающие курсы с AI-аватаром. Запишите один раз -- продавайте бесконечно. Не нужна камера и студия.</div>
+    <div class="money-potential">Потенциал: $500 -- $10 000/мес пассивный доход</div>
+  </div>
+
+  <div class="money-card">
+    <div class="money-title"><span>5.</span> Персональный бренд без лица</div>
+    <div class="money-desc">Ведите экспертный блог через AI-аватар. Подходит для интровертов или тех, кто не хочет "светить лицо" на камеру.</div>
+    <div class="money-potential">Потенциал: монетизация через рекламу, партнерки, продукты</div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 8</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>31</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="money-card">
+    <div class="money-title"><span>6.</span> Многоязычный контент</div>
+    <div class="money-desc">Один скрипт > перевод на 5 языков > 5 видео на 5 рынков. HeyGen + ElevenLabs поддерживают 29+ языков. Охватывайте глобальную аудиторию.</div>
+    <div class="money-potential">Потенциал: x5 охват при тех же затратах времени</div>
+  </div>
+
+  <div class="money-card">
+    <div class="money-title"><span>7.</span> Партнерские программы AI-сервисов</div>
+    <div class="money-desc">HeyGen, ElevenLabs и другие AI-платформы имеют реферальные программы. Рекомендуйте сервисы через свой контент и получайте комиссию.</div>
+    <div class="money-potential">Потенциал: 20-30% от каждой подписки реферала</div>
+  </div>
+
+  <div class="money-card">
+    <div class="money-title"><span>8.</span> AI-дубляж существующего контента</div>
+    <div class="money-desc">Берете контент клиента на одном языке и создаете версии на других языках с сохранением голоса и мимики. Высокий спрос в e-commerce.</div>
+    <div class="money-potential">Потенциал: $50 -- $300 за видео</div>
+  </div>
+
+  <div class="sub-title"><span class="icon">9</span> Чек-лист "Готов к монетизации"</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span>Выбрана 1-2 модели монетизации для старта</span></li>
+    <li><span class="checkbox"></span><span>Создано портфолио: минимум 3 примера видео разного формата</span></li>
+    <li><span class="checkbox"></span><span>Определена ценовая политика для услуг</span></li>
+    <li><span class="checkbox"></span><span>Подготовлено коммерческое предложение (1 страница)</span></li>
+    <li><span class="checkbox"></span><span>Настроен приём платежей (Stripe, PayPal, крипто)</span></li>
+  </ul>
+
+  <div class="tip-box success">
+    <div class="tip-label">Первые деньги</div>
+    <div class="tip-text">
+      Самый быстрый путь к первым деньгам: напишите 10 знакомым предпринимателям/блогерам и предложите создать AI-аватар бесплатно в обмен на отзыв. 2-3 согласятся. После этого у вас будет портфолио и рекомендации для платных клиентов.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 8</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>32</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">10</span> Как продавать услуги AI-аватара</div>
+  <ol class="numbered-list">
+    <li><strong>Покажите, а не рассказывайте.</strong> Ваш собственный AI-аватар -- лучшая визитка. Отправляйте потенциальным клиентам персонализированное видео-обращение через аватар</li>
+    <li><strong>Начните с нишевого рынка.</strong> Не "всем". А "стоматологам в Москве" или "онлайн-школам в CIS". Узкая ниша = высокий чек</li>
+    <li><strong>Фиксированные пакеты:</strong> Базовый ($200 -- 1 аватар), Стандарт ($500 -- аватар + 5 видео), Премиум ($1500 -- аватар + 20 видео + обучение)</li>
+    <li><strong>Recurring revenue:</strong> ежемесячное обслуживание -- $300-1000/мес за создание контента для клиента</li>
+    <li><strong>Площадки для поиска клиентов:</strong> Fiverr, Upwork, Instagram DM, LinkedIn, тематические Telegram-чаты</li>
+  </ol>
+
+  <div class="cta-block">
+    <h4>Полная стратегия монетизации в курсе</h4>
+    <p>В AI Avatar Studio -- детальный разбор каждой модели заработка, шаблоны предложений, скрипты продаж и кейсы реальных учеников.</p>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/" class="cta-link">Начать зарабатывать -- $49</a>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 8</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>33</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">11</span> Unit-экономика создания AI-аватара на заказ</div>
+  <table class="info-table">
+    <tr><th>Статья расходов</th><th>Стоимость</th></tr>
+    <tr><td>HeyGen Creator (15 мин видео/мес)</td><td>$24/мес</td></tr>
+    <tr><td>ElevenLabs Starter</td><td>$5/мес</td></tr>
+    <tr><td>Adobe Podcast</td><td>Бесплатно</td></tr>
+    <tr><td>ChatGPT (скрипты)</td><td>$0-20/мес</td></tr>
+    <tr><td>Ваше время (2-3 часа на аватар)</td><td>--</td></tr>
+    <tr><td><strong>Итого расходов</strong></td><td><strong>$29-49/мес</strong></td></tr>
+    <tr><td><strong>Средний чек клиента</strong></td><td><strong>$300-500</strong></td></tr>
+    <tr><td><strong>Маржинальность</strong></td><td><strong>85-95%</strong></td></tr>
+  </table>
+
+  <div class="tip-box">
+    <div class="tip-label">Математика</div>
+    <div class="tip-text">
+      3 клиента в месяц x $400 средний чек = $1200. Минус $49 подписки = $1151 чистая прибыль. При 9 часах работы это $128/час. И это только начало -- с опытом скорость растет, а чек можно повышать.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 8</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>34</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦЫ 35-38: ГЛАВА 9 — ОШИБКИ -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="chapter-header">
+    <div class="chapter-num">Глава 09</div>
+    <h2 class="chapter-title">Частые ошибки и как их избежать</h2>
+    <p class="chapter-desc">Эти ошибки совершают 90% новичков. Зная их заранее, вы сэкономите десятки часов и сотни долларов.</p>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 1: Плохое качество исходного материала</div>
+    <div class="mistake-fix">Записывают голос в шумном помещении или загружают размытое фото. Результат: аватар выглядит и звучит неестественно.<br><span class="fix-label">Решение:</span> 10 минут подготовки (тихая комната, хороший свет, стабильная камера) = 80% качества финального результата.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 2: Слишком длинные скрипты</div>
+    <div class="mistake-fix">Пишут тексты на 5 минут для Reels. AI-голос "устает", аудитория теряет интерес.<br><span class="fix-label">Решение:</span> 15-30 секунд для Reels. 1-2 минуты для YouTube. Одна идея -- одно видео.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 3: Не проверяют видео перед публикацией</div>
+    <div class="mistake-fix">Публикуют сразу после рендера, не просматривая. Потом замечают десинхронизацию губ, ошибки в субтитрах, обрезанный звук.<br><span class="fix-label">Решение:</span> Всегда смотреть финальное видео на телефоне с наушниками перед публикацией.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 4: Используют встроенные голоса HeyGen вместо клонированных</div>
+    <div class="mistake-fix">Встроенные голоса звучат "роботизированно" на русском. Аудитория сразу понимает, что это AI.<br><span class="fix-label">Решение:</span> Клонировать голос в ElevenLabs и загружать аудио в HeyGen. Разница -- огромная.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 5: Перфекционизм вместо публикации</div>
+    <div class="mistake-fix">Тратят 3 часа на одно "идеальное" видео вместо 3 "хороших" видео за то же время.<br><span class="fix-label">Решение:</span> Правило 80/20. 80% качества за 20% времени. Публикуйте и улучшайте на ходу.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 9</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>35</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 6: Нет CTA в видео</div>
+    <div class="mistake-fix">Создают полезный контент, но забывают сказать зрителю, что делать дальше. Результат: просмотры есть, конверсия -- ноль.<br><span class="fix-label">Решение:</span> Каждое видео заканчивается одним четким действием: подпишись / сохрани / перейди по ссылке.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 7: Одинаковый контент на все платформы</div>
+    <div class="mistake-fix">Публикуют одно и то же видео с одним описанием на Instagram, TikTok и YouTube. Каждая платформа имеет свой алгоритм.<br><span class="fix-label">Решение:</span> Видео одно, но описания, хештеги и обложки -- разные для каждой платформы.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 8: Игнорирование аналитики</div>
+    <div class="mistake-fix">Не смотрят статистику, не анализируют что работает, публикуют "интуитивно".<br><span class="fix-label">Решение:</span> Раз в неделю: 30 минут на анализ. Что набрало просмотры? Какие хуки зацепили? Где drop-off?</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 9: Сливают весь бюджет тарифа на тесты</div>
+    <div class="mistake-fix">Тестируют каждую настройку HeyGen, сжигая минуты тарифа. На реальный контент ничего не остается.<br><span class="fix-label">Решение:</span> Первые тесты на бесплатном плане. Определите оптимальные настройки, только потом переходите на платный тариф.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Ошибка 10: Не сохраняют настройки и промпты</div>
+    <div class="mistake-fix">Каждый раз настраивают всё с нуля. Это отнимает 30-60 минут на каждое видео.<br><span class="fix-label">Решение:</span> Создайте документ с вашими лучшими настройками: параметры ElevenLabs, промпты ChatGPT, шаблоны скриптов. Переиспользуйте.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 9</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>36</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">11</span> Технические ошибки</div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Неправильный формат фото для HeyGen</div>
+    <div class="mistake-fix">Загружают фото в профиль, в очках, с боковым ракурсом. HeyGen не может корректно обработать.<br><span class="fix-label">Решение:</span> Фронтальное фото, рот закрыт, без очков, нейтральный фон, JPG/PNG до 10 МБ.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Similarity в ElevenLabs на 100%</div>
+    <div class="mistake-fix">Кажется логичным: максимум = максимальная похожесть. На деле -- артефакты и нестабильность.<br><span class="fix-label">Решение:</span> 75-85% Similarity. Это sweet spot между узнаваемостью и качеством.</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title">Экспорт в неправильном разрешении</div>
+    <div class="mistake-fix">Создают видео 16:9 для Reels или 9:16 для YouTube. Видео обрезается или появляются черные полосы.<br><span class="fix-label">Решение:</span> Перед рендером в HeyGen проверьте: Reels = 9:16, YouTube = 16:9, посты = 1:1.</div>
+  </div>
+
+  <div class="sub-title"><span class="icon">12</span> Этические вопросы</div>
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Прозрачность:</strong> обозначайте, что контент создан с помощью AI (не обязательно, но этично)</span></li>
+    <li><span class="checkbox"></span><span><strong>Согласие:</strong> клонируйте только свой голос или голос с письменного согласия владельца</span></li>
+    <li><span class="checkbox"></span><span><strong>Deepfake:</strong> никогда не создавайте аватары публичных лиц без разрешения</span></li>
+    <li><span class="checkbox"></span><span><strong>Дезинформация:</strong> не используйте AI-аватар для распространения ложной информации</span></li>
+  </ul>
+
+  <div class="tip-box warning">
+    <div class="tip-label">Юридический момент</div>
+    <div class="tip-text">
+      Законодательство об AI-контенте активно развивается. Следите за обновлениями в вашей юрисдикции. Главное правило: если сомневаетесь -- не делайте.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 9</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>37</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="sub-title"><span class="icon">13</span> Финальный чек-лист "Всё готово"</div>
+  <p class="text">Пройдите этот список перед тем, как начать регулярно создавать контент:</p>
+
+  <ul class="checklist">
+    <li><span class="checkbox"></span><span><strong>Аккаунты:</strong> HeyGen, ElevenLabs, Adobe Podcast, ChatGPT -- настроены</span></li>
+    <li><span class="checkbox"></span><span><strong>Голос:</strong> клонирован, протестирован, настройки записаны</span></li>
+    <li><span class="checkbox"></span><span><strong>Аватар:</strong> создан (Photo или Studio), протестирован</span></li>
+    <li><span class="checkbox"></span><span><strong>Первое видео:</strong> отрендерено, смонтировано, экспортировано</span></li>
+    <li><span class="checkbox"></span><span><strong>Скрипт-промпты:</strong> сохранены в отдельном документе</span></li>
+    <li><span class="checkbox"></span><span><strong>Workflow:</strong> ChatGPT > ElevenLabs > Adobe Podcast > HeyGen > CapCut > Публикация</span></li>
+    <li><span class="checkbox"></span><span><strong>Контент-план:</strong> минимум на 1 неделю вперед</span></li>
+    <li><span class="checkbox"></span><span><strong>Платформы:</strong> аккаунты Instagram, TikTok, YouTube настроены</span></li>
+    <li><span class="checkbox"></span><span><strong>Цель:</strong> сформулирована (бизнес, личный бренд, продажи)</span></li>
+    <li><span class="checkbox"></span><span><strong>Модель монетизации:</strong> выбрана хотя бы одна</span></li>
+  </ul>
+
+  <div class="tip-box success">
+    <div class="tip-label">Поздравляю!</div>
+    <div class="tip-text">
+      Если все пункты отмечены -- вы знаете больше, чем 95% людей, которые "хотят попробовать AI-аватары". Осталось одно: начать делать. Каждый день. Без пауз. Результат придет.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AI Avatar Course | Глава 9</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>38</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- СТРАНИЦА 39-40: ФИНАЛЬНЫЙ CTA -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="final-cta">
+    <div class="cover-badge" style="margin-bottom: 24px;">Следующий шаг</div>
+    <h2 class="final-cta-title">Хочешь пошаговое<br>видео-руководство?</h2>
+    <p class="final-cta-subtitle">
+      Этот чек-лист дал тебе структуру. Полный видеокурс даст скорость. Каждый шаг -- с экрана, с объяснениями, с лайфхаками которых нет в открытом доступе.
+    </p>
+    <div class="final-cta-old">$235 за 3 отдельных курса</div>
+    <div class="final-cta-price">$49</div>
+
+    <ul class="final-cta-features">
+      <li><span class="check-icon">&#10003;</span> 3 видеокурса в одном: HeyGen + ElevenLabs + Adobe Podcast</li>
+      <li><span class="check-icon">&#10003;</span> Пожизненный доступ ко всем урокам и обновлениям</li>
+      <li><span class="check-icon">&#10003;</span> Закрытый Telegram-канал с поддержкой</li>
+      <li><span class="check-icon">&#10003;</span> Готовые промпты и шаблоны скриптов</li>
+      <li><span class="check-icon">&#10003;</span> 30 дней гарантия возврата -- без вопросов</li>
+      <li><span class="check-icon">&#10003;</span> Бонус: библиотека готовых фонов и музыки</li>
+    </ul>
+
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/" class="final-cta-btn">Получить доступ к курсу</a>
+    <div class="final-cta-guarantee">30-дневная гарантия возврата. Напиши @handy_dad в Telegram.</div>
+    <div class="final-url">mybotbestagent-maker.github.io/ai-avatar-course</div>
+  </div>
+  <div class="page-footer">
+    <span>AI Avatar Course</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>39</span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="final-cta" style="min-height: 240mm;">
+    <div style="max-width: 440px;">
+      <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 30px; line-height: 1.3;">
+        Спасибо, что прочитали этот чек-лист
+      </h2>
+      <p class="text" style="margin-bottom: 30px; text-align: center;">
+        Это руководство создано командой AI Avatar Studio. Мы верим, что AI-аватары -- это не будущее. Это настоящее. И чем раньше вы начнете, тем больше преимуществ получите.
+      </p>
+
+      <div style="text-align: left; margin-bottom: 30px;">
+        <div class="sub-title" style="margin-bottom: 16px;">Контакты и ссылки</div>
+        <table class="info-table">
+          <tr><td><strong>Курс</strong></td><td>mybotbestagent-maker.github.io/ai-avatar-course</td></tr>
+          <tr><td><strong>Telegram автора</strong></td><td>@handy_dad</td></tr>
+          <tr><td><strong>Instagram</strong></td><td>@handydad_</td></tr>
+        </table>
+      </div>
+
+      <div style="text-align: left; margin-bottom: 30px;">
+        <div class="sub-title" style="margin-bottom: 16px;">Инструменты из курса</div>
+        <table class="info-table">
+          <tr><td><strong>HeyGen</strong></td><td>heygen.com</td></tr>
+          <tr><td><strong>ElevenLabs</strong></td><td>elevenlabs.io</td></tr>
+          <tr><td><strong>Adobe Podcast</strong></td><td>podcast.adobe.com</td></tr>
+          <tr><td><strong>ChatGPT</strong></td><td>chat.openai.com</td></tr>
+        </table>
+      </div>
+
+      <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+        &copy; 2026 AI Avatar Studio. Все права защищены.<br>
+        Этот материал предоставлен исключительно в образовательных целях.
+      </p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>AI Avatar Course</span>
+    <a href="https://mybotbestagent-maker.github.io/ai-avatar-course/">mybotbestagent-maker.github.io/ai-avatar-course</a>
+    <span>40</span>
+  </div>
+</div>
+
+</body>
+</html>

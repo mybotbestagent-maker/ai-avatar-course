@@ -371,6 +371,7 @@
       color: #fff;
       margin-bottom: 24px;
       opacity: 0;
+      animation: heroFallbackFade 0.3s ease-out 2.2s forwards;
     }
     .hero-title {
       font-family: var(--font-display);
@@ -380,7 +381,9 @@
       letter-spacing: -0.025em;
       margin-bottom: 22px;
       opacity: 0;
+      animation: heroFallbackFade 0.3s ease-out 2.4s forwards;
     }
+    @keyframes heroFallbackFade { to { opacity: 1; transform: translateY(0); } }
     .hero-title .gradient-text {
       background: linear-gradient(90deg, #2997FF, #BF5AF2, #30D158, #FF375F, #FFD60A, #2997FF);
       background-size: 400% 100%;
@@ -417,6 +420,7 @@
       margin-bottom: 40px;
       max-width: 520px;
       opacity: 0;
+      animation: heroFallbackFade 0.3s ease-out 2.6s forwards;
     }
     .hero-cta {
       display: inline-flex;
@@ -435,6 +439,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 4px 30px rgba(41,151,255,0.35);
       opacity: 0;
+      animation: heroFallbackFade 0.3s ease-out 2.8s forwards;
     }
     .hero-cta:hover {
       transform: translateY(-3px);
@@ -2291,6 +2296,21 @@
       opacity: 0 !important;
     }
   </style>
+  <script>
+  // Hero visibility safety net: if GSAP fails to load or fails to run,
+  // force hero into visible state after 3s so the page never looks broken.
+  setTimeout(function(){
+    var sels = ['.hero-label','.hero-title','.hero-subtitle','.hero-cta'];
+    sels.forEach(function(s){
+      document.querySelectorAll(s).forEach(function(el){
+        if (getComputedStyle(el).opacity === '0') {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }
+      });
+    });
+  }, 3000);
+  </script>
 </head>
 <body>
 

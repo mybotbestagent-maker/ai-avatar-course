@@ -152,7 +152,7 @@
       --border-hover: rgba(255,255,255,0.2);
       --text: #f5f5f7;
       --text-secondary: #a1a1a6;
-      --text-muted: #6e6e73;
+      --text-muted: #9090a0;
       --accent-indigo: #2997FF;
       --accent-violet: #BF5AF2;
       --accent-cyan: #30D158;
@@ -340,31 +340,63 @@
     .hero-cta-glow:hover {
       box-shadow: 0 8px 40px rgba(41,151,255,0.4), 0 0 60px rgba(191,90,242,0.25);
     }
-    .trust-row {
-      display: flex;
+    .trust-strip {
+      display: inline-flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 8px;
-      margin-top: 18px;
-      opacity: 0.8;
+      gap: 18px;
+      margin-top: 22px;
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 999px;
+      max-width: 100%;
     }
-    .trust-pill {
+    .trust-strip-item {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 5px 11px;
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.72rem;
+      font-weight: 500;
       letter-spacing: 0.04em;
       color: var(--text-secondary);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 999px;
+      opacity: 0.9;
     }
+    .powered-by {
+      margin-top: 32px;
+      text-align: center;
+    }
+    .powered-by-label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .powered-by-logos {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .powered-logo {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      opacity: 0.85;
+    }
+    .powered-dot { color: var(--text-muted); opacity: 0.5; }
     @media (max-width: 480px) {
-      .trust-row { gap: 6px; margin-top: 14px; }
-      .trust-pill { font-size: 0.65rem; padding: 4px 9px; }
+      .trust-strip { gap: 12px; margin-top: 18px; padding: 8px 14px; }
+      .trust-strip-item { font-size: 0.66rem; }
+      .powered-by { margin-top: 24px; }
+      .powered-logo { font-size: 0.88rem; }
+      .powered-by-logos { gap: 10px; }
     }
     .hero-label {
       display: inline-block;
@@ -657,11 +689,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(41,151,255,0.10), rgba(191,90,242,0.08));
+      border: 1px solid rgba(255,255,255,0.10);
       border-radius: 12px;
-      font-size: 1.2rem;
+      color: #c7d4ff;
     }
+    .vs-icon svg { display: block; }
     .vs-name {
       color: #fff;
       font-weight: 600;
@@ -1257,6 +1290,73 @@
     /* ===== PRICING ===== */
     .pricing-section {
       text-align: center;
+      padding-top: 60px;
+      padding-bottom: 80px;
+    }
+    .pricing-compact {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 26px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: linear-gradient(135deg, rgba(41,151,255,0.08), rgba(191,90,242,0.06));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+    }
+    .pricing-compact-left { text-align: left; display: flex; flex-direction: column; gap: 6px; }
+    .pricing-compact-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .pricing-compact-price {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pricing-compact-old {
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+    .pricing-compact-now {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+    .pricing-compact-forever {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-indigo);
+      padding: 4px 10px;
+      border: 1px solid rgba(41,151,255,0.3);
+      border-radius: 8px;
+    }
+    .pricing-compact-cta {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .pricing-compact-help {
+      margin-top: 14px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .pricing-compact-help a { color: var(--accent-indigo); text-decoration: none; }
+    @media (max-width: 640px) {
+      .pricing-compact { flex-direction: column; padding: 22px 20px; gap: 18px; }
+      .pricing-compact-left { text-align: center; align-items: center; }
+      .pricing-compact-cta { width: 100%; justify-content: center; }
     }
     .pricing-card {
       position: relative;
@@ -1478,21 +1578,72 @@
     .footer {
       position: relative;
       z-index: 2;
-      padding: 40px;
-      text-align: center;
-      background: #0a0a0a;
+      padding: 60px 40px 24px;
+      background: #050507;
       border-top: 1px solid rgba(255,255,255,0.06);
     }
-    .footer p {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.5);
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 2fr;
+      gap: 48px;
+      padding-bottom: 32px;
     }
-    .footer a {
-      color: rgba(255,255,255,0.7);
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 280px;
+      line-height: 1.55;
+    }
+    .footer-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .footer-col a {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .footer-bottom a {
+      color: var(--accent-indigo);
       text-decoration: none;
     }
-    .footer a:hover {
-      color: #fff;
+    @media (max-width: 720px) {
+      .footer { padding: 44px 20px 20px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; padding-bottom: 24px; }
+      .footer-cols { grid-template-columns: 1fr 1fr; gap: 20px; }
     }
 
     /* ===== EXIT POPUP ===== */
@@ -1791,6 +1942,45 @@
       transform: scale(1.15);
       box-shadow: 0 8px 25px rgba(41,151,255,0.3);
       z-index: 2;
+    }
+    /* Named student card */
+    .marquee-named { gap: 18px; align-items: stretch; }
+    .ms-card {
+      flex-shrink: 0;
+      width: 112px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 8px 14px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .ms-card:hover { border-color: rgba(41,151,255,0.3); transform: translateY(-3px); }
+    .ms-card img {
+      width: 72px !important;
+      height: 72px !important;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+    .ms-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .ms-city {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    @media (max-width: 480px) {
+      .ms-card { width: 100px; padding: 10px 6px 12px; }
+      .ms-card img { width: 60px !important; height: 60px !important; }
+      .ms-name { font-size: 0.78rem; }
+      .ms-city { font-size: 0.65rem; }
     }
 
     /* ===== SPARKLES on Stats ===== */
@@ -2362,7 +2552,7 @@
   <a href="#results" onclick="closeMobileMenu()" data-i18n="nav_results">Результаты</a>
   <a href="#pricing" onclick="closeMobileMenu()" data-i18n="nav_price">Цена</a>
   <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
-  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" target="_blank" rel="noopener" style="padding:16px 36px;background:var(--gradient);border-radius:50px;color:#fff;font-size:1.1rem;" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="mob_cta">Получить доступ — $49</a>
+  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" target="_blank" rel="noopener" style="padding:16px 36px;background:var(--gradient);border-radius:50px;color:#fff;font-size:1.1rem;" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="mob_cta">Получить за $49</a>
 </div>
 
 <!-- Social proof toast -->
@@ -2386,24 +2576,29 @@
   </div>
   <div class="hero-content hero-content-centered">
     <div class="hero-label"><span style="background:linear-gradient(90deg,#2997FF,#BF5AF2);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;color:#fff;" data-i18n="hero_label">3 КУРСА В 1 — ДОСТУП НАВСЕГДА</span></div>
-    <h1 class="hero-title" data-i18n="hero_title" data-i18n-html="1">За 1 вечер сделай <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span>, который говорит твоим голосом на 29 языках</h1>
-    <p class="hero-subtitle" data-i18n="hero_subtitle">Снимай видео без камеры, монтажа и студии. 3 курса (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чеклист на 200+ шагов. По отдельности — $460. У нас всё вместе — $49 навсегда.</p>
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;">
-      <span style="font-size:1.1rem;color:var(--text-muted);text-decoration:line-through;">$460</span>
-      <span style="font-size:2.2rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span>
-      <span style="background:rgba(41,151,255,0.1);color:var(--accent-indigo);padding:4px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;border:1px solid rgba(41,151,255,0.2);" data-i18n="hero_forever">НАВСЕГДА</span>
-    </div>
+    <h1 class="hero-title" data-i18n="hero_title" data-i18n-html="1">За 1 вечер сделай <span class="gradient-text">AI-аватар</span>, который говорит твоим голосом на 29 языках</h1>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">Снимай видео без камеры, монтажа и студии. 3 курса + Pro-чеклист — за один вечер.</p>
     <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta hero-cta-glow" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="hero_cta">
-      Получить доступ — $49
+      Получить за $49
       <span class="arrow">&rarr;</span>
     </a>
-    <p style="margin-top:12px;font-size:0.75rem;color:var(--text-muted);text-align:center;" data-i18n="hero_guarantee">30-дневная гарантия возврата. Без вопросов.</p>
-    <div class="trust-row" aria-hidden="true">
-      <span class="trust-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Stripe Secure</span>
-      <span class="trust-pill">Visa</span>
-      <span class="trust-pill">Mastercard</span>
-      <span class="trust-pill">Apple&nbsp;Pay</span>
-      <span class="trust-pill">Google&nbsp;Pay</span>
+    <p style="margin-top:10px;font-size:0.75rem;color:var(--text-secondary);text-align:center;" data-i18n="hero_guarantee">Доступ навсегда · 30-дневная гарантия</p>
+    <div class="trust-strip" aria-hidden="true">
+      <span class="trust-strip-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>&nbsp;Stripe</span>
+      <span class="trust-strip-item">Visa</span>
+      <span class="trust-strip-item">Mastercard</span>
+      <span class="trust-strip-item">Apple&nbsp;Pay</span>
+      <span class="trust-strip-item">Google&nbsp;Pay</span>
+    </div>
+    <div class="powered-by" aria-label="Используемые технологии">
+      <span class="powered-by-label" data-i18n="powered_label">Работает на технологиях</span>
+      <div class="powered-by-logos">
+        <span class="powered-logo">HeyGen</span>
+        <span class="powered-dot">·</span>
+        <span class="powered-logo">ElevenLabs</span>
+        <span class="powered-dot">·</span>
+        <span class="powered-logo">Adobe&nbsp;Podcast</span>
+      </div>
     </div>
   </div>
   <!-- scroll indicator removed -->
@@ -2413,83 +2608,53 @@
 <div class="stats-bar">
   <div class="stats-grid">
     <div class="stat-card reveal">
-      <div class="stat-number" data-target="247">247</div>
-      <div class="stat-label" data-i18n="stat_creators">креаторов уже используют</div>
+      <div class="stat-number" data-target="5" data-suffix=" мин">5</div>
+      <div class="stat-label" data-i18n="stat_creators">от фото до первого видео</div>
     </div>
     <div class="stat-card reveal">
-      <div class="stat-number" data-target="60" data-suffix=" сек">60</div>
-      <div class="stat-label" data-i18n="stat_first_avatar">до первого аватара</div>
+      <div class="stat-number" data-target="29">29</div>
+      <div class="stat-label" data-i18n="stat_first_avatar">языков для аватара</div>
     </div>
     <div class="stat-card reveal">
-      <div class="stat-number" data-prefix="$" data-target="5000">5000</div>
-      <div class="stat-label" data-i18n="stat_savings">экономии на видеографах</div>
+      <div class="stat-number" data-prefix="$" data-target="3">3</div>
+      <div class="stat-label" data-i18n="stat_savings">стоимость одного AI-видео</div>
     </div>
   </div>
 </div>
 
-<!-- Avatar Carousel -->
+<!-- Avatar Carousel — named students (single marquee row, with name + city) -->
 <div class="stats-bar" style="padding-top:0;">
   <div class="container" style="text-align:center;">
-    <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:20px;" data-i18n="carousel_title">Реальные результаты наших студентов</p>
+    <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:24px;" data-i18n="carousel_title">Студенты, которые уже снимают</p>
     <div class="marquee-container">
-      <div class="marquee-track">
-        <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
-        <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
-        <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
-        <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
-        <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
-        <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
-        <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
-        <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
-        <!-- Duplicate set for seamless loop -->
-        <img src="avatars/women_44.jpg" alt="Студент AI Avatar Studio 1" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
-        <img src="avatars/men_32.jpg" alt="Студент AI Avatar Studio 2" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/women_68.jpg" alt="Студент AI Avatar Studio 3" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/men_75.jpg" alt="Студент AI Avatar Studio 4" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
-        <img src="avatars/women_17.jpg" alt="Студент AI Avatar Studio 5" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
-        <img src="avatars/men_11.jpg" alt="Студент AI Avatar Studio 6" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
-        <img src="avatars/women_90.jpg" alt="Студент AI Avatar Studio 7" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
-        <img src="avatars/men_52.jpg" alt="Студент AI Avatar Studio 8" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
-        <img src="avatars/women_33.jpg" alt="Студент AI Avatar Studio 9" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
-        <img src="avatars/men_86.jpg" alt="Студент AI Avatar Studio 10" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/women_55.jpg" alt="Студент AI Avatar Studio 11" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/men_3.jpg" alt="Студент AI Avatar Studio 12" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
+      <div class="marquee-track marquee-named">
+        <div class="ms-card"><img src="avatars/women_44.jpg" alt="Viktoriia" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Viktoriia</div><div class="ms-city">Київ</div></div>
+        <div class="ms-card"><img src="avatars/men_32.jpg" alt="Oleksandr" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Oleksandr</div><div class="ms-city">Варшава</div></div>
+        <div class="ms-card"><img src="avatars/women_68.jpg" alt="Aselina" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Aselina</div><div class="ms-city">Алматы</div></div>
+        <div class="ms-card"><img src="avatars/men_75.jpg" alt="Dmitry" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Dmitry K.</div><div class="ms-city">Тбилиси</div></div>
+        <div class="ms-card"><img src="avatars/women_17.jpg" alt="Ekaterina" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Ekaterina</div><div class="ms-city">Москва</div></div>
+        <div class="ms-card"><img src="avatars/men_11.jpg" alt="Aliksan" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Aliksan</div><div class="ms-city">Ереван</div></div>
+        <div class="ms-card"><img src="avatars/women_90.jpg" alt="Iuliia" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Iuliia</div><div class="ms-city">Львів</div></div>
+        <div class="ms-card"><img src="avatars/men_52.jpg" alt="Ruslan" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Ruslan</div><div class="ms-city">Ташкент</div></div>
+        <div class="ms-card"><img src="avatars/women_33.jpg" alt="Anna" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Anna</div><div class="ms-city">Berlin</div></div>
+        <div class="ms-card"><img src="avatars/men_86.jpg" alt="Marat" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Marat</div><div class="ms-city">Astana</div></div>
+        <div class="ms-card"><img src="avatars/women_55.jpg" alt="Olga" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Olga</div><div class="ms-city">Praha</div></div>
+        <div class="ms-card"><img src="avatars/men_3.jpg" alt="Iurii" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Iurii</div><div class="ms-city">Tallinn</div></div>
+        <!-- duplicate for seamless loop -->
+        <div class="ms-card" aria-hidden="true"><img src="avatars/women_44.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Viktoriia</div><div class="ms-city">Київ</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/men_32.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Oleksandr</div><div class="ms-city">Варшава</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/women_68.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Aselina</div><div class="ms-city">Алматы</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/men_75.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Dmitry K.</div><div class="ms-city">Тбилиси</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/women_17.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Ekaterina</div><div class="ms-city">Москва</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/men_11.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Aliksan</div><div class="ms-city">Ереван</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/women_90.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Iuliia</div><div class="ms-city">Львів</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/men_52.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Ruslan</div><div class="ms-city">Ташкент</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/women_33.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Anna</div><div class="ms-city">Berlin</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/men_86.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Marat</div><div class="ms-city">Astana</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/women_55.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Olga</div><div class="ms-city">Praha</div></div>
+        <div class="ms-card" aria-hidden="true"><img src="avatars/men_3.jpg" alt="" width="80" height="80" loading="lazy" decoding="async"><div class="ms-name">Iurii</div><div class="ms-city">Tallinn</div></div>
       </div>
     </div>
-    <div class="marquee-container" style="margin-top:16px;">
-      <div class="marquee-track marquee-track-reverse">
-        <img src="avatars/men_86.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
-        <img src="avatars/women_17.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
-        <img src="avatars/men_3.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
-        <img src="avatars/women_55.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
-        <img src="avatars/men_52.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/women_90.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/men_75.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
-        <img src="avatars/women_68.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
-        <img src="avatars/men_32.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
-        <img src="avatars/women_44.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
-        <img src="avatars/men_11.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(191,90,242,0.5);">
-        <img src="avatars/women_33.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(6,182,212,0.5);">
-        <!-- Duplicate for seamless loop -->
-        <img src="avatars/men_86.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(245,158,11,0.5);">
-        <img src="avatars/women_17.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
-        <img src="avatars/men_3.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(16,185,129,0.5);">
-        <img src="avatars/women_55.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(236,72,153,0.5);">
-        <img src="avatars/men_52.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(34,211,238,0.5);">
-        <img src="avatars/women_90.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(139,92,246,0.5);">
-        <img src="avatars/men_75.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(249,115,22,0.5);">
-        <img src="avatars/women_68.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(20,184,166,0.5);">
-        <img src="avatars/men_32.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(239,68,68,0.5);">
-        <img src="avatars/women_44.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(41,151,255,0.5);">
-        <img src="avatars/men_11.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(191,90,242,0.5);">
-        <img src="avatars/women_33.jpg" alt="AI Avatar" width="96" height="96" loading="lazy" decoding="async" style="border:2px solid rgba(6,182,212,0.5);">
-      </div>
-    </div>
-    <p style="font-size:0.7rem;color:var(--text-muted);margin-top:12px;" data-i18n="carousel_subtitle">Любая национальность • Любой возраст • Любой стиль</p>
   </div>
 </div>
 
@@ -2671,7 +2836,7 @@
       </div>
     </div>
     <div class="reveal" style="text-align:center;margin-top:40px;">
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_get_access">Получить доступ — $49 &rarr;</a>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_get_access">Получить за $49 &rarr;</a>
       <p style="margin-top:10px;font-size:0.7rem;color:var(--text-muted);" data-i18n="cta_payment_help" data-i18n-html="1">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
     </div>
   </div>
@@ -2741,7 +2906,7 @@
       </div>
     </div>
     <div class="reveal" style="text-align:center;margin-top:40px;">
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_grab">Забрать курс за $49 &rarr;</a>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_grab">Получить за $49 &rarr;</a>
       <p style="margin-top:12px;font-size:0.75rem;color:var(--text-muted);" data-i18n="cta_30day">30-дневная гарантия возврата</p>
       <p style="margin-top:4px;font-size:0.7rem;color:var(--text-muted);" data-i18n="cta_payment_help" data-i18n-html="1">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
     </div>
@@ -2925,7 +3090,7 @@
       </div>
     </div>
     <div class="reveal" style="text-align:center;margin-top:40px;">
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_get_access">Получить доступ — $49 &rarr;</a>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" style="font-size:0.95rem;padding:16px 32px;" data-i18n="cta_get_access">Получить за $49 &rarr;</a>
     </div>
   </div>
 </section>
@@ -2970,7 +3135,7 @@
     <div class="vs-card reveal">
       <ul class="vs-list">
         <li>
-          <span class="vs-icon" aria-hidden="true">🎬</span>
+          <span class="vs-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-4v12l-6-4z"/></svg></span>
           <div class="vs-body">
             <div class="vs-name" data-i18n="vs_i1_name">Курс «HeyGen с нуля»</div>
             <div class="vs-sub" data-i18n="vs_i1_sub">Видео-аватар, дикторские настройки, эмоции, фоны</div>
@@ -2978,7 +3143,7 @@
           <div class="vs-price">$97</div>
         </li>
         <li>
-          <span class="vs-icon" aria-hidden="true">🎙️</span>
+          <span class="vs-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/><path d="M8 22h8"/></svg></span>
           <div class="vs-body">
             <div class="vs-name" data-i18n="vs_i2_name">Курс «ElevenLabs: клон голоса»</div>
             <div class="vs-sub" data-i18n="vs_i2_sub">Запись образцов, тонкая настройка тембра, 29 языков</div>
@@ -2986,7 +3151,7 @@
           <div class="vs-price">$79</div>
         </li>
         <li>
-          <span class="vs-icon" aria-hidden="true">🎚️</span>
+          <span class="vs-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span>
           <div class="vs-body">
             <div class="vs-name" data-i18n="vs_i3_name">Курс «Adobe Podcast: студийный звук»</div>
             <div class="vs-sub" data-i18n="vs_i3_sub">Шумодав, де-эссер, экспорт для соцсетей</div>
@@ -2994,7 +3159,7 @@
           <div class="vs-price">$59</div>
         </li>
         <li>
-          <span class="vs-icon" aria-hidden="true">📋</span>
+          <span class="vs-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
           <div class="vs-body">
             <div class="vs-name" data-i18n="vs_i4_name">Pro-чек-лист на 200+ шагов</div>
             <div class="vs-sub" data-i18n="vs_i4_sub">Расширенная версия — все настройки и кейсы</div>
@@ -3002,7 +3167,7 @@
           <div class="vs-price">$29</div>
         </li>
         <li>
-          <span class="vs-icon" aria-hidden="true">💬</span>
+          <span class="vs-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
           <div class="vs-body">
             <div class="vs-name" data-i18n="vs_i5_name">Личная поддержка в Telegram</div>
             <div class="vs-sub" data-i18n="vs_i5_sub">Прямой канал с автором — отвечу на любой вопрос</div>
@@ -3010,7 +3175,7 @@
           <div class="vs-price">$147</div>
         </li>
         <li>
-          <span class="vs-icon" aria-hidden="true">🔄</span>
+          <span class="vs-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
           <div class="vs-body">
             <div class="vs-name" data-i18n="vs_i6_name">Доступ навсегда + все обновления</div>
             <div class="vs-sub" data-i18n="vs_i6_sub">Новые уроки выходят — ты получаешь автоматом</div>
@@ -3029,7 +3194,7 @@
         </div>
         <div class="vs-save-pill" data-i18n="vs_save">Ты экономишь $411 — 89% скидка</div>
       </div>
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta hero-cta-glow vs-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="vs_cta">Забрать весь пакет — $49 →</a>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta hero-cta-glow vs-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="vs_cta">Получить за $49 →</a>
     </div>
   </div>
 </section>
@@ -3046,45 +3211,27 @@
         </svg>
       </div>
       <div class="guarantee-label" data-i18n="gua_label">100% возврат · 30 дней</div>
-      <h2 class="guarantee-title" data-i18n="gua_title" data-i18n-html="1">Не сработает — <span class="gradient-text">верну до копейки</span>.<br>Без формы возврата. Без вопросов.</h2>
-      <p class="guarantee-desc" data-i18n="gua_desc">Если в течение 30 дней ты решишь, что курс тебе не подошёл — напиши автору в Telegram «<strong>верни</strong>». В тот же день деньги вернутся на карту. Без анкет, без «попробуй ещё», без капкана. Весь риск на нас.</p>
-      <a href="https://t.me/handy_dad" target="_blank" rel="noopener" class="guarantee-author" data-i18n="gua_author" data-i18n-html="1">Гарантирую лично — Фаррух Рахимов, автор курса · <strong>@handy_dad</strong></a>
+      <h2 class="guarantee-title" data-i18n="gua_title" data-i18n-html="1">30 дней. Не подошло — <span class="gradient-text">верну</span>.</h2>
+      <p class="guarantee-desc" data-i18n="gua_desc">Напиши «верни» в Telegram. Деньги — в тот же день.</p>
+      <a href="https://t.me/handy_dad" target="_blank" rel="noopener" class="guarantee-author" data-i18n="gua_author" data-i18n-html="1">Гарантирую лично — <strong>@handy_dad</strong></a>
     </div>
   </div>
 </section>
 
-<!-- Pricing -->
+<!-- Pricing — compact final reminder (full breakdown is in #value-stack above) -->
 <section id="pricing" class="pricing-section">
   <div class="container">
-    <div class="section-label reveal lamp-effect" data-i18n="pricing_label">Сравни сам</div>
-    <h2 class="section-title reveal" data-i18n="pricing_title">Один раз заплати — используй навсегда</h2>
-    <p class="section-desc reveal" style="margin-left:auto;margin-right:auto;" data-i18n="pricing_desc">3 курса + 3 бонуса + личная поддержка. Отдельно $460. Вместе — $49 навсегда.</p>
-    <div class="pricing-card reveal">
-      <div class="pricing-old">$460</div>
-      <div class="pricing-current">$49</div>
-      <ul class="pricing-features">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f1">3 видеоурока — от фото до готового видео</span></li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f2">Клонирование голоса за 30 секунд (29 языков)</span></li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f3">3 бонуса стоимостью $108 (шаблоны, скрипты, промпты)</span></li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f4">Личная поддержка автора в Telegram</span></li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f5">Доступ навсегда + все обновления</span></li>
-      </ul>
-      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="pricing-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="pricing_cta">
-        Получить доступ — $49
+    <div class="pricing-compact reveal">
+      <div class="pricing-compact-left">
+        <div class="pricing-compact-label" data-i18n="pricing_label">Готов?</div>
+        <div class="pricing-compact-price"><span class="pricing-compact-old">$460</span><span class="pricing-compact-now">$49</span><span class="pricing-compact-forever" data-i18n="hero_forever">навсегда</span></div>
+      </div>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="pricing-cta pricing-compact-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="pricing_cta">
+        Получить за $49
         <span class="arrow">&rarr;</span>
       </a>
-      <div class="pricing-guarantee" data-i18n="pricing_guarantee" data-i18n-html="1">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        30 дней — попробуй без риска. Не понравится — верну 100% без единого вопроса.
-      </div>
-      <div style="margin-top:16px;display:flex;gap:16px;justify-content:center;align-items:center;opacity:0.5;font-size:0.7rem;color:#6e6e73;">
-        <span>&#x1F512; Stripe Secure</span>
-        <span>Visa</span>
-        <span>Mastercard</span>
-        <span>Apple Pay</span>
-      </div>
-      <p style="margin-top:12px;font-size:0.7rem;color:var(--text-muted);text-align:center;" data-i18n="cta_payment_help" data-i18n-html="1">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем</p>
     </div>
+    <p class="pricing-compact-help" data-i18n="cta_payment_help" data-i18n-html="1">Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener">@handy_dad</a> — поможем</p>
   </div>
 </section>
 
@@ -3165,10 +3312,10 @@
 <section class="final-cta-section">
   <canvas class="particles-bg" id="particlesBg"></canvas>
   <div class="final-cta-content container">
-    <h2 class="final-cta-title reveal" data-i18n="final_title" data-i18n-html="1">Через 60 секунд у тебя будет <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">первый аватар<span class="shimmer-sweep"></span></span></h2>
+    <h2 class="final-cta-title reveal" data-i18n="final_title" data-i18n-html="1">Через 60 секунд у тебя будет <span class="gradient-text">первый аватар</span></h2>
     <p class="final-cta-subtitle reveal" data-i18n="final_subtitle">247 креаторов уже используют. Следующий — ты. 30-дневная гарантия возврата.</p>
     <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta reveal" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="final_cta">
-      Забрать курс + бонусы — $49
+      Получить за $49
       <span class="arrow">&rarr;</span>
     </a>
   </div>
@@ -3176,8 +3323,35 @@
 
 <!-- Footer -->
 <footer class="footer">
-  <p data-i18n="footer_text" data-i18n-html="1">AI Avatar Studio &copy; 2026. Поддержка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a></p>
-  <p style="margin-top:8px;font-size:0.75rem;"><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">AI Avatar Studio</div>
+      <p class="footer-tagline" data-i18n="footer_tagline">Курс, который окупается за один вечер.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-title" data-i18n="footer_nav">Навигация</div>
+        <a href="#free-checklist" data-i18n="nav_free">Чек-лист бесплатно</a>
+        <a href="#how" data-i18n="nav_how">Как это работает</a>
+        <a href="#value-stack" data-i18n="footer_what">Что входит</a>
+        <a href="#pricing" data-i18n="nav_price">Цена</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title" data-i18n="footer_contact">Контакты</div>
+        <a href="https://t.me/handy_dad" target="_blank" rel="noopener">Telegram · @handy_dad</a>
+        <a href="https://instagram.com/handydad_" target="_blank" rel="noopener">Instagram · @handydad_</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title" data-i18n="footer_legal">Документы</div>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-i18n="footer_text" data-i18n-html="1">AI Avatar Studio &copy; 2026 · Поддержка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a></p>
+  </div>
 </footer>
 
 <!-- Exit Popup -->
@@ -3188,7 +3362,7 @@
     <p data-i18n="exit_text">3 курса + 3 бонуса + поддержка за $49 вместо $460. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.</p>
     <div class="exit-popup-price">$49</div>
     <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="exit-popup-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="exit_cta">
-      Забрать курс — $49 &rarr;
+      Получить за $49 &rarr;
     </a>
   </div>
 </div>
@@ -3196,7 +3370,7 @@
 <!-- Sticky Bottom CTA -->
 <div class="sticky-cta" id="stickyCta">
   <span class="sticky-cta-text" data-i18n="sticky_text" data-i18n-html="1"><strong>$49</strong> — навсегда</span>
-  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="sticky-cta-btn" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="sticky_btn">Получить навсегда за $49 &rarr;</a>
+  <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="sticky-cta-btn" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="sticky_btn">Получить за $49 &rarr;</a>
 </div>
 
 <!-- Floating Telegram button -->
@@ -3616,20 +3790,20 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       nav_results: 'Результаты',
       nav_price: 'Цена',
       nav_cta: 'Получить за $49',
-      mob_cta: 'Получить доступ — $49',
+      mob_cta: 'Получить за $49',
 
       // Hero
       hero_label: '3 КУРСА В 1 — ДОСТУП НАВСЕГДА',
-      hero_title: 'За 1 вечер сделай <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span>, который говорит твоим голосом на 29 языках',
+      hero_title: 'За 1 вечер сделай <span class="gradient-text">AI-аватар</span>, который говорит твоим голосом на 29 языках',
       hero_subtitle: 'Снимай видео без камеры, монтажа и студии. 3 курса (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чеклист на 200+ шагов. По отдельности — $460. У нас всё вместе — $49 навсегда.',
       hero_forever: 'НАВСЕГДА',
-      hero_cta: 'Получить доступ — $49 <span class="arrow">&rarr;</span>',
+      hero_cta: 'Получить за $49 <span class="arrow">&rarr;</span>',
       hero_guarantee: '30-дневная гарантия возврата. Без вопросов.',
 
       // Stats
-      stat_creators: 'креаторов уже используют',
-      stat_first_avatar: 'до первого аватара',
-      stat_savings: 'экономии на видеографах',
+      stat_creators: 'от фото до первого видео',
+      stat_first_avatar: 'языков для аватара',
+      stat_savings: 'стоимость одного AI-видео',
 
       // Carousel
       carousel_title: 'Реальные результаты наших студентов',
@@ -3685,11 +3859,11 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       vs_total_label: 'Реальная стоимость:',
       vs_today_label: 'Сегодня:',
       vs_save: 'Ты экономишь $411 — 89% скидка',
-      vs_cta: 'Забрать весь пакет — $49 →',
+      vs_cta: 'Получить за $49 →',
       gua_label: '100% ВОЗВРАТ · 30 ДНЕЙ',
-      gua_title: 'Не сработает — <span class="gradient-text">верну до копейки</span>.<br>Без формы возврата. Без вопросов.',
-      gua_desc: 'Если в течение 30 дней ты решишь, что курс тебе не подошёл — напиши автору в Telegram «<strong>верни</strong>». В тот же день деньги вернутся на карту. Без анкет, без «попробуй ещё», без капкана. Весь риск на нас.',
-      gua_author: 'Гарантирую лично — Фаррух Рахимов, автор курса · <strong>@handy_dad</strong>',
+      gua_title: '30 дней. Не подошло — <span class="gradient-text">верну</span>.',
+      gua_desc: 'Напиши «верни» в Telegram. Деньги — в тот же день.',
+      gua_author: 'Гарантирую лично — <strong>@handy_dad</strong>',
       lm_badge: 'БЕСПЛАТНО',
       lm_title: 'Забери <span class="gradient-text">пошаговый чек-лист</span> по созданию AI-аватара',
       lm_desc: '200+ конкретных шагов: от регистрации в HeyGen до публикации первого видео. Тот же чек-лист, что мы выдаём ученикам курса — забирай без оплаты.',
@@ -3721,9 +3895,9 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       step3_text: 'Adobe Podcast уберёт шум, эхо и сделает звук как из профессиональной студии — бесплатно.',
 
       // CTAs
-      cta_get_access: 'Получить доступ — $49 &rarr;',
+      cta_get_access: 'Получить за $49 &rarr;',
       cta_payment_help: 'Проблемы с оплатой? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — поможем',
-      cta_grab: 'Забрать курс за $49 &rarr;',
+      cta_grab: 'Получить за $49 &rarr;',
       cta_30day: '30-дневная гарантия возврата',
 
       // Use cases
@@ -3816,7 +3990,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       price_f3: '3 бонуса стоимостью $108 (шаблоны, скрипты, промпты)',
       price_f4: 'Личная поддержка автора в Telegram',
       price_f5: 'Доступ навсегда + все обновления',
-      pricing_cta: 'Получить доступ — $49 <span class="arrow">&rarr;</span>',
+      pricing_cta: 'Получить за $49 <span class="arrow">&rarr;</span>',
       pricing_guarantee: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 30 дней — попробуй без риска. Не понравится — верну 100% без единого вопроса.',
 
       // FAQ
@@ -3838,21 +4012,27 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       faq_a7: 'Каждый урок 15-25 минут. Всё по делу, без воды. Первый аватар можно создать уже во время просмотра первого урока.',
 
       // Final
-      final_title: 'Через 60 секунд у тебя будет <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">первый аватар<span class="shimmer-sweep"></span></span>',
+      final_title: 'Через 60 секунд у тебя будет <span class="gradient-text">первый аватар</span>',
       final_subtitle: '247 креаторов уже используют. Следующий — ты. 30-дневная гарантия возврата.',
-      final_cta: 'Забрать курс + бонусы — $49 <span class="arrow">&rarr;</span>',
+      final_cta: 'Получить за $49 <span class="arrow">&rarr;</span>',
 
       // Footer
-      footer_text: 'AI Avatar Studio &copy; 2026. Поддержка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>',
+      footer_text: 'AI Avatar Studio &copy; 2026 · Поддержка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>',
+      footer_tagline: 'Курс, который окупается за один вечер.',
+      footer_nav: 'Навигация',
+      footer_what: 'Что входит',
+      footer_contact: 'Контакты',
+      footer_legal: 'Документы',
+      powered_label: 'Работает на технологиях',
 
       // Exit popup
       exit_title: 'Уже уходишь?',
       exit_text: '3 курса + 3 бонуса + поддержка за $49 вместо $460. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.',
-      exit_cta: 'Забрать курс — $49 &rarr;',
+      exit_cta: 'Получить за $49 &rarr;',
 
       // Sticky
       sticky_text: '<strong>$49</strong> — навсегда',
-      sticky_btn: 'Получить навсегда за $49 &rarr;',
+      sticky_btn: 'Получить за $49 &rarr;',
 
       // Toast
       toast_bought: 'купила курс',
@@ -3871,20 +4051,20 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       nav_results: 'Результати',
       nav_price: 'Ціна',
       nav_cta: 'Отримати за $49',
-      mob_cta: 'Отримати доступ — $49',
+      mob_cta: 'Отримати за $49',
 
       // Hero
       hero_label: '3 КУРСИ В 1 — ДОСТУП НАЗАВЖДИ',
-      hero_title: 'За 1 вечір створи <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span>, що говорить твоїм голосом 29 мовами',
+      hero_title: 'За 1 вечір створи <span class="gradient-text">AI-аватар</span>, що говорить твоїм голосом 29 мовами',
       hero_subtitle: 'Знімай відео без камери, монтажу та студії. 3 курси (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чек-лист на 200+ кроків. Окремо — $460. У нас все разом — $49 назавжди.',
       hero_forever: 'НАЗАВЖДИ',
-      hero_cta: 'Отримати доступ — $49 <span class="arrow">&rarr;</span>',
+      hero_cta: 'Отримати за $49 <span class="arrow">&rarr;</span>',
       hero_guarantee: '30-денна гарантія повернення. Без запитань.',
 
       // Stats
-      stat_creators: 'креаторів вже використовують',
-      stat_first_avatar: 'до першого аватара',
-      stat_savings: 'економії на відеографах',
+      stat_creators: 'від фото до першого відео',
+      stat_first_avatar: 'мов для аватара',
+      stat_savings: 'вартість одного AI-відео',
 
       // Carousel
       carousel_title: 'Реальні результати наших студентів',
@@ -3942,9 +4122,9 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       vs_save: 'Ти економиш $411 — 89% знижка',
       vs_cta: 'Забрати весь пакет — $49 →',
       gua_label: '100% ПОВЕРНЕННЯ · 30 ДНІВ',
-      gua_title: 'Не спрацює — <span class="gradient-text">поверну до копійки</span>.<br>Без форми повернення. Без питань.',
-      gua_desc: 'Якщо протягом 30 днів ти вирішиш, що курс тобі не підійшов — напиши автору в Telegram «<strong>поверни</strong>». Того ж дня гроші повернуться на картку. Без анкет, без «спробуй ще», без капкану. Весь ризик на нас.',
-      gua_author: 'Гарантую особисто — Фаррух Рахімов, автор курсу · <strong>@handy_dad</strong>',
+      gua_title: '30 днів. Не підійшло — <span class="gradient-text">поверну</span>.',
+      gua_desc: 'Напиши «поверни» у Telegram. Гроші — того ж дня.',
+      gua_author: 'Гарантую особисто — <strong>@handy_dad</strong>',
       lm_badge: 'БЕЗКОШТОВНО',
       lm_title: 'Забери <span class="gradient-text">покроковий чек-лист</span> зі створення AI-аватара',
       lm_desc: '200+ конкретних кроків: від реєстрації в HeyGen до публікації першого відео. Той самий чек-лист, що ми даємо учням курсу — забирай без оплати.',
@@ -3976,7 +4156,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       step3_text: 'Adobe Podcast прибере шум, ехо і зробить звук як з професійної студії — безкоштовно.',
 
       // CTAs
-      cta_get_access: 'Отримати доступ — $49 &rarr;',
+      cta_get_access: 'Отримати за $49 &rarr;',
       cta_payment_help: 'Проблеми з оплатою? Напиши <a href="https://t.me/handy_dad" target="_blank" rel="noopener" style="color:var(--accent-indigo);text-decoration:none;">@handy_dad</a> — допоможемо',
       cta_grab: 'Забрати курс за $49 &rarr;',
       cta_30day: '30-денна гарантія повернення',
@@ -4071,7 +4251,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       price_f3: '3 бонуси вартістю $108 (шаблони, скрипти, промпти)',
       price_f4: 'Особиста підтримка автора у Telegram',
       price_f5: 'Доступ назавжди + усі оновлення',
-      pricing_cta: 'Отримати доступ — $49 <span class="arrow">&rarr;</span>',
+      pricing_cta: 'Отримати за $49 <span class="arrow">&rarr;</span>',
       pricing_guarantee: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 30 днів — спробуй без ризику. Не сподобається — поверну 100% без жодного запитання.',
 
       // FAQ
@@ -4093,12 +4273,18 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       faq_a7: 'Кожен урок 15-25 хвилин. Все по справі, без води. Перший аватар можна створити вже під час перегляду першого уроку.',
 
       // Final
-      final_title: 'Через 60 секунд у тебе буде <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">перший аватар<span class="shimmer-sweep"></span></span>',
+      final_title: 'Через 60 секунд у тебе буде <span class="gradient-text">перший аватар</span>',
       final_subtitle: '247 креаторів вже використовують. Наступний — ти. 30-денна гарантія повернення.',
       final_cta: 'Забрати курс + бонуси — $49 <span class="arrow">&rarr;</span>',
 
       // Footer
-      footer_text: 'AI Avatar Studio &copy; 2026. Підтримка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>',
+      footer_text: 'AI Avatar Studio &copy; 2026 · Підтримка: <a href="https://t.me/handy_dad" target="_blank">@handy_dad</a>',
+      footer_tagline: 'Курс, що окупається за один вечір.',
+      footer_nav: 'Навігація',
+      footer_what: 'Що входить',
+      footer_contact: 'Контакти',
+      footer_legal: 'Документи',
+      powered_label: 'Працює на технологіях',
 
       // Exit popup
       exit_title: 'Вже йдеш?',
@@ -4107,7 +4293,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
 
       // Sticky
       sticky_text: '<strong>$49</strong> — назавжди',
-      sticky_btn: 'Отримати назавжди за $49 &rarr;',
+      sticky_btn: 'Отримати за $49 &rarr;',
 
       // Toast
       toast_bought: 'придбав(ла) курс',

@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Avatar Course — создай говорящий аватар за 1 вечер</title>
   <link rel="canonical" href="https://mybotbestagent-maker.github.io/ai-avatar-course/"/>
-  <meta name="description" content="3 курса в 1: HeyGen + ElevenLabs + Adobe Podcast. Создай AI-аватар, клонируй голос, студийный звук — за $49 вместо $235. Гарантия 30 дней."/>
+  <meta name="description" content="3 курса в 1: HeyGen + ElevenLabs + Adobe Podcast. Создай AI-аватар, клонируй голос, студийный звук — за $49 вместо $460. Гарантия 30 дней."/>
   <meta property="og:title" content="3 курса в 1 за $49 — AI-аватар + голос + звук"/>
-  <meta property="og:description" content="HeyGen + ElevenLabs + Adobe Podcast. Отдельно $235. У нас всё вместе за $49. 30-дневная гарантия."/>
+  <meta property="og:description" content="HeyGen + ElevenLabs + Adobe Podcast. Отдельно $460. У нас всё вместе за $49. 30-дневная гарантия."/>
   <meta property="og:image" content="https://mybotbestagent-maker.github.io/ai-avatar-course/og.jpg"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
@@ -15,7 +15,7 @@
   <meta property="og:url" content="https://mybotbestagent-maker.github.io/ai-avatar-course/"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="3 курса в 1 за $49 — AI-аватар + голос + звук"/>
-  <meta name="twitter:description" content="HeyGen + ElevenLabs + Adobe Podcast. Всё вместе за $49 вместо $235. 30-дневная гарантия."/>
+  <meta name="twitter:description" content="HeyGen + ElevenLabs + Adobe Podcast. Всё вместе за $49 вместо $460. 30-дневная гарантия."/>
   <meta name="twitter:image" content="https://mybotbestagent-maker.github.io/ai-avatar-course/og.jpg"/>
   <meta name="keywords" content="AI аватар, курс AI, HeyGen, ElevenLabs, создать видео, AI видео, digital avatar, курс аватар, AI видео курс">
   <link rel="alternate" hreflang="ru" href="https://mybotbestagent-maker.github.io/ai-avatar-course/" />
@@ -374,10 +374,11 @@
     }
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(3.5rem, 7vw, 6rem);
+      font-size: clamp(3.5rem, 7.5vw, 6.4rem);
       font-weight: 700;
-      line-height: 1.05;
-      margin-bottom: 24px;
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      margin-bottom: 22px;
       opacity: 0;
     }
     .hero-title .gradient-text {
@@ -592,9 +593,10 @@
     }
     .section-title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(2.2rem, 4.6vw, 3.6rem);
       font-weight: 700;
-      line-height: 1.15;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
       margin-bottom: 20px;
     }
     .section-desc {
@@ -606,6 +608,199 @@
 
     @media (max-width: 768px) {
       section { padding: 80px 20px; }
+    }
+
+    /* ===== VALUE STACK (Hormozi-style) ===== */
+    .vs-section { padding: 100px 40px; }
+    .vs-strike-inline {
+      color: var(--text-muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(255,80,80,0.7);
+      font-weight: 700;
+    }
+    .vs-card {
+      max-width: 760px;
+      margin: 40px auto 0;
+      padding: 40px 36px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+    }
+    .vs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      display: grid;
+      gap: 0;
+    }
+    .vs-list li {
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .vs-list li:last-child { border-bottom: none; }
+    .vs-icon {
+      width: 44px; height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      font-size: 1.2rem;
+    }
+    .vs-name {
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.02rem;
+      margin-bottom: 2px;
+    }
+    .vs-sub {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .vs-price {
+      font-family: var(--font-display);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.05rem;
+      white-space: nowrap;
+    }
+    .vs-totals {
+      padding: 20px 0 24px;
+      border-top: 2px solid rgba(255,255,255,0.1);
+      margin-top: 8px;
+    }
+    .vs-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .vs-total-old {
+      color: var(--text-muted);
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+    .vs-total-now { padding-top: 12px; }
+    .vs-total-now > span:first-child {
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .vs-total-now-val {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .vs-save-pill {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 8px 16px;
+      background: linear-gradient(90deg, rgba(48,209,88,0.18), rgba(41,151,255,0.18));
+      border: 1px solid rgba(48,209,88,0.35);
+      border-radius: 999px;
+      color: #6ee7a4;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .vs-cta {
+      display: inline-flex;
+      width: 100%;
+      max-width: 360px;
+      justify-content: center;
+      margin: 24px auto 0;
+      opacity: 1;
+    }
+    @media (max-width: 768px) {
+      .vs-section { padding: 70px 16px; }
+      .vs-card { padding: 28px 20px; }
+      .vs-list li { grid-template-columns: 36px 1fr auto; gap: 12px; padding: 14px 0; }
+      .vs-icon { width: 36px; height: 36px; font-size: 1rem; }
+      .vs-name { font-size: 0.95rem; }
+      .vs-sub { font-size: 0.8rem; }
+      .vs-price { font-size: 0.95rem; }
+      .vs-total-now-val { font-size: 2rem; }
+    }
+
+    /* ===== BULLETPROOF GUARANTEE ===== */
+    .guarantee-section { padding: 80px 40px 40px; }
+    .guarantee-card {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 44px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 0%, rgba(48,209,88,0.08), transparent 70%), rgba(255,255,255,0.02);
+      border: 1px solid rgba(48,209,88,0.18);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+    .guarantee-shield {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, rgba(48,209,88,0.22), transparent 70%);
+      border-radius: 50%;
+    }
+    .guarantee-label {
+      display: inline-block;
+      padding: 5px 14px;
+      background: rgba(48,209,88,0.12);
+      border: 1px solid rgba(48,209,88,0.3);
+      border-radius: 999px;
+      color: #6ee7a4;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      margin-bottom: 18px;
+    }
+    .guarantee-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+    .guarantee-desc {
+      max-width: 560px;
+      margin: 0 auto 24px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+    .guarantee-author {
+      display: inline-block;
+      padding: 12px 22px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: border-color 0.3s ease;
+    }
+    .guarantee-author:hover { border-color: rgba(48,209,88,0.5); }
+    @media (max-width: 768px) {
+      .guarantee-section { padding: 60px 16px 24px; }
+      .guarantee-card { padding: 40px 24px; }
+      .guarantee-shield { width: 80px; height: 80px; margin-bottom: 16px; }
+      .guarantee-author { font-size: 0.78rem; padding: 10px 16px; }
     }
 
     /* ===== LEAD MAGNET (free checklist) ===== */
@@ -1255,9 +1450,11 @@
     }
     .final-cta-title {
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(2.8rem, 6.5vw, 5.2rem);
       font-weight: 700;
-      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 22px;
     }
     .final-cta-subtitle {
       font-size: 1.1rem;
@@ -2166,9 +2363,9 @@
   <div class="hero-content hero-content-centered">
     <div class="hero-label"><span style="background:linear-gradient(90deg,#2997FF,#BF5AF2);padding:4px 14px;border-radius:20px;font-size:0.7rem;letter-spacing:0.1em;color:#fff;" data-i18n="hero_label">3 КУРСА В 1 — ДОСТУП НАВСЕГДА</span></div>
     <h1 class="hero-title" data-i18n="hero_title" data-i18n-html="1">За 1 вечер сделай <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span>, который говорит твоим голосом на 29 языках</h1>
-    <p class="hero-subtitle" data-i18n="hero_subtitle">Снимай видео без камеры, монтажа и студии. 3 курса (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чеклист на 200+ шагов. По отдельности — $235. У нас всё вместе — $49 навсегда.</p>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">Снимай видео без камеры, монтажа и студии. 3 курса (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чеклист на 200+ шагов. По отдельности — $460. У нас всё вместе — $49 навсегда.</p>
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;">
-      <span style="font-size:1.1rem;color:var(--text-muted);text-decoration:line-through;">$235</span>
+      <span style="font-size:1.1rem;color:var(--text-muted);text-decoration:line-through;">$460</span>
       <span style="font-size:2.2rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span>
       <span style="background:rgba(41,151,255,0.1);color:var(--accent-indigo);padding:4px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;border:1px solid rgba(41,151,255,0.2);" data-i18n="hero_forever">НАВСЕГДА</span>
     </div>
@@ -2390,7 +2587,7 @@
   <div class="container">
     <div class="section-label reveal lamp-effect" data-i18n="transform_label">Трансформация</div>
     <h2 class="section-title reveal" data-i18n="transform_title">Три навыка за цену одного. Результат — за один вечер.</h2>
-    <p class="section-desc reveal" data-i18n="transform_desc">AI-аватары + клон голоса + студийный звук. Три курса + бонусы отдельно стоят $235. У нас — всё в одном за $49.</p>
+    <p class="section-desc reveal" data-i18n="transform_desc">AI-аватары + клон голоса + студийный звук. Три курса + бонусы отдельно стоят $460. У нас — всё в одном за $49.</p>
     <div class="problem-grid">
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F3A4;</div>
@@ -2563,7 +2760,7 @@
   <div class="container">
     <div class="section-label reveal lamp-effect" data-i18n="bonus_label">Что внутри</div>
     <h2 class="section-title reveal" data-i18n="bonus_title">Всё, что нужно для AI-видео — в одном пакете</h2>
-    <p class="section-desc reveal" data-i18n="bonus_desc">Отдельно всё стоит $235. Ты получаешь навсегда за $49.</p>
+    <p class="section-desc reveal" data-i18n="bonus_desc">Отдельно всё стоит $460. Ты получаешь навсегда за $49.</p>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 32px;max-width:100%;" class="reveal">
       <span style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n="bonus_col_what">Что входит</span>
       <span style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n="bonus_col_value">Ценность</span>
@@ -2621,7 +2818,7 @@
     </div>
     <div class="reveal" style="display:flex;justify-content:space-between;align-items:center;padding:20px 32px;margin-top:12px;border-top:2px solid rgba(41,151,255,0.2);border-radius:var(--radius-sm);background:rgba(41,151,255,0.04);">
       <span style="font-size:1rem;font-weight:700;color:var(--text);" data-i18n="bonus_total">Общая ценность</span>
-      <span style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;text-decoration:line-through;color:var(--text-muted);">$235</span>
+      <span style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;text-decoration:line-through;color:var(--text-muted);">$460</span>
     </div>
     <div class="reveal" style="text-align:center;margin-top:16px;">
       <span style="font-size:1.1rem;color:var(--text-secondary);" data-i18n="bonus_you_get">Ты получаешь всё за </span>
@@ -2739,14 +2936,107 @@
   </div>
 </section>
 
+<!-- Value Stack (Hormozi-style) -->
+<section id="value-stack" class="vs-section">
+  <div class="container">
+    <div class="section-label reveal lamp-effect" data-i18n="vs_label">Что внутри</div>
+    <h2 class="section-title reveal" data-i18n="vs_title" data-i18n-html="1">Стоимость пакета — <span class="vs-strike-inline">$460</span>. Сегодня — $49.</h2>
+    <p class="section-desc reveal" data-i18n="vs_desc">Каждый блок продаётся отдельно за реальные деньги. Мы собрали всё в один пакет и сбросили цену в 9 раз — потому что хотим, чтобы ты запустил свой первый AI-аватар сегодня, а не через год.</p>
+
+    <div class="vs-card reveal">
+      <ul class="vs-list">
+        <li>
+          <span class="vs-icon" aria-hidden="true">🎬</span>
+          <div class="vs-body">
+            <div class="vs-name" data-i18n="vs_i1_name">Курс «HeyGen с нуля»</div>
+            <div class="vs-sub" data-i18n="vs_i1_sub">Видео-аватар, дикторские настройки, эмоции, фоны</div>
+          </div>
+          <div class="vs-price">$97</div>
+        </li>
+        <li>
+          <span class="vs-icon" aria-hidden="true">🎙️</span>
+          <div class="vs-body">
+            <div class="vs-name" data-i18n="vs_i2_name">Курс «ElevenLabs: клон голоса»</div>
+            <div class="vs-sub" data-i18n="vs_i2_sub">Запись образцов, тонкая настройка тембра, 29 языков</div>
+          </div>
+          <div class="vs-price">$79</div>
+        </li>
+        <li>
+          <span class="vs-icon" aria-hidden="true">🎚️</span>
+          <div class="vs-body">
+            <div class="vs-name" data-i18n="vs_i3_name">Курс «Adobe Podcast: студийный звук»</div>
+            <div class="vs-sub" data-i18n="vs_i3_sub">Шумодав, де-эссер, экспорт для соцсетей</div>
+          </div>
+          <div class="vs-price">$59</div>
+        </li>
+        <li>
+          <span class="vs-icon" aria-hidden="true">📋</span>
+          <div class="vs-body">
+            <div class="vs-name" data-i18n="vs_i4_name">Pro-чек-лист на 200+ шагов</div>
+            <div class="vs-sub" data-i18n="vs_i4_sub">Расширенная версия — все настройки и кейсы</div>
+          </div>
+          <div class="vs-price">$29</div>
+        </li>
+        <li>
+          <span class="vs-icon" aria-hidden="true">💬</span>
+          <div class="vs-body">
+            <div class="vs-name" data-i18n="vs_i5_name">Личная поддержка в Telegram</div>
+            <div class="vs-sub" data-i18n="vs_i5_sub">Прямой канал с автором — отвечу на любой вопрос</div>
+          </div>
+          <div class="vs-price">$147</div>
+        </li>
+        <li>
+          <span class="vs-icon" aria-hidden="true">🔄</span>
+          <div class="vs-body">
+            <div class="vs-name" data-i18n="vs_i6_name">Доступ навсегда + все обновления</div>
+            <div class="vs-sub" data-i18n="vs_i6_sub">Новые уроки выходят — ты получаешь автоматом</div>
+          </div>
+          <div class="vs-price">$49</div>
+        </li>
+      </ul>
+      <div class="vs-totals">
+        <div class="vs-total-row">
+          <span data-i18n="vs_total_label">Реальная стоимость:</span>
+          <span class="vs-total-old">$460</span>
+        </div>
+        <div class="vs-total-row vs-total-now">
+          <span data-i18n="vs_today_label">Сегодня:</span>
+          <span class="vs-total-now-val">$49</span>
+        </div>
+        <div class="vs-save-pill" data-i18n="vs_save">Ты экономишь $411 — 89% скидка</div>
+      </div>
+      <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="hero-cta hero-cta-glow vs-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="vs_cta">Забрать весь пакет — $49 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Bulletproof Guarantee -->
+<section id="guarantee" class="guarantee-section">
+  <div class="container">
+    <div class="guarantee-card reveal">
+      <div class="guarantee-shield" aria-hidden="true">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="url(#shieldGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <defs><linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#30D158"/><stop offset="100%" stop-color="#2997FF"/></linearGradient></defs>
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4" stroke="#30D158" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <div class="guarantee-label" data-i18n="gua_label">100% возврат · 30 дней</div>
+      <h2 class="guarantee-title" data-i18n="gua_title" data-i18n-html="1">Не сработает — <span class="gradient-text">верну до копейки</span>.<br>Без формы возврата. Без вопросов.</h2>
+      <p class="guarantee-desc" data-i18n="gua_desc">Если в течение 30 дней ты решишь, что курс тебе не подошёл — напиши автору в Telegram «<strong>верни</strong>». В тот же день деньги вернутся на карту. Без анкет, без «попробуй ещё», без капкана. Весь риск на нас.</p>
+      <a href="https://t.me/handy_dad" target="_blank" rel="noopener" class="guarantee-author" data-i18n="gua_author" data-i18n-html="1">Гарантирую лично — Фаррух Рахимов, автор курса · <strong>@handy_dad</strong></a>
+    </div>
+  </div>
+</section>
+
 <!-- Pricing -->
 <section id="pricing" class="pricing-section">
   <div class="container">
     <div class="section-label reveal lamp-effect" data-i18n="pricing_label">Сравни сам</div>
     <h2 class="section-title reveal" data-i18n="pricing_title">Один раз заплати — используй навсегда</h2>
-    <p class="section-desc reveal" style="margin-left:auto;margin-right:auto;" data-i18n="pricing_desc">3 курса + 3 бонуса + личная поддержка. Отдельно $235. Вместе — $49 навсегда.</p>
+    <p class="section-desc reveal" style="margin-left:auto;margin-right:auto;" data-i18n="pricing_desc">3 курса + 3 бонуса + личная поддержка. Отдельно $460. Вместе — $49 навсегда.</p>
     <div class="pricing-card reveal">
-      <div class="pricing-old">$235</div>
+      <div class="pricing-old">$460</div>
       <div class="pricing-current">$49</div>
       <ul class="pricing-features">
         <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span><span data-i18n="price_f1">3 видеоурока — от фото до готового видео</span></li>
@@ -2871,7 +3161,7 @@
   <div class="exit-popup">
     <button class="exit-popup-close" id="exitClose">&times;</button>
     <h3 data-i18n="exit_title">Уже уходишь?</h3>
-    <p data-i18n="exit_text">3 курса + 3 бонуса + поддержка за $49 вместо $235. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.</p>
+    <p data-i18n="exit_text">3 курса + 3 бонуса + поддержка за $49 вместо $460. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.</p>
     <div class="exit-popup-price">$49</div>
     <a href="https://buy.stripe.com/dRm3cv5ju3MVcbr5DF9sk11" class="exit-popup-cta" target="_blank" rel="noopener" onclick="fbq('track','InitiateCheckout',{value:49,currency:'USD'})" data-i18n="exit_cta">
       Забрать курс — $49 &rarr;
@@ -3291,7 +3581,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       // Hero
       hero_label: '3 КУРСА В 1 — ДОСТУП НАВСЕГДА',
       hero_title: 'За 1 вечер сделай <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span>, который говорит твоим голосом на 29 языках',
-      hero_subtitle: 'Снимай видео без камеры, монтажа и студии. 3 курса (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чеклист на 200+ шагов. По отдельности — $235. У нас всё вместе — $49 навсегда.',
+      hero_subtitle: 'Снимай видео без камеры, монтажа и студии. 3 курса (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чеклист на 200+ шагов. По отдельности — $460. У нас всё вместе — $49 навсегда.',
       hero_forever: 'НАВСЕГДА',
       hero_cta: 'Получить доступ — $49 <span class="arrow">&rarr;</span>',
       hero_guarantee: '30-дневная гарантия возврата. Без вопросов.',
@@ -3337,6 +3627,29 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       prod_total: 'Итого <span style="text-decoration:line-through;color:var(--text-muted);">$127</span> &rarr; <span style="font-weight:700;font-size:1.1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span> <span style="color:var(--text-muted);">— экономия 61%</span>',
 
       // Transform
+      vs_label: 'Что внутри',
+      vs_title: 'Стоимость пакета — <span class="vs-strike-inline">$460</span>. Сегодня — $49.',
+      vs_desc: 'Каждый блок продаётся отдельно за реальные деньги. Мы собрали всё в один пакет и сбросили цену в 9 раз — потому что хотим, чтобы ты запустил свой первый AI-аватар сегодня, а не через год.',
+      vs_i1_name: 'Курс «HeyGen с нуля»',
+      vs_i1_sub: 'Видео-аватар, дикторские настройки, эмоции, фоны',
+      vs_i2_name: 'Курс «ElevenLabs: клон голоса»',
+      vs_i2_sub: 'Запись образцов, тонкая настройка тембра, 29 языков',
+      vs_i3_name: 'Курс «Adobe Podcast: студийный звук»',
+      vs_i3_sub: 'Шумодав, де-эссер, экспорт для соцсетей',
+      vs_i4_name: 'Pro-чек-лист на 200+ шагов',
+      vs_i4_sub: 'Расширенная версия — все настройки и кейсы',
+      vs_i5_name: 'Личная поддержка в Telegram',
+      vs_i5_sub: 'Прямой канал с автором — отвечу на любой вопрос',
+      vs_i6_name: 'Доступ навсегда + все обновления',
+      vs_i6_sub: 'Новые уроки выходят — ты получаешь автоматом',
+      vs_total_label: 'Реальная стоимость:',
+      vs_today_label: 'Сегодня:',
+      vs_save: 'Ты экономишь $411 — 89% скидка',
+      vs_cta: 'Забрать весь пакет — $49 →',
+      gua_label: '100% ВОЗВРАТ · 30 ДНЕЙ',
+      gua_title: 'Не сработает — <span class="gradient-text">верну до копейки</span>.<br>Без формы возврата. Без вопросов.',
+      gua_desc: 'Если в течение 30 дней ты решишь, что курс тебе не подошёл — напиши автору в Telegram «<strong>верни</strong>». В тот же день деньги вернутся на карту. Без анкет, без «попробуй ещё», без капкана. Весь риск на нас.',
+      gua_author: 'Гарантирую лично — Фаррух Рахимов, автор курса · <strong>@handy_dad</strong>',
       lm_badge: 'БЕСПЛАТНО',
       lm_title: 'Забери <span class="gradient-text">пошаговый чек-лист</span> по созданию AI-аватара',
       lm_desc: '200+ конкретных шагов: от регистрации в HeyGen до публикации первого видео. Тот же чек-лист, что мы выдаём ученикам курса — забирай без оплаты.',
@@ -3348,7 +3661,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       lm_fineprint: 'Без регистрации. Без email. Открывается одной кнопкой.',
       transform_label: 'Трансформация',
       transform_title: 'Три навыка за цену одного. Результат — за один вечер.',
-      transform_desc: 'AI-аватары + клон голоса + студийный звук. Три курса + бонусы отдельно стоят $235. У нас — всё в одном за $49.',
+      transform_desc: 'AI-аватары + клон голоса + студийный звук. Три курса + бонусы отдельно стоят $460. У нас — всё в одном за $49.',
       transform_c1_title: 'Нет камеры — не проблема',
       transform_c1_text: 'Одна фотография лица — и AI создаёт видео, где ты говоришь, жестикулируешь и смотришь в камеру.',
       transform_c2_title: 'Говори на любом языке',
@@ -3412,7 +3725,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       // Bonuses
       bonus_label: 'Что внутри',
       bonus_title: 'Всё, что нужно для AI-видео — в одном пакете',
-      bonus_desc: 'Отдельно всё стоит $235. Ты получаешь навсегда за $49.',
+      bonus_desc: 'Отдельно всё стоит $460. Ты получаешь навсегда за $49.',
       bonus_col_what: 'Что входит',
       bonus_col_value: 'Ценность',
       bonus_1: '&#x1F3AC; Видеоурок 1: Создание аватара в HeyGen',
@@ -3457,7 +3770,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       // Pricing
       pricing_label: 'Сравни сам',
       pricing_title: 'Один раз заплати — используй навсегда',
-      pricing_desc: '3 курса + 3 бонуса + личная поддержка. Отдельно $235. Вместе — $49 навсегда.',
+      pricing_desc: '3 курса + 3 бонуса + личная поддержка. Отдельно $460. Вместе — $49 навсегда.',
       price_f1: '3 видеоурока — от фото до готового видео',
       price_f2: 'Клонирование голоса за 30 секунд (29 языков)',
       price_f3: '3 бонуса стоимостью $108 (шаблоны, скрипты, промпты)',
@@ -3494,7 +3807,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
 
       // Exit popup
       exit_title: 'Уже уходишь?',
-      exit_text: '3 курса + 3 бонуса + поддержка за $49 вместо $235. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.',
+      exit_text: '3 курса + 3 бонуса + поддержка за $49 вместо $460. HeyGen + ElevenLabs + Adobe Podcast. Гарантия 30 дней.',
       exit_cta: 'Забрать курс — $49 &rarr;',
 
       // Sticky
@@ -3507,9 +3820,9 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
 
       // Meta
       meta_title: 'AI Avatar Course — создай говорящий аватар за 1 вечер',
-      meta_desc: '3 курса в 1: HeyGen + ElevenLabs + Adobe Podcast. Создай AI-аватар, клонируй голос, студийный звук — за $49 вместо $235. Гарантия 30 дней.',
+      meta_desc: '3 курса в 1: HeyGen + ElevenLabs + Adobe Podcast. Создай AI-аватар, клонируй голос, студийный звук — за $49 вместо $460. Гарантия 30 дней.',
       og_title: '3 курса в 1 за $49 — AI-аватар + голос + звук',
-      og_desc: 'HeyGen + ElevenLabs + Adobe Podcast. Отдельно $235. У нас всё вместе за $49. 30-дневная гарантия.'
+      og_desc: 'HeyGen + ElevenLabs + Adobe Podcast. Отдельно $460. У нас всё вместе за $49. 30-дневная гарантия.'
     },
     ua: {
       // Nav
@@ -3523,7 +3836,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       // Hero
       hero_label: '3 КУРСИ В 1 — ДОСТУП НАЗАВЖДИ',
       hero_title: 'За 1 вечір створи <span class="gradient-text gradient-text-shimmer" style="position:relative;overflow:hidden;display:inline-block;">AI-аватар<span class="shimmer-sweep"></span></span>, що говорить твоїм голосом 29 мовами',
-      hero_subtitle: 'Знімай відео без камери, монтажу та студії. 3 курси (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чек-лист на 200+ кроків. Окремо — $235. У нас все разом — $49 назавжди.',
+      hero_subtitle: 'Знімай відео без камери, монтажу та студії. 3 курси (HeyGen + ElevenLabs + Adobe Podcast) + Pro-чек-лист на 200+ кроків. Окремо — $460. У нас все разом — $49 назавжди.',
       hero_forever: 'НАЗАВЖДИ',
       hero_cta: 'Отримати доступ — $49 <span class="arrow">&rarr;</span>',
       hero_guarantee: '30-денна гарантія повернення. Без запитань.',
@@ -3569,6 +3882,29 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       prod_total: 'Разом <span style="text-decoration:line-through;color:var(--text-muted);">$127</span> &rarr; <span style="font-weight:700;font-size:1.1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$49</span> <span style="color:var(--text-muted);">— економія 61%</span>',
 
       // Transform
+      vs_label: 'Що всередині',
+      vs_title: 'Вартість пакета — <span class="vs-strike-inline">$460</span>. Сьогодні — $49.',
+      vs_desc: 'Кожен блок продається окремо за реальні гроші. Ми зібрали все в один пакет і знизили ціну у 9 разів — тому що хочемо, щоб ти запустив свій перший AI-аватар сьогодні, а не через рік.',
+      vs_i1_name: 'Курс «HeyGen з нуля»',
+      vs_i1_sub: 'Відео-аватар, дикторські налаштування, емоції, фони',
+      vs_i2_name: 'Курс «ElevenLabs: клон голосу»',
+      vs_i2_sub: 'Запис зразків, точне налаштування тембру, 29 мов',
+      vs_i3_name: 'Курс «Adobe Podcast: студійний звук»',
+      vs_i3_sub: 'Шумодав, де-есер, експорт для соцмереж',
+      vs_i4_name: 'Pro-чек-лист на 200+ кроків',
+      vs_i4_sub: 'Розширена версія — усі налаштування й кейси',
+      vs_i5_name: 'Особиста підтримка у Telegram',
+      vs_i5_sub: 'Прямий канал з автором — відповім на будь-яке питання',
+      vs_i6_name: 'Доступ назавжди + усі оновлення',
+      vs_i6_sub: 'Нові уроки виходять — ти отримуєш автоматично',
+      vs_total_label: 'Реальна вартість:',
+      vs_today_label: 'Сьогодні:',
+      vs_save: 'Ти економиш $411 — 89% знижка',
+      vs_cta: 'Забрати весь пакет — $49 →',
+      gua_label: '100% ПОВЕРНЕННЯ · 30 ДНІВ',
+      gua_title: 'Не спрацює — <span class="gradient-text">поверну до копійки</span>.<br>Без форми повернення. Без питань.',
+      gua_desc: 'Якщо протягом 30 днів ти вирішиш, що курс тобі не підійшов — напиши автору в Telegram «<strong>поверни</strong>». Того ж дня гроші повернуться на картку. Без анкет, без «спробуй ще», без капкану. Весь ризик на нас.',
+      gua_author: 'Гарантую особисто — Фаррух Рахімов, автор курсу · <strong>@handy_dad</strong>',
       lm_badge: 'БЕЗКОШТОВНО',
       lm_title: 'Забери <span class="gradient-text">покроковий чек-лист</span> зі створення AI-аватара',
       lm_desc: '200+ конкретних кроків: від реєстрації в HeyGen до публікації першого відео. Той самий чек-лист, що ми даємо учням курсу — забирай без оплати.',
@@ -3580,7 +3916,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       lm_fineprint: 'Без реєстрації. Без email. Відкривається однією кнопкою.',
       transform_label: 'Трансформація',
       transform_title: 'Три навички за ціною однієї. Результат — за один вечір.',
-      transform_desc: 'AI-аватари + клон голосу + студійний звук. Три курси + бонуси окремо коштують $235. У нас — все в одному за $49.',
+      transform_desc: 'AI-аватари + клон голосу + студійний звук. Три курси + бонуси окремо коштують $460. У нас — все в одному за $49.',
       transform_c1_title: 'Немає камери — не проблема',
       transform_c1_text: 'Одне фото обличчя — і AI створює відео, де ти говориш, жестикулюєш і дивишся в камеру.',
       transform_c2_title: 'Говори будь-якою мовою',
@@ -3644,7 +3980,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       // Bonuses
       bonus_label: 'Що всередині',
       bonus_title: 'Все, що потрібно для AI-відео — в одному пакеті',
-      bonus_desc: 'Окремо все коштує $235. Ти отримуєш назавжди за $49.',
+      bonus_desc: 'Окремо все коштує $460. Ти отримуєш назавжди за $49.',
       bonus_col_what: 'Що входить',
       bonus_col_value: 'Цінність',
       bonus_1: '&#x1F3AC; Відеоурок 1: Створення аватара в HeyGen',
@@ -3689,7 +4025,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
       // Pricing
       pricing_label: 'Порівняй сам',
       pricing_title: 'Один раз заплати — використовуй назавжди',
-      pricing_desc: '3 курси + 3 бонуси + особиста підтримка. Окремо $235. Разом — $49 назавжди.',
+      pricing_desc: '3 курси + 3 бонуси + особиста підтримка. Окремо $460. Разом — $49 назавжди.',
       price_f1: '3 відеоуроки — від фото до готового відео',
       price_f2: 'Клонування голосу за 30 секунд (29 мов)',
       price_f3: '3 бонуси вартістю $108 (шаблони, скрипти, промпти)',
@@ -3726,7 +4062,7 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
 
       // Exit popup
       exit_title: 'Вже йдеш?',
-      exit_text: '3 курси + 3 бонуси + підтримка за $49 замість $235. HeyGen + ElevenLabs + Adobe Podcast. Гарантія 30 днів.',
+      exit_text: '3 курси + 3 бонуси + підтримка за $49 замість $460. HeyGen + ElevenLabs + Adobe Podcast. Гарантія 30 днів.',
       exit_cta: 'Забрати курс — $49 &rarr;',
 
       // Sticky
@@ -3739,9 +4075,9 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
 
       // Meta
       meta_title: 'AI Avatar Course — створи аватар, що говорить, за 1 вечір',
-      meta_desc: '3 курси в 1: HeyGen + ElevenLabs + Adobe Podcast. Створи AI-аватар, клонуй голос, студійний звук — за $49 замість $235. Гарантія 30 днів.',
+      meta_desc: '3 курси в 1: HeyGen + ElevenLabs + Adobe Podcast. Створи AI-аватар, клонуй голос, студійний звук — за $49 замість $460. Гарантія 30 днів.',
       og_title: '3 курси в 1 за $49 — AI-аватар + голос + звук',
-      og_desc: 'HeyGen + ElevenLabs + Adobe Podcast. Окремо $235. У нас все разом за $49. 30-денна гарантія.'
+      og_desc: 'HeyGen + ElevenLabs + Adobe Podcast. Окремо $460. У нас все разом за $49. 30-денна гарантія.'
     }
   };
 

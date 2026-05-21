@@ -1,9 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /index-11.html
-Disallow: /index-11-v2.html
-Disallow: /index-19.html
-Disallow: /index_backup.html
-Disallow: /success-11.html
 
 Sitemap: https://mybotbestagent-maker.github.io/ai-avatar-course/sitemap.xml

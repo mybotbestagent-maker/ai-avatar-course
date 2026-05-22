@@ -2663,8 +2663,8 @@
   <div class="container" style="text-align:center;max-width:640px;">
     <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:16px;" data-i18n="demo_title">Смотри как это работает</p>
     <div style="border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--glow-indigo);position:relative;">
-      <video id="demoVideo" autoplay muted loop playsinline webkit-playsinline preload="metadata" style="width:100%;display:block;" poster="hero.jpg">
-        <source src="demo.mp4" type="video/mp4">
+      <video id="demoVideo" autoplay muted loop playsinline webkit-playsinline preload="metadata" data-src-ru="demo.mp4" data-src-ua="demo-ua.mp4" style="width:100%;display:block;" poster="hero.jpg">
+        <source id="demoVideoSrc" src="demo.mp4" type="video/mp4">
       </video>
       <button id="unmuteBtn" data-i18n="unmute_btn" onclick="var v=document.getElementById('demoVideo');v.muted=!v.muted;var t=window.__i18n_translations,l=window.__i18n_lang||'ru';this.textContent=v.muted?(t&&t[l]&&t[l].unmute_btn||'Включити звук'):(t&&t[l]&&t[l].unmute_on||'Звук увімкнено');if(!v.muted)this.style.opacity='0.5';else this.style.opacity='1'" style="position:absolute;bottom:16px;left:16px;background:rgba(0,0,0,0.7);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:24px;padding:8px 16px;font-size:0.85rem;cursor:pointer;backdrop-filter:blur(8px);z-index:2;transition:opacity 0.3s;">Включить звук</button>
     </div>
@@ -3568,40 +3568,54 @@
   setTimeout(function(){ fbq('trackCustom','TimeOnPage',{seconds:30}); }, 30000);
   setTimeout(function(){ fbq('trackCustom','TimeOnPage',{seconds:60}); }, 60000);
 
-  // Demo video: ensure autoplay across iOS/Android/desktop.
-  // <video> already has autoplay+muted+playsinline+webkit-playsinline.
-  // We additionally retry .play() on visibility and on first user gesture,
-  // and try to unmute when the user has interacted with the page.
+  // Demo video: guaranteed autoplay when scrolled into view.
+  // <video> has autoplay+muted+playsinline+webkit-playsinline.
   var demoVideo = document.getElementById('demoVideo');
   if (demoVideo) {
     demoVideo.addEventListener('play', function() {
       fbq('trackCustom','VideoPlay',{video:'demo'});
     }, {once: true});
 
+    var playAttempts = 0;
     var tryPlay = function() {
+      if (!demoVideo.paused) return;
       try {
         var p = demoVideo.play();
-        if (p && p.catch) p.catch(function(){});
-      } catch (e) {}
+        if (p && p.catch) {
+          p.catch(function(){
+            // Retry a few times — iOS sometimes rejects the first call.
+            if (playAttempts++ < 5) setTimeout(tryPlay, 300);
+          });
+        }
+      } catch (e) {
+        if (playAttempts++ < 5) setTimeout(tryPlay, 300);
+      }
     };
 
-    // Kick play on the visibility moment (some browsers pause off-screen).
+    // Start/refresh playback whenever the video enters the viewport.
     if ('IntersectionObserver' in window) {
       var vObs = new IntersectionObserver(function(entries) {
         entries.forEach(function(e) {
-          if (e.isIntersecting) tryPlay();
+          if (e.isIntersecting) {
+            playAttempts = 0;
+            demoVideo.setAttribute('preload', 'auto');
+            // Make sure the source is loading before we play.
+            if (demoVideo.readyState < 2) { try { demoVideo.load(); } catch (e2) {} }
+            tryPlay();
+          }
         });
-      }, { threshold: 0.25 });
+      }, { threshold: 0.1, rootMargin: '150px 0px' });
       vObs.observe(demoVideo);
+    } else {
+      demoVideo.setAttribute('preload', 'auto');
+      tryPlay();
     }
 
-    // First user gesture (tap/scroll/click): try unmute + play.
+    // First user gesture anywhere on the page: try to unmute the video.
     var userGestureUnmuted = false;
     var onFirstGesture = function() {
       if (userGestureUnmuted) return;
       userGestureUnmuted = true;
-      // Try to unmute. iOS/Safari blocks programmatic unmute without a direct
-      // click on the video, but tap/scroll usually counts as user activation.
       try {
         demoVideo.muted = false;
         demoVideo.volume = 1.0;
@@ -4344,6 +4358,21 @@ document.querySelectorAll('.product-expand-card').forEach(function(card) {
     if (!t) return;
 
     window.__i18n_lang = lang;
+
+    // Swap demo video per language (RU = demo.mp4, UA = demo-ua.mp4)
+    var dv = document.getElementById('demoVideo');
+    var dvSrc = document.getElementById('demoVideoSrc');
+    if (dv && dvSrc) {
+      var wantSrc = dv.getAttribute('data-src-' + lang);
+      if (wantSrc && dvSrc.getAttribute('src') !== wantSrc) {
+        var wasMuted = dv.muted;
+        dvSrc.setAttribute('src', wantSrc);
+        try { dv.load(); } catch (e) {}
+        dv.muted = wasMuted;
+        var pp = dv.play();
+        if (pp && pp.catch) pp.catch(function(){});
+      }
+    }
 
     // Add fade class
     document.querySelectorAll('[data-i18n]').forEach(function(el) {

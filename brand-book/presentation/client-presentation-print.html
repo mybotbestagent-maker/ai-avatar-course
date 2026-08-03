@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gold Hands Painting — Client Presentation (Print/PDF)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: landscape; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Montserrat, sans-serif; background: #111; }
+    .page {
+      width: 11in; height: 8.5in;
+      page-break-after: always;
+      position: relative;
+      overflow: hidden;
+      padding: 0.55in 0.65in;
+      background: #f3f1ec;
+      color: #1a2744;
+    }
+    .page.dark { background: #0e1628; color: #fff; }
+    .bar { position: absolute; left: 0; right: 0; top: 0; height: 10px; background: #f15a24; }
+    .bar.b { top: auto; bottom: 0; background: #1a2744; }
+    .page.dark .bar.b { background: #f15a24; }
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #f15a24; margin-bottom: 10px; }
+    .page.dark .eyebrow { color: #ff6a33; }
+    h1 { font-size: 42px; font-weight: 800; line-height: 1.05; max-width: 14ch; }
+    h2 { font-size: 34px; font-weight: 800; margin-bottom: 12px; }
+    .lead { font-size: 16px; color: #5b6578; margin-top: 12px; max-width: 48ch; line-height: 1.4; }
+    .page.dark .lead { color: rgba(255,255,255,.75); }
+    .logo { width: 160px; margin-bottom: 16px; }
+    .grid { display: grid; gap: 12px; margin-top: 14px; }
+    .g2 { grid-template-columns: 1fr 1fr; }
+    .g3 { grid-template-columns: 1fr 1fr 1fr; }
+    .g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .g5 { grid-template-columns: repeat(5, 1fr); }
+    .card { background: #fff; border: 1px solid rgba(26,39,68,.1); border-radius: 14px; padding: 14px 16px; }
+    .page.dark .card { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.12); }
+    .card h3 { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+    .page.dark .card h3 { color: #ff6a33; }
+    .card p { font-size: 12px; line-height: 1.45; color: #5b6578; font-weight: 500; }
+    .page.dark .card p { color: rgba(255,255,255,.78); }
+    .phone { font-size: 36px; font-weight: 800; color: #ff6a33; margin-top: 14px; }
+    .meta { position: absolute; left: .65in; right: .65in; bottom: .28in; display: flex; justify-content: space-between; font-size: 10px; font-weight: 600; color: #5b6578; }
+    .page.dark .meta { color: rgba(255,255,255,.4); }
+  </style>
+</head>
+<body>
+  <section class="page dark"><div class="bar"></div>
+    <img class="logo" src="../logo/chosen/logo-transparent-master.png" />
+    <div class="eyebrow">Client presentation · Miami</div>
+    <h1>Your home, painted the right way.</h1>
+    <p class="lead">Interior & exterior painting with free written estimates, careful prep, and a finish built for Miami sun, salt air, and HOAs.</p>
+    <p class="phone">(786) 788-8714</p>
+    <p style="margin-top:8px;font-weight:700;">goldhandsmia.com</p>
+    <div class="meta"><span>Gold Hands Painting</span><span>1 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page"><div class="bar"></div>
+    <div class="eyebrow">Who we are</div><h2>Local Miami painters you can trust</h2>
+    <p class="lead">Gold Hands Painting — painting division of Gold Hands Miami. Insured crews across Miami-Dade & Broward.</p>
+    <div class="grid g4">
+      <div class="card"><h3>Free estimate</h3><p>Written & itemized — no pressure.</p></div>
+      <div class="card"><h3>Insured crews</h3><p>Background-checked painters.</p></div>
+      <div class="card"><h3>5-year warranty</h3><p>Transferable path on premium 2-coat.</p></div>
+      <div class="card"><h3>EN / ES / RU</h3><p>Project manager support.</p></div>
+    </div>
+    <div class="meta"><span>Gold Hands Painting</span><span>2 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page"><div class="bar"></div>
+    <div class="eyebrow">What we do</div><h2>Full painting services</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Interior</h3><p>Walls, ceilings, trim, doors. Accent walls & full-home. Condo/HOA COI. Daily cleanup. Typical 2–3 days.</p></div>
+      <div class="card"><h3>Exterior & stucco</h3><p>Stucco, siding, trim, fascia. Elastomeric / hurricane-ready. Pressure wash. Typical 3–5 days.</p></div>
+      <div class="card"><h3>Color consultation</h3><p>Colors that survive Miami sun, salt air, and HOA rules.</p></div>
+      <div class="card"><h3>Also available</h3><p>Popcorn removal, cabinet consults, punch-list touch-ups.</p></div>
+    </div>
+    <div class="meta"><span>Gold Hands Painting</span><span>3 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page dark"><div class="bar"></div>
+    <div class="eyebrow">How we work</div><h2>Clear process. No surprises.</h2>
+    <div class="grid g5">
+      <div class="card"><h3>1. Call</h3><p>Tell us the scope. We reply fast.</p></div>
+      <div class="card"><h3>2. Measure</h3><p>On-site walkthrough & notes.</p></div>
+      <div class="card"><h3>3. Quote</h3><p>Free written itemized price.</p></div>
+      <div class="card"><h3>4. Prep & paint</h3><p>Protect, repair, prime, coat.</p></div>
+      <div class="card"><h3>5. Walkthrough</h3><p>Final check + warranty docs.</p></div>
+    </div>
+    <div class="meta"><span>Gold Hands Painting</span><span>4 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page"><div class="bar"></div>
+    <div class="eyebrow">On the job</div><h2>What happens day by day</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Before we start</h3><p>Confirm scope, colors, schedule in writing. Typical start 48–72 hours. HOA/condo COI when required.</p></div>
+      <div class="card"><h3>On paint days</h3><p>Protect floors & furniture. Patch, cut clean edges. Primer + premium coats. Daily cleanup.</p></div>
+      <div class="card"><h3>Materials</h3><p>Quality systems for Florida humidity — value, premium, or hurricane elastomeric.</p></div>
+      <div class="card"><h3>Your PM</h3><p>One contact updates you. Support in English, Spanish, Russian.</p></div>
+    </div>
+    <div class="meta"><span>Gold Hands Painting</span><span>5 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page"><div class="bar"></div>
+    <div class="eyebrow">Prep</div><h2>Why our finish lasts</h2>
+    <p class="lead">The finish only looks good if prep is right.</p>
+    <div class="grid g3">
+      <div class="card"><h3>Protect</h3><p>Masking, drop cloths, plastic — floors, furniture, fixtures.</p></div>
+      <div class="card"><h3>Repair</h3><p>Patch holes, fix cracks, sand, caulk. Exterior wash when needed.</p></div>
+      <div class="card"><h3>Prime & coat</h3><p>Proper primer + clean premium coats with sharp lines.</p></div>
+    </div>
+    <div class="meta"><span>Gold Hands Painting</span><span>6 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page dark"><div class="bar"></div>
+    <div class="eyebrow">Pricing</div><h2>Clear price before we start</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Free written estimate</h3><p>On-site measure + itemized quote. Usually 24–48 hours.</p></div>
+      <div class="card"><h3>No surprise fees</h3><p>Agreed scope = agreed price. Changes only with your OK.</p></div>
+      <div class="card"><h3>AI budget preview</h3><p>See a rough range online, then free on-site quote confirms.</p></div>
+      <div class="card"><h3>Special</h3><p>$0.99/sq ft when painted area is over 3,000 sq ft (Standard materials).</p></div>
+    </div>
+    <div class="meta"><span>Gold Hands Painting</span><span>7 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page"><div class="bar"></div>
+    <div class="eyebrow">Protection</div><h2>Warranty & insurance</h2>
+    <div class="grid g2">
+      <div class="card"><h3>5-year transferable warranty path</h3><p>Application defects (peeling, blistering, flaking) and excessive fading on premium 2-coat with standard prep. Can transfer to a buyer. Not storm damage or substrate failure.</p></div>
+      <div class="card"><h3>Insured & bonded</h3><p>General Liability. Background-checked crews. COI for HOA/condo. We make workmanship right if something is off.</p></div>
+    </div>
+    <div class="meta"><span>Gold Hands Painting</span><span>8 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page"><div class="bar"></div>
+    <div class="eyebrow">Why Gold Hands</div><h2>Promises we keep</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Upfront pricing</h3><p>Price for agreed scope before we begin.</p></div>
+      <div class="card"><h3>Clean jobsite</h3><p>Protect your home and clean as we go.</p></div>
+      <div class="card"><h3>On-time updates</h3><p>Your PM keeps you informed.</p></div>
+      <div class="card"><h3>Make-right</h3><p>Not happy? We come back and fix it.</p></div>
+      <div class="card"><h3>Local</h3><p>Miami-Dade & Broward — 130+ ZIPs.</p></div>
+      <div class="card"><h3>Fast start</h3><p>Often within 48–72 hours.</p></div>
+    </div>
+    <div class="meta"><span>Gold Hands Painting</span><span>9 / 10</span></div><div class="bar b"></div>
+  </section>
+
+  <section class="page dark"><div class="bar"></div>
+    <img class="logo" src="../logo/chosen/logo-transparent-master.png" />
+    <div class="eyebrow">Next step</div>
+    <h1>Let’s paint your home.</h1>
+    <p class="lead">Free on-site written estimate. Clear scope. Clean finish.</p>
+    <p class="phone">(786) 788-8714</p>
+    <p style="margin-top:10px;font-weight:700;">goldhandsmia.com · @_gold_hands_ · Miami-Dade & Broward</p>
+    <div class="meta"><span>Rakhimov Enterprise LLC d/b/a Gold Hands Miami</span><span>10 / 10</span></div><div class="bar b"></div>
+  </section>
+</body>
+</html>

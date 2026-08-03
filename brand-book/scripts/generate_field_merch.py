@@ -336,6 +336,51 @@ def make_lawn_signs() -> None:
     c.drawImage(ImageReader(str(out)), 0, 0, width=18 * inch, height=24 * inch)
     c.save()
 
+    # AFTER painting — leave on lawn when job is finished
+    for name, iw, ih in (
+        ("lawn-sign-18x24-just-painted.png", 18, 24),
+        ("lawn-sign-12x18-just-painted.png", 12, 18),
+    ):
+        w, h = int(iw * dpi), int(ih * dpi)
+        im = Image.new("RGBA", (w, h), (*WHITE, 255))
+        d = ImageDraw.Draw(im)
+        top = int(1.15 * dpi)
+        bot = int(1.35 * dpi)
+        d.rectangle((0, 0, w, top), fill=ORANGE)
+        d.rectangle((0, h - bot, w, h), fill=NAVY)
+
+        head = font("Montserrat-Bold.ttf", int(0.36 * dpi if iw >= 18 else 0.3 * dpi))
+        bbox = d.textbbox((0, 0), "ANOTHER HOME BEAUTIFULLY PAINTED", font=head)
+        # may be long — use shorter for small
+        top_line = "JUST PAINTED BY" if iw < 18 else "ANOTHER HOME PAINTED BY"
+        bbox = d.textbbox((0, 0), top_line, font=head)
+        tw = bbox[2] - bbox[0]
+        d.text(((w - tw) // 2, int(0.38 * dpi)), top_line, font=head, fill=WHITE)
+
+        mark = fit_logo(logo, int(w * 0.58), int(w * 0.58))
+        im.alpha_composite(mark, ((w - mark.width) // 2, int(1.55 * dpi)))
+
+        title = font("Montserrat-ExtraBold.ttf", int(0.72 * dpi if iw >= 18 else 0.55 * dpi))
+        phone_f = font("Montserrat-Bold.ttf", int(0.62 * dpi if iw >= 18 else 0.48 * dpi))
+        sub = font("Montserrat-SemiBold.ttf", int(0.36 * dpi if iw >= 18 else 0.3 * dpi))
+        y = int(1.55 * dpi + mark.height + 0.2 * dpi)
+        center_text(d, "GOLD HANDS", y, title, NAVY, w)
+        center_text(d, "PAINTING", y + int(0.85 * dpi), title, ORANGE, w)
+        center_text(d, "Want yours done next?", y + int(1.85 * dpi), sub, MUTED, w)
+        center_text(d, PHONE, y + int(2.55 * dpi), phone_f, ORANGE, w)
+        center_text(d, WEB, y + int(3.4 * dpi), sub, NAVY, w)
+
+        foot = font("Montserrat-Bold.ttf", int(0.38 * dpi if iw >= 18 else 0.32 * dpi))
+        bbox = d.textbbox((0, 0), "Free Written Estimate", font=foot)
+        tw = bbox[2] - bbox[0]
+        d.text(((w - tw) // 2, h - int(0.85 * dpi)), "Free Written Estimate", font=foot, fill=WHITE)
+
+        out = PRINT / "lawn-signs" / name
+        save_rgb(im, out, dpi=dpi)
+        c = pdfcanvas.Canvas(str(out.with_suffix(".pdf")), pagesize=(iw * inch, ih * inch))
+        c.drawImage(ImageReader(str(out)), 0, 0, width=iw * inch, height=ih * inch)
+        c.save()
+
 
 def main() -> None:
     for sub in ("magnets", "tshirts", "flags", "lawn-signs"):

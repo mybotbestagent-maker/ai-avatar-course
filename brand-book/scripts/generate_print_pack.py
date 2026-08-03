@@ -31,7 +31,6 @@ MUTED = (75, 85, 104)
 PHONE = "(786) 788-8714"
 WEB = "goldhandsmia.com"
 IG = "@_gold_hands_"
-EMAIL = "handymangoldhands@gmail.com"
 BRAND = "Gold Hands Painting"
 AREA = "Miami-Dade & Broward"
 
@@ -223,7 +222,7 @@ def make_business_cards() -> None:
         ("CALL", PHONE),
         ("WEB", WEB),
         ("IG", IG),
-        ("EMAIL", EMAIL),
+        ("AREA", AREA),
     ):
         d.text((x0, y), lab, font=label, fill=ORANGE)
         d.text((x0 + int(0.7 * dpi), y - int(0.02 * dpi)), val, font=value, fill=NAVY)

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Gold Hands Painting — Sales Presentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Montserrat, system-ui, sans-serif; background: #111; }
+  .page {
+    width: 8.5in; height: 11in; margin: 0 auto 18px; background: #fff; color: #1a2744;
+    page-break-after: always; position: relative; overflow: hidden;
+  }
+  @media print { body { background:#fff; } .page { margin:0; } }
+  :root { --o:#f15a24; --oh:#ff6a33; --n:#1a2744; --nd:#0e1628; --m:#4b5568; --p:#f6f3ee; --l:#e6e1d8; }
+  .bar { height: 10px; background: var(--o); }
+  .pad { padding: 0.42in 0.48in 0.35in; height: calc(11in - 10px); display:flex; flex-direction:column; }
+  .logo { height: 58px; }
+  .eyebrow { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--o); margin-bottom: 6px; }
+  h1 { font-size: 32px; font-weight: 800; line-height: 1.05; letter-spacing: -.02em; }
+  h1 em { font-style: normal; color: var(--o); }
+  h2 { font-size: 24px; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+  h2 em { font-style: normal; color: var(--o); }
+  .lead { font-size: 14px; font-weight: 600; color: var(--n); line-height: 1.35; margin: 8px 0 12px; max-width: 6.4in; }
+  .sub { font-size: 12px; color: var(--m); font-weight: 500; line-height: 1.4; }
+  .shot { width: 100%; object-fit: cover; border-radius: 12px; display: block; }
+  .grid2 { display: grid; grid-template-columns: 1.05fr .95fr; gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .grid22 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .card {
+    background: var(--p); border: 1px solid var(--l); border-radius: 12px; padding: 12px 14px;
+  }
+  .card.hot { background: var(--nd); border: 0; color: #fff; }
+  .card.hot .t { color: var(--oh); font-size: 12px; font-weight: 800; margin-bottom: 4px; }
+  .card.hot p { color: rgba(255,255,255,.86); }
+  .t { font-size: 12px; font-weight: 800; color: var(--n); margin-bottom: 4px; }
+  p, li { font-size: 11.5px; line-height: 1.4; color: var(--m); font-weight: 500; }
+  .pain { background: #fff5f0; border-left: 4px solid var(--o); padding: 10px 12px; border-radius: 0 10px 10px 0; margin-bottom: 10px; }
+  .pain strong { color: var(--n); }
+  .step {
+    display: grid; grid-template-columns: 86px 1fr; gap: 10px; align-items: start;
+    background: #fff; border: 1px solid var(--l); border-radius: 12px; padding: 8px;
+  }
+  .step img { width: 86px; height: 70px; object-fit: cover; border-radius: 8px; }
+  .step .num { color: var(--o); font-weight: 800; font-size: 11px; }
+  .step .name { color: var(--n); font-weight: 800; font-size: 12px; margin: 1px 0 2px; }
+  .step .why { font-size: 10.5px; color: var(--m); line-height: 1.3; }
+  .money {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-top: 8px;
+  }
+  .money .b {
+    background: var(--p); border-radius: 11px; padding: 9px 7px; text-align: center; border: 1px solid var(--l);
+  }
+  .money .n {
+    width: 22px; height: 22px; border-radius: 50%; background: var(--o); color: #fff;
+    font-size: 10px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 4px;
+  }
+  .money strong { display:block; font-size: 10.5px; color: var(--n); font-weight: 800; margin-bottom: 2px; }
+  .money span { font-size: 9.5px; color: var(--m); line-height: 1.25; display:block; }
+  .offer {
+    background: linear-gradient(135deg, var(--nd), #243456); color: #fff; border-radius: 14px; padding: 14px 16px;
+  }
+  .offer .big { font-size: 26px; font-weight: 800; color: var(--oh); line-height: 1; }
+  .phone { font-size: 26px; font-weight: 800; color: var(--o); }
+  .cta {
+    display: inline-block; background: var(--o); color: #fff; font-weight: 800; font-size: 13px;
+    padding: 11px 18px; border-radius: 999px; margin-top: 8px;
+  }
+  .foot {
+    margin-top: auto; padding-top: 8px; border-top: 1px solid var(--l);
+    display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; color: var(--m);
+  }
+  .check { color: var(--o); font-weight: 800; margin-right: 4px; }
+  ul.sell { list-style: none; }
+  ul.sell li { margin-bottom: 6px; padding-left: 0; font-size: 12px; color: var(--n); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — HOOK / SELL -->
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <img class="logo" src="assets/logo.png" alt="Gold Hands Painting"/>
+      <div style="text-align:right;font-size:10px;font-weight:700;color:var(--m);">Miami-Dade & Broward<br/>(786) 788-8714</div>
+    </div>
+    <div class="eyebrow">Хватит рисковать на дешёвых малярах</div>
+    <h1>Ваш дом заслуживает покраску,<br/>которая держится под <em>солнцем Miami</em>.</h1>
+    <p class="lead">Дешёвые сметы часто без prep, через год лезут, плюс сюрпризы по цене. Gold Hands Painting — понятная цена, чистый процесс и финиш для Florida, с гарантией 5 лет на Kompozit.</p>
+    <div class="grid2">
+      <img class="shot" src="assets/photo-07-two-at-work.jpg" style="height:235px;" alt="Crew working"/>
+      <div>
+        <div class="pain">
+          <strong>Знакомо?</strong>
+          <p style="margin-top:4px;color:var(--m);">Грязная бригада. Кривой скотч. Фасад «мелется». Дома не пожить. После работы никто не отвечает.</p>
+        </div>
+        <div class="card hot">
+          <div class="t">Что вы получаете с нами</div>
+          <ul class="sell" style="margin-top:6px;">
+            <li><span class="check">✓</span> Онлайн-превью → замер на объекте</li>
+            <li><span class="check">✓</span> Цена в тот же день или вечером</li>
+            <li><span class="check">✓</span> Белая форма, дом защищён</li>
+            <li><span class="check">✓</span> Депозит бронирует дату — без пропаж</li>
+            <li><span class="check">✓</span> Приёмка до финальной оплаты</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Gold Hands Painting · Продающая презентация</span><span>1 / 5</span></div>
+  </div>
+</section>
+
+<!-- PAGE 2 — WHY US / PROOF -->
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div class="eyebrow">Почему выбирают Gold Hands</div>
+    <h2>Не просто краска. <em>Спокойствие.</em></h2>
+    <p class="sub" style="margin-bottom:10px;">Interior и exterior: дома, condo, HOA. Локальная бригада Miami. Поддержка EN и RU.</p>
+    <div class="grid3" style="margin-bottom:10px;">
+      <img class="shot" src="assets/photo-01-cover-furniture.jpg" style="height:120px;" alt=""/>
+      <img class="shot" src="assets/photo-04-rolling-back-logo.jpg" style="height:120px;" alt=""/>
+      <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:120px;" alt=""/>
+    </div>
+    <div class="grid22">
+      <div class="card">
+        <div class="t">1. Сначала видите — потом покупаете</div>
+        <p>Начните с <strong style="color:var(--n)">AI-превью дома</strong>. Цвет нравится? Приезжаем мерить. Без давления.</p>
+      </div>
+      <div class="card">
+        <div class="t">2. Честные деньги, без фокусов</div>
+        <p>Смета письменно. Депозит <strong style="color:var(--n)">30–50%</strong> (крупные <strong style="color:var(--n)">30/30/20</strong>). Остаток только после приёмки. Нал или безнал.</p>
+      </div>
+      <div class="card">
+        <div class="t">3. Prep обязателен</div>
+        <p>Защита, ремонт, скотч, грунт, краска, уборка. Поэтому держится — а дешёвые сметы красивы только на бумаге.</p>
+      </div>
+      <div class="card">
+        <div class="t">4. Гарантия, которая что-то значит</div>
+        <p><strong style="color:var(--n)">5 лет на Kompozit</strong> — системы под влажность Florida. Мы отвечаем за работу.</p>
+      </div>
+    </div>
+    <div class="offer" style="margin-top:10px;display:flex;gap:16px;align-items:center;">
+      <div style="flex:1;">
+        <div class="eyebrow" style="color:var(--oh);">Спецпредложение</div>
+        <div class="big">$0.99 / sq ft</div>
+        <p style="margin-top:4px;color:rgba(255,255,255,.85);">Если площадь покраски больше <strong>3,000 sq ft</strong>. Дом ~2,500 living sq ft всё равно может пройти по стенам. Спросите на объекте.</p>
+      </div>
+      <div style="text-align:center;min-width:150px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7);">ЗВОНИТЕ</div>
+        <div style="font-size:18px;font-weight:800;color:#fff;">(786) 788-8714</div>
+      </div>
+    </div>
+    <div class="foot"><span>Gold Hands Painting</span><span>2 / 5</span></div>
+  </div>
+</section>
+
+<!-- PAGE 3 — PROCESS (selling why each step) -->
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div class="eyebrow">Процесс Gold Hands</div>
+    <h2>Каждый шаг защищает <em>ваши деньги</em> и дом.</h2>
+    <p class="sub" style="margin-bottom:8px;">Это не «вода». Пропустите шаг — заплатите дважды потом.</p>
+    <div class="grid22">
+      <div class="step"><img src="assets/photo-01-cover-furniture.jpg" alt=""/><div><div class="num">ШАГ 1</div><div class="name">Закрываем всё</div><div class="why">Мебель в плёнке, полы под drop cloth — без пыли и брызг в жизни дома.</div></div></div>
+      <div class="step"><img src="assets/photo-03-repair.jpg" alt=""/><div><div class="num">ШАГ 2</div><div class="name">Сначала ремонт</div><div class="why">Трещины, отверстия, герметик. Краска на плохую стену = отслоение. Чиним до цвета.</div></div></div>
+      <div class="step"><img src="assets/photo-02-taping.jpg" alt=""/><div><div class="num">ШАГ 3</div><div class="name">Скотч для чистых линий</div><div class="why">Trim, плинтуса, края. Чистые линии делают дом «дорогим».</div></div></div>
+      <div class="step"><img src="assets/photo-04-rolling-back-logo.jpg" alt=""/><div><div class="num">ШАГ 4</div><div class="name">Грунт и покраска</div><div class="why">Грунт где нужно. Cut-in + валик системами Kompozit для Florida.</div></div></div>
+      <div class="step"><img src="assets/photo-08-cleanup.jpg" alt=""/><div><div class="num">ШАГ 5</div><div class="name">Уборка каждый день</div><div class="why">В доме можно жить. Не оставляем хаос «на потом».</div></div></div>
+      <div class="step"><img src="assets/photo-05-ladder-cutin.jpg" alt=""/><div><div class="num">ШАГ 6</div><div class="name">Приёмка с вами</div><div class="why">Обход по комнатам. Touch-up до финальной оплаты.</div></div></div>
+    </div>
+    <div class="card" style="margin-top:10px;background:var(--nd);border:0;">
+      <div class="t" style="color:var(--oh);">Обещание по дням</div>
+      <p style="color:rgba(255,255,255,.88);">С утра до вечера: prep и покраска правильно. Обычно interior <strong style="color:#fff;">2–3 дня</strong>. Exterior <strong style="color:#fff;">3–5 дней</strong> (погода).</p>
+    </div>
+    <div class="foot"><span>Gold Hands Painting</span><span>3 / 5</span></div>
+  </div>
+</section>
+
+<!-- PAGE 4 — MONEY JOURNEY + WARRANTY -->
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div class="eyebrow">Простой путь к «да»</div>
+    <h2>Как покупка у нас <em>реально</em> устроена</h2>
+    <div class="money">
+      <div class="b"><div class="n">1</div><strong>Онлайн</strong><span>AI-превью / фото. Смотрите, нравится ли.</span></div>
+      <div class="b"><div class="n">2</div><strong>Выезд</strong><span>Меряем на объекте. Без обязательств.</span></div>
+      <div class="b"><div class="n">3</div><strong>Цена</strong><span>В тот же день или вечером. Письменно и ясно.</span></div>
+      <div class="b"><div class="n">4</div><strong>Депозит</strong><span>30–50% бронирует бригаду и дату.</span></div>
+      <div class="b"><div class="n">5</div><strong>Готово</strong><span>Приёмка → финал. Крупные: 30/30/20.</span></div>
+    </div>
+    <div class="grid2" style="margin-top:12px;">
+      <div>
+        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:175px;margin-bottom:8px;" alt=""/>
+        <div class="card hot">
+          <div class="t">Гарантия 5 лет Kompozit</div>
+          <p>Работаем на <strong style="color:#fff;">Kompozit</strong> — для влажности Florida. Гарантия на системы, которые наносим. Если качество подвело — исправим.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:8px;">
+          <div class="t">Вы контролируете</div>
+          <p>Без сюрпризов. Допы только письменно с вашим ОК. Нал / безнал — гибко.</p>
+        </div>
+        <div class="card" style="margin-bottom:8px;">
+          <div class="t">AI-превью = меньше ошибок</div>
+          <p>Неправильный beige в 15:00 на Brickell рыжий. Смотрите цвет на доме до покраски.</p>
+        </div>
+        <div class="card">
+          <div class="t">Застрахованная бригада</div>
+          <p>Проверка. COI для HOA/condo. Белая форма с нашим лого — видно, кто в доме.</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Gold Hands Painting · партнёр Kompozit</span><span>4 / 5</span></div>
+  </div>
+</section>
+
+<!-- PAGE 5 — CLOSE -->
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div class="eyebrow">Следующие 60 секунд</div>
+    <h2>Хотите дом, который выглядит <em>дорого</em> — без стресса?</h2>
+    <p class="lead">Запишитесь на бесплатный замер сегодня. Понятная цифра в тот же день или вечером — старт часто через 48–72 часа после депозита.</p>
+    <div class="grid2">
+      <img class="shot" src="assets/photo-04-rolling-back-logo.jpg" style="height:230px;" alt=""/>
+      <div>
+        <div class="card hot" style="margin-bottom:10px;">
+          <div class="t">Сделайте сейчас</div>
+          <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0;">1. Позвоните / напишите<br/>2. Адрес или AI-превью<br/>3. Приезжаем и даём цену<br/>4. Депозит → красим</p>
+          <div class="phone" style="color:var(--oh);font-size:22px;">(786) 788-8714</div>
+          <p style="margin-top:4px;">goldhandsmia.com · @_gold_hands_</p>
+        </div>
+        <div class="card">
+          <div class="t">Спросите на выезде</div>
+          <p>• Подходит ли дом под $0.99/sq ft?<br/>• Interior, exterior или оба?<br/>• Какая система Kompozit нужна?<br/>• Можем стартовать на этой неделе?</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;">
+      <img class="logo" src="assets/logo.png" alt=""/>
+      <div class="cta">ПОЛУЧИТЬ СМЕТУ БЕСПЛАТНО →</div>
+    </div>
+    <div class="foot"><span>Gold Hands Painting · EN / RU</span><span>5 / 5</span></div>
+  </div>
+</section>
+
+</body>
+</html>

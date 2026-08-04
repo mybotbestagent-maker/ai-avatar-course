@@ -8,159 +8,135 @@
 <style>
   @page { size: letter; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Montserrat, system-ui, sans-serif; background: #0a0a0a; }
+  body { font-family: Montserrat, system-ui, sans-serif; background: #111; }
   .page {
-    width: 8.5in; height: 11in; margin: 0 auto 18px; background: #fff; color: #142033;
+    width: 8.5in; height: 11in; margin: 0 auto 14px; background: #fff; color: #142033;
     page-break-after: always; overflow: hidden; position: relative;
   }
   @media print { body { background:#fff; } .page { margin:0; } }
-  :root {
-    --o:#e85d04; --od:#c44900; --n:#142033; --nd:#0b1524; --m:#5a6578;
-    --p:#f4f1ec; --l:#e4ddd2; --g:#1f6b4a;
-  }
-  .top { height: 8px; background: linear-gradient(90deg, var(--od), var(--o)); }
-  .pad { padding: 0.3in 0.38in 0.22in; height: calc(11in - 8px); display:flex; flex-direction:column; }
-  .logo { height: 46px; }
-  .kicker { font-size: 9.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--o); }
-  h1 { font-size: 23px; font-weight: 800; line-height: 1.08; letter-spacing: -.025em; color: var(--n); margin: 4px 0 6px; }
-  h1 em { font-style:normal; color: var(--o); }
-  h2 { font-size: 16px; font-weight: 800; color: var(--n); margin-bottom: 6px; }
-  h2 em { font-style:normal; color: var(--o); }
-  .lead { font-size: 11.5px; font-weight: 600; color: var(--n); line-height: 1.35; max-width: 7.2in; margin-bottom: 8px; }
-  p, li { font-size: 10.5px; line-height: 1.32; color: var(--m); font-weight: 500; }
-  .shot { width:100%; object-fit:cover; border-radius: 8px; display:block; }
-  .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-  .grid22 { display:grid; grid-template-columns: 1.15fr .85fr; gap: 10px; }
-  .grid3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-  .grid4 { display:grid; grid-template-columns: repeat(4,1fr); gap: 7px; }
-  .box { background: var(--p); border: 1px solid var(--l); border-radius: 9px; padding: 9px 10px; }
-  .box.dark { background: var(--nd); border:0; color:#fff; }
-  .box.dark p, .box.dark li { color: rgba(255,255,255,.88); }
-  .ttl { font-size: 11.5px; font-weight: 800; color: var(--n); margin-bottom: 3px; }
-  .box.dark .ttl { color: #ffb347; }
-  .tag {
-    display:inline-block; font-size: 8.5px; font-weight: 800; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--o); background: #ffe8d6; padding: 2px 6px; border-radius: 4px; margin-bottom: 3px;
-  }
-  .box.dark .tag { background: rgba(232,93,4,.25); color:#ffb347; }
-  .trust { display:grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin: 7px 0 8px; }
-  .trust span {
-    background: var(--nd); color:#fff; text-align:center; font-size: 8.5px; font-weight: 700;
-    padding: 7px 4px; border-radius: 7px; line-height: 1.25;
-  }
-  .trust b { display:block; color:#ffb347; font-size: 9px; margin-bottom: 1px; }
-  .tier {
-    border: 1.5px solid var(--l); border-radius: 10px; padding: 10px; background:#fff; position:relative;
-  }
-  .tier.mid { border-color: var(--o); background: linear-gradient(180deg,#fff,#fff7f0); box-shadow: 0 0 0 1px rgba(232,93,4,.15); }
-  .tier .name { font-size: 13px; font-weight: 800; color: var(--n); }
-  .tier .rec {
-    position:absolute; top: -8px; right: 10px; background: var(--o); color:#fff;
-    font-size: 8px; font-weight: 800; padding: 2px 8px; border-radius: 999px; letter-spacing: .06em;
-  }
-  .tier ul { list-style:none; margin-top: 6px; }
-  .tier li { font-size: 10px; color: var(--m); margin-bottom: 3px; padding-left: 12px; position:relative; }
-  .tier li:before { content:"✓"; position:absolute; left:0; color: var(--o); font-weight:800; }
-  .step {
-    display:grid; grid-template-columns: 54px 1fr; gap: 7px; border:1px solid var(--l);
-    border-radius: 8px; padding: 6px; background:#fff;
-  }
-  .step img { width:54px; height:44px; object-fit:cover; border-radius:6px; }
+  :root { --o:#e85d04; --n:#142033; --nd:#0b1524; --m:#5a6578; --p:#f3efe8; --l:#ddd5c8; }
+  .bar { height: 7px; background: var(--o); }
+  .pad { padding: 0.22in 0.32in 0.42in; }
+  .logo { height: 44px; }
+  .k { font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--o); }
+  h1 { font-size: 22px; font-weight: 800; line-height: 1.05; letter-spacing: -.02em; margin: 3px 0 5px; }
+  h1 em, h2 em { font-style: normal; color: var(--o); }
+  h2 { font-size: 15px; font-weight: 800; margin: 0 0 6px; }
+  .lead { font-size: 11px; font-weight: 600; color: var(--n); line-height: 1.3; margin-bottom: 7px; }
+  p { font-size: 10px; line-height: 1.28; color: var(--m); font-weight: 500; }
+  .shot { width: 100%; object-fit: cover; border-radius: 7px; display: block; }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .g22 { display: grid; grid-template-columns: 1.2fr .8fr; gap: 7px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+  .g5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 5px; }
+  .g6 { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+  .b { background: var(--p); border: 1px solid var(--l); border-radius: 8px; padding: 8px 9px; }
+  .bd { background: var(--nd); border: 0; border-radius: 8px; padding: 9px 10px; color: #fff; }
+  .bd p { color: rgba(255,255,255,.9); }
+  .t { font-size: 11px; font-weight: 800; color: var(--n); margin-bottom: 2px; }
+  .bd .t { color: #ffb347; }
+  .tag { display:inline-block; font-size: 8px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--o); background: #ffe8d6; padding: 2px 6px; border-radius: 3px; margin-bottom: 3px; }
+  .bd .tag { background: rgba(232,93,4,.28); color: #ffb347; }
+  .trust span { background: var(--nd); color: #fff; text-align: center; font-size: 8px; font-weight: 700; padding: 8px 3px; border-radius: 6px; line-height: 1.2; display:block; }
+  .trust b { display:block; color:#ffb347; font-size: 8.5px; margin-bottom: 1px; }
+  .tier { border: 1.5px solid var(--l); border-radius: 8px; padding: 9px; background:#fff; position: relative; }
+  .tier.mid { border-color: var(--o); background: #fff8f2; }
+  .tier .name { font-size: 13px; font-weight: 800; }
+  .tier .rec { position:absolute; top:-7px; right:8px; background:var(--o); color:#fff; font-size:7.5px; font-weight:800; padding:2px 7px; border-radius:999px; }
+  .tier ul { list-style:none; margin-top:5px; }
+  .tier li { font-size: 9.5px; color: var(--m); margin-bottom: 2px; padding-left: 11px; position: relative; }
+  .tier li:before { content:"✓"; position:absolute; left:0; color:var(--o); font-weight:800; }
+  .step { display:grid; grid-template-columns: 62px 1fr; gap: 6px; border:1px solid var(--l); border-radius:7px; padding:5px; background:#fff; }
+  .step img { width:62px; height:52px; object-fit:cover; border-radius:5px; }
   .step .n { color:var(--o); font-weight:800; font-size:9px; }
   .step .nm { font-weight:800; font-size:10.5px; color:var(--n); }
-  .step .w { font-size:9.5px; color:var(--m); line-height:1.25; }
-  .cta {
-    display:inline-block; background: var(--o); color:#fff; font-weight:800; font-size:12px;
-    padding: 10px 16px; border-radius: 8px;
-  }
-  .phone { font-size: 20px; font-weight: 800; color: #ffb347; }
-  .foot {
-    margin-top:auto; padding-top: 5px; border-top: 1px solid var(--l);
-    display:flex; justify-content:space-between; font-size:8.5px; font-weight:700; color:var(--m);
-  }
-  .note { font-size: 9.5px; color: var(--m); font-weight: 600; }
+  .step .w { font-size:9px; color:var(--m); line-height:1.22; }
+  .cta { display:inline-block; background:var(--o); color:#fff; font-weight:800; font-size:12px; padding:10px 14px; border-radius:7px; }
+  .phone { font-size: 18px; font-weight: 800; color: #ffb347; }
+  .foot { position:absolute; left:.32in; right:.32in; bottom:.14in; border-top:1px solid var(--l); padding-top:4px; display:flex; justify-content:space-between; font-size:8px; font-weight:700; color:var(--m); }
+  .photos3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; }
 </style>
 </head>
 <body>
 
-<!-- PAGE 1 — WHO BUYS + WHY MIAMI + TRUST + COLOR -->
 <section class="page">
-  <div class="top"></div>
+  <div class="bar"></div>
   <div class="pad">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-      <img class="logo" src="assets/logo.png" alt="Gold Hands Painting"/>
-      <div style="text-align:right;font-size:10px;font-weight:700;color:var(--m);line-height:1.3;">
-        Miami-Dade & Broward<br/><span style="color:var(--n);font-size:12px;">(786) 788-8714</span>
-      </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+      <img class="logo" src="assets/logo.png" alt=""/>
+      <div style="text-align:right;font-size:9.5px;font-weight:700;color:var(--m);">Miami-Dade & Broward<br/><span style="color:var(--n);font-size:12px;">(786) 788-8714</span></div>
     </div>
+    <div class="k">Residential painting · Florida climate finish</div>
+    <h1>Your home. Miami sun & humidity.<br/>A paint job you can <em>defend</em> in 5 years.</h1>
+    <p class="lead">Homeowners don’t buy “a coat of paint.” They buy color confidence, a protected house, and a finish that survives UV, mildew, and humidity — with a written scope they can compare to any bid.</p>
 
-    <div class="kicker">Residential painting · Miami-Dade & Broward</div>
-    <h1>Your home. Florida climate.<br/>A paint job you can <em>defend</em> in 5 years.</h1>
-    <p class="lead">Homeowners don’t buy “a coat of paint.” They buy color confidence, a clean process, and a finish that survives Miami humidity, UV, and mildew — with a written scope they can compare to any bid.</p>
-
-    <div class="trust">
-      <span><b>INSURED</b>COI for HOA / condo</span>
+    <div class="g5 trust" style="margin-bottom:7px;">
+      <span><b>INSURED</b>COI for HOA/condo</span>
       <span><b>NAMED SYSTEMS</b>Kompozit · SW options</span>
       <span><b>ON-SITE PRICE</b>Same day / evening</span>
       <span><b>AI PREVIEW</b>See color first</span>
-      <span><b>5-YR WARRANTY</b>On systems we apply</span>
+      <span><b>5-YR WARRANTY</b>Systems we apply</span>
     </div>
 
-    <div class="grid22" style="margin-bottom:8px;">
-      <img class="shot" src="assets/photo-07-two-at-work.jpg" style="height:168px;" alt=""/>
-      <div class="box dark" style="display:flex;flex-direction:column;justify-content:center;">
+    <div class="photos3" style="margin-bottom:7px;">
+      <img class="shot" src="assets/photo-07-two-at-work.jpg" style="height:155px;" alt=""/>
+      <img class="shot" src="assets/photo-04-rolling-back-logo.jpg" style="height:155px;" alt=""/>
+      <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:155px;" alt=""/>
+    </div>
+
+    <div class="g22" style="margin-bottom:7px;">
+      <div class="bd">
         <div class="tag">Who we serve</div>
-        <div class="ttl" style="font-size:13px;margin-bottom:6px;">Houses · Condos · HOA</div>
-        <p style="font-size:11px;line-height:1.4;">Interior & exterior for owner-occupied homes, pre-sale refreshes, and boards that need COI + clean scheduling. Support in <strong style="color:#fff;">English & Russian</strong>.</p>
-        <p style="font-size:11px;line-height:1.4;margin-top:6px;"><strong style="color:#ffb347;">Miami problem we solve:</strong> cheap paint chalks and peels here. Prep + climate-rated systems are not optional.</p>
+        <div class="t" style="font-size:13px;">Houses · Condos · HOA · Interior & exterior</div>
+        <p style="margin-top:4px;">Owner-occupied refreshes, pre-sale painting, boards that need COI + clean scheduling. Support in <strong style="color:#fff;">English & Russian</strong>.</p>
+        <p style="margin-top:5px;"><strong style="color:#ffb347;">Miami problem:</strong> cheap paint chalks and peels here. Prep + climate-rated systems are not optional — that’s what you pay for.</p>
+      </div>
+      <div class="b">
+        <div class="t">Why people hire us (not the cheapest bid)</div>
+        <p style="margin-top:4px;color:var(--n);font-weight:600;line-height:1.4;">
+          ✓ Free AI preview — kill color regret<br/>
+          ✓ Free on-site measure — honest price<br/>
+          ✓ Free touch-ups on our work<br/>
+          ✓ White-uniform insured crew<br/>
+          ✓ Named paint systems — never “premium paint”<br/>
+          ✓ Walkthrough before final payment
+        </p>
       </div>
     </div>
 
-    <div class="grid3">
-      <div class="box">
-        <div class="tag">Color confidence</div>
-        <div class="ttl">See it before you buy</div>
-        <p>Most homeowners hesitate on color. We remove that risk with a <strong style="color:var(--n)">free AI preview on your house</strong> before you commit.</p>
-      </div>
-      <div class="box">
-        <div class="tag">On-site, not email</div>
-        <div class="ttl">We walk the job with you</div>
-        <p>We measure on-site and walk the scope with you — not a cold email quote you can’t trust.</p>
-      </div>
-      <div class="box">
-        <div class="tag">Clear choice</div>
-        <div class="ttl">Three packages, not one number</div>
-        <p>Standard / Pro / Premium shifts the talk from “cheapest?” to “which package fits?” — you stay in control.</p>
-      </div>
+    <div class="g3" style="margin-bottom:7px;">
+      <div class="b"><div class="tag">Color confidence</div><div class="t">See it before you buy</div><p>Free AI preview on <strong style="color:var(--n)">your</strong> house — same playbook PPG/SW use to remove color fear.</p></div>
+      <div class="b"><div class="tag">On-site, not email</div><div class="t">We walk the job with you</div><p>Behr PRO rule: present in person. We measure, scope, and price same day or evening.</p></div>
+      <div class="b"><div class="tag">Clear choice</div><div class="t">3 packages, not 1 number</div><p>Standard / Pro / Premium. You pick risk level. Pros use Good-Better-Best for a reason.</p></div>
     </div>
 
-    <div class="box dark" style="margin-top:8px;display:flex;gap:14px;align-items:center;">
+    <div class="bd" style="display:flex;gap:12px;align-items:center;">
       <div style="flex:1;">
-        <div class="ttl">Start free — decide after you see the look and the number</div>
-        <p>Free AI preview → free on-site measure → written price same day or evening. Deposit only when you book the crew.</p>
+        <div class="t">Start free — decide after the look and the number</div>
+        <p>AI preview → free visit → written package price. Deposit only when you book the crew.</p>
       </div>
-      <div style="text-align:center;min-width:140px;">
-        <div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.55);letter-spacing:.08em;">CALL / TEXT</div>
-        <div style="font-size:15px;font-weight:800;color:#fff;">(786) 788-8714</div>
+      <div style="text-align:center;min-width:135px;">
+        <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,.55);">CALL / TEXT</div>
+        <div style="font-size:15px;font-weight:800;">(786) 788-8714</div>
       </div>
     </div>
     <div class="foot"><span>Gold Hands Painting · goldhandsmia.com · @_gold_hands_</span><span>1 / 3</span></div>
   </div>
 </section>
 
-<!-- PAGE 2 — PRODUCTS / TIERS / FREE VALUE -->
 <section class="page">
-  <div class="top"></div>
+  <div class="bar"></div>
   <div class="pad">
-    <div class="kicker">What we sell · how pros package it</div>
+    <div class="k">What we sell · how pros package it</div>
     <h2>Three packages. Named systems. <em>You pick the risk level.</em></h2>
-    <p class="lead" style="margin-bottom:7px;">Sherwin-Williams and top contractors win by naming the product line and coats — never “premium paint.” Here’s ours for Miami homes.</p>
+    <p class="lead">Sherwin-Williams wins bids by naming the product line and coats — never “premium paint.” Same standard here for Miami homes.</p>
 
-    <div class="grid3" style="margin-bottom:8px;">
+    <div class="g3" style="margin-bottom:7px;">
       <div class="tier">
         <div class="tag">Good</div>
         <div class="name">Standard</div>
-        <p style="margin:3px 0 2px;font-weight:700;color:var(--n);font-size:10.5px;">Kompozit Standard</p>
+        <p style="font-weight:700;color:var(--n);font-size:10px;margin:2px 0 4px;">Kompozit Standard</p>
         <ul>
           <li>Solid refresh · 1–2 coats as scoped</li>
           <li>Core prep: cover, patch, tape</li>
@@ -172,18 +148,18 @@
         <div class="rec">MOST CHOOSE</div>
         <div class="tag">Better</div>
         <div class="name">Pro Climate</div>
-        <p style="margin:3px 0 2px;font-weight:700;color:var(--n);font-size:10.5px;">Kompozit Pro systems</p>
+        <p style="font-weight:700;color:var(--n);font-size:10px;margin:2px 0 4px;">Kompozit Pro systems</p>
         <ul>
-          <li>Full prep: repair, caulk, prime as needed</li>
+          <li>Full prep: repair, caulk, prime</li>
           <li>2-coat finish for Florida humidity</li>
           <li>Anti-fungal / mildew-minded systems</li>
-          <li>Best balance of look + durability</li>
+          <li>Best balance look + durability</li>
         </ul>
       </div>
       <div class="tier">
         <div class="tag">Best</div>
         <div class="name">Premium</div>
-        <p style="margin:3px 0 2px;font-weight:700;color:var(--n);font-size:10.5px;">Top Kompozit / SW-class</p>
+        <p style="font-weight:700;color:var(--n);font-size:10px;margin:2px 0 4px;">Top Kompozit / SW-class</p>
         <ul>
           <li>Max prep + trim / door accents</li>
           <li>Exterior & listing-ready finishes</li>
@@ -193,85 +169,91 @@
       </div>
     </div>
 
-    <div class="grid4" style="margin-bottom:8px;">
-      <div class="box"><div class="ttl">① Interior</div><p>Walls, ceilings, trim as scoped. Live-in-home friendly.</p></div>
-      <div class="box"><div class="ttl">② Exterior FL</div><p>Stucco / body + trim. Climate systems for sun & humidity.</p></div>
-      <div class="box"><div class="ttl">③ Full home</div><p>Interior + exterior one crew, one schedule.</p></div>
-      <div class="box"><div class="ttl">④ Condo / HOA</div><p>COI-ready. Color approval support.</p></div>
+    <div class="g4" style="margin-bottom:7px;">
+      <div class="b"><div class="t">① Interior</div><p>Walls, ceilings, trim. Live-in-home friendly.</p></div>
+      <div class="b"><div class="t">② Exterior FL</div><p>Stucco / body + trim. Sun & humidity systems.</p></div>
+      <div class="b"><div class="t">③ Full home</div><p>Interior + exterior. One crew, one schedule.</p></div>
+      <div class="b"><div class="t">④ Condo / HOA</div><p>COI-ready. Color approval support.</p></div>
     </div>
 
-    <div class="kicker" style="margin-bottom:5px;">What you get free before you pay</div>
-    <div class="grid3" style="margin-bottom:8px;">
-      <div class="box dark">
+    <div class="photos3" style="margin-bottom:7px;">
+      <img class="shot" src="assets/photo-01-cover-furniture.jpg" style="height:110px;" alt=""/>
+      <img class="shot" src="assets/photo-03-repair.jpg" style="height:110px;" alt=""/>
+      <img class="shot" src="assets/photo-02-taping.jpg" style="height:110px;" alt=""/>
+    </div>
+
+    <div class="k" style="margin-bottom:4px;">What you get FREE before you pay</div>
+    <div class="g3" style="margin-bottom:7px;">
+      <div class="bd">
         <div class="tag">Free · $150–$300 value</div>
-        <div class="ttl">On-site visit & measure</div>
-        <p><strong style="color:#fff;">Why:</strong> photos miss peeling, access, and real wall area. Visit = honest price.</p>
+        <div class="t">On-site visit & measure</div>
+        <p><strong style="color:#fff;">Why:</strong> photos miss peeling, access, real wall area. Visit = honest price — that’s why we come for free.</p>
       </div>
-      <div class="box dark">
+      <div class="bd">
         <div class="tag">Free · $100–$200 value</div>
-        <div class="ttl">AI preview + written estimate</div>
+        <div class="t">AI preview + written estimate</div>
         <p><strong style="color:#fff;">Why:</strong> kill color regret. Clear scope + number same day or evening.</p>
       </div>
-      <div class="box dark">
+      <div class="bd">
         <div class="tag">Free · $200–$500 value</div>
-        <div class="ttl">Touch-up warranty</div>
-        <p><strong style="color:#fff;">Why:</strong> if our work needs a fix after handoff — we come back.</p>
+        <div class="t">Touch-up warranty</div>
+        <p><strong style="color:#fff;">Why:</strong> cheap crews vanish after final pay. If our work needs a fix — we come back.</p>
       </div>
     </div>
 
-    <div class="grid22">
-      <div class="box">
-        <div class="ttl">What’s in every professional scope</div>
-        <p style="margin-top:4px;">Cover & protect · repairs/caulk · tape · prime as needed · named paint system · coats · daily cleanup · final walkthrough. Vague “paint the house” bids are how people get burned.</p>
+    <div class="g22">
+      <div class="b">
+        <div class="t">In every professional scope</div>
+        <p style="margin-top:3px;">Cover & protect · repairs/caulk · tape · prime as needed · <strong style="color:var(--n)">named</strong> paint system · coats · daily cleanup · final walkthrough. Vague “paint the house” bids are how people get burned.</p>
       </div>
-      <div class="box dark">
-        <div class="ttl">Limited volume offer</div>
-        <p style="font-size:18px;font-weight:800;color:#ffb347;margin:4px 0;">$0.99 / sq ft</p>
-        <p>Painted area over 3,000 sq ft · Standard materials. A ~2,500 living sq ft home can still qualify by wall area. Confirm on visit.</p>
+      <div class="bd">
+        <div class="t">Limited volume offer</div>
+        <p style="font-size:17px;font-weight:800;color:#ffb347;margin:3px 0;">$0.99 / sq ft</p>
+        <p>Painted area &gt; 3,000 · Standard materials. ~2,500 living sq ft home can still qualify by wall area. Confirm on visit.</p>
       </div>
     </div>
-    <div class="foot"><span>Named systems beat vague “premium paint” · Kompozit partner (Florida-made climate coatings)</span><span>2 / 3</span></div>
+    <div class="foot"><span>Named systems beat vague “premium paint” · Kompozit partner (Florida climate coatings)</span><span>2 / 3</span></div>
   </div>
 </section>
 
-<!-- PAGE 3 — PROCESS + MONEY + CLOSE -->
 <section class="page">
-  <div class="top"></div>
+  <div class="bar"></div>
   <div class="pad">
-    <div class="kicker">How the job runs · how money works</div>
-    <h2>Process that protects the home — <em>and your deposit.</em></h2>
+    <div class="k">How the job runs · how money works</div>
+    <h2>Every step protects the home — <em>and your deposit.</em></h2>
+    <p class="lead">Skip prep → peel. Skip measure → wrong price. Skip walkthrough → you pay for mistakes. We don’t skip.</p>
 
-    <div class="grid2" style="margin:6px 0 8px;">
-      <div class="step"><img src="assets/photo-01-cover-furniture.jpg" alt=""/><div><div class="n">1</div><div class="nm">Cover & protect</div><div class="w">Furniture / floors — live without dust storms.</div></div></div>
-      <div class="step"><img src="assets/photo-03-repair.jpg" alt=""/><div><div class="n">2</div><div class="nm">Repair first</div><div class="w">Cracks & holes before color — or paint peels.</div></div></div>
-      <div class="step"><img src="assets/photo-02-taping.jpg" alt=""/><div><div class="n">3</div><div class="nm">Tape sharp lines</div><div class="w">Trim edges that look expensive, not DIY.</div></div></div>
-      <div class="step"><img src="assets/photo-04-rolling-back-logo.jpg" alt=""/><div><div class="n">4</div><div class="nm">Prime + paint</div><div class="w">Named Kompozit / SW-class systems for FL.</div></div></div>
-      <div class="step"><img src="assets/photo-08-cleanup.jpg" alt=""/><div><div class="n">5</div><div class="nm">Clean every day</div><div class="w">No “we’ll clean later” in your house.</div></div></div>
-      <div class="step"><img src="assets/photo-05-ladder-cutin.jpg" alt=""/><div><div class="n">6</div><div class="nm">Inspect with you</div><div class="w">Touch-ups before final balance.</div></div></div>
+    <div class="g2" style="margin-bottom:7px;">
+      <div class="step"><img src="assets/photo-01-cover-furniture.jpg" alt=""/><div><div class="n">1 · COVER</div><div class="nm">Protect your stuff</div><div class="w">Furniture + floors — live without dust/splatters.</div></div></div>
+      <div class="step"><img src="assets/photo-03-repair.jpg" alt=""/><div><div class="n">2 · REPAIR</div><div class="nm">Fix before paint</div><div class="w">Cracks/holes first. Paint on bad walls peels.</div></div></div>
+      <div class="step"><img src="assets/photo-02-taping.jpg" alt=""/><div><div class="n">3 · TAPE</div><div class="nm">Sharp expensive lines</div><div class="w">Trim edges that look pro — not DIY.</div></div></div>
+      <div class="step"><img src="assets/photo-04-rolling-back-logo.jpg" alt=""/><div><div class="n">4 · PAINT</div><div class="nm">Prime + named system</div><div class="w">Kompozit / SW-class for Florida humidity.</div></div></div>
+      <div class="step"><img src="assets/photo-08-cleanup.jpg" alt=""/><div><div class="n">5 · CLEAN</div><div class="nm">Daily cleanup</div><div class="w">No “we’ll clean later” mess in your house.</div></div></div>
+      <div class="step"><img src="assets/photo-05-ladder-cutin.jpg" alt=""/><div><div class="n">6 · INSPECT</div><div class="nm">Walkthrough with you</div><div class="w">Touch-ups before final balance. You approve.</div></div></div>
     </div>
 
-    <div class="grid22" style="margin-bottom:8px;">
+    <div class="g22" style="margin-bottom:7px;">
       <div>
-        <div class="grid4" style="margin-bottom:7px;">
-          <div class="box"><div class="ttl">1. Preview</div><p>AI / photos free</p></div>
-          <div class="box"><div class="ttl">2. Visit</div><p>Measure free</p></div>
-          <div class="box"><div class="ttl">3. Book</div><p>Deposit 30–50%<br/>Big: 30/30/20</p></div>
-          <div class="box"><div class="ttl">4. Done</div><p>Walkthrough → final<br/>Cash / cashless</p></div>
+        <div class="g4" style="margin-bottom:6px;">
+          <div class="b"><div class="t">1. Preview</div><p>AI / photos free</p></div>
+          <div class="b"><div class="t">2. Visit</div><p>Measure free</p></div>
+          <div class="b"><div class="t">3. Book</div><p>Deposit 30–50%<br/>Big: 30/30/20</p></div>
+          <div class="b"><div class="t">4. Done</div><p>Walkthrough → final<br/>Cash / cashless</p></div>
         </div>
-        <div class="box" style="margin-bottom:7px;">
-          <div class="ttl">5-year warranty on systems we apply</div>
-          <p>Kompozit climate coatings — anti-fungal positioning for Florida humidity. If workmanship fails, we make it right. Typical interior <strong style="color:var(--n)">2–3 days</strong> · exterior <strong style="color:var(--n)">3–5 days</strong>.</p>
+        <div class="b" style="margin-bottom:6px;">
+          <div class="t">5-year warranty on systems we apply</div>
+          <p>Kompozit climate coatings — anti-fungal for Florida humidity. If workmanship fails, we make it right. Interior usually <strong style="color:var(--n)">2–3 days</strong> · exterior <strong style="color:var(--n)">3–5 days</strong>.</p>
         </div>
-        <div class="box" style="background:#fff4ea;border-color:#f0c4a0;">
-          <div class="ttl">Looking is free. Booking is a choice.</div>
-          <p>No deposit to visit or get a number. Deposit reserves materials & your start window — final tied to acceptance.</p>
+        <div class="b" style="background:#fff4ea;border-color:#f0c4a0;">
+          <div class="t">Looking is free. Booking is a choice.</div>
+          <p>No deposit to visit or get a number. Deposit reserves materials & start window — final tied to acceptance after walkthrough.</p>
         </div>
       </div>
       <div>
-        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:112px;margin-bottom:7px;" alt=""/>
-        <div class="box dark">
-          <div class="ttl">Next step</div>
-          <p style="font-size:12px;color:#fff;font-weight:600;line-height:1.45;margin:5px 0;">
+        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:145px;margin-bottom:6px;" alt=""/>
+        <div class="bd">
+          <div class="t">Do this now</div>
+          <p style="font-size:11.5px;color:#fff;font-weight:600;line-height:1.4;margin:5px 0;">
             1. Call / text<br/>
             2. Send address or AI preview<br/>
             3. Free visit + written package price<br/>
@@ -281,6 +263,12 @@
           <p style="margin-top:3px;">goldhandsmia.com · @_gold_hands_</p>
         </div>
       </div>
+    </div>
+
+    <div class="g3" style="margin-bottom:8px;">
+      <img class="shot" src="assets/photo-07-two-at-work.jpg" style="height:95px;" alt=""/>
+      <img class="shot" src="assets/photo-08-cleanup.jpg" style="height:95px;" alt=""/>
+      <img class="shot" src="assets/photo-05-ladder-cutin.jpg" style="height:95px;" alt=""/>
     </div>
 
     <div style="display:flex;justify-content:space-between;align-items:center;">

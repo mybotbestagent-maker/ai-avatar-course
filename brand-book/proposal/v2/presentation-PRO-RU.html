@@ -12,11 +12,17 @@
   .page {
     width: 8.5in; height: 11in; margin: 0 auto 14px; background: #fff; color: #142033;
     page-break-after: always; overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
   }
   @media print { body { background:#fff; } .page { margin:0; } }
   :root { --o:#e85d04; --n:#142033; --nd:#0b1524; --m:#5a6578; --p:#f3efe8; --l:#ddd5c8; }
   .bar { height: 7px; background: var(--o); }
-  .pad { padding: 0.22in 0.32in 0.42in; }
+  .pad { padding: 0.18in 0.28in 0.38in; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .grow { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; }
+  .photos3 { flex: 1 1 auto; min-height: 150px; align-items: stretch; }
+  .photos3 .shot { height: 100% !important; min-height: 150px; }
+  .fillrow { flex: 1 1 auto; min-height: 100px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+  .fillrow .shot { height: 100% !important; min-height: 100px; }
   .logo { height: 44px; }
   .k { font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--o); }
   h1 { font-size: 21px; font-weight: 800; line-height: 1.05; letter-spacing: -.02em; margin: 3px 0 5px; }
@@ -62,6 +68,7 @@
 <section class="page">
   <div class="bar"></div>
   <div class="pad">
+<div class="grow">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
       <img class="logo" src="assets/logo.png" alt=""/>
       <div style="text-align:right;font-size:9.5px;font-weight:700;color:var(--m);">Miami-Dade & Broward<br/><span style="color:var(--n);font-size:12px;">(786) 788-8714</span></div>
@@ -79,9 +86,9 @@
     </div>
 
     <div class="photos3" style="margin-bottom:7px;">
-      <img class="shot" src="assets/photo-07-two-at-work.jpg" style="height:155px;" alt=""/>
-      <img class="shot" src="assets/photo-04-rolling-back-logo.jpg" style="height:155px;" alt=""/>
-      <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:155px;" alt=""/>
+      <img class="shot" src="assets/photo-07-two-at-work.jpg"  alt=""/>
+      <img class="shot" src="assets/photo-04-rolling-back-logo.jpg"  alt=""/>
+      <img class="shot" src="assets/photo-06-exterior-stucco.jpg"  alt=""/>
     </div>
 
     <div class="g22" style="margin-bottom:7px;">
@@ -120,13 +127,17 @@
         <div style="font-size:15px;font-weight:800;">(786) 788-8714</div>
       </div>
     </div>
-    <div class="foot"><span>Gold Hands Painting · goldhandsmia.com · @_gold_hands_</span><span>1 / 3</span></div>
+    
+</div>
+<div class="foot"><span>Gold Hands Painting · goldhandsmia.com · @_gold_hands_</span><span>1 / 3</span></div>
   </div>
+
 </section>
 
 <section class="page">
   <div class="bar"></div>
   <div class="pad">
+<div class="grow">
     <div class="k">Что продаём · как упаковывают профи</div>
     <h2>Три пакета. Названные системы. <em>Вы выбираете уровень риска.</em></h2>
     <p class="lead">Sherwin-Williams выигрывает, называя линейку и число слоёв — никогда не «premium paint». Тот же стандарт для домов Miami.</p>
@@ -176,9 +187,9 @@
     </div>
 
     <div class="photos3" style="margin-bottom:7px;">
-      <img class="shot" src="assets/photo-01-cover-furniture.jpg" style="height:110px;" alt=""/>
-      <img class="shot" src="assets/photo-03-repair.jpg" style="height:110px;" alt=""/>
-      <img class="shot" src="assets/photo-02-taping.jpg" style="height:110px;" alt=""/>
+      <img class="shot" src="assets/photo-01-cover-furniture.jpg"  alt=""/>
+      <img class="shot" src="assets/photo-03-repair.jpg"  alt=""/>
+      <img class="shot" src="assets/photo-02-taping.jpg"  alt=""/>
     </div>
 
     <div class="k" style="margin-bottom:4px;">Что бесплатно до оплаты</div>
@@ -211,13 +222,17 @@
         <p>Площадь покраски &gt; 3,000 · Standard. Дом ~2,500 living sq ft может пройти по стенам. Подтвердим на выезде.</p>
       </div>
     </div>
-    <div class="foot"><span>Названные системы сильнее «premium paint» · партнёр Kompozit</span><span>2 / 3</span></div>
+    
+</div>
+<div class="foot"><span>Названные системы сильнее «premium paint» · партнёр Kompozit</span><span>2 / 3</span></div>
   </div>
+
 </section>
 
 <section class="page">
   <div class="bar"></div>
   <div class="pad">
+<div class="grow">
     <div class="k">Как идёт работа · как идут деньги</div>
     <h2>Каждый шаг защищает дом — <em>и ваш депозит.</em></h2>
     <p class="lead">Без prep → отслоение. Без замера → левая цена. Без приёмки → платите за чужие ошибки. Мы не пропускаем.</p>
@@ -249,7 +264,7 @@
         </div>
       </div>
       <div>
-        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:145px;margin-bottom:6px;" alt=""/>
+        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="margin-bottom:6px;height:160px;" alt=""/>
         <div class="bd">
           <div class="t">Сделайте сейчас</div>
           <p style="font-size:11.5px;color:#fff;font-weight:600;line-height:1.4;margin:5px 0;">
@@ -264,18 +279,21 @@
       </div>
     </div>
 
-    <div class="g3" style="margin-bottom:8px;">
-      <img class="shot" src="assets/photo-07-two-at-work.jpg" style="height:95px;" alt=""/>
-      <img class="shot" src="assets/photo-08-cleanup.jpg" style="height:95px;" alt=""/>
-      <img class="shot" src="assets/photo-05-ladder-cutin.jpg" style="height:95px;" alt=""/>
+    <div class="fillrow">
+      <img class="shot" src="assets/photo-07-two-at-work.jpg" alt=""/>
+      <img class="shot" src="assets/photo-08-cleanup.jpg" alt=""/>
+      <img class="shot" src="assets/photo-05-ladder-cutin.jpg" alt=""/>
     </div>
 
     <div style="display:flex;justify-content:space-between;align-items:center;">
       <img class="logo" src="assets/logo.png" alt=""/>
       <div class="cta">ЗАПИСАТЬ БЕСПЛАТНЫЙ ВЫЕЗД →</div>
     </div>
-    <div class="foot"><span>Gold Hands Painting · EN / RU · Miami-Dade & Broward</span><span>3 / 3</span></div>
+    
+</div>
+<div class="foot"><span>Gold Hands Painting · EN / RU · Miami-Dade & Broward</span><span>3 / 3</span></div>
   </div>
+
 </section>
 
 </body>

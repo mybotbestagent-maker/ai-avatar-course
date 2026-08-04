@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gold Hands Painting — Client Proposal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: letter; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Montserrat, system-ui, sans-serif; background: #111; color: #1a2744; }
+    .page {
+      width: 8.5in; height: 11in; margin: 0 auto 16px; background: #fff;
+      page-break-after: always; position: relative; overflow: hidden;
+    }
+    @media print { body { background: #fff; } .page { margin: 0; box-shadow: none; } }
+
+    :root {
+      --orange: #f15a24; --navy: #1a2744; --navy2: #0e1628;
+      --paper: #f7f5f1; --muted: #5b6578; --line: #e8e4dc;
+    }
+
+    .corner {
+      position: absolute; width: 120px; height: 120px; background: var(--orange); z-index: 1;
+    }
+    .corner.tl { top: 0; left: 0; clip-path: polygon(0 0, 100% 0, 0 100%); }
+    .corner.br { bottom: 0; right: 0; background: var(--navy); clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+
+    .pad { padding: 0.55in 0.55in 0.5in; position: relative; z-index: 2; height: 100%; }
+
+    h1 { font-size: 28px; font-weight: 800; line-height: 1.1; }
+    h1 span { color: var(--orange); }
+    h2 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+    h2 em { font-style: normal; color: var(--orange); }
+    h3 { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+    p, li { font-size: 11.5px; line-height: 1.45; color: var(--muted); font-weight: 500; }
+    .small { font-size: 10px; color: var(--muted); }
+
+    .logo { height: 72px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .grid6 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .shot { width: 100%; object-fit: cover; border-radius: 10px; display: block; }
+    .shot.tall { height: 220px; }
+    .shot.med { height: 150px; }
+    .shot.sq { height: 105px; }
+    .shot.hero { height: 280px; }
+
+    .step {
+      display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: center;
+      background: var(--paper); border-radius: 10px; padding: 8px;
+    }
+    .step img { width: 92px; height: 72px; object-fit: cover; border-radius: 8px; }
+    .step strong { display: block; color: var(--navy); font-size: 12px; font-weight: 800; margin-bottom: 2px; }
+
+    .why {
+      display: grid; grid-template-columns: 36px 1fr; gap: 8px; align-items: start;
+      margin-bottom: 10px;
+    }
+    .badge {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--orange); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;
+    }
+
+    .card {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px;
+    }
+    .card.navy { background: var(--navy); color: #fff; border: 0; }
+    .card.navy p, .card.navy li { color: rgba(255,255,255,0.82); }
+    .card.navy h3 { color: #ff6a33; }
+
+    .flow {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 8px;
+    }
+    .flow .box {
+      background: var(--paper); border-radius: 10px; padding: 10px 8px; text-align: center; min-height: 92px;
+      border: 1px solid var(--line);
+    }
+    .flow .n { width: 24px; height: 24px; border-radius: 50%; background: var(--orange); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-bottom: 6px; }
+    .flow strong { display: block; font-size: 10.5px; color: var(--navy); font-weight: 800; line-height: 1.2; margin-bottom: 4px; }
+    .flow span { font-size: 9.5px; color: var(--muted); line-height: 1.25; display: block; }
+
+    .review {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px;
+    }
+    .stars { color: #f5b301; letter-spacing: 1px; font-size: 12px; margin-bottom: 4px; }
+    .cta {
+      display: inline-block; background: var(--orange); color: #fff; font-weight: 800; font-size: 13px;
+      padding: 10px 16px; border-radius: 999px; text-decoration: none; margin-top: 8px;
+    }
+    .phone { font-size: 26px; font-weight: 800; color: var(--orange); }
+    .sign-line { border-bottom: 1.5px solid var(--navy); height: 28px; margin-top: 6px; }
+    .foot {
+      position: absolute; left: 0.55in; right: 0.55in; bottom: 0.28in;
+      display: flex; justify-content: space-between; font-size: 9px; font-weight: 600; color: var(--muted);
+    }
+    table.price { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 11px; }
+    table.price th, table.price td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    table.price th { background: var(--navy); color: #fff; font-weight: 700; }
+    table.price td.blank { height: 28px; background: #fff; }
+    .tag {
+      display: inline-block; background: rgba(241,90,36,0.12); color: var(--orange);
+      font-weight: 700; font-size: 10px; padding: 4px 8px; border-radius: 999px; margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1 COVER -->
+<section class="page">
+  <div class="corner tl"></div><div class="corner br"></div>
+  <div class="pad">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <img class="logo" src="assets/logo.png" alt="Gold Hands Painting" />
+      <div style="text-align:right;">
+        <div class="tag">MIAMI-DADE & BROWARD</div>
+        <div class="small" style="margin-top:6px;font-weight:700;">Client Proposal · 2026</div>
+      </div>
+    </div>
+    <h1>We are <span>painting professionals</span></h1>
+    <p style="margin:8px 0 12px;max-width:5.8in;color:#1a2744;font-weight:600;font-size:13px;">
+      Interior & exterior house painting. Free written estimates. Careful prep. Clean finish built for Miami sun, salt air, and HOAs.
+    </p>
+    <img class="shot hero" src="assets/gh-team-branded.jpg" alt="Gold Hands team" />
+    <div class="grid3" style="margin-top:12px;">
+      <img class="shot med" src="assets/gh-work-cover.jpg" alt="Prep" />
+      <img class="shot med" src="assets/gh-work-paint.jpg" alt="Painting" />
+      <img class="shot med" src="assets/gh-work-exterior.jpg" alt="Exterior" />
+    </div>
+    <div style="margin-top:14px;display:flex;justify-content:space-between;align-items:end;">
+      <div>
+        <div class="phone">(786) 788-8714</div>
+        <div style="font-weight:700;font-size:12px;margin-top:2px;">goldhandsmia.com · @_gold_hands_</div>
+      </div>
+      <div class="small" style="text-align:right;max-width:2.8in;">Prepared for your home · Gold Hands Painting<br/>Rakhimov Enterprise LLC d/b/a Gold Hands Miami</div>
+    </div>
+  </div>
+  <div class="foot"><span>Gold Hands Painting</span><span>1 / 8</span></div>
+</section>
+
+<!-- PAGE 2 WHO + WORK IN PROGRESS -->
+<section class="page">
+  <div class="corner tl"></div><div class="corner br"></div>
+  <div class="pad">
+    <h2><em>Who</em> we are</h2>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--navy);font-weight:600;font-size:13px;margin-bottom:10px;">
+          Gold Hands Painting is the painting division of Gold Hands Miami — a local South Florida crew trusted for clean residential work across Miami-Dade & Broward.
+        </p>
+        <div class="card" style="margin-bottom:10px;">
+          <h3>On the market for homeowners who want it done right</h3>
+          <p>We don’t send random day labor. Our painters are background-checked, insured, and managed by a project manager who speaks <strong style="color:var(--navy)">EN / ES / RU</strong>.</p>
+        </div>
+        <div class="card navy">
+          <h3>What we do</h3>
+          <p>• Interior walls, ceilings, trim, doors<br/>
+             • Exterior stucco / siding / fascia<br/>
+             • Color consultation for Miami light & HOAs<br/>
+             • Prep, repairs, premium 2-coat systems<br/>
+             • AI home color preview before you decide</p>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">Work in progress</h3>
+        <div class="grid2">
+          <img class="shot sq" src="assets/gh-work-cover.jpg" alt="" />
+          <img class="shot sq" src="assets/gh-work-tape.jpg" alt="" />
+          <img class="shot sq" src="assets/gh-work-paint.jpg" alt="" />
+          <img class="shot sq" src="assets/gh-work-exterior.jpg" alt="" />
+          <img class="shot sq" src="assets/gh-work-walkthrough.jpg" alt="" />
+          <img class="shot sq" src="assets/gh-finish-detail.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="grid3" style="margin-top:14px;">
+      <div class="card"><h3>Free written estimate</h3><p>Itemized. No pressure. Usually within 24–48h.</p></div>
+      <div class="card"><h3>Insured & bonded</h3><p>General Liability. Background-checked crews.</p></div>
+      <div class="card"><h3>5-year warranty path</h3><p>Transferable on premium 2-coat work.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Gold Hands Painting</span><span>2 / 8</span></div>
+</section>
+
+<!-- PAGE 3 PROCESS (IK style) -->
+<section class="page">
+  <div class="corner tl"></div><div class="corner br"></div>
+  <div class="pad">
+    <div class="grid2" style="gap:18px;">
+      <div>
+        <h2><em>Our</em> painting process</h2>
+        <div class="grid6">
+          <div class="step"><img src="assets/gh-work-cover.jpg" alt=""/><div><strong>1. Cover your stuff</strong><p>Furniture with plastic. Floors with drop cloths.</p></div></div>
+          <div class="step"><img src="assets/process-02-repair.jpg" alt=""/><div><strong>2. Repairs</strong><p>Caulking gaps, patching cracks and holes.</p></div></div>
+          <div class="step"><img src="assets/gh-work-tape.jpg" alt=""/><div><strong>3. Taping</strong><p>Taping all trims for sharp, clean lines.</p></div></div>
+          <div class="step"><img src="assets/gh-work-paint.jpg" alt=""/><div><strong>4. Priming & painting</strong><p>Prime as needed. Cut in and roll walls/ceilings.</p></div></div>
+          <div class="step"><img src="assets/process-05-clean.jpg" alt=""/><div><strong>5. Cleaning</strong><p>Vacuuming and mopping — home left clean.</p></div></div>
+          <div class="step"><img src="assets/gh-work-walkthrough.jpg" alt=""/><div><strong>6. Inspection</strong><p>We inspect the job with you before final payment.</p></div></div>
+        </div>
+      </div>
+      <div>
+        <h2><em>Our</em> team</h2>
+        <img class="shot tall" src="assets/gh-team-branded.jpg" alt="Team" />
+        <h3 style="margin:12px 0 8px;">Why people choose us</h3>
+        <div class="why"><div class="badge">✓</div><div><h3>Background checks</h3><p>All crew members pass background checks.</p></div></div>
+        <div class="why"><div class="badge">✓</div><div><h3>Insurance</h3><p>Bonded & insured. COI for HOA/condo when needed.</p></div></div>
+        <div class="why"><div class="badge">✓</div><div><h3>Real employees</h3><p>Managed local crew — not a faceless app bidding war.</p></div></div>
+        <div class="review"><div class="stars">★★★★★</div><p>“Clean work, clear price, showed up when they said. Miami Beach condo — HOA paperwork handled.”</p><div class="small">— Client · Miami Beach</div></div>
+        <div class="review"><div class="stars">★★★★★</div><p>“Exterior stucco looked chalky. They prepped right and the color still looks true in the sun.”</p><div class="small">— Client · Coral Gables</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Gold Hands Painting</span><span>3 / 8</span></div>
+</section>
+
+<!-- PAGE 4 MONEY + FULL JOURNEY -->
+<section class="page">
+  <div class="corner tl"></div><div class="corner br"></div>
+  <div class="pad">
+    <h2><em>How</em> working with us works — start to finish</h2>
+    <p style="margin-bottom:12px;color:var(--navy);font-weight:600;">Clear steps. Clear money. No surprises.</p>
+    <div class="flow">
+      <div class="box"><div class="n">1</div><strong>Assessment</strong><span>Free on-site measure & scope walk</span></div>
+      <div class="box"><div class="n">2</div><strong>Written quote</strong><span>Itemized price — free, no pressure</span></div>
+      <div class="box"><div class="n">3</div><strong>Deposit</strong><span>Prepayment to lock schedule & materials</span></div>
+      <div class="box"><div class="n">4</div><strong>Work</strong><span>Prep → prime → paint → daily cleanup</span></div>
+      <div class="box"><div class="n">5</div><strong>Walkthrough</strong><span>Inspect together, punch list if needed</span></div>
+      <div class="box"><div class="n">6</div><strong>Final payment</strong><span>Balance due when you’re happy</span></div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px;">
+      <div class="card">
+        <h3>1–2 · Assessment & quote</h3>
+        <p>We walk every surface, note repairs, discuss colors, and send a <strong style="color:var(--navy)">written itemized estimate</strong>. Valid usually 30 days. Most estimates schedule within 24–48 hours.</p>
+      </div>
+      <div class="card">
+        <h3>3 · Prepayment (deposit)</h3>
+        <p>A deposit reserves your start date and covers material ordering. Typical structure for residential jobs:</p>
+        <p style="margin-top:6px;color:var(--navy);font-weight:700;">~30–50% deposit to start · balance on completion</p>
+        <p class="small" style="margin-top:6px;">Exact split is written on your quote for this project.</p>
+      </div>
+      <div class="card">
+        <h3>4 · Work days</h3>
+        <p>Your PM confirms arrival window. We protect the home, complete agreed scope, and clean daily so you can still live in the house. Typical interior: <strong style="color:var(--navy)">2–3 days</strong>. Exterior: <strong style="color:var(--navy)">3–5 days</strong> (weather windows).</p>
+      </div>
+      <div class="card">
+        <h3>5–6 · Completion & final payment</h3>
+        <p>We do a room-by-room walkthrough with you. Touch-ups fixed before final invoice. Balance due when the job is accepted. Warranty paperwork provided on premium 2-coat work.</p>
+      </div>
+    </div>
+
+    <div class="card navy" style="margin-top:14px;">
+      <h3>Payments we accept</h3>
+      <p>Cash · Card · Zelle · Venmo · Apple Pay · booking deposit when required. Receipts provided. Change orders only in writing — never a surprise add-on.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Gold Hands Painting</span><span>4 / 8</span></div>
+</section>
+
+<!-- PAGE 5 PROTECTION / CLEAN HOME -->
+<section class="page">
+  <div class="corner tl"></div><div class="corner br"></div>
+  <div class="pad">
+    <h2><em>We</em> protect your home while we paint</h2>
+    <div class="grid2" style="margin-bottom:12px;">
+      <img class="shot tall" src="assets/gh-work-cover.jpg" alt="" />
+      <img class="shot tall" src="assets/gh-work-tape.jpg" alt="" />
+    </div>
+    <div class="grid3">
+      <div class="card"><h3>Floors & furniture</h3><p>Drop cloths, plastic, careful masking — your belongings stay covered.</p></div>
+      <div class="card"><h3>Clean edges</h3><p>Trim taped, cut-ins sharp. No sloppy overspray on Miami finishes.</p></div>
+      <div class="card"><h3>Daily cleanup</h3><p>We leave the home livable every evening. Final clean before walkthrough.</p></div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h3>Built for South Florida</h3>
+      <p>Wrong beige looks orange at 3pm on Brickell. We help pick colors that survive bright light and salt air, and we flag HOA / Coral Gables rules before paint day. Exterior options include acrylic and hurricane-grade elastomeric systems.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Gold Hands Painting</span><span>5 / 8</span></div>
+</section>
+
+<!-- PAGE 6 WARRANTY + GUARANTEES -->
+<section class="page">
+  <div class="corner tl"></div><div class="corner br"></div>
+  <div class="pad">
+    <h2><em>Guarantees</em> that protect you</h2>
+    <div class="grid2">
+      <div>
+        <img class="shot tall" src="assets/gh-finish-detail.jpg" alt="" />
+        <div class="card navy" style="margin-top:12px;">
+          <h3>5-year transferable warranty path</h3>
+          <p>On premium 2-coat work with standard prep: peeling, blistering, flaking, and excessive fading. Remaining warranty can transfer to a buyer. Does not cover storm damage or substrate failure.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:10px;"><h3>Make-right promise</h3><p>Not happy with workmanship? Tell us — we come back and fix it.</p></div>
+        <div class="card" style="margin-bottom:10px;"><h3>Touch-up support</h3><p>After handoff, if something needs a quick touch-up from our work, call your PM — we take care of our paint jobs.</p></div>
+        <div class="card" style="margin-bottom:10px;"><h3>Insured crews</h3><p>General Liability. Background-checked. COI available for HOA / condo boards.</p></div>
+        <div class="card"><h3>No surprise fees</h3><p>Agreed scope = agreed price. Any extra work is a written change order with your OK first.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Gold Hands Painting</span><span>6 / 8</span></div>
+</section>
+
+<!-- PAGE 7 PROJECT SCOPE / PRICING SHEET -->
+<section class="page">
+  <div class="corner tl"></div><div class="corner br"></div>
+  <div class="pad">
+    <h2><em>Your</em> project proposal sheet</h2>
+    <p style="margin-bottom:10px;">Fill in during the visit — then leave a copy with the client.</p>
+    <div class="grid2" style="margin-bottom:10px;">
+      <div class="card"><h3>Client</h3><p>Name: _______________________________<br/>Address: _____________________________<br/>Phone: _______________________________</p></div>
+      <div class="card"><h3>Project type</h3><p>☐ Interior &nbsp; ☐ Exterior &nbsp; ☐ Both<br/>☐ Color consult &nbsp; ☐ Pressure wash<br/>Rooms / notes: _______________________</p></div>
+    </div>
+    <table class="price">
+      <tr><th style="width:45%">Item</th><th>Details</th><th style="width:18%">Amount</th></tr>
+      <tr><td>Surface prep / repairs</td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td>Interior painting</td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td>Exterior painting</td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td>Materials / paint system</td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td>Add-ons</td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td colspan="2" style="font-weight:800;color:var(--navy);">Estimated total</td><td class="blank"></td></tr>
+    </table>
+    <div class="grid2" style="margin-top:12px;">
+      <div class="card">
+        <h3>Schedule</h3>
+        <p>Proposed start: ____________ &nbsp; Days: _______<br/>Deposit due to book: ____________<br/>Balance due at walkthrough: ____________</p>
+      </div>
+      <div class="card">
+        <h3>Special / notes</h3>
+        <p>☐ $0.99/sq ft if area &gt; 3,000 (Standard)<br/>☐ AI color preview requested<br/>Notes: _______________________________</p>
+      </div>
+    </div>
+    <p class="small" style="margin-top:10px;">This sheet is an estimate worksheet. Final written quote confirms exact price after measure. Quote typically valid 30 days.</p>
+  </div>
+  <div class="foot"><span>Gold Hands Painting</span><span>7 / 8</span></div>
+</section>
+
+<!-- PAGE 8 SIGN + NEXT STEP -->
+<section class="page">
+  <div class="corner tl"></div><div class="corner br"></div>
+  <div class="pad">
+    <img class="logo" src="assets/logo.png" alt="" style="margin-bottom:10px;" />
+    <h2>Ready to <em>book</em> your paint date?</h2>
+    <p style="margin-bottom:12px;color:var(--navy);font-weight:600;">Next step: approve the written estimate → pay deposit → we lock your start window (often 48–72h).</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Client acceptance</h3>
+        <p>I approve Gold Hands Painting to proceed per the agreed scope and deposit terms discussed.</p>
+        <p style="margin-top:14px;">Signature</p><div class="sign-line"></div>
+        <p style="margin-top:12px;">Print name</p><div class="sign-line"></div>
+        <p style="margin-top:12px;">Date</p><div class="sign-line"></div>
+      </div>
+      <div class="card navy">
+        <h3>Gold Hands Painting</h3>
+        <p class="phone" style="font-size:22px;color:#ff6a33;">(786) 788-8714</p>
+        <p style="margin-top:8px;">goldhandsmia.com<br/>@_gold_hands_<br/>handymangoldhands@gmail.com</p>
+        <p style="margin-top:12px;">Rep signature</p><div class="sign-line" style="border-color:rgba(255,255,255,0.5);"></div>
+        <p style="margin-top:14px;">Miami-Dade & Broward<br/>EN / ES / RU project support</p>
+      </div>
+    </div>
+    <img class="shot med" src="assets/gh-work-walkthrough.jpg" alt="" style="margin-top:14px;height:180px;" />
+    <p style="margin-top:10px;font-weight:800;font-size:14px;color:var(--navy);">Thank you — let’s make your home look brand new.</p>
+  </div>
+  <div class="foot"><span>Rakhimov Enterprise LLC d/b/a Gold Hands Miami</span><span>8 / 8</span></div>
+</section>
+
+</body>
+</html>

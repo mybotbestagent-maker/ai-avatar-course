@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Gold Hands Painting — Презентация</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Montserrat, system-ui, sans-serif; background: #111; }
+  .page {
+    width: 8.5in; height: 11in; margin: 0 auto 14px; background: #fff; color: #142033;
+    page-break-after: always; overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
+  }
+  @media print { body { background:#fff; } .page { margin:0; } }
+  :root { --o:#e85d04; --n:#142033; --nd:#0b1524; --m:#5a6578; --p:#f3efe8; --l:#ddd5c8; }
+  .bar { height: 7px; background: var(--o); }
+  .pad { padding: 0.18in 0.28in 0.38in; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .grow { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; }
+  .photos3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; flex: 0 0 auto; }
+  .photos3 .shot { width: 100%; height: 148px !important; min-height: 0; object-fit: cover; object-position: center 25%; border-radius: 8px; }
+  .fillrow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; flex: 0 0 auto; margin: 6px 0; }
+  .fillrow .shot { width: 100%; height: 110px !important; min-height: 0; object-fit: cover; object-position: center 30%; border-radius: 8px; }
+  .hero2 { display: grid; grid-template-columns: 1.35fr 1fr; gap: 7px; margin-bottom: 7px; }
+  .hero2 > .shot { width: 100%; height: 210px; object-fit: cover; object-position: center 22%; border-radius: 8px; }
+  .hero2 > div .shot { width: 100%; object-fit: cover; object-position: center 25%; border-radius: 8px; }
+  .grow { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 6px; justify-content: flex-start; }
+  .logo { height: 44px; }
+  .k { font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--o); }
+  h1 { font-size: 21px; font-weight: 800; line-height: 1.05; letter-spacing: -.02em; margin: 3px 0 5px; }
+  h1 em, h2 em { font-style: normal; color: var(--o); }
+  h2 { font-size: 14.5px; font-weight: 800; margin: 0 0 6px; }
+  .lead { font-size: 11px; font-weight: 600; color: var(--n); line-height: 1.3; margin-bottom: 7px; }
+  p { font-size: 10px; line-height: 1.28; color: var(--m); font-weight: 500; }
+  .shot { width: 100%; object-fit: cover; border-radius: 7px; display: block; }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .g22 { display: grid; grid-template-columns: 1.2fr .8fr; gap: 7px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+  .g5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 5px; }
+  .b { background: var(--p); border: 1px solid var(--l); border-radius: 8px; padding: 8px 9px; }
+  .bd { background: var(--nd); border: 0; border-radius: 8px; padding: 9px 10px; color: #fff; }
+  .bd p { color: rgba(255,255,255,.9); }
+  .t { font-size: 11px; font-weight: 800; color: var(--n); margin-bottom: 2px; }
+  .bd .t { color: #ffb347; }
+  .tag { display:inline-block; font-size: 8px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--o); background: #ffe8d6; padding: 2px 6px; border-radius: 3px; margin-bottom: 3px; }
+  .bd .tag { background: rgba(232,93,4,.28); color: #ffb347; }
+  .trust span { background: var(--nd); color: #fff; text-align: center; font-size: 8px; font-weight: 700; padding: 8px 3px; border-radius: 6px; line-height: 1.2; display:block; }
+  .trust b { display:block; color:#ffb347; font-size: 8.5px; margin-bottom: 1px; }
+  .tier { border: 1.5px solid var(--l); border-radius: 8px; padding: 9px; background:#fff; position: relative; }
+  .tier.mid { border-color: var(--o); background: #fff8f2; }
+  .tier .name { font-size: 13px; font-weight: 800; }
+  .tier .rec { position:absolute; top:-7px; right:8px; background:var(--o); color:#fff; font-size:7.5px; font-weight:800; padding:2px 7px; border-radius:999px; }
+  .tier ul { list-style:none; margin-top:5px; }
+  .tier li { font-size: 9.5px; color: var(--m); margin-bottom: 2px; padding-left: 11px; position: relative; }
+  .tier li:before { content:"✓"; position:absolute; left:0; color:var(--o); font-weight:800; }
+  .step { display:grid; grid-template-columns: 62px 1fr; gap: 6px; border:1px solid var(--l); border-radius:7px; padding:5px; background:#fff; }
+  .step img { width:62px; height:52px; object-fit:cover; object-position:center 30%; border-radius:5px; }
+  .step .n { color:var(--o); font-weight:800; font-size:9px; }
+  .step .nm { font-weight:800; font-size:10.5px; color:var(--n); }
+  .step .w { font-size:9px; color:var(--m); line-height:1.22; }
+  .cta { display:inline-block; background:var(--o); color:#fff; font-weight:800; font-size:12px; padding:10px 14px; border-radius:7px; }
+  .phone { font-size: 18px; font-weight: 800; color: #ffb347; }
+  .foot { position:absolute; left:.32in; right:.32in; bottom:.14in; border-top:1px solid var(--l); padding-top:4px; display:flex; justify-content:space-between; font-size:8px; font-weight:700; color:var(--m); }
+  </style>
+</head>
+<body>
+
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+<div class="grow">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+      <img class="logo" src="assets/logo.png" alt=""/>
+      <div style="text-align:right;font-size:9.5px;font-weight:700;color:var(--m);">Miami-Dade & Broward<br/><span style="color:var(--n);font-size:12px;">(786) 788-8714</span></div>
+    </div>
+    <div class="k">Покраска жилья · финиш под климат Florida</div>
+    <h1>Ваш дом. Солнце и влажность Miami.<br/>Покраска, которую можно <em>защищать</em> через 5 лет.</h1>
+    <p class="lead">Клиент покупает не «слой краски». Он покупает уверенность в цвете, защиту дома и финиш под UV / плесень / влажность — плюс смету, которую можно сравнить с любой другой.</p>
+
+    <div class="g5 trust" style="margin-bottom:7px;">
+      <span><b>СТРАХОВКА</b>COI для HOA/condo</span>
+      <span><b>СИСТЕМЫ</b>Kompozit · SW options</span>
+      <span><b>ЦЕНА НА МЕСТЕ</b>Тот же день / вечер</span>
+      <span><b>AI-ПРЕВЬЮ</b>Сначала цвет</span>
+      <span><b>ГАРАНТИЯ 5 ЛЕТ</b>Наши системы</span>
+    </div>
+
+    <div class="hero2">
+      <img class="shot" src="assets/photo-07-two-at-work.jpg" alt="Crew at work"/>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <img class="shot" src="assets/photo-04-rolling-back-logo.jpg" style="height:101px;" alt="Interior paint"/>
+        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:101px;" alt="Exterior paint"/>
+      </div>
+    </div>
+
+    <div class="g22" style="margin-bottom:7px;">
+      <div class="bd">
+        <div class="tag">Кому продаём</div>
+        <div class="t" style="font-size:13px;">Дома · Condo · HOA · Interior & exterior</div>
+        <p style="margin-top:4px;">Обновление для владельцев, pre-sale, правления с COI. Поддержка <strong style="color:#fff;">EN и RU</strong>.</p>
+        <p style="margin-top:5px;"><strong style="color:#ffb347;">Проблема Miami:</strong> дешёвая краска мелется и лезет. Prep + климатические системы — обязательны. За это вы и платите.</p>
+      </div>
+      <div class="b">
+        <div class="t">Почему берут нас (не самую дешёвую смету)</div>
+        <p style="margin-top:4px;color:var(--n);font-weight:600;line-height:1.4;">
+          ✓ Бесплатное AI-превью — без ошибки цвета<br/>
+          ✓ Бесплатный замер — честная цена<br/>
+          ✓ Бесплатные touch-up по нашей работе<br/>
+          ✓ Белая форма, страховка<br/>
+          ✓ Названные системы — не «premium paint»<br/>
+          ✓ Приёмка до финальной оплаты
+        </p>
+      </div>
+    </div>
+
+    <div class="g3" style="margin-bottom:7px;">
+      <div class="b"><div class="tag">Уверенность в цвете</div><div class="t">Сначала видите — потом покупаете</div><p>Бесплатное AI-превью на <strong style="color:var(--n)">вашем</strong> доме — так PPG/SW снимают страх цвета.</p></div>
+      <div class="b"><div class="tag">На объекте, не email</div><div class="t">Проходим работу с вами</div><p>Правило Behr PRO: презентовать лично. Меряем, scope, цена в тот же день / вечером.</p></div>
+      <div class="b"><div class="tag">Понятный выбор</div><div class="t">3 пакета, не 1 цифра</div><p>Standard / Pro / Premium. Вы выбираете риск. Good-Better-Best у профи не просто так.</p></div>
+    </div>
+
+    <div class="bd" style="display:flex;gap:12px;align-items:center;">
+      <div style="flex:1;">
+        <div class="t">Начните бесплатно — решите после вида и цифры</div>
+        <p>AI-превью → бесплатный выезд → цена пакета письменно. Депозит только при бронировании бригады.</p>
+      </div>
+      <div style="text-align:center;min-width:135px;">
+        <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,.55);">ЗВОНОК / SMS</div>
+        <div style="font-size:15px;font-weight:800;">(786) 788-8714</div>
+      </div>
+    </div>
+    
+</div>
+<div class="foot"><span>Gold Hands Painting · goldhandsmia.com · @_gold_hands_</span><span>1 / 3</span></div>
+  </div>
+
+</section>
+
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+<div class="grow">
+    <div class="k">Что продаём · как упаковывают профи</div>
+    <h2>Три пакета. Названные системы. <em>Вы выбираете уровень риска.</em></h2>
+    <p class="lead">Sherwin-Williams выигрывает, называя линейку и число слоёв — никогда не «premium paint». Тот же стандарт для домов Miami.</p>
+
+    <div class="g3" style="margin-bottom:7px;">
+      <div class="tier">
+        <div class="tag">Good</div>
+        <div class="name">Standard</div>
+        <p style="font-weight:700;color:var(--n);font-size:10px;margin:2px 0 4px;">Kompozit Standard</p>
+        <ul>
+          <li>Обновление · 1–2 слоя по scope</li>
+          <li>Базовый prep: защита, патч, скотч</li>
+          <li>Interior / большие площади стен</li>
+          <li><strong style="color:var(--o)">$0.99/sq ft</strong> если покраска &gt; 3,000</li>
+        </ul>
+      </div>
+      <div class="tier mid">
+        <div class="rec">ЧАЩЕ ВЫБИРАЮТ</div>
+        <div class="tag">Better</div>
+        <div class="name">Pro Climate</div>
+        <p style="font-weight:700;color:var(--n);font-size:10px;margin:2px 0 4px;">Системы Kompozit Pro</p>
+        <ul>
+          <li>Полный prep: ремонт, caulk, грунт</li>
+          <li>2 слоя под влажность Florida</li>
+          <li>Anti-fungal / mildew системы</li>
+          <li>Баланс вида и срока службы</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tag">Best</div>
+        <div class="name">Premium</div>
+        <p style="font-weight:700;color:var(--n);font-size:10px;margin:2px 0 4px;">Топ Kompozit / SW-class</p>
+        <ul>
+          <li>Макс prep + trim / двери</li>
+          <li>Exterior и listing-ready</li>
+          <li>Макс долговечность / curb appeal</li>
+          <li>HOA / заметные фасады</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-bottom:7px;">
+      <div class="b"><div class="t">① Interior</div><p>Стены, потолки, trim. Можно жить дома.</p></div>
+      <div class="b"><div class="t">② Exterior FL</div><p>Stucco / body + trim. Под солнце и влажность.</p></div>
+      <div class="b"><div class="t">③ Весь дом</div><p>Interior + exterior. Одна бригада, один график.</p></div>
+      <div class="b"><div class="t">④ Condo / HOA</div><p>Готовы к COI. Помощь с цветом правления.</p></div>
+    </div>
+
+    <div class="photos3">
+      <img class="shot" src="assets/photo-01-cover-furniture.jpg" alt="Cover furniture"/>
+      <img class="shot" src="assets/photo-03-repair.jpg" alt="Repair"/>
+      <img class="shot" src="assets/photo-02-taping.jpg" alt="Taping"/>
+    </div>
+
+    <div class="k" style="margin-bottom:4px;">Что бесплатно до оплаты</div>
+    <div class="g3" style="margin-bottom:7px;">
+      <div class="bd">
+        <div class="tag">Бесплатно · $150–$300</div>
+        <div class="t">Выезд и замер</div>
+        <p><strong style="color:#fff;">Зачем:</strong> фото не видят peeling и реальную площадь. Выезд = честная цена — поэтому приезжаем бесплатно.</p>
+      </div>
+      <div class="bd">
+        <div class="tag">Бесплатно · $100–$200</div>
+        <div class="t">AI-превью + смета</div>
+        <p><strong style="color:#fff;">Зачем:</strong> без ошибки цвета. Scope + цифра в тот же день / вечером.</p>
+      </div>
+      <div class="bd">
+        <div class="tag">Бесплатно · $200–$500</div>
+        <div class="t">Touch-up гарантия</div>
+        <p><strong style="color:#fff;">Зачем:</strong> дешёвые бригады пропадают после оплаты. Нужен фикс нашей работы — приедем.</p>
+      </div>
+    </div>
+
+    <div class="g22">
+      <div class="b">
+        <div class="t">В каждом нормальном scope</div>
+        <p style="margin-top:3px;">Защита · ремонт/caulk · скотч · грунт · <strong style="color:var(--n)">названная</strong> система · слои · ежедневная уборка · приёмка. Размытое «покрасить дом» — как обманывают.</p>
+      </div>
+      <div class="bd">
+        <div class="t">Спецпредложение</div>
+        <p style="font-size:17px;font-weight:800;color:#ffb347;margin:3px 0;">$0.99 / sq ft</p>
+        <p>Площадь покраски &gt; 3,000 · Standard. Дом ~2,500 living sq ft может пройти по стенам. Подтвердим на выезде.</p>
+      </div>
+    </div>
+    
+</div>
+<div class="foot"><span>Названные системы сильнее «premium paint» · партнёр Kompozit</span><span>2 / 3</span></div>
+  </div>
+
+</section>
+
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+<div class="grow">
+    <div class="k">Как идёт работа · как идут деньги</div>
+    <h2>Каждый шаг защищает дом — <em>и ваш депозит.</em></h2>
+    <p class="lead">Без prep → отслоение. Без замера → левая цена. Без приёмки → платите за чужие ошибки. Мы не пропускаем.</p>
+
+    <div class="g2" style="margin-bottom:7px;">
+      <div class="step"><img src="assets/photo-01-cover-furniture.jpg" alt=""/><div><div class="n">1 · ЗАЩИТА</div><div class="nm">Закрываем всё</div><div class="w">Мебель + полы — жить без пыли и брызг.</div></div></div>
+      <div class="step"><img src="assets/photo-03-repair.jpg" alt=""/><div><div class="n">2 · РЕМОНТ</div><div class="nm">Чиним до краски</div><div class="w">Трещины сначала. Иначе отслоение.</div></div></div>
+      <div class="step"><img src="assets/photo-02-taping.jpg" alt=""/><div><div class="n">3 · СКОТЧ</div><div class="nm">Чистые линии</div><div class="w">Края выглядят дорого — не DIY.</div></div></div>
+      <div class="step"><img src="assets/photo-04-rolling-back-logo.jpg" alt=""/><div><div class="n">4 · КРАСКА</div><div class="nm">Грунт + система</div><div class="w">Kompozit / SW-class под влажность FL.</div></div></div>
+      <div class="step"><img src="assets/photo-08-cleanup.jpg" alt=""/><div><div class="n">5 · УБОРКА</div><div class="nm">Каждый день</div><div class="w">Без хаоса «на потом» в доме.</div></div></div>
+      <div class="step"><img src="assets/photo-05-ladder-cutin.jpg" alt=""/><div><div class="n">6 · ПРИЁМКА</div><div class="nm">Обход с вами</div><div class="w">Touch-up до финала. Сначала ваше ОК.</div></div></div>
+    </div>
+
+    <div class="g22" style="margin-bottom:7px;">
+      <div>
+        <div class="g4" style="margin-bottom:6px;">
+          <div class="b"><div class="t">1. Превью</div><p>AI / фото бесплатно</p></div>
+          <div class="b"><div class="t">2. Выезд</div><p>Замер бесплатно</p></div>
+          <div class="b"><div class="t">3. Бронь</div><p>Депозит 30–50%<br/>Крупные: 30/30/20</p></div>
+          <div class="b"><div class="t">4. Готово</div><p>Приёмка → финал<br/>Нал / безнал</p></div>
+        </div>
+        <div class="b" style="margin-bottom:6px;">
+          <div class="t">Гарантия 5 лет на системы, которые наносим</div>
+          <p>Kompozit — anti-fungal под влажность Florida. Если качество подвело — исправим. Interior обычно <strong style="color:var(--n)">2–3 дня</strong> · exterior <strong style="color:var(--n)">3–5 дней</strong>.</p>
+        </div>
+        <div class="b" style="background:#fff4ea;border-color:#f0c4a0;">
+          <div class="t">Смотреть бесплатно. Бронировать — выбор.</div>
+          <p>Депозит не нужен для выезда и цифры. Депозит бронирует материалы и старт — финал после приёмки.</p>
+        </div>
+      </div>
+      <div>
+        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="margin-bottom:6px;height:160px;" alt=""/>
+        <div class="bd">
+          <div class="t">Сделайте сейчас</div>
+          <p style="font-size:11.5px;color:#fff;font-weight:600;line-height:1.4;margin:5px 0;">
+            1. Звонок / SMS<br/>
+            2. Адрес или AI-превью<br/>
+            3. Бесплатный выезд + цена пакета<br/>
+            4. Выберите Standard / Pro / Premium
+          </p>
+          <div class="phone">(786) 788-8714</div>
+          <p style="margin-top:3px;">goldhandsmia.com · @_gold_hands_</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fillrow">
+      <img class="shot" src="assets/photo-07-two-at-work.jpg" alt=""/>
+      <img class="shot" src="assets/photo-08-cleanup.jpg" alt=""/>
+      <img class="shot" src="assets/photo-05-ladder-cutin.jpg" alt=""/>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <img class="logo" src="assets/logo.png" alt=""/>
+      <div class="cta">ЗАПИСАТЬ БЕСПЛАТНЫЙ ВЫЕЗД →</div>
+    </div>
+    
+</div>
+<div class="foot"><span>Gold Hands Painting · EN / RU · Miami-Dade & Broward</span><span>3 / 3</span></div>
+  </div>
+
+</section>
+
+</body>
+</html>

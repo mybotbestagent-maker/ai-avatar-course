@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Gold Hands Painting — Why Us (2 pages)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Montserrat, system-ui, sans-serif; background: #111; }
+  .page {
+    width: 8.5in; height: 11in; margin: 0 auto 16px; background: #fff; color: #1a2744;
+    page-break-after: always; overflow: hidden;
+  }
+  @media print { body { background:#fff; } .page { margin:0; } }
+  :root { --o:#f15a24; --oh:#ff6a33; --n:#1a2744; --nd:#0e1628; --m:#4b5568; --p:#f6f3ee; --l:#e6e1d8; --b:#1e5a9a; }
+  .bar { height: 10px; background: var(--o); }
+  .pad { padding: 0.32in 0.38in 0.24in; height: calc(11in - 10px); display:flex; flex-direction:column; }
+  .logo { height: 48px; }
+  .eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--o); margin-bottom: 4px; }
+  h1 { font-size: 24px; font-weight: 800; line-height: 1.08; letter-spacing: -.02em; }
+  h1 em, h2 em { font-style: normal; color: var(--o); }
+  h2 { font-size: 18px; font-weight: 800; line-height: 1.15; margin-bottom: 6px; }
+  .lead { font-size: 12px; font-weight: 600; color: var(--n); line-height: 1.35; margin: 5px 0 8px; }
+  .shot { width: 100%; object-fit: cover; border-radius: 9px; display: block; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .grid22 { display: grid; grid-template-columns: 1.05fr .95fr; gap: 10px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .card { background: var(--p); border: 1px solid var(--l); border-radius: 10px; padding: 9px 10px; }
+  .card.hot { background: var(--nd); border: 0; color: #fff; }
+  .card.hot .t { color: var(--oh); }
+  .t { font-size: 11.5px; font-weight: 800; color: var(--n); margin-bottom: 2px; }
+  .val { display:inline-block; font-size: 9px; font-weight: 800; color: var(--o); background:#fff0e8; padding: 2px 6px; border-radius: 999px; margin-bottom: 3px; }
+  .card.hot .val { background: rgba(241,90,36,.28); color: var(--oh); }
+  p { font-size: 10.5px; line-height: 1.32; color: var(--m); font-weight: 500; }
+  .card.hot p { color: rgba(255,255,255,.9); }
+  .why { font-size: 10px; color: var(--m); line-height: 1.28; margin-top: 2px; }
+  .why b { color: var(--n); }
+  .step {
+    display: grid; grid-template-columns: 58px 1fr; gap: 7px; align-items: start;
+    border: 1px solid var(--l); border-radius: 9px; padding: 6px; background:#fff;
+  }
+  .step img { width: 58px; height: 48px; object-fit: cover; border-radius: 6px; }
+  .step .num { color: var(--o); font-weight: 800; font-size: 9.5px; }
+  .step .name { color: var(--n); font-weight: 800; font-size: 11px; }
+  .offer-row { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 8px 0; }
+  .offer-box {
+    background: linear-gradient(180deg, #fff, #fff5f0); border: 2px solid var(--o); border-radius: 11px;
+    padding: 10px 9px; text-align: center;
+  }
+  .offer-box .save { background: var(--o); color:#fff; font-size: 10px; font-weight: 800; display:inline-block; padding: 3px 10px; border-radius: 999px; margin-bottom: 5px; }
+  .offer-box .ttl { font-size: 12px; font-weight: 800; color: var(--n); line-height: 1.2; margin-bottom: 3px; }
+  .offer-box .price { font-size: 10px; font-weight: 700; color: var(--o); }
+  .banner {
+    background: var(--o); color:#fff; text-align:center; font-weight:800; font-size:13px;
+    padding: 9px; border-radius: 10px; letter-spacing: .02em;
+  }
+  .cta { display:inline-block; background: var(--o); color:#fff; font-weight:800; font-size:12.5px; padding:10px 16px; border-radius:999px; }
+  .phone { font-size: 20px; font-weight: 800; color: var(--oh); }
+  .foot {
+    margin-top: auto; padding-top: 5px; border-top: 1px solid var(--l);
+    display:flex; justify-content:space-between; font-size:9px; font-weight:700; color:var(--m);
+  }
+  .trust { display:grid; grid-template-columns: repeat(4,1fr); gap:6px; margin-top:8px; }
+  .trust .b { background:var(--nd); color:#fff; border-radius:8px; padding:7px 6px; text-align:center; font-size:9.5px; font-weight:700; }
+  .trust .b span { display:block; color:var(--oh); font-size:9px; font-weight:800; margin-bottom:2px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: WHY US + FREE VALUE (Giraffe / IK style) -->
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+      <img class="logo" src="assets/logo.png" alt="Gold Hands Painting"/>
+      <div style="text-align:right;font-size:10px;font-weight:700;color:var(--m);">Miami-Dade & Broward<br/>(786) 788-8714</div>
+    </div>
+
+    <div class="banner" style="margin-bottom:8px;">WHY HOMEOWNERS CHOOSE GOLD HANDS — START FREE, DECIDE AFTER THE NUMBER</div>
+
+    <div class="grid22">
+      <img class="shot" src="assets/photo-07-two-at-work.jpg" style="height:175px;" alt=""/>
+      <div>
+        <div class="eyebrow">Why people choose us</div>
+        <h1 style="font-size:20px;margin-bottom:6px;">Not the cheapest bid.<br/><em>The safest yes.</em></h1>
+        <div class="card hot" style="padding:10px;">
+          <p style="font-size:11.5px;color:#fff;font-weight:600;line-height:1.45;">
+            ✓ Free visit & measure — we look before you pay<br/>
+            ✓ Free AI preview — see color on YOUR house<br/>
+            ✓ Free touch-up warranty on our work<br/>
+            ✓ Prep + daily cleanup — live in the house<br/>
+            ✓ 5-year Kompozit warranty (Florida humidity)<br/>
+            ✓ Insured crew · white uniforms · EN / RU
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:9px;">What you get FREE (real value — like the big painters)</div>
+    <div class="offer-row">
+      <div class="offer-box">
+        <div class="save">FREE</div>
+        <div class="ttl">On-site visit<br/>& measure</div>
+        <div class="price">$150–$300 value</div>
+        <p class="why" style="margin-top:4px;"><b>Why we do it:</b> photos lie. Real peeling, HOA, wall area → real price.</p>
+      </div>
+      <div class="offer-box">
+        <div class="save">FREE</div>
+        <div class="ttl">AI house preview<br/>+ written estimate</div>
+        <div class="price">$100–$200 value</div>
+        <p class="why" style="margin-top:4px;"><b>Why we do it:</b> no color regret. Clear number same day or evening.</p>
+      </div>
+      <div class="offer-box">
+        <div class="save">FREE</div>
+        <div class="ttl">Touch-up<br/>warranty</div>
+        <div class="price">$200–$500 value</div>
+        <p class="why" style="margin-top:4px;"><b>Why we do it:</b> if our work needs a fix — we come back. You sleep easy.</p>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div class="card">
+        <div class="t">Why free visit?</div>
+        <p>Online = interest. Visit = truth. We catch what a photo can’t — so you don’t overpay or under-scope.</p>
+      </div>
+      <div class="card">
+        <div class="t">Why free touch-ups?</div>
+        <p>Because cheap painters vanish after final pay. We stand behind the finish — that’s how you choose us again.</p>
+      </div>
+      <div class="card hot">
+        <div class="t">Limited offer</div>
+        <p style="font-size:16px;font-weight:800;color:var(--oh);margin:3px 0;">$0.99 / sq ft</p>
+        <p>Painted area &gt; 3,000 sq ft. Ask on the visit.</p>
+      </div>
+    </div>
+
+    <div class="trust">
+      <div class="b"><span>INSURED</span>COI for HOA / condo</div>
+      <div class="b"><span>CHECKED</span>Background-checked crew</div>
+      <div class="b"><span>LOCAL</span>Miami-Dade & Broward</div>
+      <div class="b"><span>WARRANTY</span>5 years Kompozit</div>
+    </div>
+    <div class="foot"><span>Gold Hands Painting · goldhandsmia.com</span><span>1 / 2</span></div>
+  </div>
+</section>
+
+<!-- PAGE 2: PROCESS WHY + MONEY + CLOSE -->
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div class="eyebrow">Our painting process — why each step exists</div>
+    <h2>Skip a step → you pay twice later. We don’t skip.</h2>
+
+    <div class="grid2" style="margin:6px 0 8px;">
+      <div class="step"><img src="assets/photo-01-cover-furniture.jpg" alt=""/><div><div class="num">1 · COVER</div><div class="name">Protect your stuff</div><p class="why"><b>Why:</b> furniture + floors covered — live without dust/splatters.</p></div></div>
+      <div class="step"><img src="assets/photo-03-repair.jpg" alt=""/><div><div class="num">2 · REPAIR</div><div class="name">Fix before paint</div><p class="why"><b>Why:</b> cracks/holes first. Paint on bad walls peels.</p></div></div>
+      <div class="step"><img src="assets/photo-02-taping.jpg" alt=""/><div><div class="num">3 · TAPE</div><div class="name">Sharp lines</div><p class="why"><b>Why:</b> clean edges = home looks expensive.</p></div></div>
+      <div class="step"><img src="assets/photo-04-rolling-back-logo.jpg" alt=""/><div><div class="num">4 · PAINT</div><div class="name">Prime + Kompozit</div><p class="why"><b>Why:</b> Florida humidity systems — not chalking paint.</p></div></div>
+      <div class="step"><img src="assets/photo-08-cleanup.jpg" alt=""/><div><div class="num">5 · CLEAN</div><div class="name">Daily cleanup</div><p class="why"><b>Why:</b> no “we’ll clean later” mess in your house.</p></div></div>
+      <div class="step"><img src="assets/photo-05-ladder-cutin.jpg" alt=""/><div><div class="num">6 · INSPECT</div><div class="name">Walkthrough with you</div><p class="why"><b>Why:</b> touch-ups before final pay. You approve first.</p></div></div>
+    </div>
+
+    <div class="grid22" style="margin-bottom:8px;">
+      <div>
+        <div class="eyebrow">Simple money path</div>
+        <div class="grid2" style="margin-bottom:8px;">
+          <div class="card"><div class="t">1. Free look</div><p>AI / photos → free visit</p></div>
+          <div class="card"><div class="t">2. Free price</div><p>Same day or evening</p></div>
+          <div class="card"><div class="t">3. Deposit</div><p>30–50% locks date<br/>Big jobs 30/30/20</p></div>
+          <div class="card"><div class="t">4. Final</div><p>After walkthrough<br/>Cash or cashless</p></div>
+        </div>
+        <div class="card" style="background:#fff5f0;border-color:#f7c2a8;">
+          <div class="t">Cancel / change mind before deposit</div>
+          <p>Looking is free. Deposit only when you’re ready to book the crew.</p>
+        </div>
+      </div>
+      <div>
+        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:118px;margin-bottom:8px;" alt=""/>
+        <div class="card hot">
+          <div class="t">Do this now</div>
+          <p style="font-size:12px;color:#fff;font-weight:600;line-height:1.45;margin:5px 0;">
+            1. Call / text<br/>
+            2. Send address or AI preview<br/>
+            3. Free visit + written price<br/>
+            4. Deposit only if you say yes
+          </p>
+          <div class="phone">(786) 788-8714</div>
+          <p style="margin-top:3px;">goldhandsmia.com · @_gold_hands_</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--m);">Interior usually 2–3 days · Exterior 3–5 days</div>
+        <div style="font-size:10px;color:var(--m);margin-top:2px;">Houses · Condos · HOA · Interior & exterior</div>
+      </div>
+      <div class="cta">BOOK FREE VISIT →</div>
+    </div>
+    <div class="foot"><span>Gold Hands Painting · EN / RU</span><span>2 / 2</span></div>
+  </div>
+</section>
+
+</body>
+</html>

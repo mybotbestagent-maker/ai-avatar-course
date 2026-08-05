@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Gold Hands Painting — Почему мы (2 стр.)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Montserrat, system-ui, sans-serif; background: #111; }
+  .page {
+    width: 8.5in; height: 11in; margin: 0 auto 16px; background: #fff; color: #1a2744;
+    page-break-after: always; overflow: hidden;
+  }
+  @media print { body { background:#fff; } .page { margin:0; } }
+  :root { --o:#f15a24; --oh:#ff6a33; --n:#1a2744; --nd:#0e1628; --m:#4b5568; --p:#f6f3ee; --l:#e6e1d8; }
+  .bar { height: 10px; background: var(--o); }
+  .pad { padding: 0.32in 0.38in 0.24in; height: calc(11in - 10px); display:flex; flex-direction:column; }
+  .logo { height: 48px; }
+  .eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--o); margin-bottom: 4px; }
+  h1 { font-size: 22px; font-weight: 800; line-height: 1.08; letter-spacing: -.02em; }
+  h1 em, h2 em { font-style: normal; color: var(--o); }
+  h2 { font-size: 17px; font-weight: 800; line-height: 1.15; margin-bottom: 6px; }
+  .lead { font-size: 12px; font-weight: 600; color: var(--n); line-height: 1.35; margin: 5px 0 8px; }
+  .shot { width: 100%; object-fit: cover; border-radius: 9px; display: block; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .grid22 { display: grid; grid-template-columns: 1.05fr .95fr; gap: 10px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .card { background: var(--p); border: 1px solid var(--l); border-radius: 10px; padding: 9px 10px; }
+  .card.hot { background: var(--nd); border: 0; color: #fff; }
+  .card.hot .t { color: var(--oh); }
+  .t { font-size: 11.5px; font-weight: 800; color: var(--n); margin-bottom: 2px; }
+  p { font-size: 10.5px; line-height: 1.32; color: var(--m); font-weight: 500; }
+  .card.hot p { color: rgba(255,255,255,.9); }
+  .why { font-size: 10px; color: var(--m); line-height: 1.28; margin-top: 2px; }
+  .why b { color: var(--n); }
+  .step {
+    display: grid; grid-template-columns: 58px 1fr; gap: 7px; align-items: start;
+    border: 1px solid var(--l); border-radius: 9px; padding: 6px; background:#fff;
+  }
+  .step img { width: 58px; height: 48px; object-fit: cover; border-radius: 6px; }
+  .step .num { color: var(--o); font-weight: 800; font-size: 9.5px; }
+  .step .name { color: var(--n); font-weight: 800; font-size: 11px; }
+  .offer-row { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 8px 0; }
+  .offer-box {
+    background: linear-gradient(180deg, #fff, #fff5f0); border: 2px solid var(--o); border-radius: 11px;
+    padding: 10px 9px; text-align: center;
+  }
+  .offer-box .save { background: var(--o); color:#fff; font-size: 10px; font-weight: 800; display:inline-block; padding: 3px 10px; border-radius: 999px; margin-bottom: 5px; }
+  .offer-box .ttl { font-size: 12px; font-weight: 800; color: var(--n); line-height: 1.2; margin-bottom: 3px; }
+  .offer-box .price { font-size: 10px; font-weight: 700; color: var(--o); }
+  .banner {
+    background: var(--o); color:#fff; text-align:center; font-weight:800; font-size:12px;
+    padding: 9px; border-radius: 10px; letter-spacing: .02em;
+  }
+  .cta { display:inline-block; background: var(--o); color:#fff; font-weight:800; font-size:12.5px; padding:10px 16px; border-radius:999px; }
+  .phone { font-size: 20px; font-weight: 800; color: var(--oh); }
+  .foot {
+    margin-top: auto; padding-top: 5px; border-top: 1px solid var(--l);
+    display:flex; justify-content:space-between; font-size:9px; font-weight:700; color:var(--m);
+  }
+  .trust { display:grid; grid-template-columns: repeat(4,1fr); gap:6px; margin-top:8px; }
+  .trust .b { background:var(--nd); color:#fff; border-radius:8px; padding:7px 6px; text-align:center; font-size:9.5px; font-weight:700; }
+  .trust .b span { display:block; color:var(--oh); font-size:9px; font-weight:800; margin-bottom:2px; }
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+      <img class="logo" src="assets/logo.png" alt="Gold Hands Painting"/>
+      <div style="text-align:right;font-size:10px;font-weight:700;color:var(--m);">Miami-Dade & Broward<br/>(786) 788-8714</div>
+    </div>
+
+    <div class="banner" style="margin-bottom:8px;">ПОЧЕМУ ВЫБИРАЮТ GOLD HANDS — СНАЧАЛА БЕСПЛАТНО, ПОТОМ РЕШЕНИЕ</div>
+
+    <div class="grid22">
+      <img class="shot" src="assets/photo-07-two-at-work.jpg" style="height:175px;" alt=""/>
+      <div>
+        <div class="eyebrow">Почему выбирают нас</div>
+        <h1 style="font-size:19px;margin-bottom:6px;">Не самая дешёвая смета.<br/><em>Самое спокойное «да».</em></h1>
+        <div class="card hot" style="padding:10px;">
+          <p style="font-size:11.5px;color:#fff;font-weight:600;line-height:1.45;">
+            ✓ Бесплатный выезд и замер<br/>
+            ✓ Бесплатное AI-превью на ВАШЕМ доме<br/>
+            ✓ Бесплатная touch-up гарантия<br/>
+            ✓ Prep + уборка каждый день<br/>
+            ✓ Гарантия 5 лет Kompozit (влажность FL)<br/>
+            ✓ Страховка · белая форма · EN / RU
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:9px;">Что бесплатно (с реальной ценностью — как у крупных)</div>
+    <div class="offer-row">
+      <div class="offer-box">
+        <div class="save">FREE</div>
+        <div class="ttl">Выезд на объект<br/>и замер</div>
+        <div class="price">ценность $150–$300</div>
+        <p class="why" style="margin-top:4px;"><b>Зачем:</b> фото врут. Peeling, HOA, площадь стен → цена правда.</p>
+      </div>
+      <div class="offer-box">
+        <div class="save">FREE</div>
+        <div class="ttl">AI-превью<br/>+ смета письменно</div>
+        <div class="price">ценность $100–$200</div>
+        <p class="why" style="margin-top:4px;"><b>Зачем:</b> без ошибки цвета. Цифра в тот же день / вечером.</p>
+      </div>
+      <div class="offer-box">
+        <div class="save">FREE</div>
+        <div class="ttl">Touch-up<br/>гарантия</div>
+        <div class="price">ценность $200–$500</div>
+        <p class="why" style="margin-top:4px;"><b>Зачем:</b> если нашей работе нужен фикс — приедем. Спите спокойно.</p>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div class="card">
+        <div class="t">Зачем бесплатный выезд?</div>
+        <p>Онлайн = интерес. Выезд = правда. Ловим то, чего нет на фото — без переплаты и «дыр» в смете.</p>
+      </div>
+      <div class="card">
+        <div class="t">Зачем бесплатные touch-up?</div>
+        <p>Дешёвые маляры пропадают после оплаты. Мы отвечаем за финиш — поэтому выбирают снова.</p>
+      </div>
+      <div class="card hot">
+        <div class="t">Спецпредложение</div>
+        <p style="font-size:16px;font-weight:800;color:var(--oh);margin:3px 0;">$0.99 / sq ft</p>
+        <p>Площадь покраски &gt; 3,000 sq ft. Спросите на выезде.</p>
+      </div>
+    </div>
+
+    <div class="trust">
+      <div class="b"><span>СТРАХОВКА</span>COI для HOA / condo</div>
+      <div class="b"><span>ПРОВЕРКА</span>Background check</div>
+      <div class="b"><span>LOCAL</span>Miami-Dade & Broward</div>
+      <div class="b"><span>ГАРАНТИЯ</span>5 лет Kompozit</div>
+    </div>
+    <div class="foot"><span>Gold Hands Painting · goldhandsmia.com</span><span>1 / 2</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="bar"></div>
+  <div class="pad">
+    <div class="eyebrow">Процесс — зачем каждый шаг</div>
+    <h2>Пропустите шаг → заплатите дважды. Мы не пропускаем.</h2>
+
+    <div class="grid2" style="margin:6px 0 8px;">
+      <div class="step"><img src="assets/photo-01-cover-furniture.jpg" alt=""/><div><div class="num">1 · ЗАЩИТА</div><div class="name">Закрываем всё</div><p class="why"><b>Зачем:</b> мебель + полы — жить без пыли и брызг.</p></div></div>
+      <div class="step"><img src="assets/photo-03-repair.jpg" alt=""/><div><div class="num">2 · РЕМОНТ</div><div class="name">Чиним до краски</div><p class="why"><b>Зачем:</b> трещины сначала. Иначе отслоение.</p></div></div>
+      <div class="step"><img src="assets/photo-02-taping.jpg" alt=""/><div><div class="num">3 · СКОТЧ</div><div class="name">Чистые линии</div><p class="why"><b>Зачем:</b> дом выглядит дорого.</p></div></div>
+      <div class="step"><img src="assets/photo-04-rolling-back-logo.jpg" alt=""/><div><div class="num">4 · КРАСКА</div><div class="name">Грунт + Kompozit</div><p class="why"><b>Зачем:</b> под влажность Florida — не «мелётся».</p></div></div>
+      <div class="step"><img src="assets/photo-08-cleanup.jpg" alt=""/><div><div class="num">5 · УБОРКА</div><div class="name">Каждый день</div><p class="why"><b>Зачем:</b> без хаоса «на потом».</p></div></div>
+      <div class="step"><img src="assets/photo-05-ladder-cutin.jpg" alt=""/><div><div class="num">6 · ПРИЁМКА</div><div class="name">Обход с вами</div><p class="why"><b>Зачем:</b> touch-up до финала. Сначала ваше ОК.</p></div></div>
+    </div>
+
+    <div class="grid22" style="margin-bottom:8px;">
+      <div>
+        <div class="eyebrow">Деньги — просто</div>
+        <div class="grid2" style="margin-bottom:8px;">
+          <div class="card"><div class="t">1. Смотрим</div><p>AI / фото → бесплатный выезд</p></div>
+          <div class="card"><div class="t">2. Цена</div><p>Бесплатно, тот же день / вечер</p></div>
+          <div class="card"><div class="t">3. Депозит</div><p>30–50% бронирует дату<br/>Крупные 30/30/20</p></div>
+          <div class="card"><div class="t">4. Финал</div><p>После приёмки<br/>Нал или безнал</p></div>
+        </div>
+        <div class="card" style="background:#fff5f0;border-color:#f7c2a8;">
+          <div class="t">Передумали до депозита — ок</div>
+          <p>Смотреть бесплатно. Депозит только когда готовы бронировать бригаду.</p>
+        </div>
+      </div>
+      <div>
+        <img class="shot" src="assets/photo-06-exterior-stucco.jpg" style="height:118px;margin-bottom:8px;" alt=""/>
+        <div class="card hot">
+          <div class="t">Сделайте сейчас</div>
+          <p style="font-size:12px;color:#fff;font-weight:600;line-height:1.45;margin:5px 0;">
+            1. Звонок / SMS<br/>
+            2. Адрес или AI-превью<br/>
+            3. Бесплатный выезд + смета<br/>
+            4. Депозит — только если «да»
+          </p>
+          <div class="phone">(786) 788-8714</div>
+          <p style="margin-top:3px;">goldhandsmia.com · @_gold_hands_</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--m);">Interior обычно 2–3 дня · Exterior 3–5 дней</div>
+        <div style="font-size:10px;color:var(--m);margin-top:2px;">Дома · Condo · HOA · Interior & exterior</div>
+      </div>
+      <div class="cta">ЗАПИСАТЬ ВЫЕЗД →</div>
+    </div>
+    <div class="foot"><span>Gold Hands Painting · EN / RU</span><span>2 / 2</span></div>
+  </div>
+</section>
+
+</body>
+</html>

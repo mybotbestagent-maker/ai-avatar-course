@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gold Hands Painting — Brand Book</title>
+  <style>
+    @font-face {
+      font-family: "Montserrat";
+      src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "Montserrat";
+      src: url("../fonts/Montserrat-Medium.ttf") format("truetype");
+      font-weight: 500;
+    }
+    @font-face {
+      font-family: "Montserrat";
+      src: url("../fonts/Montserrat-SemiBold.ttf") format("truetype");
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: "Montserrat";
+      src: url("../fonts/Montserrat-Bold.ttf") format("truetype");
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: "Montserrat";
+      src: url("../fonts/Montserrat-ExtraBold.ttf") format("truetype");
+      font-weight: 800;
+    }
+
+    :root {
+      --orange: #f15a24;
+      --orange-hot: #ff6a33;
+      --navy: #1a2744;
+      --navy-deep: #0e1628;
+      --ink: #101828;
+      --muted: #4b5568;
+      --paper: #f3f1ec;
+      --white: #ffffff;
+      --gold: #c9a227;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: "Montserrat", system-ui, sans-serif;
+      color: var(--ink);
+      background: #111;
+    }
+
+    .page {
+      width: 8.5in;
+      height: 11in;
+      margin: 0 auto 24px;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+    }
+
+    @media print {
+      body { background: white; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+    }
+
+    .bar-top { height: 10px; background: var(--orange); }
+    .bar-bottom {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 10px; background: var(--navy);
+    }
+
+    .pad { padding: 0.7in 0.75in; }
+
+    h1 {
+      font-weight: 800;
+      font-size: 42px;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    h2 {
+      font-weight: 800;
+      font-size: 28px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    p, li {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+    .eyebrow {
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 14px;
+    }
+
+    .cover {
+      background: linear-gradient(160deg, var(--navy-deep), var(--navy) 55%, #243456);
+      color: white;
+    }
+    .cover .pad { padding-top: 0.9in; height: calc(11in - 20px); display: flex; flex-direction: column; }
+    .cover h1 { color: white; font-size: 54px; max-width: 6.2in; }
+    .cover p { color: rgba(255,255,255,0.75); font-size: 15px; max-width: 5.5in; margin-top: 18px; }
+    .cover-logo {
+      width: 2.8in; margin: 0.55in 0 0.4in;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,0.35));
+    }
+    .cover-meta {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      font-weight: 600;
+      padding-bottom: 0.35in;
+    }
+    .cover-meta strong { color: var(--orange-hot); display: block; font-size: 13px; margin-bottom: 4px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+    .swatch {
+      border-radius: 14px;
+      overflow: hidden;
+      background: white;
+      border: 1px solid rgba(26,39,68,0.1);
+    }
+    .swatch .chip { height: 84px; }
+    .swatch .meta { padding: 12px 14px 14px; }
+    .swatch .meta strong { display: block; color: var(--navy); font-size: 13px; margin-bottom: 4px; }
+    .swatch .meta span { display: block; font-size: 11px; color: var(--muted); font-weight: 600; }
+
+    .card {
+      background: white;
+      border: 1px solid rgba(26,39,68,0.1);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .logo-row {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .logo-tile {
+      border-radius: 16px;
+      min-height: 2.4in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      border: 1px solid rgba(26,39,68,0.1);
+    }
+    .logo-tile img { width: 78%; max-width: 220px; }
+    .logo-tile.dark { background: var(--navy-deep); }
+    .logo-tile.paper { background: var(--paper); }
+    .logo-tile.white { background: white; }
+
+    .do-dont {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .do-dont .card h3.good { color: #15803d; }
+    .do-dont .card h3.bad { color: #b91c1c; }
+    .do-dont ul { padding-left: 18px; margin-top: 8px; }
+    .do-dont li { margin-bottom: 6px; }
+
+    .type-sample { margin-top: 10px; }
+    .type-sample .xl {
+      font-weight: 800; font-size: 40px; color: var(--navy); line-height: 1.05;
+    }
+    .type-sample .lg {
+      font-weight: 700; font-size: 24px; color: var(--navy); margin-top: 10px;
+    }
+    .type-sample .md {
+      font-weight: 500; font-size: 15px; color: var(--muted); margin-top: 10px; max-width: 5.8in;
+    }
+    .type-meta { margin-top: 18px; font-size: 12px; color: var(--muted); font-weight: 600; }
+
+    .mock {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .mock img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(26,39,68,0.12);
+      background: white;
+    }
+    .caption {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .footer-note {
+      position: absolute;
+      left: 0.75in;
+      right: 0.75in;
+      bottom: 0.35in;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .cover .footer-note { color: rgba(255,255,255,0.45); }
+  </style>
+</head>
+<body>
+
+  <!-- 1 COVER -->
+  <section class="page cover">
+    <div class="bar-top"></div>
+    <div class="pad">
+      <div class="eyebrow" style="color: var(--orange-hot);">Brand Guidelines · 2026</div>
+      <img class="cover-logo" src="../logo/chosen/logo-transparent-master.png" alt="Gold Hands Painting logo" />
+      <h1>Gold Hands<br/>Painting</h1>
+      <p>Brand book for print &amp; digital use — logo, color, type, and production-ready templates for Miami house painting.</p>
+      <div class="cover-meta">
+        <div><strong>Company</strong>Gold Hands Painting<br/>Rakhimov Enterprise LLC</div>
+        <div><strong>Market</strong>Miami-Dade &amp; Broward</div>
+        <div><strong>Contact</strong>(786) 788-8714<br/>goldhandsmia.com</div>
+      </div>
+    </div>
+    <div class="bar-bottom" style="background: var(--orange);"></div>
+  </section>
+
+  <!-- 2 BRAND -->
+  <section class="page">
+    <div class="bar-top"></div>
+    <div class="pad">
+      <div class="eyebrow">01 · Brand</div>
+      <h1>Who we are</h1>
+      <div class="grid-2" style="margin-top: 28px;">
+        <div>
+          <h3>Positioning</h3>
+          <p style="color: var(--navy); font-size: 18px; font-weight: 700; line-height: 1.35; margin-bottom: 14px;">
+            Professional house painting for Miami homes — clean prep, clear price, finish built for sun, salt, and HOAs.
+          </p>
+          <p>Gold Hands Painting is the painting division of Gold Hands Miami. Same trusted local crew, focused on interior &amp; exterior painting with free written estimates and a 5-year transferable warranty path on premium 2-coat work.</p>
+        </div>
+        <div class="card">
+          <h3>Brand voice</h3>
+          <ul style="padding-left: 18px; margin-top: 8px;">
+            <li>Direct and local — talk like a Miami pro, not a franchise script</li>
+            <li>Confident, never hypey</li>
+            <li>Clear numbers: sq ft, timelines, warranty</li>
+            <li>Bilingual-ready: EN / ES / RU support</li>
+          </ul>
+          <h3 style="margin-top: 18px;">Primary promise</h3>
+          <p style="color: var(--navy); font-weight: 700;">Free written estimate. Careful prep. Clean finish.</p>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-top: 28px;">
+        <div class="card"><h3>Services</h3><p>Interior · Exterior · Color consult · AI budget preview</p></div>
+        <div class="card"><h3>Proof</h3><p>Insured crews · 5-yr warranty path · 48–72h start window</p></div>
+        <div class="card"><h3>Area</h3><p>Miami Beach, Coral Gables, Brickell, Coconut Grove + 130 ZIP codes</p></div>
+      </div>
+    </div>
+    <div class="footer-note"><span>Gold Hands Painting Brand Book</span><span>02</span></div>
+    <div class="bar-bottom"></div>
+  </section>
+
+  <!-- 3 LOGO -->
+  <section class="page">
+    <div class="bar-top"></div>
+    <div class="pad">
+      <div class="eyebrow">02 · Logo</div>
+      <h1>Primary mark</h1>
+      <p style="margin-top: 8px; max-width: 6.5in;">The approved logo is the gold metallic painter badge with paint splash energy. Use this exact artwork — do not redraw, recolor, or add a phone number into the mark.</p>
+      <div class="logo-row">
+        <div class="logo-tile dark"><img src="../exports/logo-on-navy.png" alt="Logo on navy" /></div>
+        <div class="logo-tile white"><img src="../exports/logo-on-white.png" alt="Logo on white" /></div>
+        <div class="logo-tile paper"><img src="../exports/logo-on-paper.png" alt="Logo on paper" /></div>
+      </div>
+      <div class="grid-2" style="margin-top: 22px;">
+        <div class="card">
+          <h3>Clear space</h3>
+          <p>Keep empty space around the logo equal to at least the height of the “PAINTING” bar. Never crowd with other graphics or crop the paint splashes.</p>
+        </div>
+        <div class="card">
+          <h3>Minimum size</h3>
+          <p>Print: 1.0 in wide minimum. Digital: 120 px wide minimum. For favicons use the full badge cropped square from exports.</p>
+        </div>
+      </div>
+      <div class="do-dont">
+        <div class="card">
+          <h3 class="good">Do</h3>
+          <ul>
+            <li>Use official PNG/PDF files from this pack</li>
+            <li>Place on navy, white, or paper backgrounds</li>
+            <li>Keep proportions locked</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="bad">Don’t</h3>
+          <ul>
+            <li>Stretch, outline, or add drop shadows</li>
+            <li>Put phone number inside the logo art</li>
+            <li>Recolor gold/navy/orange elements</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note"><span>Gold Hands Painting Brand Book</span><span>03</span></div>
+    <div class="bar-bottom"></div>
+  </section>
+
+  <!-- 4 COLOR -->
+  <section class="page">
+    <div class="bar-top"></div>
+    <div class="pad">
+      <div class="eyebrow">03 · Color</div>
+      <h1>Palette</h1>
+      <p style="margin-top: 8px;">Aligned with goldhandsmia.com. Orange leads action; navy carries trust; paper keeps print warm.</p>
+      <div class="grid-4" style="margin-top: 24px;">
+        <div class="swatch"><div class="chip" style="background:#f15a24"></div><div class="meta"><strong>Orange</strong><span>#F15A24</span><span>C0 M78 Y92 K0</span><span>Primary CTA</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#ff6a33"></div><div class="meta"><strong>Orange Hot</strong><span>#FF6A33</span><span>Hover / accent</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#1a2744"></div><div class="meta"><strong>Navy</strong><span>#1A2744</span><span>C85 M70 Y35 K45</span><span>Headlines</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#0e1628"></div><div class="meta"><strong>Navy Deep</strong><span>#0E1628</span><span>Hero / dark UI</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#f3f1ec; border-bottom:1px solid rgba(26,39,68,.08)"></div><div class="meta"><strong>Paper</strong><span>#F3F1EC</span><span>Page backgrounds</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#101828"></div><div class="meta"><strong>Ink</strong><span>#101828</span><span>Body text</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#4b5568"></div><div class="meta"><strong>Muted</strong><span>#4B5568</span><span>Secondary text</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#c9a227"></div><div class="meta"><strong>Gold (logo)</strong><span>#C9A227 approx</span><span>Metallic art only</span></div></div>
+      </div>
+      <div class="card" style="margin-top: 22px;">
+        <h3>Print note</h3>
+        <p>The logo’s metallic gold is a raster effect. For offset/VistaPrint, print from the provided PNG/PDF as CMYK conversion; do not expect true foil unless you order foil separately. Orange + navy solid colors should be matched as closely as possible to HEX above.</p>
+      </div>
+    </div>
+    <div class="footer-note"><span>Gold Hands Painting Brand Book</span><span>04</span></div>
+    <div class="bar-bottom"></div>
+  </section>
+
+  <!-- 5 TYPE -->
+  <section class="page">
+    <div class="bar-top"></div>
+    <div class="pad">
+      <div class="eyebrow">04 · Typography</div>
+      <h1>Montserrat</h1>
+      <p style="margin-top: 8px;">One family for display and body — same as the website. Bold for headlines, medium/regular for reading.</p>
+      <div class="card type-sample" style="margin-top: 22px;">
+        <div class="xl">Professional House Painting in Miami</div>
+        <div class="lg">Free written estimates · 5-year warranty path</div>
+        <div class="md">We prep like the finish depends on it — furniture protected, floors covered, clean edges, premium coats rated for South Florida heat and humidity.</div>
+        <div class="type-meta">ExtraBold 800 · Bold 700 · SemiBold 600 · Medium 500 · Regular 400</div>
+      </div>
+      <div class="grid-2" style="margin-top: 22px;">
+        <div class="card">
+          <h3>Hierarchy</h3>
+          <p><strong style="color:var(--navy)">H1</strong> ExtraBold, navy<br/>
+          <strong style="color:var(--navy)">H2</strong> Bold, navy<br/>
+          <strong style="color:var(--navy)">CTA</strong> Bold on orange button, white text<br/>
+          <strong style="color:var(--navy)">Body</strong> Regular/Medium, muted/ink</p>
+        </div>
+        <div class="card">
+          <h3>Contact lockup</h3>
+          <p style="color:var(--navy); font-weight:800; font-size:20px;">(786) 788-8714</p>
+          <p style="margin-top:6px;">goldhandsmia.com<br/>@_gold_hands_<br/>(786) 788-8714</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note"><span>Gold Hands Painting Brand Book</span><span>05</span></div>
+    <div class="bar-bottom"></div>
+  </section>
+
+  <!-- 6 APPLICATIONS -->
+  <section class="page">
+    <div class="bar-top"></div>
+    <div class="pad">
+      <div class="eyebrow">05 · Applications</div>
+      <h1>Print &amp; digital kit</h1>
+      <p style="margin-top: 8px;">Production files live in <strong style="color:var(--navy)">brand-book/print/</strong> and <strong style="color:var(--navy)">brand-book/exports/</strong>.</p>
+      <div class="mock">
+        <div>
+          <img src="../print/business-card-front.png" alt="Business card front" />
+          <div class="caption">Business card · Front</div>
+        </div>
+        <div>
+          <img src="../print/business-card-back.png" alt="Business card back" />
+          <div class="caption">Business card · Back</div>
+        </div>
+        <div>
+          <img src="../print/sticker-3x3-navy.png" alt="Sticker" />
+          <div class="caption">Sticker 3×3 · Navy</div>
+        </div>
+        <div>
+          <img src="../exports/avatar-1024.png" alt="Avatar" />
+          <div class="caption">Social avatar 1024</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 18px;">
+        <h3>Included files</h3>
+        <p>
+          • business-cards-vistaprint.pdf (3.5×2 in)<br/>
+          • business-cards-with-bleed.pdf (3.75×2.25 in)<br/>
+          • sticker-3x3-*.png (+ with-bleed)<br/>
+          • banner-social-cover-1500x500.png<br/>
+          • banner-vinyl-36x12-inches.png<br/>
+          • yard-sign-18x24-inches.png<br/>
+          • letterhead-letter.pdf<br/>
+          • logo exports on white / navy / paper / transparent
+        </p>
+      </div>
+    </div>
+    <div class="footer-note"><span>Gold Hands Painting Brand Book</span><span>06</span></div>
+    <div class="bar-bottom"></div>
+  </section>
+
+  <!-- 7 BANNER PREVIEW -->
+  <section class="page">
+    <div class="bar-top"></div>
+    <div class="pad">
+      <div class="eyebrow">06 · Outdoor &amp; social</div>
+      <h1>Banners</h1>
+      <div style="margin-top: 20px;">
+        <img src="../print/banner-social-cover-1500x500.png" alt="Social cover" style="width:100%; border-radius:12px; border:1px solid rgba(26,39,68,.12);" />
+        <div class="caption">Social cover · 1500×500</div>
+      </div>
+      <div style="margin-top: 18px;">
+        <img src="../print/banner-vinyl-36x12-inches.png" alt="Vinyl banner" style="width:100%; border-radius:12px; border:1px solid rgba(26,39,68,.12);" />
+        <div class="caption">Vinyl banner · 36×12 in</div>
+      </div>
+      <div class="grid-2" style="margin-top: 18px;">
+        <div>
+          <img src="../print/yard-sign-18x24-inches.png" alt="Yard sign" style="width:70%; margin:0 auto; display:block; border-radius:12px; border:1px solid rgba(26,39,68,.12);" />
+          <div class="caption" style="text-align:center;">Yard sign · 18×24 in</div>
+        </div>
+        <div class="card" style="align-self:center;">
+          <h3>VistaPrint tips</h3>
+          <ul style="padding-left: 18px; margin-top: 8px;">
+            <li>Upload PDF with bleed when the product asks for it</li>
+            <li>Use CMYK / “print-ready” if offered; otherwise PNG @300dpi is fine for cards/stickers</li>
+            <li>Keep phone + URL outside the logo art</li>
+            <li>Order a proof for yard signs / vinyl before large runs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note"><span>Gold Hands Painting Brand Book</span><span>07</span></div>
+    <div class="bar-bottom"></div>
+  </section>
+
+</body>
+</html>
